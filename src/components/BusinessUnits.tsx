@@ -15,7 +15,7 @@ const UNITS = [
   tag: "3.2",
   title: "알루미늄·전기동",
   subtitle: "Aluminum & Copper Cathode",
-  image: "/images/biz-aluminum.jpg", // 또는 전기동/알루미늄 복합 이미지
+  image: "/images/unico-aluminum-copper.jpg",
   description: "중동·아프리카 제련소 네트워크를 통해 고순도 알루미늄 잉곳(A7)과 프리미엄 전기동(Copper Cathode, Grade A)을 국내외 제조 기업에 공급합니다.",
 },
 {
