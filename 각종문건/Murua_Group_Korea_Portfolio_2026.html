@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Murua Group & Murua Korea — Corporate Portfolio 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET & TOKENS ────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:    #0D1F3C;
+  --navy2:   #1A3055;
+  --navy3:   #213A66;
+  --gold:    #B8911A;
+  --gold2:   #C9A84C;
+  --gold-lt: #F0E4BE;
+  --teal:    #0F6B5F;
+  --teal-lt: #D9F0ED;
+  --blue:    #1E5799;
+  --blue-lt: #D6E8F5;
+  --bg:      #F5F7FA;
+  --bg2:     #EBEEF3;
+  --white:   #FFFFFF;
+  --ink:     #0D1F3C;
+  --mid:     #3A5068;
+  --sub:     #637D95;
+  --rule:    #D4DCE6;
+  --gold-rule: #C9A84C;
+
+  --ff-head: 'Cormorant Garamond', Georgia, serif;
+  --ff-body: 'Inter', system-ui, sans-serif;
+  --ff-mono: 'DM Mono', monospace;
+
+  --shadow-sm: 0 1px 4px rgba(13,31,60,0.08);
+  --shadow-md: 0 4px 20px rgba(13,31,60,0.10);
+  --shadow-lg: 0 8px 40px rgba(13,31,60,0.12);
+  --r: 4px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--ff-body); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+
+/* ─── SIDEBAR ──────────────────────────────────────── */
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0; width: 228px;
+  background: var(--white); z-index: 100;
+  border-right: 1px solid var(--rule);
+  box-shadow: var(--shadow-md);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.sidebar-top {
+  padding: 26px 22px 18px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+}
+.sidebar-top img { width: 148px; display: block; }
+.sidebar-sub {
+  margin-top: 10px;
+  font-size: 9.5px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--sub); line-height: 1.7;
+}
+.nav-scroll { flex: 1; overflow-y: auto; padding: 10px 0; }
+.nav-section {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--sub);
+  padding: 14px 22px 5px; opacity: 0.55;
+}
+.nav-list { list-style: none; }
+.nav-list li a {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8.5px 22px; font-size: 12px; font-weight: 500;
+  color: var(--mid); text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.18s;
+}
+.nav-list li a:hover { color: var(--navy); background: var(--bg); }
+.nav-list li a.active {
+  color: var(--navy); border-left-color: var(--gold2);
+  background: var(--gold-lt); font-weight: 600;
+}
+.nav-list li a .ni { font-size: 13px; flex-shrink: 0; opacity: 0.7; }
+.sidebar-foot {
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--rule);
+  background: var(--bg);
+  font-size: 10.5px; color: var(--sub); line-height: 1.85;
+}
+.sidebar-foot strong { display: block; font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; }
+
+/* ─── MAIN LAYOUT ─────────────────────────────────── */
+.main { margin-left: 228px; }
+
+/* ─── HERO ────────────────────────────────────────── */
+.hero {
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+  padding: 0;
+  display: grid; grid-template-columns: 1fr 360px;
+  min-height: 340px;
+  overflow: hidden;
+}
+.hero-left {
+  padding: 60px 60px 52px;
+  border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
+}
+.hero-eyebrow::before { content: ''; width: 24px; height: 1.5px; background: var(--gold); }
+.hero h1 {
+  font-family: var(--ff-head); font-size: 52px; font-weight: 600;
+  color: var(--navy); line-height: 1.08; margin-bottom: 16px; letter-spacing: -0.01em;
+}
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero-desc {
+  font-size: 14px; color: var(--sub); line-height: 1.75; max-width: 520px; margin-bottom: 30px;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.htag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; background: var(--bg);
+  border: 1px solid var(--rule); border-radius: 40px;
+  font-size: 11px; font-weight: 500; color: var(--mid);
+}
+.htag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold2); flex-shrink: 0; }
+.hero-right {
+  background: var(--navy);
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 40px 36px;
+  position: relative; overflow: hidden;
+}
+.hero-right::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(135deg, transparent, transparent 40px, rgba(201,168,76,0.04) 40px, rgba(201,168,76,0.04) 41px);
+  pointer-events: none;
+}
+.hero-stat { position: relative; z-index: 1; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.hero-stat:last-child { border-bottom: none; }
+.hs-val { font-family: var(--ff-head); font-size: 32px; font-weight: 600; color: var(--gold2); line-height: 1; margin-bottom: 5px; }
+.hs-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(143,164,184,0.7); }
+
+/* ─── GOLD RULE ───────────────────────────────────── */
+.gold-rule { height: 2px; background: linear-gradient(to right, var(--gold), #E2C97E, var(--gold)); }
+
+/* ─── SECTION BASE ────────────────────────────────── */
+.section { padding: 60px; }
+.section + .section { border-top: 1px solid var(--rule); }
+.section.alt { background: var(--white); }
+.section.shaded { background: var(--bg2); }
+
+.eyebrow {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+}
+.eyebrow::before { content: ''; width: 18px; height: 1.5px; background: var(--gold); }
+.sec-title {
+  font-family: var(--ff-head); font-size: 36px; font-weight: 600;
+  color: var(--navy); line-height: 1.15; margin-bottom: 10px;
+}
+.sec-sub { font-size: 14px; color: var(--sub); line-height: 1.75; max-width: 680px; margin-bottom: 36px; }
+
+/* ─── ENTITY CARDS ────────────────────────────────── */
+.entity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.ecard {
+  border: 1px solid var(--rule); border-radius: var(--r);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.ecard-head { padding: 20px 26px 18px; display: flex; justify-content: space-between; align-items: center; }
+.ecard.grp .ecard-head { background: var(--navy); }
+.ecard.kor .ecard-head { background: var(--teal); }
+.ecard-name { font-family: var(--ff-head); font-size: 21px; font-weight: 600; color: var(--white); }
+.ecard-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 3px 10px; border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.65); border-radius: 2px; }
+.ecard-body { padding: 22px 26px; background: var(--white); }
+.kv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+.kv { }
+.kv-l { font-size: 9.5px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sub); margin-bottom: 2px; }
+.kv-v { font-size: 13px; font-weight: 600; color: var(--navy); }
+.ecard-foot { padding: 12px 26px; background: var(--bg); border-top: 1px solid var(--rule); font-family: var(--ff-head); font-size: 13px; font-style: italic; color: var(--sub); }
+
+/* ─── PILLAR GRID ─────────────────────────────────── */
+.pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.pillar {
+  background: var(--white); border: 1px solid var(--rule);
+  border-radius: var(--r); padding: 32px 28px;
+  box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+}
+.pillar::after {
+  content: attr(data-n);
+  position: absolute; bottom: -16px; right: 10px;
+  font-family: var(--ff-head); font-size: 100px; font-weight: 600;
+  color: rgba(13,31,60,0.04); line-height: 1; pointer-events: none;
+}
+.pillar-stripe { height: 3px; border-radius: 2px; margin-bottom: 24px; }
+.pillar-stripe.s1 { background: var(--navy); }
+.pillar-stripe.s2 { background: var(--gold2); }
+.pillar-stripe.s3 { background: var(--teal); }
+.pillar-ico { font-size: 26px; margin-bottom: 14px; }
+.pillar-title { font-family: var(--ff-head); font-size: 20px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+.pillar-en { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sub); margin-bottom: 14px; }
+.pillar-text { font-size: 13px; color: var(--mid); line-height: 1.75; }
+
+/* ─── 3P MODEL ────────────────────────────────────── */
+.ppp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.ppp {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 28px 24px; box-shadow: var(--shadow-sm); border-top: 3px solid var(--navy);
+}
+.ppp.p2 { border-top-color: var(--gold2); }
+.ppp.p3 { border-top-color: var(--teal); }
+.ppp-letter { font-family: var(--ff-head); font-size: 48px; font-weight: 600; color: var(--navy); line-height: 1; margin-bottom: 8px; }
+.ppp.p2 .ppp-letter { color: var(--gold); }
+.ppp.p3 .ppp-letter { color: var(--teal); }
+.ppp-title { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); margin-bottom: 12px; }
+.ppp-text { font-size: 13px; color: var(--sub); line-height: 1.75; }
+
+/* ─── MATERIALS ───────────────────────────────────── */
+.mat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.mat-card {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.mat-band { padding: 7px 18px; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+.mb-cu   { background: var(--navy); color: var(--gold2); }
+.mb-ree  { background: var(--teal); color: #D9F0ED; }
+.mb-met  { background: var(--blue); color: var(--blue-lt); }
+.mat-body { padding: 22px 18px; }
+.mat-sym { font-family: var(--ff-mono); font-size: 32px; font-weight: 500; color: var(--navy); line-height: 1; margin-bottom: 8px; }
+.mat-name { font-family: var(--ff-head); font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+.mat-grade { font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sub); margin-bottom: 14px; }
+.mat-list { list-style: none; }
+.mat-list li { font-size: 12px; color: var(--mid); padding: 5px 0; border-bottom: 1px solid var(--bg2); line-height: 1.45; display: flex; gap: 8px; }
+.mat-list li:last-child { border-bottom: none; }
+.mat-list li::before { content: '–'; color: var(--gold2); flex-shrink: 0; }
+
+/* ─── INDUSTRIES ──────────────────────────────────── */
+.ind-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.ind {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 24px 20px; box-shadow: var(--shadow-sm);
+  border-top: 2px solid var(--gold2); transition: box-shadow 0.2s;
+}
+.ind:hover { box-shadow: var(--shadow-md); }
+.ind-ico { font-size: 22px; margin-bottom: 12px; }
+.ind-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 7px; }
+.ind-text { font-size: 12px; color: var(--sub); line-height: 1.65; }
+
+/* ─── SUPPLY CHAIN FLOW ───────────────────────────── */
+.flow-wrap {
+  display: flex; align-items: stretch; border-radius: var(--r);
+  overflow: hidden; border: 1px solid var(--rule); box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+}
+.fnode { flex: 1; padding: 22px 16px; border-right: 1px solid rgba(255,255,255,0.12); position: relative; }
+.fnode:last-child { border-right: none; }
+.fnode.fn1 { background: var(--navy); }
+.fnode.fn2 { background: var(--navy2); }
+.fnode.fn3 { background: var(--navy3); }
+.fnode.fn4 { background: var(--teal); }
+.fnode.fn5 { background: var(--blue); }
+.fnode::after { content: '▶'; position: absolute; right: -9px; top: 50%; transform: translateY(-50%); color: var(--gold2); font-size: 11px; z-index: 2; }
+.fnode:last-child::after { display: none; }
+.fn-lbl { font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold2); margin-bottom: 6px; }
+.fn-title { font-family: var(--ff-head); font-size: 14px; font-weight: 600; color: var(--white); line-height: 1.3; margin-bottom: 4px; }
+.fn-sub { font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+
+.stage-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.stage {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  border-top: 2px solid var(--navy); padding: 18px 16px; box-shadow: var(--shadow-sm);
+}
+.st-num { font-family: var(--ff-head); font-size: 26px; font-weight: 600; color: rgba(13,31,60,0.12); line-height: 1; margin-bottom: 8px; }
+.st-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); margin-bottom: 10px; }
+.st-list { list-style: none; }
+.st-list li { font-size: 11px; color: var(--sub); padding: 3.5px 0; border-bottom: 1px solid var(--bg2); line-height: 1.45; display: flex; gap: 6px; }
+.st-list li:last-child { border-bottom: none; }
+.st-list li::before { content: '·'; color: var(--gold2); flex-shrink: 0; font-size: 14px; line-height: 1; }
+
+/* ─── RWA ─────────────────────────────────────────── */
+.rwa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+.rwa-spec {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.rwa-spec-head { background: var(--navy); padding: 14px 22px; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold2); }
+.rwa-spec-table { width: 100%; border-collapse: collapse; }
+.rwa-spec-table tr { border-bottom: 1px solid var(--bg2); }
+.rwa-spec-table tr:last-child { border-bottom: none; }
+.rwa-spec-table td { padding: 10px 22px; font-size: 13px; }
+.rw-k { color: var(--sub); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; width: 40%; }
+.rw-v { color: var(--navy); font-weight: 600; }
+.rwa-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 16px; }
+.rst { padding: 18px; background: var(--white); border: 1px solid var(--rule); text-align: center; }
+.rst-val { font-family: var(--ff-head); font-size: 26px; font-weight: 600; color: var(--gold); line-height: 1; margin-bottom: 5px; }
+.rst-lbl { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--sub); }
+.rwa-flow {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  overflow: hidden; box-shadow: var(--shadow-sm);
+}
+.rwa-flow-head { background: var(--navy); padding: 14px 22px; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold2); }
+.rwa-step { display: flex; align-items: flex-start; gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--rule); }
+.rwa-step:last-child { border-bottom: none; }
+.rs-num { width: 28px; height: 28px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--gold2); flex-shrink: 0; margin-top: 1px; }
+.rs-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.rs-sub { font-size: 12px; color: var(--sub); line-height: 1.55; }
+
+/* ─── INVENTORY ───────────────────────────────────── */
+.inv-kpi { display: flex; flex-wrap: wrap; border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; margin-bottom: 24px; box-shadow: var(--shadow-sm); }
+.ikpi { flex: 1 1 120px; padding: 16px 20px; background: var(--white); border-right: 1px solid var(--rule); }
+.ikpi:last-child { border-right: none; }
+.ikpi-lbl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sub); margin-bottom: 4px; }
+.ikpi-val { font-family: var(--ff-head); font-size: 22px; font-weight: 600; color: var(--navy); line-height: 1; }
+.ikpi-note { font-size: 10.5px; color: var(--sub); margin-top: 2px; }
+
+.inv-wrap { border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-sm); }
+.inv-scroll { overflow-x: auto; }
+.inv-tbl { width: 100%; min-width: 720px; border-collapse: collapse; font-size: 13px; }
+.inv-tbl thead tr { background: var(--navy); }
+.inv-tbl thead th { padding: 11px 14px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(143,164,184,0.85); text-align: left; border-bottom: 2px solid var(--gold2); white-space: nowrap; }
+.inv-tbl .cat-row td { background: var(--bg2); padding: 7px 14px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--navy); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.inv-tbl tbody tr.dr { border-bottom: 1px solid var(--rule); }
+.inv-tbl tbody tr.dr:nth-child(even) { background: var(--bg); }
+.inv-tbl tbody tr.dr:nth-child(odd)  { background: var(--white); }
+.inv-tbl tbody td { padding: 10px 14px; vertical-align: top; line-height: 1.4; color: var(--ink); }
+.inv-tbl td.pn { font-weight: 600; color: var(--navy); }
+.inv-tbl td.pn small { display: block; font-weight: 400; font-size: 11px; color: var(--sub); margin-top: 2px; font-style: italic; }
+.inv-tbl td.pur { font-family: var(--ff-head); font-size: 15px; color: var(--mid); }
+.inv-tbl td.qt { font-weight: 700; text-align: center; white-space: nowrap; color: var(--navy); }
+.inv-tbl td.loc { font-size: 12px; color: var(--mid); }
+.ctag { display: inline-block; padding: 2px 7px; border-radius: 3px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+.ct-m { background: #D6E4F0; color: #1A3A5C; }
+.ct-r { background: #D4EDE7; color: #1B4D3E; }
+.ct-o { background: #DBF0E6; color: #2C5F4A; }
+.ct-w { background: #F0E8D8; color: #4A3520; }
+.ct-p { background: #F0E8C8; color: #5C4400; }
+.ct-b { background: #F0D8D8; color: #4A2020; }
+.ada { display: inline-block; padding: 1px 6px; border: 1.5px solid var(--gold2); border-radius: 3px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.1em; color: var(--gold); text-transform: uppercase; }
+.tbc { display: inline-block; font-size: 11px; font-weight: 600; color: var(--sub); background: var(--bg2); padding: 1px 6px; border-radius: 3px; }
+.ag-row td { background: #FFFDF2 !important; border-top: 2px solid var(--gold2) !important; border-bottom: 2px solid var(--gold2) !important; }
+
+/* ─── WHY MURUA ───────────────────────────────────── */
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.why {
+  background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 24px 20px; box-shadow: var(--shadow-sm);
+}
+.why-top { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
+.why-ico { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.why-title { font-size: 13px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+.why-text { font-size: 12.5px; color: var(--sub); line-height: 1.7; padding-left: 34px; }
+.why-stripe { height: 2px; background: var(--gold-rule); border-radius: 1px; margin-bottom: 16px; width: 32px; }
+
+/* ─── CONTACT ─────────────────────────────────────── */
+.cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.cta-card { border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-md); }
+.cta-head { padding: 22px 28px 18px; }
+.cta-card.grp .cta-head { background: var(--navy); }
+.cta-card.kor .cta-head { background: var(--teal); }
+.cta-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 10px; }
+.cta-name { font-family: var(--ff-head); font-size: 24px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+.cta-loc { font-size: 12px; color: rgba(255,255,255,0.45); }
+.cta-body { padding: 22px 28px; background: var(--white); border: 1px solid var(--rule); border-top: none; }
+.cta-email { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+.cta-web { font-size: 12px; color: var(--sub); }
+
+/* ─── FOOTER ──────────────────────────────────────── */
+.footer {
+  background: var(--navy); padding: 28px 60px;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 20px; flex-wrap: wrap; border-top: 2px solid var(--gold2);
+}
+.footer-l { font-size: 11px; color: rgba(143,164,184,0.7); line-height: 1.9; }
+.footer-l strong { color: var(--gold2); }
+.footer-r { font-family: var(--ff-head); font-size: 13px; font-style: italic; color: rgba(143,164,184,0.6); text-align: right; }
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 960px) {
+  .sidebar { transform: translateX(-228px); }
+  .main { margin-left: 0; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-left { padding: 40px 28px; }
+  .section { padding: 40px 28px; }
+  .entity-grid, .pillar-grid, .ppp-grid, .mat-grid, .ind-grid,
+  .stage-grid, .rwa-grid, .cta-grid { grid-template-columns: 1fr; }
+  .flow-wrap { flex-direction: column; }
+  .fnode::after { display: none; }
+  .footer { padding: 24px 28px; flex-direction: column; align-items: flex-start; }
+}
+@media print {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  body { background: white; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-top">
+    <img src="data:image/jpeg;base64,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" alt="Murua Group">
+    <div class="sidebar-sub">Murua Group AG · Murua Korea<br>Corporate Portfolio 2026</div>
+  </div>
+  <div class="nav-scroll">
+    <ul class="nav-list">
+      <div class="nav-section">그룹 개요</div>
+      <li><a href="#overview" class="active"><span class="ni">🏛</span>Overview</a></li>
+      <li><a href="#pillars"><span class="ni">◆</span>사업 영역</a></li>
+      <div class="nav-section">Murua Korea</div>
+      <li><a href="#korea"><span class="ni">🇰🇷</span>Korea 법인</a></li>
+      <li><a href="#model"><span class="ni">↻</span>3P 운영 모델</a></li>
+      <div class="nav-section">소재 & 산업</div>
+      <li><a href="#materials"><span class="ni">⚗</span>취급 소재</a></li>
+      <li><a href="#industries"><span class="ni">🏭</span>수요 산업</a></li>
+      <div class="nav-section">인프라</div>
+      <li><a href="#supply"><span class="ni">⛓</span>공급망 구조</a></li>
+      <li><a href="#rwa"><span class="ni">⬡</span>RWA 디지털 자산</a></li>
+      <li><a href="#inventory"><span class="ni">📦</span>현재 재고</a></li>
+      <div class="nav-section">신뢰 & 문의</div>
+      <li><a href="#why"><span class="ni">✦</span>Why Murua</a></li>
+      <li><a href="#contact"><span class="ni">✉</span>Contact</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-foot">
+    <strong>Contact</strong>
+    info@muruagroup.com<br>contact@murua.kr<br>www.murua.kr
+  </div>
+</nav>
+
+<main class="main">
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="overview">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Corporate Portfolio 2026</div>
+    <h1>Murua <em>Group</em><br>&amp; Murua <em>Korea</em></h1>
+    <p class="hero-desc">원자재 트레이딩 · 무역금융 · RWA 디지털 자산<br>글로벌 공급망 플랫폼 — 스위스 본사 · 서울 한국 법인</p>
+    <div class="hero-tags">
+      <span class="htag"><span class="dot"></span>Zug, Switzerland HQ</span>
+      <span class="htag"><span class="dot"></span>Seoul, Korea Platform</span>
+      <span class="htag"><span class="dot"></span>CHE-280.256.470</span>
+      <span class="htag"><span class="dot"></span>ERC-20 RWA · Ethereum</span>
+      <span class="htag"><span class="dot"></span>ISE Switzerland 인증</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <div class="hs-val">6N / 7N</div>
+      <div class="hs-label">구리 분말 순도 등급</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">19 품목</div>
+      <div class="hs-label">현재 재고 (5 카테고리)</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">$480M</div>
+      <div class="hs-label">6NCP RWA 자산 가치</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-val">6 거점</div>
+      <div class="hs-label">CH · HK · TW · TH</div>
+    </div>
+  </div>
+</section>
+<div class="gold-rule"></div>
+
+<!-- ══ ENTITY OVERVIEW ══ -->
+<section class="section alt" id="entities">
+  <div class="eyebrow">법인 구조</div>
+  <h2 class="sec-title">스위스 그룹 본사 · 서울 한국 법인</h2>
+  <p class="sec-sub">Murua Group AG(스위스 추크)는 원자재·금융 전문 글로벌 그룹이며, Murua Korea는 그룹 역량을 한국 산업 고객에게 연결하는 서울 기반 공급망 플랫폼입니다.</p>
+  <div class="entity-grid">
+    <div class="ecard grp">
+      <div class="ecard-head">
+        <div class="ecard-name">Murua Group AG</div>
+        <div class="ecard-badge">Parent Group</div>
+      </div>
+      <div class="ecard-body">
+        <div class="kv-grid">
+          <div class="kv"><div class="kv-l">소재지</div><div class="kv-v">Zug, Switzerland</div></div>
+          <div class="kv"><div class="kv-l">법인 형태</div><div class="kv-v">AG (주식회사)</div></div>
+          <div class="kv"><div class="kv-l">등록 번호</div><div class="kv-v">CHE-280.256.470</div></div>
+          <div class="kv"><div class="kv-l">설립 등록</div><div class="kv-v">2025년 8월</div></div>
+          <div class="kv"><div class="kv-l">Chair</div><div class="kv-v">John Arnott</div></div>
+          <div class="kv"><div class="kv-l">CFO</div><div class="kv-v">Yvonne Röllin</div></div>
+          <div class="kv"><div class="kv-l">자본금</div><div class="kv-v">CHF 100,000</div></div>
+          <div class="kv"><div class="kv-l">이메일</div><div class="kv-v" style="font-size:12px">info@muruagroup.com</div></div>
+        </div>
+      </div>
+      <div class="ecard-foot">"Specializing in Raw Metals and Finance — connecting suppliers and buyers worldwide."</div>
+    </div>
+    <div class="ecard kor">
+      <div class="ecard-head">
+        <div class="ecard-name">Murua Korea</div>
+        <div class="ecard-badge">Korea Entity</div>
+      </div>
+      <div class="ecard-body">
+        <div class="kv-grid">
+          <div class="kv"><div class="kv-l">소재지</div><div class="kv-v">서울, 대한민국</div></div>
+          <div class="kv"><div class="kv-l">운영 기반</div><div class="kv-v">2023년 설립</div></div>
+          <div class="kv"><div class="kv-l">그룹 편입</div><div class="kv-v">2025년 11월</div></div>
+          <div class="kv"><div class="kv-l">인수 배경</div><div class="kv-v">JP에너지 인수</div></div>
+          <div class="kv"><div class="kv-l">주요 역할</div><div class="kv-v">한국 공급망 플랫폼</div></div>
+          <div class="kv"><div class="kv-l">운영 모델</div><div class="kv-v">Plan·Procure·Provide</div></div>
+          <div class="kv"><div class="kv-l">이메일</div><div class="kv-v" style="font-size:12px">contact@murua.kr</div></div>
+          <div class="kv"><div class="kv-l">웹사이트</div><div class="kv-v">murua.kr</div></div>
+        </div>
+      </div>
+      <div class="ecard-foot">서울 기반 전략 금속·첨단소재 공급망 플랫폼 — Murua Group 역량으로 강화</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ THREE PILLARS ══ -->
+<section class="section shaded" id="pillars">
+  <div class="eyebrow">사업 영역</div>
+  <h2 class="sec-title">3대 핵심 사업</h2>
+  <p class="sec-sub">원자재 트레이딩, 무역금융, RWA 디지털 자산의 세 축을 통해 글로벌 원자재 시장에서 차별화된 가치를 창출합니다.</p>
+  <div class="pillar-grid">
+    <div class="pillar" data-n="I">
+      <div class="pillar-stripe s1"></div>
+      <div class="pillar-ico">⛏️</div>
+      <div class="pillar-title">원자재 트레이딩</div>
+      <div class="pillar-en">Raw Metals Trading</div>
+      <div class="pillar-text">초고순도 구리 분말(6N/7N), 희토류, 텅스텐, 안티몬, 귀금속 등 고가치 원자재를 글로벌 소싱하여 산업·금융 시장에 공급합니다. 유럽 정밀 정련 파트너십을 통한 품질 확보.</div>
+    </div>
+    <div class="pillar" data-n="II">
+      <div class="pillar-stripe s2"></div>
+      <div class="pillar-ico">💹</div>
+      <div class="pillar-title">무역 금융</div>
+      <div class="pillar-en">Trade Finance</div>
+      <div class="pillar-text">스위스 거버넌스 기반의 구조화 무역금융 솔루션. 국제 상업 기대치에 부합하는 컴플라이언스 워크플로우, 공급망 금융 설계, 복수 소싱 경로로 글로벌 파트너를 지원합니다.</div>
+    </div>
+    <div class="pillar" data-n="III">
+      <div class="pillar-stripe s3"></div>
+      <div class="pillar-ico">🔗</div>
+      <div class="pillar-title">디지털 자산 (RWA)</div>
+      <div class="pillar-en">Real World Asset Tokenization</div>
+      <div class="pillar-text">실물 6N급 구리 분말 600kg 기반의 미국 SPV 구조 Ethereum ERC-20 RWA 토큰 발행. 1 Token = 1g 완전 1:1 실물 연동 · ISE Switzerland 분석 인증.</div>
+    </div>
+  </div>
+</section>
+<div class="gold-rule"></div>
+
+<!-- ══ MURUA KOREA ══ -->
+<section class="section alt" id="korea">
+  <div class="eyebrow">한국 법인</div>
+  <h2 class="sec-title">Murua Korea — 서울 공급망 플랫폼</h2>
+  <p class="sec-sub">단순 제품 공급을 넘어, 한국 산업 구매자의 계획·소싱·납품 전 과정에 밀착한 실무 중심 로컬 공급망 인터페이스.</p>
+  <div class="why-grid">
+    <div class="why">
+      <div class="why-stripe"></div>
+      <div class="why-top"><span class="why-ico">📋</span><div class="why-title">계획 규율 (Planning Discipline)</div></div>
+      <div class="why-text">고사양 반도체·산업 프로그램을 위한 수요 가시성 정렬, 공정 우선순위 협의, 공급 안정성 계획 지원. 고객 팀과 함께 장기적 안정 공급 일정을 구성합니다.</div>
+    </div>
+    <div class="why">
+      <div class="why-stripe"></div>
+      <div class="why-top"><span class="why-ico">🌐</span><div class="why-title">다양화된 소싱 (Diversified Sourcing)</div></div>
+      <div class="why-text">Murua Group 관계망을 통한 다중 소싱 경로로 집중 리스크를 감소합니다. 유럽 정밀 정련 파트너십과 아시아 전략 소싱원을 포함한 다각화된 구조.</div>
+    </div>
+    <div class="why">
+      <div class="why-stripe"></div>
+      <div class="why-top"><span class="why-ico">🇰🇷</span><div class="why-title">로컬 납품 조율 (Local Delivery)</div></div>
+      <div class="why-text">서울 기반 한국어 커뮤니케이션, 동일 시간대 즉시 대응, 품질 지향 납품 문서화 및 후속 지원. 한국 생산 일정에 맞춘 납품 계획 조율.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3P MODEL ══ -->
+<section class="section" id="model">
+  <div class="eyebrow">운영 모델</div>
+  <h2 class="sec-title">Plan · Procure · Provide</h2>
+  <p class="sec-sub">Murua Korea의 일상 운영 리듬은 고객 계획 수립, 조달 조율, 로컬 납품 실행 세 단계로 구성됩니다.</p>
+  <div class="ppp-grid">
+    <div class="ppp">
+      <div class="ppp-letter">P</div>
+      <div class="ppp-title">Plan — 계획</div>
+      <div class="ppp-text">고객 팀과 함께 전략 소재의 요구사항, 계획 우선순위, 수요 가시성을 정렬합니다. 장기적 안정 공급을 위한 수요 예측과 소싱 일정 조율이 핵심입니다.</div>
+    </div>
+    <div class="ppp p2">
+      <div class="ppp-letter">P</div>
+      <div class="ppp-title">Procure — 조달</div>
+      <div class="ppp-text">컴플라이언스 워크플로우, 품질 지원 관행, 공급업체 커뮤니케이션을 통해 다양화된 소싱 경로를 조율합니다. Murua Group의 광범위한 소싱 관계망을 활용합니다.</div>
+    </div>
+    <div class="ppp p3">
+      <div class="ppp-letter">P</div>
+      <div class="ppp-title">Provide — 납품</div>
+      <div class="ppp-text">서울 기반의 반응성 높은 인터페이스를 통해 납품 및 문서화 후속 조치를 지원합니다. 고객 생산 일정에 맞춘 납품 계획 조율과 품질 워크플로우 관리.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MATERIALS ══ -->
+<section class="section shaded" id="materials">
+  <div class="eyebrow">취급 소재</div>
+  <h2 class="sec-title">소재 포트폴리오</h2>
+  <p class="sec-sub">반도체·디스플레이·정밀전자·전력 분야에 특화된 사양 중심 소재. 스팟 거래가 아닌 고객 공정 요구에 맞춘 케이스별 협의 방식으로 공급됩니다.</p>
+  <div class="mat-grid">
+    <div class="mat-card">
+      <div class="mat-band mb-cu">Cu — Metal Powder · 6N/7N Grade</div>
+      <div class="mat-body">
+        <div class="mat-sym">Cu</div>
+        <div class="mat-name">초고순도 구리 분말</div>
+        <div class="mat-grade">Ultra-High-Purity Copper · 6N / 7N</div>
+        <ul class="mat-list">
+          <li>첨단 패키징 및 HBM 인터커넥트 구조</li>
+          <li>TSV 및 재배선층(RDL) 관련 구리 경로</li>
+          <li>고밀도 AI·HPC 패키징 환경</li>
+          <li>전력 지향 전도성 소재 요구사항</li>
+          <li>스위스·홍콩 보관 / ISE Luzern 인증</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-band mb-ree">REE — Rare Earth Elements & Strategic</div>
+      <div class="mat-body">
+        <div class="mat-sym">REE</div>
+        <div class="mat-name">희토류 원소 및 전략 소재</div>
+        <div class="mat-grade">Semiconductor / Industrial Grade</div>
+        <ul class="mat-list">
+          <li>Nd, Dy, Tb — REO 산화물 &amp; 금속</li>
+          <li>W(텅스텐) — 233,000 kg (TW + HK)</li>
+          <li>Rh(로듐), Ge(게르마늄) — 고순도</li>
+          <li>디스플레이·OLED·정밀전자·자기 소재</li>
+          <li>ADA-REE-2026-002 커버리지</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="mat-band mb-met">Ag · Ni · Sb — Strategic Metals & Precious</div>
+      <div class="mat-body">
+        <div class="mat-sym">Ag·Ni·Sb</div>
+        <div class="mat-name">전략 금속 및 귀금속</div>
+        <div class="mat-grade">Strategic Metals &amp; Specialty Alloys</div>
+        <ul class="mat-list">
+          <li>Ag(은) — 1,450 kg LBMA 대형 바 (Brink's HK)</li>
+          <li>Ni — 니켈 와이어 NP1 (≥99.93%)</li>
+          <li>Sb(안티몬) — 500,000 kg (태국)</li>
+          <li>전도성·도금·합금·특수 산업 경로</li>
+          <li>전력전자·배터리 인접 공급 지원</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INDUSTRIES ══ -->
+<section class="section alt" id="industries">
+  <div class="eyebrow">수요 산업</div>
+  <h2 class="sec-title">주요 수요 산업</h2>
+  <p class="sec-sub">품질 일관성, 공정 규율, 납품 조율이 제조 결과에 직접 영향을 미치는 산업에 집중합니다.</p>
+  <div class="ind-grid">
+    <div class="ind"><div class="ind-ico">🔬</div><div class="ind-title">반도체 (Semiconductor)</div><div class="ind-text">첨단 로직 및 메모리 생산 환경을 위한 소재 투입재 — 초고순도 구리, 희토류 공정 소재, 고순도 금속 입력재</div></div>
+    <div class="ind" style="border-top-color:var(--teal)"><div class="ind-ico">📦</div><div class="ind-title">첨단 패키징 / HBM</div><div class="ind-text">고밀도 인터커넥트·패키징 아키텍처용 구리 및 특수 소재 — TSV, RDL, HBM 구조를 위한 6N/7N급 구리 분말</div></div>
+    <div class="ind" style="border-top-color:var(--blue)"><div class="ind-ico">🖥️</div><div class="ind-title">디스플레이 / OLED</div><div class="ind-text">첨단 패널·디스플레이 시스템을 지원하는 희토류 및 특수 소재 — Nd, Dy, Tb 산화물 및 금속 경로</div></div>
+    <div class="ind" style="border-top-color:var(--gold2)"><div class="ind-ico">⚡</div><div class="ind-title">전력 전자 (Power Electronics)</div><div class="ind-text">차세대 전력 변환 시스템용 전도성·열 관리 소재 — 니켈, 안티몬, 구리 합금 경로</div></div>
+    <div class="ind" style="border-top-color:var(--sub)"><div class="ind-ico">🔩</div><div class="ind-title">정밀 전자 (Precision Electronics)</div><div class="ind-text">고신뢰성 부품 및 정밀 어셈블리를 위한 전략 금속 — 은(Ag), 게르마늄(Ge), 로듐(Rh)</div></div>
+    <div class="ind" style="border-top-color:var(--teal)"><div class="ind-ico">🌍</div><div class="ind-title">글로벌 산업 파트너십</div><div class="ind-text">한국·아시아 첨단 제조 기업 대상 장기적·안정적 소싱 파트너십 — 에너지 전환 시대 핵심 소재 안정 공급</div></div>
+  </div>
+</section>
+
+<!-- ══ SUPPLY CHAIN ══ -->
+<section class="section" id="supply">
+  <div class="eyebrow">공급망 구조</div>
+  <h2 class="sec-title">전략 소싱원에서 한국 고객까지</h2>
+  <p class="sec-sub">다양한 소싱 관계와 Murua Group 공정 역량을 서울 기반 고객 조율과 연결하는 구조화된 5단계 운영 모델.</p>
+  <div class="flow-wrap">
+    <div class="fnode fn1"><div class="fn-lbl">Source</div><div class="fn-title">전략 소싱원</div><div class="fn-sub">유럽 정밀 정련 · 아시아 공급망</div></div>
+    <div class="fnode fn2"><div class="fn-lbl">Group</div><div class="fn-title">Murua Group AG</div><div class="fn-sub">스위스 · 소싱 조율 · 컴플라이언스</div></div>
+    <div class="fnode fn3"><div class="fn-lbl">Korea</div><div class="fn-title">Murua Korea</div><div class="fn-sub">서울 조율 허브 · 한국어 대응</div></div>
+    <div class="fnode fn4"><div class="fn-lbl">Buyer</div><div class="fn-title">한국 첨단제조 고객</div><div class="fn-sub">반도체 · 디스플레이 · 전력전자</div></div>
+    <div class="fnode fn5"><div class="fn-lbl">End</div><div class="fn-title">최종 응용 분야</div><div class="fn-sub">HBM · AI칩 · OLED · 전력변환</div></div>
+  </div>
+  <div class="stage-grid">
+    <div class="stage"><div class="st-num">01</div><div class="st-title">소싱 경로</div><ul class="st-list"><li>다양화 소싱 — 집중 리스크 감소</li><li>공급업체 자격 검증</li><li>구조화 원산지 문서 지원</li><li>지속적 소싱 계획 접근법</li></ul></div>
+    <div class="stage"><div class="st-num">02</div><div class="st-title">컴플라이언스</div><ul class="st-list"><li>국제 거래 컴플라이언스</li><li>구매·수입 프로세스 문서화</li><li>고객 거버넌스 기대치 부합</li><li>구조적 품질·조달 검토 기록</li></ul></div>
+    <div class="stage"><div class="st-num">03</div><div class="st-title">추적성 문서화</div><ul class="st-list"><li>소싱·납품 가시성 이력</li><li>검증 기록 및 사양 문서</li><li>배치 단위 참조 처리</li><li>조달·품질팀 검토 준비</li></ul></div>
+    <div class="stage"><div class="st-num">04</div><div class="st-title">서울 기반 조율</div><ul class="st-list"><li>한국어 일상 고객 조율</li><li>사양 정렬 지원</li><li>납품 준비 품질 워크플로우</li><li>동일 시간대 신속 대응</li></ul></div>
+    <div class="stage"><div class="st-num">05</div><div class="st-title">납품 & 지속 지원</div><ul class="st-list"><li>생산 일정 연동 납품 계획</li><li>수령·품질팀 문서 패키지</li><li>수요 계획 지속 협의</li><li>조달·기술팀 직접 조율</li></ul></div>
+  </div>
+</section>
+<div class="gold-rule"></div>
+
+<!-- ══ RWA ══ -->
+<section class="section alt" id="rwa">
+  <div class="eyebrow">디지털 자산</div>
+  <h2 class="sec-title">6NCP RWA 토큰화</h2>
+  <p class="sec-sub">실물 6N급 구리 분말을 기반으로 한 ERC-20 RWA 토큰 — 전통 원자재 거래와 블록체인 기술의 융합</p>
+  <div class="rwa-grid">
+    <div>
+      <div class="rwa-spec">
+        <div class="rwa-spec-head">6NCP 구리 분말 사양 — ISE Switzerland 인증</div>
+        <table class="rwa-spec-table">
+          <tr><td class="rw-k">실물 자산</td><td class="rw-v">600 kg 구리 분말 (6NCP)</td></tr>
+          <tr><td class="rw-k">총 발행량</td><td class="rw-v">600,000 Tokens (ERC-20)</td></tr>
+          <tr><td class="rw-k">총 자산 가치</td><td class="rw-v">USD 480,000,000</td></tr>
+          <tr><td class="rw-k">토큰 단위 가격</td><td class="rw-v">USD 800 / 1g = 1 Token</td></tr>
+          <tr><td class="rw-k">블록체인</td><td class="rw-v">Ethereum Mainnet · ERC-20</td></tr>
+          <tr><td class="rw-k">발행 구조</td><td class="rw-v">US SPV (미국 특수목적법인)</td></tr>
+          <tr><td class="rw-k">순도 (Purity)</td><td class="rw-v">99.9999% (6N) — GD/MS</td></tr>
+          <tr><td class="rw-k">입자 형태</td><td class="rw-v">&gt;50% 구형 · 직경 13–48 μm</td></tr>
+          <tr><td class="rw-k">불순물</td><td class="rw-v">≤ 0.15 ppm</td></tr>
+          <tr><td class="rw-k">인증 기관</td><td class="rw-v">ISE Luzern · CHE-456.752.545</td></tr>
+          <tr><td class="rw-k">발행 증명서</td><td class="rw-v">ISE-A20258367 · 2025.06.23</td></tr>
+        </table>
+      </div>
+      <div class="rwa-stats">
+        <div class="rst"><div class="rst-val">600 kg</div><div class="rst-lbl">실물 보유량</div></div>
+        <div class="rst"><div class="rst-val">600K</div><div class="rst-lbl">총 토큰 발행</div></div>
+        <div class="rst"><div class="rst-val">$480M</div><div class="rst-lbl">총 자산 가치</div></div>
+      </div>
+    </div>
+    <div class="rwa-flow">
+      <div class="rwa-flow-head">발행 구조 — Issuance Flow</div>
+      <div class="rwa-step">
+        <div class="rs-num">01</div>
+        <div><div class="rs-title">Murua Group</div><div class="rs-sub">실물 6NCP 구리 분말 자산 보유자 · 600 kg · ISE 인증 보관</div></div>
+      </div>
+      <div class="rwa-step">
+        <div class="rs-num">02</div>
+        <div><div class="rs-title">자산 권리 이전 계약</div><div class="rs-sub">Asset / Rights Contract Transfer → US SPV</div></div>
+      </div>
+      <div class="rwa-step">
+        <div class="rs-num">03</div>
+        <div><div class="rs-title">US SPV</div><div class="rs-sub">미국 설립 특수목적법인 · 자산 법적 권리 보유 · 공식 토큰 발행 주체</div></div>
+      </div>
+      <div class="rwa-step">
+        <div class="rs-num">04</div>
+        <div><div class="rs-title">ERC-20 Token Issuance</div><div class="rs-sub">Ethereum Mainnet · 1 Token = 1g 실물 구리 분말 · 완전 1:1 연동</div></div>
+      </div>
+      <div class="rwa-step">
+        <div class="rs-num">05</div>
+        <div><div class="rs-title">On-Chain Transparency</div><div class="rs-sub">블록체인 불변 기록 · 실물-온체인 완전 추적 · Off-Chain to On-Chain Bridge</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INVENTORY ══ -->
+<section class="section shaded" id="inventory">
+  <div class="eyebrow">현재 재고</div>
+  <h2 class="sec-title">Murua Group AG — Current Inventory</h2>
+  <p class="sec-sub">기준일: 2026년 3월 24일 · 총 19개 품목 · 5개 카테고리 · 6개 보관 거점</p>
+  <div class="inv-kpi">
+    <div class="ikpi"><div class="ikpi-lbl">Total Items</div><div class="ikpi-val">19</div><div class="ikpi-note">5 카테고리</div></div>
+    <div class="ikpi"><div class="ikpi-lbl">Locations</div><div class="ikpi-val">6</div><div class="ikpi-note">CH · HK · TW · TH</div></div>
+    <div class="ikpi"><div class="ikpi-lbl">REE / REO</div><div class="ikpi-val">11 품목</div><div class="ikpi-note">ADA-REE-2026-002</div></div>
+    <div class="ikpi"><div class="ikpi-lbl">Tungsten (W)</div><div class="ikpi-val">233,000 kg</div><div class="ikpi-note">Taiwan + Hong Kong</div></div>
+    <div class="ikpi"><div class="ikpi-lbl">Antimony (Sb)</div><div class="ikpi-val">500,000 kg</div><div class="ikpi-note">Laem Chabang, TH</div></div>
+    <div class="ikpi"><div class="ikpi-lbl">Silver (Ag)</div><div class="ikpi-val">1,450 kg</div><div class="ikpi-note">Brink's Hong Kong</div></div>
+  </div>
+  <div class="inv-wrap">
+    <div class="inv-scroll">
+      <table class="inv-tbl">
+        <thead>
+          <tr><th>#</th><th>Product</th><th>Category</th><th>Purity</th><th>Quantity</th><th>Location</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr class="cat-row"><td colspan="7">Copper Powders &amp; Industrial Metals</td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">01</td><td class="pn">Copper (Cu) Powder<small>CAS: 7440-50-8</small></td><td><span class="ctag ct-m">Metal Powder</span></td><td class="pur">&gt;99.9999%</td><td class="qt">5,000 kg</td><td class="loc">🇨🇭 Basel, Switzerland</td><td></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">02</td><td class="pn">Copper (Cu) Powder<small>CAS: 7440-50-8</small></td><td><span class="ctag ct-m">Metal Powder</span></td><td class="pur">&gt;99.9999%</td><td class="qt">1,000 kg</td><td class="loc">🇨🇭 Zurich, Switzerland</td><td></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">03</td><td class="pn">Copper (Cu) Powder<small>CAS: 7440-50-8</small></td><td><span class="ctag ct-m">Metal Powder</span></td><td class="pur">&gt;99.9999%</td><td class="qt">1,000 kg</td><td class="loc">🇭🇰 Hong Kong</td><td></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">04</td><td class="pn">Copper (Cu) Powder<small>CAS: 7440-50-8</small></td><td><span class="ctag ct-m">Metal Powder</span></td><td class="pur">&gt;99.99999%</td><td class="qt">2,000 kg</td><td class="loc">🇭🇰 Hong Kong</td><td></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">05</td><td class="pn">Industrial Copper Powder</td><td><span class="ctag ct-m">Metal Powder</span></td><td class="pur">99.99%</td><td class="qt">50,000 kg</td><td class="loc">🇨🇭 Zurich, Switzerland</td><td></td></tr>
+          <tr class="cat-row"><td colspan="7">Wire Products</td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">06</td><td class="pn">Nickel Wire NP1</td><td><span class="ctag ct-w">Wire</span></td><td class="pur">≥99.93%</td><td class="qt">500 kg</td><td class="loc">🇨🇭 Zurich, Switzerland</td><td></td></tr>
+          <tr class="cat-row"><td colspan="7">Rare Earth Elements &amp; Strategic Materials · ADA-REE-2026-002</td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">07</td><td class="pn">Rhodium (Rh)</td><td><span class="ctag ct-r">REE</span></td><td class="pur">≥99.95%</td><td class="qt">50 kg</td><td class="loc">🇨🇭 Zurich, Switzerland</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">08</td><td class="pn">Germanium (Ge)</td><td><span class="ctag ct-r">REE</span></td><td class="pur">≥99.999%</td><td class="qt">600 g</td><td class="loc">🇨🇭 Zurich, Switzerland</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">09</td><td class="pn">Tungsten (W)</td><td><span class="ctag ct-r">REE</span></td><td class="pur">&gt;99.9999%</td><td class="qt">200,000 kg</td><td class="loc">🇹🇼 Taiwan</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">10</td><td class="pn">Tungsten (W)</td><td><span class="ctag ct-r">REE</span></td><td class="pur">&gt;99.96%</td><td class="qt">33,000 kg</td><td class="loc">🇭🇰 Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="cat-row"><td colspan="7">Metalloids</td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">11</td><td class="pn">Antimony (Sb)</td><td><span class="ctag ct-b">Metalloid</span></td><td class="pur">&gt;99.65%</td><td class="qt">500,000 kg</td><td class="loc">🇹🇭 Laem Chabang, Thailand</td><td></td></tr>
+          <tr class="cat-row"><td colspan="7">Rare Earth Oxides (REO) &amp; Metals · ADA-REE-2026-002</td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">12</td><td class="pn">Neodymium Oxide (Nd₂O₃)</td><td><span class="ctag ct-o">REO</span></td><td class="pur">≥99.99%</td><td class="qt"><span class="tbc">TBC</span></td><td class="loc">🇭🇰 Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">13</td><td class="pn">Neodymium Metal (Nd)</td><td><span class="ctag ct-o">REO</span></td><td class="pur">≥99.99%</td><td class="qt"><span class="tbc">TBC</span></td><td class="loc">🇭🇰 Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">14</td><td class="pn">Dysprosium Oxide (Dy₂O₃)</td><td><span class="ctag ct-o">REO</span></td><td class="pur">≥99.95%</td><td class="qt"><span class="tbc">TBC</span></td><td class="loc">🇭🇰 Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">15</td><td class="pn">Dysprosium Metal (Dy)</td><td><span class="ctag ct-o">REO</span></td><td class="pur">≥99.95%</td><td class="qt"><span class="tbc">TBC</span></td><td class="loc">🇭🇰 Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">16</td><td class="pn">Terbium Oxide (Tb₄O₇)</td><td><span class="ctag ct-o">REO</span></td><td class="pur">≥99.99%</td><td class="qt"><span class="tbc">TBC</span></td><td class="loc">🇭🇰 Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">17</td><td class="pn">Terbium Metal (Tb)</td><td><span class="ctag ct-o">REO</span></td><td class="pur">≥99.95%</td><td class="qt"><span class="tbc">TBC</span></td><td class="loc">🇭🇰 Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="dr"><td style="color:var(--sub);font-size:11px">18</td><td class="pn">Pr+Nd Mixed Oxide<small>Praseodymium + Neodymium (2:8)</small></td><td><span class="ctag ct-o">REO</span></td><td class="pur">≥99.5%</td><td class="qt"><span class="tbc">TBC</span></td><td class="loc">🇭🇰 Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+          <tr class="cat-row"><td colspan="7">Precious Metals</td></tr>
+          <tr class="dr ag-row"><td style="color:var(--sub);font-size:11px">19</td><td class="pn">Silver (Ag) — LBMA Large Bars<small>Metalúrgica Met-Mex Peñoles S.A. · 14 bars · 14,039 oz total</small></td><td><span class="ctag ct-p">Precious Metal</span></td><td class="pur">LBMA</td><td class="qt">1,450 kg</td><td class="loc">🇭🇰 Brink's Hong Kong</td><td><span class="ada">ADA</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p style="font-size:11px;color:var(--sub);margin-top:12px;line-height:1.6;">※ ADA: ADA-REE-2026-002 커버리지 · Silver confirmed: Brink's HK (Winkie Lo) · 24 Feb 2026 · Proforma: Moonlight Bullion Refinery Co. Ltd. · INV202602006</p>
+</section>
+
+<!-- ══ WHY MURUA ══ -->
+<section class="section alt" id="why">
+  <div class="eyebrow">신뢰 근거</div>
+  <h2 class="sec-title">Why Murua</h2>
+  <p class="sec-sub">산업 조달팀은 제품 적합성 외에도 계획 신뢰성, 소싱 구조, 공정 규율, 고객 대응성을 평가합니다.</p>
+  <div class="why-grid">
+    <div class="why"><div class="why-stripe"></div><div class="why-top"><span class="why-ico">🏛</span><div class="why-title">스위스 컴플라이언트 인프라</div></div><div class="why-text">Murua Group AG(스위스 추크 · CHE-280.256.470)의 구조적 거버넌스 기반 공정 지향 운영. 국제 상업 기대치에 부합하는 규율 있는 운영 체계.</div></div>
+    <div class="why"><div class="why-stripe"></div><div class="why-top"><span class="why-ico">🔬</span><div class="why-title">테스트 및 품질 지원</div></div><div class="why-text">ISE Switzerland(CHE-456.752.545) GD/MS 분석 인증 보유. 고사양 고객 기대에 부합하는 분석·품질 지향 워크플로우와 배치 단위 인증 체계.</div></div>
+    <div class="why"><div class="why-stripe"></div><div class="why-top"><span class="why-ico">🌐</span><div class="why-title">다양화된 소싱 경로</div></div><div class="why-text">복수 소싱 경로로 집중 리스크를 감소합니다. 유럽 정밀 정련 파트너십과 아시아 전략 소싱원을 포함한 다각화된 공급망 구조.</div></div>
+    <div class="why"><div class="why-stripe"></div><div class="why-top"><span class="why-ico">🇰🇷</span><div class="why-title">한국 시장 실행력</div></div><div class="why-text">서울 기반 한국어 커뮤니케이션과 동일 시간대 즉시 대응. 2023년부터 축적한 한국 산업 고객 관계와 로컬 조달 실무 역량.</div></div>
+    <div class="why"><div class="why-stripe"></div><div class="why-top"><span class="why-ico">🔗</span><div class="why-title">디지털 자산 혁신 (RWA)</div></div><div class="why-text">실물 원자재 기반 ERC-20 토큰화로 전통 원자재 거래와 블록체인 기술을 선도적으로 융합. US SPV 구조의 법적 보호와 온체인 투명성 확보.</div></div>
+    <div class="why"><div class="why-stripe"></div><div class="why-top"><span class="why-ico">⚡</span><div class="why-title">에너지 전환 대응</div></div><div class="why-text">시장 변화를 선제적으로 예측하여 에너지 전환 시대의 핵심 소재(희토류, 전략 금속, 고순도 구리) 수요 증가에 능동적으로 대응합니다.</div></div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section class="section shaded" id="contact">
+  <div class="eyebrow">연락처</div>
+  <h2 class="sec-title">문의 안내</h2>
+  <p class="sec-sub">전략 금속·첨단소재·RWA 디지털 자산에 관한 소싱 협의, 납품 계획, 파트너십 논의를 환영합니다.</p>
+  <div class="cta-grid">
+    <div class="cta-card grp">
+      <div class="cta-head"><div class="cta-badge">Parent Group · Global Platform</div><div class="cta-name">Murua Group AG</div><div class="cta-loc">Zug, Switzerland · CHE-280.256.470</div></div>
+      <div class="cta-body"><div class="cta-email">info@muruagroup.com</div><div class="cta-web">muruagroup.com</div></div>
+    </div>
+    <div class="cta-card kor">
+      <div class="cta-head"><div class="cta-badge">Korea Entity · Seoul Platform</div><div class="cta-name">Murua Korea</div><div class="cta-loc">Seoul, Republic of Korea · murua.kr</div></div>
+      <div class="cta-body"><div class="cta-email">contact@murua.kr</div><div class="cta-web">www.murua.kr · 한국어 대응 가능</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-l">
+    <strong>MURUA GROUP AG</strong> Zug, Switzerland · CHE-280.256.470 · info@muruagroup.com<br>
+    <strong>MURUA KOREA</strong> Seoul, Republic of Korea · contact@murua.kr · www.murua.kr
+  </div>
+  <div class="footer-r">
+    <em>Specializing in Raw Metals and Finance —<br>connecting suppliers and buyers worldwide.</em><br>
+    © 2026 Murua Group AG · All Rights Reserved
+  </div>
+</footer>
+
+</main>
+
+<script>
+const sections = document.querySelectorAll('[id]');
+const links = document.querySelectorAll('.nav-list a');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(a => a.classList.remove('active'));
+      const l = document.querySelector('.nav-list a[href="#'+e.target.id+'"]');
+      if (l) l.classList.add('active');
+    }
+  });
+}, { rootMargin: '-25% 0px -65% 0px' });
+sections.forEach(s => io.observe(s));
+</script>
+</body>
+</html>

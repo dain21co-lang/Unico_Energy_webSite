@@ -1,0 +1,103 @@
+@import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable.css";
+
+:root {
+  --color-paper: #ffffff;
+  --color-paper-soft: #f7f7f5;
+
+  --color-navy-950: #232e38;
+
+  --color-gold-300: #eddca0;
+  --color-gold-400: #e0bf6f;
+  --color-gold-500: #cfa646;
+  --color-gold-600: #ab8534;
+
+  --color-silver-300: #e7ebf1;
+  --color-silver-400: #c3cbd8;
+  --color-silver-500: #96a1b3;
+
+  --color-ink-100: #052e2b;
+  --color-ink-200: #26423f;
+  --color-ink-300: #4c6664;
+  --color-ink-400: #6f8684;
+  --color-ink-600: #93a4a2;
+}
+
+@theme inline {
+  --font-sans: "Pretendard Variable", "Pretendard", -apple-system, sans-serif;
+
+  --color-paper: var(--color-paper);
+  --color-paper-soft: var(--color-paper-soft);
+
+  --color-navy-950: var(--color-navy-950);
+
+  --color-gold-300: var(--color-gold-300);
+  --color-gold-400: var(--color-gold-400);
+  --color-gold-500: var(--color-gold-500);
+  --color-gold-600: var(--color-gold-600);
+
+  --color-silver-300: var(--color-silver-300);
+  --color-silver-400: var(--color-silver-400);
+  --color-silver-500: var(--color-silver-500);
+
+  --color-ink-100: var(--color-ink-100);
+  --color-ink-200: var(--color-ink-200);
+  --color-ink-300: var(--color-ink-300);
+  --color-ink-400: var(--color-ink-400);
+  --color-ink-600: var(--color-ink-600);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-gold-500);
+  color: var(--color-navy-950);
+}
+
+.text-gradient-gold {
+  background: linear-gradient(120deg, var(--color-gold-500), var(--color-gold-600) 55%, var(--color-gold-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.divider-gold {
+  background: linear-gradient(90deg, var(--color-gold-500), transparent);
+}
+
+/* Mobile browsers calculate 100vh against the largest possible viewport
+   (address bar hidden), leaving a gap below min-h-screen sections while
+   the bar is still shown. 100dvh tracks the actual visible height; the
+   100vh line stays first as a fallback for browsers without dvh support. */
+.min-h-screen-safe {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Same vh/dvh mismatch as above, for the fixed-height full-bleed video
+   banners (About/Contact closing videos). */
+.h-60vh-safe {
+  height: 60vh;
+  height: 60dvh;
+}
+
+/* Pure CSS (no JS/opacity gating) so it is never at risk of the
+   hydration-timing issue that hid the Hero copy earlier. */
+@keyframes scroll-hint-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.animate-scroll-hint {
+  animation: scroll-hint-bounce 1.8s ease-in-out infinite;
+}

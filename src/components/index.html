@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UNICO ENERGY GROUP — Hero Concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-void:#0B1330;
+    --navy-brand:#1B2E5E;
+    --gold:#C9A961;
+    --ivory:#F4F6F8;
+    --warm-paper:#EDEAE2;
+    --graphite:#12141A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Pretendard','Malgun Gothic',-apple-system,sans-serif;
+    background:var(--navy-void);
+    color:var(--ivory);
+    overflow-x:hidden;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; width:100%; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:28px 48px;
+    transition:background .5s ease, padding .5s ease, backdrop-filter .5s ease;
+  }
+  nav.scrolled{
+    background:rgba(11,19,48,.82);
+    backdrop-filter:blur(10px);
+    padding:16px 48px;
+    border-bottom:1px solid rgba(201,169,97,.15);
+  }
+  .nav-logo{
+    font-family:'Fraunces',serif; font-weight:500; font-size:18px;
+    letter-spacing:.04em; color:var(--ivory);
+  }
+  .nav-logo span{color:var(--gold);}
+  .nav-links{display:flex; gap:36px; list-style:none;}
+  .nav-links a{
+    color:var(--ivory); text-decoration:none; font-size:13px;
+    letter-spacing:.08em; opacity:.8; font-family:'IBM Plex Mono',monospace;
+    transition:opacity .3s;
+  }
+  .nav-links a:hover{opacity:1; color:var(--gold);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; height:100vh; width:100%;
+    overflow:hidden;
+  }
+  .hero-video{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:50% 42%;
+  }
+  .hero-scrim{
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(11,19,48,.55) 0%, rgba(11,19,48,.15) 30%, rgba(11,19,48,.35) 65%, rgba(11,19,48,.92) 100%);
+  }
+  .grain{position:absolute; inset:0; opacity:.05; pointer-events:none; mix-blend-mode:overlay;}
+
+  .hero-content{
+    position:relative; z-index:5; height:100%;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0 48px 120px;
+    max-width:920px;
+  }
+  .kicker{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.28em;
+    color:var(--gold); text-transform:uppercase; margin-bottom:22px;
+    opacity:0; transform:translateY(14px);
+  }
+  .kicker::before{content:'— '; }
+  .headline{
+    font-family:'Fraunces',serif; font-weight:400; font-optical-sizing:auto;
+    font-size:clamp(40px,7vw,92px); line-height:1.02; letter-spacing:-.01em;
+    color:var(--ivory);
+    opacity:0; transform:translateY(28px);
+  }
+  .headline em{font-style:italic; color:var(--gold); font-weight:300;}
+  .sub{
+    margin-top:26px; font-size:16px; line-height:1.7; color:rgba(244,246,248,.72);
+    max-width:520px; font-weight:300;
+    opacity:0; transform:translateY(20px);
+  }
+  .cta-row{
+    margin-top:44px; display:flex; align-items:center; gap:24px;
+    opacity:0; transform:translateY(20px);
+  }
+  .cta{
+    display:inline-flex; align-items:center; gap:12px;
+    padding:16px 30px; border:1px solid var(--gold); color:var(--gold);
+    text-decoration:none; font-size:13px; letter-spacing:.12em;
+    font-family:'IBM Plex Mono',monospace; text-transform:uppercase;
+    transition:all .4s ease;
+  }
+  .cta:hover{background:var(--gold); color:var(--navy-void);}
+  .scroll-cue{
+    position:absolute; bottom:86px; right:48px; z-index:5;
+    writing-mode:vertical-rl; font-family:'IBM Plex Mono',monospace;
+    font-size:11px; letter-spacing:.2em; color:rgba(244,246,248,.55);
+    display:flex; align-items:center; gap:12px;
+  }
+  .scroll-cue .line{width:1px; height:56px; background:rgba(244,246,248,.35); position:relative; overflow:hidden;}
+  .scroll-cue .line::after{
+    content:''; position:absolute; top:0; left:0; width:100%; height:30%;
+    background:var(--gold); animation:scrollLine 2.2s ease-in-out infinite;
+  }
+  @keyframes scrollLine{0%{transform:translateY(-100%)}100%{transform:translateY(300%)}}
+
+  /* ---------- TICKER (signature element) ---------- */
+  .ticker-strip{
+    position:absolute; bottom:0; left:0; width:100%; z-index:6;
+    background:rgba(18,20,26,.88); backdrop-filter:blur(6px);
+    border-top:1px solid rgba(201,169,97,.25);
+    padding:14px 0; overflow:hidden;
+  }
+  .ticker-track{
+    display:flex; gap:56px; white-space:nowrap;
+    animation:tickerScroll 34s linear infinite;
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.05em;
+  }
+  .ticker-track span{color:rgba(244,246,248,.55);}
+  .ticker-track span b{color:var(--gold); font-weight:500;}
+  @keyframes tickerScroll{
+    0%{transform:translateX(0);} 100%{transform:translateX(-50%);}
+  }
+
+  /* ---------- NEXT SECTION (Montfort-style universe reveal) ---------- */
+  .next-section{
+    position:relative; min-height:100vh; background:var(--warm-paper);
+    color:var(--graphite);
+    display:flex; align-items:center; padding:0 48px;
+  }
+  .next-inner{max-width:640px;}
+  .next-eyebrow{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.24em;
+    color:var(--navy-brand); text-transform:uppercase; margin-bottom:20px;
+  }
+  .next-title{
+    font-family:'Fraunces',serif; font-size:clamp(32px,4.5vw,52px); font-weight:400;
+    line-height:1.15; color:var(--navy-brand);
+  }
+  .next-body{margin-top:24px; font-size:16px; line-height:1.8; color:#3b3f4a; max-width:480px;}
+
+  @media (prefers-reduced-motion: reduce){
+    .kicker,.headline,.sub,.cta-row{opacity:1 !important; transform:none !important;}
+    .ticker-track{animation:none;}
+    .scroll-cue .line::after{animation:none;}
+  }
+
+  @media (max-width:720px){
+    nav{padding:20px 22px;}
+    .hero-content{padding:0 22px 150px;}
+    .next-section{padding:80px 22px;}
+    .scroll-cue{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-logo">UNICO <span>ENERGY GROUP</span></div>
+  <ul class="nav-links">
+    <li><a href="#">회사소개</a></li>
+    <li><a href="#">사업영역</a></li>
+    <li><a href="#">METIS PROJECT</a></li>
+    <li><a href="#">CONTACT</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto">
+    <source src="videos/metal-cube-hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-scrim"></div>
+  <canvas class="grain" id="grain"></canvas>
+
+  <div class="hero-content">
+    <div class="kicker" data-reveal>GLOBAL COMMODITIES · ENERGY · METALS</div>
+    <h1 class="headline" data-reveal>Refining Trust.<br><em>Refining</em> Capital.</h1>
+    <p class="sub" data-reveal>원자재를 넘어, 자본의 흐름을 설계합니다. UNICO ENERGY GROUP은 석유, 알루미늄, 비철금속 트레이딩과 자산 기반 금융을 잇는 글로벌 파트너입니다.</p>
+    <div class="cta-row" data-reveal>
+      <a href="#" class="cta">회사소개서 보기 →</a>
+    </div>
+  </div>
+
+  <div class="scroll-cue"><div class="line"></div>SCROLL</div>
+
+  <div class="ticker-strip">
+    <div class="ticker-track">
+      <span>LME COPPER <b>9,842.50</b></span>
+      <span>LME ALUMINUM <b>2,614.00</b></span>
+      <span>6N CU POWDER · <b>METIS PROJECT</b></span>
+      <span>VLCC · CIF/FOB</span>
+      <span>SBLC MT760 · DLC MT-700</span>
+      <span>SGS INSPECTION VERIFIED</span>
+      <!-- duplicate for seamless loop -->
+      <span>LME COPPER <b>9,842.50</b></span>
+      <span>LME ALUMINUM <b>2,614.00</b></span>
+      <span>6N CU POWDER · <b>METIS PROJECT</b></span>
+      <span>VLCC · CIF/FOB</span>
+      <span>SBLC MT760 · DLC MT-700</span>
+      <span>SGS INSPECTION VERIFIED</span>
+    </div>
+  </div>
+</section>
+
+<section class="next-section">
+  <div class="next-inner">
+    <div class="next-eyebrow">2026 – 2030 STRATEGIC ROADMAP</div>
+    <h2 class="next-title">다음 섹션은 스크롤에 따라<br>히어로가 축소·페이드되며 등장합니다.</h2>
+    <p class="next-body">Montfort 특유의 "유니버스 전환" — 스크롤 시 히어로가 살짝 스케일다운되며 다음 콘텐츠가 아래에서 올라오는 연출입니다. 실제 구현에서는 METIS Project, 사업부문 소개 등으로 이어집니다.</p>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Nav background on scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Subtle grain
+  const canvas = document.getElementById('grain');
+  const ctx = canvas.getContext('2d');
+  function resizeGrain(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resizeGrain();
+  window.addEventListener('resize', resizeGrain);
+  function drawGrain(){
+    const w = canvas.width, h = canvas.height;
+    const imgData = ctx.createImageData(w,h);
+    for(let i=0;i<imgData.data.length;i+=4){
+      const v = Math.random()*255;
+      imgData.data[i]=v; imgData.data[i+1]=v; imgData.data[i+2]=v; imgData.data[i+3]=18;
+    }
+    ctx.putImageData(imgData,0,0);
+  }
+  if(!reduceMotion){
+    drawGrain();
+    setInterval(drawGrain, 90);
+  }
+
+  if (window.gsap && window.ScrollTrigger && !reduceMotion) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Load-in reveal
+    gsap.timeline({delay:.3})
+      .to('.kicker', {opacity:1, y:0, duration:.8, ease:'power2.out'})
+      .to('.headline', {opacity:1, y:0, duration:1, ease:'power3.out'}, '-=.5')
+      .to('.sub', {opacity:1, y:0, duration:.9, ease:'power2.out'}, '-=.6')
+      .to('.cta-row', {opacity:1, y:0, duration:.8, ease:'power2.out'}, '-=.5');
+
+    // Montfort-style universe transition: hero scales + fades as next section rises
+    gsap.to('.hero', {
+      scale:.92, opacity:.35, filter:'blur(2px)', transformOrigin:'center top',
+      scrollTrigger:{
+        trigger:'.hero', start:'top top', end:'bottom top', scrub:true, pin:true, pinSpacing:false
+      }
+    });
+  } else {
+    // reduced-motion / no-gsap fallback: show content immediately
+    document.querySelectorAll('[data-reveal]').forEach(el=>{
+      el.style.opacity = 1; el.style.transform='none';
+    });
+  }
+</script>
+</body>
+</html>
