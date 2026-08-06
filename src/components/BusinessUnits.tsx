@@ -18,6 +18,7 @@ const UNITS = [
     subtitle: "Aluminum & Copper Cathode",
     image: "/images/unico-aluminum-copper.jpg",
     
+    
     description:
       "중동·아프리카 제련소 네트워크를 통해 고순도 알루미늄 잉곳(A7)과 프리미엄 전기동(Copper Cathode, Grade A)을 국내외 제조 기업에 공급합니다.",
   },
@@ -41,10 +42,10 @@ const UNITS = [
   {
     tag: "3.5",
     title: "LPG 저장 · 터미널 사업",
-    subtitle: "LPGStorage & Terminal Business",
+    subtitle: "LPG Storage & Terminal Business",
     image: "/images/biz-terminal.jpg",
     description:
-      "평택항과 울산항의 대규모 LPG저장 터미널 인프라를 기반으로 고객 맞춤형 VMI(Vendor Managed Inventory) 솔루션을 제공합니다.",
+      "평택항과 울산항의 대규모 LPG 저장 터미널 인프라를 기반으로 고객 맞춤형 VMI(Vendor Managed Inventory) 솔루션을 제공합니다.",
   },
   {
     tag: "3.6",
