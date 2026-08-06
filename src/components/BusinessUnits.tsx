@@ -13,10 +13,11 @@ const UNITS = [
       "원유·가스·정제유 직수입 라인을 기반으로 안정적인 에너지 자원 확보에 주력합니다. 국내 주요 무역항의 탱크 터미널 인프라를 활용해 수요와 공급의 시차를 조율합니다.",
   },
   {
-    tag: "3.2",
+   tag: "3.2",
     title: "알루미늄·전기동",
     subtitle: "Aluminum & Copper Cathode",
     image: "/images/unico-aluminum-copper.jpg",
+    video: "/videos/aluminum-copper.mp4",
     
     
     description:
