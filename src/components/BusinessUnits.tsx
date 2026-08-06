@@ -12,20 +12,21 @@ const UNITS = [
       "원유·가스·정제유 직수입 라인을 기반으로 안정적인 에너지 자원 확보에 주력합니다. 국내 주요 무역항의 탱크 터미널 인프라를 활용해 수요와 공급의 시차를 조율합니다.",
   },
   {
-  tag: "3.2",
-  title: "알루미늄·전기동",
-  subtitle: "Aluminum & Copper Cathode",
-  image: "/images/unico-aluminum-copper.jpg",
-  description: "중동·아프리카 제련소 네트워크를 통해 고순도 알루미늄 잉곳(A7)과 프리미엄 전기동(Copper Cathode, Grade A)을 국내외 제조 기업에 공급합니다.",
-},
-{
-  tag: "3.3",
-  title: "희토류·첨단소재",
-  subtitle: "Rare Earth & Advanced Materials",
-  image: "/images/biz-copper.jpg", // 구리분말 및 첨단 소재 관련 이미지
-  description: "초고순도 구리 분말(Copper Powder) 및 희토류·첨단 소재의 안정적인 공급망 구축을 추진하며, 글로벌 파트너십을 통해 미래 성장 동력을 확보합니다.",
-},
-
+    tag: "3.2",
+    title: "알루미늄·전기동",
+    subtitle: "Aluminum & Copper Cathode",
+    image: "/images/unico-aluminum-copper.jpg",
+    description:
+      "중동·아프리카 제련소 네트워크를 통해 고순도 알루미늄 잉곳(A7)과 프리미엄 전기동(Copper Cathode, Grade A)을 국내외 제조 기업에 공급합니다.",
+  },
+  {
+    tag: "3.3",
+    title: "희토류·첨단소재",
+    subtitle: "Rare Earth & Advanced Materials",
+    image: "/images/biz-copper.jpg", // 구리분말 및 첨단 소재 관련 이미지
+    description:
+      "초고순도 구리 분말(Copper Powder) 및 희토류·첨단 소재의 안정적인 공급망 구축을 추진하며, 글로벌 파트너십을 통해 미래 성장 동력을 확보합니다.",
+  },
   {
     tag: "3.4",
     title: "해양 · 물류 인프라",
@@ -46,6 +47,7 @@ const UNITS = [
     tag: "3.6",
     title: "희소자원",
     subtitle: "Rare & Precious Resources",
+    video: "/videos/preciousmetals.mp4",
     image: "/images/rare-resource-emerald.jpg",
     description:
       "에메랄드 등 희소 보석·자원의 소싱 네트워크 구축을 검토하고 있으며, 기존 원자재 포트폴리오에 프리미엄 희소자원 영역을 더해 사업 다각화를 추진하고 있습니다.",
@@ -72,13 +74,24 @@ export function BusinessUnits() {
             <Reveal key={unit.title} delay={(i % 3) * 0.1}>
               <article className="group h-full overflow-hidden rounded-2xl border border-black/10 bg-paper-soft shadow-sm transition-colors hover:border-gold-500/50 hover:shadow-md">
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={unit.image}
-                    alt={unit.title}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-contain transition-transform duration-500 group-hover:scale-105"
-                  />
+                  {unit.video ? (
+                    <video
+                      src={unit.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <Image
+                      src={unit.image}
+                      alt={unit.title}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-contain transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/10 to-transparent" />
                   <p className="absolute left-5 top-4 text-xs font-semibold tracking-[0.25em] text-gold-300">
                     {unit.tag}
