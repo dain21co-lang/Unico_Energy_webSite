@@ -8,6 +8,7 @@ const UNITS = [
     title: "에너지 트레이딩",
     subtitle: "Energy Trading",
     image: "/images/biz-energy.jpg",
+    video: "/videos/oildrum.mp4",
     description:
       "원유·가스·정제유 직수입 라인을 기반으로 안정적인 에너지 자원 확보에 주력합니다. 국내 주요 무역항의 탱크 터미널 인프라를 활용해 수요와 공급의 시차를 조율합니다.",
   },
@@ -16,6 +17,7 @@ const UNITS = [
     title: "알루미늄·전기동",
     subtitle: "Aluminum & Copper Cathode",
     image: "/images/unico-aluminum-copper.jpg",
+    
     description:
       "중동·아프리카 제련소 네트워크를 통해 고순도 알루미늄 잉곳(A7)과 프리미엄 전기동(Copper Cathode, Grade A)을 국내외 제조 기업에 공급합니다.",
   },
