@@ -73,7 +73,7 @@ export function BusinessUnits() {
           {UNITS.map((unit, i) => (
             <Reveal key={unit.title} delay={(i % 3) * 0.1}>
               <article className="group h-full overflow-hidden rounded-2xl border border-black/10 bg-paper-soft shadow-sm transition-colors hover:border-gold-500/50 hover:shadow-md">
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[9/16] overflow-hidden bg-navy-950">
                   {unit.video ? (
                     <video
                       src={unit.video}
@@ -89,7 +89,7 @@ export function BusinessUnits() {
                       alt={unit.title}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-contain transition-transform duration-500 group-hover:scale-105"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/10 to-transparent" />
