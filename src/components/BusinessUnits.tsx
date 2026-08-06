@@ -33,7 +33,7 @@ const UNITS = [
     tag: "3.4",
     title: "해양 · 물류 인프라",
     subtitle: "Marine & Logistics Infrastructure",
-    image: "/images/biz-logistics.jpg",
+    image: "/images/oil-tanker.jpg",
     description:
       "전문 선사와의 장기 용선 계약과 AI 기반 물류 관제로 해상·육상 운송 전 구간의 효율성과 안정성을 높여 나갑니다.",
   },
@@ -54,8 +54,7 @@ const UNITS = [
     description:
       "에메랄드 등 희소 보석·자원의 소싱 네트워크 구축을 검토하고 있으며, 기존 원자재 포트폴리오에 프리미엄 희소자원 영역을 더해 사업 다각화를 추진하고 있습니다.",
   },
-];
-
+]
 export function BusinessUnits() {
   return (
     <section id="business" className="relative scroll-mt-20 bg-paper py-28 sm:py-32">
