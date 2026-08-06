@@ -81,7 +81,7 @@ export function BusinessUnits() {
                       loop
                       muted
                       playsInline
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="absolute inset-0 h-full w-full bg-navy-950 object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
                     <Image
