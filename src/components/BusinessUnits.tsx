@@ -40,11 +40,11 @@ const UNITS = [
   },
   {
     tag: "3.5",
-    title: "저장 · 터미널 사업",
-    subtitle: "Storage & Terminal Business",
+    title: "LPG 저장 · 터미널 사업",
+    subtitle: "LPGStorage & Terminal Business",
     image: "/images/biz-terminal.jpg",
     description:
-      "평택항과 울산항의 대규모 저장 터미널 인프라를 기반으로 고객 맞춤형 VMI(Vendor Managed Inventory) 솔루션을 제공합니다.",
+      "평택항과 울산항의 대규모 LPG저장 터미널 인프라를 기반으로 고객 맞춤형 VMI(Vendor Managed Inventory) 솔루션을 제공합니다.",
   },
   {
     tag: "3.6",
