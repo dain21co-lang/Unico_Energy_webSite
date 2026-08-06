@@ -46,7 +46,7 @@ export function Hero() {
       </div>
 
       {/* 가독성을 위한 스크림 (하단이 진하고 상단은 옅게) */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/15 to-navy-950/35" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent" />
 
       {/* 텍스트 오버레이: 하단좌측 고정 (POSCO 방식) */}
       <div className="absolute inset-x-0 bottom-10 z-10 px-6 sm:px-10 lg:px-14 xl:px-20 sm:bottom-16">
