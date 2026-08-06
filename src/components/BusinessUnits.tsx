@@ -25,6 +25,7 @@ const UNITS = [
     tag: "3.3",
     title: "희토류·첨단소재",
     subtitle: "Rare Earth & Advanced Materials",
+    video: "/videos/copper-materials.mp4",
     image: "/images/biz-copper.jpg", // 구리분말 및 첨단 소재 관련 이미지
     description:
       "초고순도 구리 분말(Copper Powder) 및 희토류·첨단 소재의 안정적인 공급망 구축을 추진하며, 글로벌 파트너십을 통해 미래 성장 동력을 확보합니다.",
