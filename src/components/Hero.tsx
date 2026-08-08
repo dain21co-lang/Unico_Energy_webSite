@@ -50,7 +50,7 @@ export function Hero() {
 
       {/* 텍스트 오버레이: 하단좌측 고정 (POSCO 방식) */}
       <div className="absolute inset-x-0 bottom-10 z-10 px-6 sm:px-10 lg:px-14 xl:px-20 sm:bottom-16">
-        <p className="mb-4 text-xs font-semibold tracking-[0.35em] text-gold-400">
+        <p className="mb-3 text-xs font-semibold tracking-[0.35em] text-gold-400">
           GLOBAL TRADE · ENERGY PLATFORM
         </p>
 
