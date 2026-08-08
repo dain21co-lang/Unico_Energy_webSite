@@ -1,6 +1,6 @@
 import { Reveal } from "./Reveal";
 import { SectionLabel } from "./SectionLabel";
-
+import Image from "next/image";
 const FACTS = [
   { label: "법인명", value: "(주)유니코에너지그룹\nUNICO ENERGY GROUP CO., LTD." },
   { label: "본사", value: "서울특별시 강남구 영동대로 511\n무역센터(WTC Trade Tower) 30층" },
@@ -145,22 +145,34 @@ export function About() {
           <Reveal delay={0.15}>
             <dl className="grid gap-px overflow-hidden rounded-2xl border border-black/10 bg-black/10 sm:grid-cols-2">
               {FACTS.map((fact) => (
-                <div
-                  key={fact.label}
-                  className="bg-paper-soft p-7"
-                >
-                  <dt className="text-xs font-semibold tracking-[0.2em] text-gold-400">
-                    {fact.label}
-                  </dt>
-                  <dd className="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink-200">
-                    {fact.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
-        </div>
+  <div
+    key={fact.label}
+    className="relative overflow-hidden bg-paper-soft p-7"
+  >
+    {fact.label === "글로벌 네트워크" && (
+      <div className="absolute inset-0 -z-0">
+        <Image
+          src="/images/unico-global-network.jpg"
+          alt="글로벌 네트워크"
+          fill
+          className="object-cover opacity-20"
+        />
       </div>
-    </section>
-  );
+    )}
+    <div className="relative z-10">
+      <dt className="text-xs font-semibold tracking-[0.2em] text-gold-400">
+        {fact.label}
+      </dt>
+      <dd className="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink-200">
+        {fact.value}
+      </dd>
+    </div>
+  </div>
+))}
+</dl>
+      </Reveal>
+    </div>
+  </div>
+</section>
+);
 }
