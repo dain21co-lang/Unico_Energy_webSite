@@ -155,7 +155,7 @@ export function About() {
   {FACTS.map((fact) => (
   <div
     key={fact.label}
-    className="relative overflow-hidden bg-paper-soft/40 p-7"
+    className="relative overflow-hidden bg-paper-soft/10 p-7"
   >
 
     <div className="relative z-10">
