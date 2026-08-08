@@ -150,7 +150,7 @@ export function About() {
     className="relative overflow-hidden bg-paper-soft p-7"
   >
     {fact.label === "글로벌 네트워크" && (
-      <div className="absolute inset-0 -z-0">
+  <div className="absolute inset-0 -z-0 overflow-hidden rounded-b-2xl">
         <Image
           src="/images/unico-global-network.jpg"
           alt="글로벌 네트워크"
