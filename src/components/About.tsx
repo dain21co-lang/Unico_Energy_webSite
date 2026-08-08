@@ -143,22 +143,21 @@ export function About() {
           </Reveal>
 
           <Reveal delay={0.15}>
-            <dl className="grid gap-px overflow-hidden rounded-2xl border border-black/10 bg-black/10 sm:grid-cols-2">
-              {FACTS.map((fact) => (
+            <dl className="relative grid gap-px overflow-hidden rounded-2xl border border-black/10 bg-black/10 sm:grid-cols-2">
+  <div className="absolute inset-0 -z-0">
+    <Image
+      src="/images/unico-global-network.jpg"
+      alt="글로벌 네트워크"
+      fill
+      className="object-cover opacity-20"
+    />
+  </div>
+  {FACTS.map((fact) => (
   <div
     key={fact.label}
     className="relative overflow-hidden bg-paper-soft p-7"
   >
-    {fact.label === "글로벌 네트워크" && (
-  <div className="absolute inset-0 -z-0 overflow-hidden rounded-b-2xl">
-        <Image
-          src="/images/unico-global-network.jpg"
-          alt="글로벌 네트워크"
-          fill
-          className="object-cover opacity-20"
-        />
-      </div>
-    )}
+
     <div className="relative z-10">
       <dt className="text-xs font-semibold tracking-[0.2em] text-gold-400">
         {fact.label}
