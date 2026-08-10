@@ -46,6 +46,7 @@ const UNITS = [
     title: "LPG 저장 · 터미널 사업",
     subtitle: "LPG Storage & Terminal Business",
     image: "/images/biz-terminal.jpg",
+    video: "/videos/lpg-terminal.mp4",
     description:
       "평택항과 울산항의 대규모 LPG 저장 터미널 인프라를 기반으로 고객 맞춤형 VMI(Vendor Managed Inventory) 솔루션을 제공합니다.",
   },
