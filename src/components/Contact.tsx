@@ -60,18 +60,14 @@ export function Contact() {
 </Reveal>
       </div>
 
-      <div className="relative -mb-28 mt-20 h-60vh-safe w-full overflow-hidden bg-navy-950 sm:-mb-32">
-        <video
-          className="absolute inset-0 h-full w-full object-contain"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/videos/closing-poster.jpg"
-        >
-          <source src="/videos/closing-web.mp4" type="video/mp4" />
-        </video>
-      </div>
+   
+        <div className="relative -mb-28 mt-20 h-60vh-safe w-full overflow-hidden bg-navy-950 sm:-mb-32">
+  <img
+    src="/images/unico-ship-blueprint-v2.jpg"
+    alt="유니코에너지그룹 선박 설계도"
+    className="absolute inset-0 h-full w-full object-contain"
+  />
+</div>
     </section>
   );
 }
