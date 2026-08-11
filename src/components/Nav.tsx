@@ -23,8 +23,12 @@ export function Nav() {
 
   return (
     <header
-      style={{ isolation: "isolate", transform: "translateZ(0)" }}
-      className={`fixed inset-x-0 top-0 z-[100] transition-colors duration-300 ${
+      style={{
+        isolation: "isolate",
+        transform: "translateZ(0)",
+        top: "var(--kakao-banner-height, 0px)",
+      }}
+      className={`fixed inset-x-0 z-[100] transition-[background-color,top] duration-300 ${
         scrolled
           ? "bg-paper/90 backdrop-blur-md border-b border-black/5"
           : "bg-gradient-to-b from-paper/70 to-transparent"
@@ -65,26 +69,32 @@ export function Nav() {
           className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
         >
           <span
-            className={`h-[3px] w-6 rounded-full bg-ink-100 transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
+            className={`block h-0.5 w-6 bg-ink-100 transition-transform ${
+              open ? "translate-y-2 rotate-45" : ""
+            }`}
           />
           <span
-            className={`h-[3px] w-6 rounded-full bg-ink-100 transition-opacity ${open ? "opacity-0" : ""}`}
+            className={`block h-0.5 w-6 bg-ink-100 transition-opacity ${
+              open ? "opacity-0" : ""
+            }`}
           />
           <span
-            className={`h-[3px] w-6 rounded-full bg-ink-100 transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
+            className={`block h-0.5 w-6 bg-ink-100 transition-transform ${
+              open ? "-translate-y-2 -rotate-45" : ""
+            }`}
           />
         </button>
       </nav>
 
       {open && (
-        <div className="relative border-t border-black/5 bg-paper px-6 pb-6 md:hidden">
-          <ul className="flex flex-col gap-4 pt-4">
+        <div className="border-t border-black/5 bg-paper px-6 py-4 md:hidden">
+          <ul className="flex flex-col gap-4">
             {LINKS.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-base text-ink-300 hover:text-gold-400"
+                  className="block text-sm text-ink-300 transition-colors hover:text-gold-400"
                 >
                   {link.label}
                 </a>
@@ -94,7 +104,7 @@ export function Nav() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="mt-2 inline-block rounded-full border border-gold-500/60 px-5 py-2 text-sm font-medium text-gold-600"
+                className="block rounded-full border border-gold-500/60 px-5 py-2 text-center text-sm font-medium text-gold-600"
               >
                 투자 문의하기
               </a>
