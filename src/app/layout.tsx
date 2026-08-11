@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { KakaoBrowserBanner } from "../components/KakaoBrowserBanner";
+
 export const metadata: Metadata = {
   title: "유니코에너지그룹 | UNICO ENERGY GROUP",
   description:
@@ -20,6 +21,14 @@ export const metadata: Metadata = {
     description: "국경을 넘어 미래를 잇는 글로벌 트레이딩에너지 플랫폼",
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: "/videos/hero-poster.jpg",
+        width: 1200,
+        height: 630,
+        alt: "유니코에너지그룹 | UNICO ENERGY GROUP",
+      },
+    ],
   },
 };
 
@@ -44,3 +53,4 @@ export default function RootLayout({
     </html>
   );
 }
+
