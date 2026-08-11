@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-
+import { KakaoBrowserBanner } from "../components/KakaoBrowserBanner";
 export const metadata: Metadata = {
   title: "유니코에너지그룹 | UNICO ENERGY GROUP",
   description:
@@ -38,6 +38,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className="h-full antialiased">
       <body className="min-h-full flex flex-col font-sans bg-paper text-ink-100">
+        <KakaoBrowserBanner />
         {children}
       </body>
     </html>
