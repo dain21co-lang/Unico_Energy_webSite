@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { SectionLabel } from "./SectionLabel";
 
 export function Chairman() {
   return (
@@ -17,12 +18,7 @@ export function Chairman() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold tracking-[0.3em] text-gold-400">
-              CHAIRMAN&apos;S MESSAGE
-            </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight text-silver-300 sm:text-3xl">
-              회장 인사말
-            </h2>
+            <SectionLabel index="02. CHAIRMAN'S MESSAGE" title="회장 인사말" />
             <div className="mt-6 h-px w-16 divider-gold" />
 
             <p className="mt-8 break-keep text-xl font-medium leading-snug text-silver-300 sm:text-2xl">

@@ -29,7 +29,7 @@ export function ESG() {
   return (
     <section id="esg" className="relative scroll-mt-20 bg-paper-soft py-28 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
-        <SectionLabel index="08. ESG" title="지속가능경영" align="center" />
+        <SectionLabel index="06. ESG" title="지속가능경영" align="center" />
 
         <div className="mt-6 flex justify-center">
           <a
