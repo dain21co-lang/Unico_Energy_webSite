@@ -1,4 +1,5 @@
 import { CONTACT_INFO } from "@/config/contact";
+import { PrivacyPolicy } from "@/components/canvas/PrivacyPolicy";
 
 const LINKS = [
   { href: "#about", label: "회사소개" },
@@ -43,7 +44,9 @@ export function Footer() {
           <p className="text-xs text-ink-600">
             © {new Date().getFullYear()} UNICO ENERGY GROUP CO., LTD. All
             rights reserved
-          </p>
+          </p><div className="mt-3">
+  <PrivacyPolicy />
+</div>
         </div>
       </div>
     </footer>
