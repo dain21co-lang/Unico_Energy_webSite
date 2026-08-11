@@ -20,7 +20,8 @@ export function Footer() {
             <p className="mt-3 max-w-xs break-keep text-sm leading-relaxed text-ink-400">
               (주)유니코에너지그룹
               <br />
-              {CONTACT_INFO.address}
+              {CONTACT_INFO.address}<br />
+              대표이사 윤승영 · 사업자등록번호 671-81-03337
             </p>
           </div>
 
