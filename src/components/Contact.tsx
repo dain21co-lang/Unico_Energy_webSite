@@ -1,6 +1,6 @@
 import { Reveal } from "./Reveal";
 import { CONTACT_INFO } from "@/config/contact";
-
+import { ContactForm } from "@/components/ContactForm";
 export function Contact() {
   return (
     <section id="contact" className="relative scroll-mt-20 overflow-hidden bg-paper py-28 sm:py-32">
@@ -44,6 +44,7 @@ export function Contact() {
                   {CONTACT_INFO.phone}
                 </a>
                 <br />
+
                 <a
                   href={CONTACT_INFO.emailHref}
                   className="transition-colors hover:text-gold-600"
@@ -54,6 +55,9 @@ export function Contact() {
             </div>
           </div>
         </Reveal>
+        <Reveal delay={0.3}>
+  <ContactForm />
+</Reveal>
       </div>
 
       <div className="relative -mb-28 mt-20 h-60vh-safe w-full overflow-hidden bg-navy-950 sm:-mb-32">
