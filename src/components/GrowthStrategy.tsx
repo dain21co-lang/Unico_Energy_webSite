@@ -79,11 +79,15 @@ export function GrowthStrategy() {
           </div>
         </div>
 <div className="mx-auto mt-16 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
-  <img
-  src="/images/unico-ship-blueprint-v2.jpg"
-  alt="유니코에너지그룹 선박 설계도"
-  className="h-full w-full object-cover"
-/>
+  <video
+  className="absolute inset-0 h-full w-full object-cover"
+  autoPlay
+  loop
+  muted
+  playsInline
+>
+  <source src="/videos/closing-web.mp4" type="video/mp4" />
+</video>
 </div>
       </div>
     </section>
