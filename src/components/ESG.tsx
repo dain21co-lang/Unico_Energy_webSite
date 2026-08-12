@@ -63,14 +63,20 @@ export function ESG() {
 
         <div className="mx-auto mt-16 aspect-[1080/1920] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
   <div className="relative h-full w-full">
-    <img
-      src="/images/unico-ship-blueprint-v2.jpg"
-      alt="유니코에너지그룹 선박 설계도"
+    <video
       className="absolute inset-0 h-full w-full object-cover"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent" />
-  </div></div>
-</div>
+      autoPlay
+      loop
+      muted
+      playsInline
+      poster="/videos/esg-poster.jpg"
+    >
+      <source src="/videos/esg-web.mp4" type="video/mp4" />
+    </video>
+    <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent"/>
+    </div>
+    </div>
+    </div>
     </section>
-  );
-}
+   );
+ }
