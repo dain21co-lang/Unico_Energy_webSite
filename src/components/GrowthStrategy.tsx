@@ -80,7 +80,7 @@ export function GrowthStrategy() {
         </div>
 <div className="mx-auto mt-16 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
   <video
-  className="absolute inset-0 h-full w-full object-cover"
+  className="h-full w-full object-cover"
   autoPlay
   loop
   muted
