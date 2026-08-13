@@ -65,7 +65,7 @@ export function Chairman() {
     alt="최영창 회장 서명"
     width={612}
     height={328}
-    className="h-6 sm:h-12 w-auto shrink-0 opacity-90 object-contain"
+    className="h-8 sm:h-14 w-auto shrink-0 opacity-90 object-contain"
   />
 </div>
           </div>
