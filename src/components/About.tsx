@@ -149,7 +149,7 @@ export function About() {
       src="/images/unico-global-network.jpg"
       alt="글로벌 네트워크"
       fill
-      className="object-cover opacity-20"
+      className="object-cover opacity-99"
     />
   </div>
   {FACTS.map((fact) => (
@@ -162,7 +162,7 @@ export function About() {
       <dt className="text-xs font-semibold tracking-[0.2em] text-gold-400">
         {fact.label}
       </dt>
-      <dd className="mt-3 whitespace-pre-line text-sm leading-relaxed text-ink-200">
+      <dd className="mt-3 whitespace-pre-line text-sm leading-relaxed text-white">
         {fact.value}
       </dd>
     </div>
