@@ -1,5 +1,5 @@
 import { EnNav } from "@/components/EnNav";
-import { Footer } from "@/components/Footer";
+import { EnFooter } from "@/components/EnFooter";
 
 export default function EnHome() {
   return (
@@ -8,7 +8,7 @@ export default function EnHome() {
       <main>
         <p style={{ color: "black", padding: "100px", fontSize: "24px" }}>English version coming soon</p>
       </main>
-      <Footer />
+      <EnFooter />
     </>
   );
 }
