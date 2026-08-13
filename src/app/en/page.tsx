@@ -4,6 +4,8 @@ import { EnFooter } from "@/components/EnFooter";
 import { EnAbout } from "@/components/EnAbout";
 import { EnChairman } from "@/components/EnChairman";
 import { EnBusinessUnits } from "@/components/EnBusinessUnits";
+import { EnBusinessVideo } from "@/components/EnBusinessVideo";
+import { EnCompetitiveness } from "@/components/EnCompetitiveness";
 export default function EnHome() {
   return (
     <>
@@ -12,6 +14,8 @@ export default function EnHome() {
         <EnHero />
      <EnAbout />
      <EnChairman />
+     <EnBusinessVideo />
+     <EnCompetitiveness />
      <EnBusinessUnits />
       </main>
       <EnFooter />
