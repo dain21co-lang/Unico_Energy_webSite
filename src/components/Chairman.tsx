@@ -58,7 +58,7 @@ export function Chairman() {
             <div className="mt-8 flex flex-nowrap items-center gap-2">
   <p className="text-xs sm:text-sm font-medium tracking-wide text-silver-300 whitespace-nowrap">
     유니코에너지그룹 회장&nbsp;&nbsp;최 영 창
-    <span className="ml-2 text-silver-500">(Brian Choi)</span>
+    <span className="ml-2 text-silver-500"></span>
   </p>
               <Image
     src="/images/signature-brian-choi-white.png"
