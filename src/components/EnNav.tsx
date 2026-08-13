@@ -59,6 +59,11 @@ export function EnNav() {
         >
           Contact Us
         </a>
+        <a href="/"
+  className="hidden text-sm font-medium text-ink-300 transition-colors hover:text-gold-400 md:inline-block"
+>
+  KR
+</a>
       </nav>
     </header>
   );
