@@ -10,7 +10,7 @@ const UNITS = [
     image: "/images/biz-energy.jpg",
     video: "/videos/oildrum.mp4",
     description:
-      "원유·가스·정제유 직수입 라인을 기반으로 안정적인 에너지 자원 확보에 주력합니다. 국내 주요 무역항의 탱크 터미널 인프라를 활용해 수요와 공급의 시차를 조율합니다.",
+      "원유·가스·정제유 직수입 라인을 기반으로 안정적인 에너지 자원 확보에 주력합니다. 국내 주요 무역항의 탱크 터미널 인프라를 활용해 수요와 공급의 시차를 조율합니다",
   },
   {
    tag: "3.2",
@@ -21,7 +21,7 @@ const UNITS = [
     
     
     description:
-      "중동·아프리카 제련소 네트워크를 통해 고순도 알루미늄 잉곳(A7)과 프리미엄 전기동(Copper Cathode, Grade A)을 국내외 제조 기업에 공급합니다.",
+      "중동·아프리카 제련소 네트워크를 통해 고순도 알루미늄 잉곳(A7)과 프리미엄 전기동(Copper Cathode, Grade A)을 국내외 제조 기업에 공급합니다",
   },
   {
     tag: "3.3",
@@ -30,7 +30,7 @@ const UNITS = [
     video: "/videos/copper-materials.mp4",
     image: "/images/biz-copper.jpg", // 구리분말 및 첨단 소재 관련 이미지
     description:
-      "초고순도 구리 분말(Copper Powder) 및 희토류·첨단 소재의 안정적인 공급망 구축을 추진하며, 글로벌 파트너십을 통해 미래 성장 동력을 확보합니다.",
+      "초고순도 구리 분말(Copper Powder) 및 희토류·첨단 소재의 안정적인 공급망 구축을 추진하며, 글로벌 파트너십을 통해 미래 성장 동력을 확보합니다",
   },
   {
     tag: "3.4",
@@ -39,7 +39,7 @@ const UNITS = [
     image: "/oil-tanker.jpg",
     video: "/videos/oil-ship-storm.mp4",
     description:
-      "전문 선사와의 장기 용선 계약과 AI 기반 물류 관제로 해상·육상 운송 전 구간의 효율성과 안정성을 높여 나갑니다.",
+      "전문 선사와의 장기 용선 계약과 AI 기반 물류 관제로 해상·육상 운송 전 구간의 효율성과 안정성을 높여 나갑니다",
   },
   {
     tag: "3.5",
@@ -48,7 +48,7 @@ const UNITS = [
     image: "/images/biz-terminal.jpg",
     video: "/videos/lpg_terminal.mp4",
     description:
-      "평택항과 울산항의 대규모 LPG 저장 터미널 인프라를 기반으로 고객 맞춤형 VMI(Vendor Managed Inventory) 솔루션을 제공합니다.",
+      "평택항과 울산항의 대규모 LPG 저장 터미널 인프라를 기반으로 고객 맞춤형 VMI(Vendor Managed Inventory) 솔루션을 제공합니다",
   },
   {
     tag: "3.6",
@@ -57,7 +57,7 @@ const UNITS = [
     video: "/videos/preciousmetals.mp4",
     image: "/images/rare-resource-emerald.jpg",
     description:
-      "에메랄드 등 희소 보석·자원의 소싱 네트워크 구축을 검토하고 있으며, 기존 원자재 포트폴리오에 프리미엄 희소자원 영역을 더해 사업 다각화를 추진하고 있습니다.",
+      "에메랄드 등 희소 보석·자원의 소싱 네트워크 구축을 검토하고 있으며, 기존 원자재 포트폴리오에 프리미엄 희소자원 영역을 더해 사업 다각화를 추진하고 있습니다",
   },
 ]
 export function BusinessUnits() {
