@@ -7,6 +7,7 @@ import { EnBusinessUnits } from "@/components/EnBusinessUnits";
 import { EnBusinessVideo } from "@/components/EnBusinessVideo";
 import { EnCompetitiveness } from "@/components/EnCompetitiveness";
 import { EnGrowthStrategy } from "@/components/EnGrowthStrategy";
+import { EnESG } from "@/components/EnESG";
 export default function EnHome() {
   return (
     <>
@@ -18,6 +19,7 @@ export default function EnHome() {
      <EnBusinessVideo />
      <EnCompetitiveness />
      <EnBusinessUnits />
+     <EnESG />
      <EnGrowthStrategy />
       </main>
       <EnFooter />
