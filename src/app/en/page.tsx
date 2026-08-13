@@ -18,6 +18,7 @@ export default function EnHome() {
      <EnBusinessVideo />
      <EnCompetitiveness />
      <EnBusinessUnits />
+     <EnGrowthStrategy />
       </main>
       <EnFooter />
     </>
