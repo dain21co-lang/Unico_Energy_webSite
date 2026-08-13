@@ -6,7 +6,7 @@ export default function EnHome() {
     <>
       <Nav />
       <main>
-        <p style={{ color: "white", padding: "100px" }}>English version coming soon</p>
+        <p style={{ color: "black", padding: "100px", fontSize: "24px" }}>English version coming soon</p>
       </main>
       <Footer />
     </>
