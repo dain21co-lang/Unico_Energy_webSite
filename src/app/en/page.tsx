@@ -6,6 +6,7 @@ import { EnChairman } from "@/components/EnChairman";
 import { EnBusinessUnits } from "@/components/EnBusinessUnits";
 import { EnBusinessVideo } from "@/components/EnBusinessVideo";
 import { EnCompetitiveness } from "@/components/EnCompetitiveness";
+import { EnGrowthStrategy } from "@/components/EnGrowthStrategy";
 export default function EnHome() {
   return (
     <>
