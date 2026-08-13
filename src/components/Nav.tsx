@@ -17,7 +17,9 @@ export function Nav() {
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
+
     window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -35,12 +37,20 @@ export function Nav() {
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
-        <a href="#top" className="flex items-baseline gap-2">
+
+        {/* Logo */}
+        <a
+          href="#top"
+          className="flex items-baseline gap-2"
+          onClick={() => setOpen(false)}
+        >
           <span className="text-lg font-extrabold tracking-wide text-ink-100 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
-            <span className="hidden sm:inline">株式會社</span>유니코에너지그룹
+            <span className="hidden sm:inline">株式會社</span>
+            유니코에너지그룹
           </span>
         </a>
 
+        {/* Desktop Navigation */}
         <ul className="hidden items-center gap-9 md:flex">
           {LINKS.map((link) => (
             <li key={link.href}>
@@ -54,6 +64,7 @@ export function Nav() {
           ))}
         </ul>
 
+        {/* Desktop Contact */}
         <a
           href="#contact"
           className="hidden rounded-full border border-gold-500/60 px-5 py-2 text-sm font-medium text-gold-600 transition-colors hover:bg-gold-500 hover:text-navy-950 md:inline-block"
@@ -61,6 +72,15 @@ export function Nav() {
           투자 문의하기
         </a>
 
+        {/* Desktop Language Switch */}
+        <a
+          href="/en"
+          className="hidden text-sm font-medium text-ink-300 transition-colors hover:text-gold-400 md:inline-block"
+        >
+          EN
+        </a>
+
+        {/* Mobile Menu Button */}
         <button
           type="button"
           aria-label="메뉴 열기"
@@ -73,11 +93,13 @@ export function Nav() {
               open ? "translate-y-2 rotate-45" : ""
             }`}
           />
+
           <span
             className={`block h-0.5 w-6 bg-ink-100 transition-opacity ${
               open ? "opacity-0" : ""
             }`}
           />
+
           <span
             className={`block h-0.5 w-6 bg-ink-100 transition-transform ${
               open ? "-translate-y-2 -rotate-45" : ""
@@ -86,9 +108,11 @@ export function Nav() {
         </button>
       </nav>
 
+      {/* Mobile Menu */}
       {open && (
         <div className="border-t border-black/5 bg-paper px-6 py-4 md:hidden">
           <ul className="flex flex-col gap-4">
+
             {LINKS.map((link) => (
               <li key={link.href}>
                 <a
@@ -100,15 +124,29 @@ export function Nav() {
                 </a>
               </li>
             ))}
+
+            {/* Mobile Contact */}
             <li>
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="block rounded-full border border-gold-500/60 px-5 py-2 text-center text-sm font-medium text-gold-600"
+                className="block rounded-full border border-gold-500/60 px-5 py-2 text-center text-sm font-medium text-gold-600 transition-colors hover:bg-gold-500 hover:text-navy-950"
               >
                 투자 문의하기
               </a>
             </li>
+
+            {/* Mobile Language Switch */}
+            <li className="border-t border-black/10 pt-4">
+              <a
+                href="/en"
+                onClick={() => setOpen(false)}
+                className="block text-sm font-semibold text-gold-600 transition-colors hover:text-gold-400"
+              >
+                ENGLISH →
+              </a>
+            </li>
+
           </ul>
         </div>
       )}
