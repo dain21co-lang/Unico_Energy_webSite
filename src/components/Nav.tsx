@@ -79,7 +79,13 @@ export function Nav() {
         >
           EN
         </a>
-
+{/* Mobile Language Switch (always visible) */}
+<a
+  href="/en"
+  className="mr-3 flex items-center rounded-full border border-gold-500/60 px-3 py-1 text-xs font-semibold text-gold-600 transition-colors hover:bg-gold-500 hover:text-navy-950 md:hidden"
+>
+  EN
+</a>
         {/* Mobile Menu Button */}
         <button
           type="button"
