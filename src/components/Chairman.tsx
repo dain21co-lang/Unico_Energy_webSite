@@ -55,7 +55,7 @@ export function Chairman() {
               </p>
             </div>
 
-            <div className="mt-8 flex items-center justify-between gap-2">
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
   <p className="text-sm font-medium tracking-wide text-silver-300">
     유니코에너지그룹 회장&nbsp;&nbsp;최 영 창
     <span className="ml-2 text-silver-500">(Brian Choi)</span>
@@ -65,7 +65,7 @@ export function Chairman() {
     alt="최영창 회장 서명"
     width={612}
     height={328}
-    className="h-8 sm:h-12 w-auto shrink-0 opacity-90 object-contain"
+    className="h-8 sm:h-12 w-auto shrink-0 self-end sm:self-auto opacity-90 object-contain"
   />
 </div>
           </div>
