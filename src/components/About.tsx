@@ -159,12 +159,12 @@ export function About() {
   >
 
     <div className="relative z-10">
-      <dt className="text-xs font-semibold tracking-[0.2em] text-gold-400">
-        {fact.label}
-      </dt>
-      <dd className="mt-3 whitespace-pre-line text-sm leading-relaxed text-white">
-        {fact.value}
-      </dd>
+      <dt className="text-sm sm:text-base font-bold tracking-[0.2em] text-gold-300 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+                      {fact.label}
+                    </dt>
+                    <dd className="mt-3 whitespace-pre-line text-base sm:text-lg font-semibold leading-relaxed text-white [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+                      {fact.value}
+                    </dd>
     </div>
   </div>
 ))}
