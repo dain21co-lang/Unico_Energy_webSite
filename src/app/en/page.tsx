@@ -3,6 +3,7 @@ import { EnHero } from "@/components/EnHero";
 import { EnFooter } from "@/components/EnFooter";
 import { EnAbout } from "@/components/EnAbout";
 import { EnChairman } from "@/components/EnChairman";
+import { EnBusinessUnits } from "@/components/EnBusinessUnits";
 export default function EnHome() {
   return (
     <>
@@ -11,6 +12,7 @@ export default function EnHome() {
         <EnHero />
      <EnAbout />
      <EnChairman />
+     <EnBusinessUnits />
       </main>
       <EnFooter />
     </>
