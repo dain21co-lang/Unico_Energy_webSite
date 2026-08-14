@@ -45,7 +45,7 @@ export function EnNav() {
           onClick={() => setOpen(false)}
         >
           <span className="text-lg font-extrabold tracking-wide text-ink-100 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
-            <span className="hidden sm:inline">UNICO </span>
+            <span className="inline">UNICO </span>
             ENERGY GROUP
           </span>
         </a>
