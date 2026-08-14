@@ -59,7 +59,7 @@ export function EnChairman() {
               </p>
             </div>
 
-            <div className="mt-10 flex flex-nowrap items-center gap-1">
+            <div className="mt-10 flex flex-nowrap items-center justify-start gap-1 pr-4">
               <p className="whitespace-nowrap text-xs font-medium tracking-wide text-silver-300 sm:text-sm">
                 Chairman, UNICO ENERGY GROUP&nbsp;&nbsp;Brian Choi
                 <span className="ml-2 text-silver-500"></span>
