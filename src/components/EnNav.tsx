@@ -83,7 +83,7 @@ export function EnNav() {
 {/* Mobile Language Switch (always visible) */}
 
   <a href="/"
- className="mr-3 flex items-center rounded-full bg-black px-3 py-1 text-sm font-extrabold tracking-wide text-yellow-300 md:hidden"
+ className="mr-3 flex items-center rounded-full bg-black px-2.5 py-0.5 text-xs font-bold tracking-wide text-gold-400 md:hidden"
 >
   KR
 </a>
