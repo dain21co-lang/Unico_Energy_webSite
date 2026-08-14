@@ -59,7 +59,7 @@ export function EnChairman() {
               </p>
             </div>
 
-            <div className="mt-10 flex flex-nowrap items-center gap-2">
+            <div className="mt-10 flex flex-nowrap items-center gap-1">
               <p className="whitespace-nowrap text-xs font-medium tracking-wide text-silver-300 sm:text-sm">
                 Chairman, UNICO ENERGY GROUP&nbsp;&nbsp;Brian Choi
                 <span className="ml-2 text-silver-500"></span>
@@ -69,7 +69,7 @@ export function EnChairman() {
                 alt="Signature of Chairman Brian Choi"
                 width={612}
                 height={328}
-                className="h-8 sm:h-14 w-auto shrink-0 opacity-90 object-contain max-w-[35%]"
+                className="h-10 sm:h-16 w-auto shrink-0 opacity-90 object-contain max-w-[45%]"
               />
             </div>
           </div>
