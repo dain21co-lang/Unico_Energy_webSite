@@ -9,6 +9,7 @@ import { GrowthStrategy } from "@/components/GrowthStrategy";
 import { ESG } from "@/components/ESG";
 import { Contact } from "@/components/Contact";
 import CTASection from "@/components/CTASection";
+import Downloads from "@/components/Downloads";
 import { Footer } from "@/components/Footer";
 
 export default function Home() {
@@ -24,6 +25,8 @@ export default function Home() {
         <BusinessVideo />
         <Competitiveness />
         <GrowthStrategy />
+        <CTASection />
+<Downloads />
         <ESG />
         <Contact />
         <CTASection />
