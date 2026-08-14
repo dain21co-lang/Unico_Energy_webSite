@@ -8,8 +8,8 @@ const LINKS = [
   { href: "#competitiveness", label: "핵심경쟁력" },
   { href: "#growth", label: "성장전략" },
   { href: "#esg", label: "ESG" },
+{ href: "#downloads", label: "자료실" },
 ];
-
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
