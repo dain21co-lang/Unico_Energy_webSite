@@ -60,13 +60,13 @@ export function Chairman() {
     유니코에너지그룹 회장&nbsp;&nbsp;최 영 창
     <span className="ml-2 text-silver-500"></span>
   </p>
-              <Image
-    src="/images/signature-brian-choi-white.png"
-    alt="최영창 회장 서명"
-    width={612}
-    height={328}
-    className="h-8 sm:h-14 w-auto shrink-0 opacity-90 object-contain"
-  />
+   <Image
+  src="/images/signature-brian-choi-white.png"
+  alt="최영창 회장 서명"
+  width={612}
+  height={328}
+  className="h-8 sm:h-14 w-auto shrink-0 opacity-90 object-contain"
+/>
 </div>
           </div>
         </div>
