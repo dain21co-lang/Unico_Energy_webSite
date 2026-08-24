@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Chairman } from "@/components/Chairman";
 import { BusinessUnits } from "@/components/BusinessUnits";
+import GlobalDigitalFinance from "@/components/GlobalDigitalFinance";
 import { BusinessVideo } from "@/components/BusinessVideo";
 import { Competitiveness } from "@/components/Competitiveness";
 import { GrowthStrategy } from "@/components/GrowthStrategy";
@@ -22,6 +23,8 @@ export default function Home() {
         <About />
         <Chairman />
         <BusinessUnits />
+<GlobalDigitalFinance />
+<BusinessVideo />
         <BusinessVideo />
         <Competitiveness />
         <GrowthStrategy />
