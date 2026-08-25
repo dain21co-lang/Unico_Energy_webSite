@@ -25,7 +25,6 @@ export default function Home() {
         <BusinessUnits />
 <GlobalDigitalFinance />
 <BusinessVideo />
-        <BusinessVideo />
         <Competitiveness />
         <GrowthStrategy />
         <CTASection />
