@@ -19,6 +19,17 @@ const documents: DownloadItem[] = [
     description: 'Evaluated by Samduk Accounting Corporation · 2026.08',
     file: '/documents/unico_valuation_report_en.pdf',
     size: 'PDF',
+  },  {
+    title: '유니코에너지그룹 사업소개서',
+    description: '2026.08',
+    file: '/documents/unico_business_proposal_kr.pdf',
+    size: 'PDF',
+  },
+  {
+    title: 'UNICO ENERGY GROUP Business Proposal',
+    description: '2026.08',
+    file: '/documents/unico_business_proposal_en.pdf',
+    size: 'PDF',
   },
 ];
 
