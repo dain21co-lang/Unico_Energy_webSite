@@ -8,7 +8,7 @@ export function Chairman() {
         <div className="grid items-start gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-lg">
             <Image
-              src="/images/chairman-photo.png"
+              src="/images/chairman-photo.jpg"
               alt="유니코에너지그룹 회장 최영창"
               fill
               sizes="(min-width: 1024px) 40vw, 80vw"
