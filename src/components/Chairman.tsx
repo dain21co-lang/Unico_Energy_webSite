@@ -12,7 +12,7 @@ export function Chairman() {
               alt="유니코에너지그룹 회장 최영창"
               fill
               sizes="(min-width: 1024px) 40vw, 80vw"
-              className="object-cover"
+              className="object-contain"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" />
           </div>
