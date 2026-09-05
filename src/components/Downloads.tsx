@@ -30,6 +30,17 @@ const documents: DownloadItem[] = [
     description: '2026.08',
     file: '/documents/unico_business_proposal_en.pdf',
     size: 'PDF',
+  },  {
+    title: '하동 LPG 탱크 터미널사업 타당성검토서',
+    description: '2026.08',
+    file: '/documents/unico_hadong_lpg_feasibility_kr.pdf',
+    size: 'PDF',
+  },
+  {
+    title: 'Hadong LPG Tank Terminal Project Feasibility Study',
+    description: '2026.08',
+    file: '/documents/unico_hadong_lpg_feasibility_en.pdf',
+    size: 'PDF',
   },
 ];
 
