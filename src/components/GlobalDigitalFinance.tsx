@@ -43,7 +43,7 @@ export default function GlobalDigitalFinance() {
       <div className="mx-auto max-w-6xl px-6">
         {/* header */}
         <p className="text-xs md:text-sm tracking-widest text-gray-500 mb-2">
-          2-05. GLOBAL SUPPLY CHAIN
+          03-1. GLOBAL SUPPLY CHAIN
         </p>
         <h2
           className="text-3xl md:text-5xl font-bold mb-4"

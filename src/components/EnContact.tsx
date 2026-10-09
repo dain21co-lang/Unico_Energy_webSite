@@ -10,7 +10,7 @@ export function EnContact() {
       <div className="relative mx-auto max-w-4xl px-6 text-center sm:px-10">
         <Reveal>
           <p className="text-xs font-semibold tracking-[0.35em] text-gold-400">
-            09. CONTACT
+            07. CONTACT
           </p>
           <h2 className="mt-4 text-3xl font-bold tracking-tight text-ink-100 sm:text-4xl">
             Ready for Your Next Great Challenge?
