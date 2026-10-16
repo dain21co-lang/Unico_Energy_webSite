@@ -27,7 +27,6 @@ export default function Home() {
 <BusinessVideo />
         <Competitiveness />
         <GrowthStrategy />
-        <CTASection />
 <Downloads />
         <ESG />
         <Contact />

@@ -101,3 +101,12 @@ body {
 .animate-scroll-hint {
   animation: scroll-hint-bounce 1.8s ease-in-out infinite;
 }
+
+/* 가로 스와이프 목록용: 스크롤바 숨김 */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

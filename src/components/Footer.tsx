@@ -16,7 +16,7 @@ export function Footer() {
         <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="text-lg font-bold tracking-tight text-ink-100">
-              UNICO<span className="text-gradient-gold">ENERGY</span> GROUP
+              UNICO <span className="text-gradient-gold">ENERGY</span> GROUP
             </p>
             <p className="mt-3 max-w-xs break-keep text-sm leading-relaxed text-ink-400">
               (주)유니코에너지그룹
@@ -26,12 +26,12 @@ export function Footer() {
             </p>
           </div>
 
-          <ul className="flex flex-wrap gap-x-8 gap-y-3">
+          <ul className="flex flex-nowrap gap-x-4 sm:gap-x-8">
             {LINKS.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-sm text-ink-300 transition-colors hover:text-gold-400"
+                  className="whitespace-nowrap text-[13px] text-ink-300 transition-colors hover:text-gold-400 sm:text-sm"
                 >
                   {link.label}
                 </a>

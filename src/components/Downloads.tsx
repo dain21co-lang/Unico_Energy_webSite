@@ -1,5 +1,7 @@
 'use client';
 
+import { SectionLabel } from './SectionLabel';
+
 interface DownloadItem {
   title: string;
   description: string;
@@ -50,11 +52,11 @@ const documents: DownloadItem[] = [
 
 export default function Downloads() {
   return (
-    <section id="downloads" className="py-20 px-4 bg-[#0A1628]">
+    <section id="downloads" className="scroll-mt-20 py-28 px-6 bg-navy-950">
       <div className="max-w-md mx-auto">
-        <h2 className="text-2xl font-bold text-white mb-2">자료실</h2>
-        <p className="text-sm text-[#C9A84C] mb-8">
-          유니코에너지그룹의 주요 문서를 다운로드하실 수 있습니다.
+        <SectionLabel index="RESOURCES" title="자료실" tone="dark" />
+        <p className="mt-5 mb-8 text-sm text-silver-400">
+          유니코에너지그룹의 주요 문서를 확인하고 다운로드하실 수 있습니다
         </p>
 
         <div className="space-y-4">
@@ -88,7 +90,7 @@ export default function Downloads() {
                 download
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#C9A84C] text-[#0A1628] font-semibold text-sm py-2.5 hover:bg-[#C9A961] transition-colors"
               >
-                다운로드
+                {doc.file.endsWith('_en.pdf') ? 'Download' : '다운로드'}
               </a>
             </div>
           ))}

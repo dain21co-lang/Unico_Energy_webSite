@@ -20,7 +20,7 @@ export default function CTASection() {
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-navy-950/60" />
+      <div className="absolute inset-0 bg-navy-950/70" />
 
       <div className="relative z-10 mx-auto flex max-w-md flex-col items-center text-center">
         <p className="mb-3 text-sm font-medium tracking-wide text-gold-400">
@@ -28,20 +28,15 @@ export default function CTASection() {
         </p>
 
         <h2 className="mb-4 text-2xl font-bold leading-snug text-silver-300 sm:text-3xl">
-          실물 자산과 금융을 잇는
+          지금, 유니코와 함께
           <br />
-          글로벌 파트너
+          파트너십을 시작하십시오
         </h2>
 
-        <p className="mb-4 break-keep text-base leading-relaxed text-silver-400">
+        <p className="mb-10 break-keep text-base leading-relaxed text-silver-300">
           에너지·비철금속 트레이딩부터 전략적 투자까지,
           <br />
           유니코에너지그룹이 함께합니다
-        </p>
-
-        <p className="mb-10 break-keep text-sm leading-relaxed text-silver-400/80">
-          <span className="text-gold-400">빙산의 일각</span> 아래, 보이지
-          않는 실물자산 네트워크가 있습니다
         </p>
 
         <div className="flex w-full flex-col gap-3 sm:flex-row sm:justify-center">

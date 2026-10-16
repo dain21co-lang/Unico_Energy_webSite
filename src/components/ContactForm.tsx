@@ -48,7 +48,7 @@ export function ContactForm() {
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-black/10 bg-paper px-3 py-2 text-sm text-ink-100 outline-none focus:border-gold-400"
+            className="mt-1 w-full rounded-lg border border-black/20 bg-paper px-3 py-2.5 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-gold-500 focus:ring-2 focus:ring-gold-400/30"
             placeholder="성함을 입력해 주세요"
           />
         </div>
@@ -62,7 +62,7 @@ export function ContactForm() {
             type="text"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-black/10 bg-paper px-3 py-2 text-sm text-ink-100 outline-none focus:border-gold-400"
+            className="mt-1 w-full rounded-lg border border-black/20 bg-paper px-3 py-2.5 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-gold-500 focus:ring-2 focus:ring-gold-400/30"
             placeholder="회사명을 입력해 주세요 (선택)"
           />
         </div>
@@ -77,11 +77,23 @@ export function ContactForm() {
             rows={4}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-black/10 bg-paper px-3 py-2 text-sm text-ink-100 outline-none focus:border-gold-400"
+            className="mt-1 w-full rounded-lg border border-black/20 bg-paper px-3 py-2.5 text-sm text-ink-100 outline-none placeholder:text-ink-600 focus:border-gold-500 focus:ring-2 focus:ring-gold-400/30"
             placeholder="문의하실 내용을 입력해 주세요"
           />
         </div>
       </div>
+
+      <label className="mt-5 flex items-start gap-2 text-xs leading-relaxed text-ink-300">
+        <input
+          type="checkbox"
+          required
+          className="mt-0.5 h-4 w-4 shrink-0 accent-[#cfa646]"
+        />
+        <span>
+          문의 응대를 위한 개인정보(이름·회사명·문의 내용) 수집·이용에
+          동의합니다 (필수). 자세한 내용은 하단 개인정보처리방침을 참고해 주세요
+        </span>
+      </label>
 
       <button
         type="submit"

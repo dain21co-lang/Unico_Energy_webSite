@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { LazyVideo } from "./LazyVideo";
 import { SectionLabel } from "./SectionLabel";
 
 const HUBS = [
@@ -105,15 +106,10 @@ export function Competitiveness() {
         </div>
 
         <div className="mx-auto mt-16 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
-          <video
+          <LazyVideo
             className="h-full w-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/videos/hub-unico-web.mp4" type="video/mp4" />
-          </video>
+            src="/videos/hub-unico-web.mp4"
+          />
         </div>
       </div>
     </section>

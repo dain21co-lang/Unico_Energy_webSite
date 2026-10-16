@@ -18,7 +18,7 @@ export function Chairman() {
           </div>
 
           <div>
-            <SectionLabel index="02. CHAIRMAN'S MESSAGE" title="회장 인사말" />
+            <SectionLabel index="02. CHAIRMAN'S MESSAGE" title="회장 인사말" tone="dark" />
             <div className="mt-6 h-px w-16 divider-gold" />
 
             <p className="mt-8 break-keep text-xl font-medium leading-snug text-silver-300 sm:text-2xl">

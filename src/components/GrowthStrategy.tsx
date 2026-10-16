@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { LazyVideo } from "./LazyVideo";
 import { SectionLabel } from "./SectionLabel";
 
 const STRATEGIES = [
@@ -60,18 +61,10 @@ export function GrowthStrategy() {
 
                 {s.no === "5.2" && (
                   <div className="mx-auto mt-6 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
-                    <video
+                    <LazyVideo
                       className="h-full w-full object-cover"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    >
-                      <source
-                        src="/videos/future-materials-web.mp4"
-                        type="video/mp4"
-                      />
-                    </video>
+                      src="/videos/future-materials-web.mp4"
+                    />
                   </div>
                 )}
               </Reveal>
@@ -79,15 +72,10 @@ export function GrowthStrategy() {
           </div>
         </div>
 <div className="mx-auto mt-16 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
-  <video
-  className="h-full w-full object-cover"
-  autoPlay
-  loop
-  muted
-  playsInline
->
-  <source src="/videos/closing-web.mp4" type="video/mp4" />
-</video>
+  <LazyVideo
+    className="h-full w-full object-cover"
+    src="/videos/closing-web.mp4"
+  />
 </div>
       </div>
     </section>

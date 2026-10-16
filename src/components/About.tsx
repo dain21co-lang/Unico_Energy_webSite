@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { LazyVideo } from "./LazyVideo";
 import { SectionLabel } from "./SectionLabel";
 import Image from "next/image";
 const FACTS = [
@@ -27,7 +28,8 @@ export function About() {
             UNICO ENERGY GROUP
           </p>
           <h2 className="mt-4 text-2xl font-bold leading-snug text-silver-300 sm:text-3xl">
-            실물 자산과 금융을 잇는 글로벌 파트너
+            30년 실물자산 경력 위에 세운
+            글로벌 트레이딩 법인
           </h2>
           <p className="mt-5 max-w-2xl break-keep text-sm leading-relaxed text-silver-400 sm:text-base">
            빙산의 일각 아래에는,{" "}
@@ -118,16 +120,11 @@ export function About() {
             </p>
 
             <div className="mx-auto mt-16 aspect-[1080/1874] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
-              <video
+              <LazyVideo
                 className="h-full w-full object-cover"
-                autoPlay
-                loop
-                muted
-                playsInline
+                src="/videos/purpose-web.mp4"
                 poster="/videos/purpose-poster.jpg"
-              >
-                <source src="/videos/purpose-web.mp4" type="video/mp4" />
-              </video>
+              />
             </div>
 
             <p className="mt-8 max-w-lg break-keep border-l-2 border-gold-500 py-1 pl-5 leading-loose text-ink-200">
@@ -149,8 +146,9 @@ export function About() {
       src="/images/unico-global-network.jpg"
       alt="글로벌 네트워크"
       fill
-      className="object-cover opacity-99"
+      className="object-cover"
     />
+    <div className="absolute inset-0 bg-navy-950/70" />
   </div>
   {FACTS.map((fact) => (
   <div
@@ -159,10 +157,10 @@ export function About() {
   >
 
     <div className="relative z-10">
-      <dt className="text-sm sm:text-base font-bold tracking-[0.2em] text-gold-300 [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+      <dt className="text-sm sm:text-base font-bold tracking-[0.2em] text-gold-300 [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
                       {fact.label}
                     </dt>
-                    <dd className="mt-3 whitespace-pre-line text-base sm:text-lg font-semibold leading-relaxed text-white [text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]">
+                    <dd className="mt-3 whitespace-pre-line text-base sm:text-lg font-semibold leading-relaxed text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
                       {fact.value}
                     </dd>
     </div>

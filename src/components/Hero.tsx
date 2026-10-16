@@ -46,15 +46,16 @@ export function Hero() {
       </div>
 
       {/* 가독성을 위한 스크림 (하단이 진하고 상단은 옅게) */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/65 to-navy-950/10" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-navy-950/90 to-transparent" />
 
       {/* 텍스트 오버레이: 하단좌측 고정 (POSCO 방식) */}
       <div className="absolute inset-x-0 bottom-10 z-10 px-6 sm:px-10 lg:px-14 xl:px-20 sm:bottom-16">
-        <p className="relative top-3 mb-4 text-xs font-semibold tracking-[0.35em] text-gold-400">
+        <p className="relative top-3 mb-4 text-xs font-semibold tracking-[0.35em] text-gold-300 [text-shadow:0_1px_8px_rgba(0,0,0,0.7)]">
           GLOBAL TRADE · ENERGY PLATFORM
         </p>
 
-        <h1 className="max-w-xl break-keep text-[2.2rem] font-extrabold leading-[1.28] tracking-tight text-white sm:text-5xl lg:text-[3.2rem]">
+        <h1 className="max-w-xl break-keep [text-shadow:0_2px_16px_rgba(0,0,0,0.55)] text-[2.2rem] font-extrabold leading-[1.28] tracking-tight text-white sm:text-5xl lg:text-[3.2rem]">
           <span className="underline decoration-gold-400 decoration-2 underline-offset-8">
             실물 자산과 미래를
           </span>

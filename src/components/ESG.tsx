@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { LazyVideo } from "./LazyVideo";
 import { SectionLabel } from "./SectionLabel";
 
 const PILLARS = [
@@ -44,16 +45,21 @@ export function ESG() {
           {PILLARS.map((p, i) => (
             <Reveal key={p.letter} delay={i * 0.12}>
               <div className="h-full rounded-2xl border border-black/10 bg-paper p-8 shadow-sm">
-                <span className="text-5xl font-extrabold text-gradient-gold">
-                  {p.letter}
-                </span>
-                <h3 className="mt-5 text-lg font-bold text-ink-100">
-                  {p.title}
-                </h3>
-                <p className="mt-0.5 text-xs tracking-wide text-ink-400">
-                  {p.subtitle}
-                </p>
-                <p className="mt-4 text-sm leading-relaxed text-ink-300">
+                <div className="flex items-center gap-4">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-navy-950 text-3xl font-extrabold text-gold-400">
+                    {p.letter}
+                  </span>
+                  <div>
+                    <h3 className="text-lg font-bold text-ink-100">
+                      {p.title}
+                    </h3>
+                    <p className="mt-0.5 text-xs tracking-wide text-ink-400">
+                      {p.subtitle}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-5 h-px w-10 divider-gold" />
+                <p className="mt-4 break-keep text-sm leading-relaxed text-ink-300">
                   {p.description}
                 </p>
               </div>
@@ -63,16 +69,11 @@ export function ESG() {
 
         <div className="mx-auto mt-16 aspect-[1080/1920] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
   <div className="relative h-full w-full">
-    <video
+    <LazyVideo
       className="absolute inset-0 h-full w-full object-cover"
-      autoPlay
-      loop
-      muted
-      playsInline
+      src="/videos/esg-web.mp4"
       poster="/videos/esg-poster.jpg"
-    >
-      <source src="/videos/esg-web.mp4" type="video/mp4" />
-    </video>
+    />
     <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 via-transparent to-transparent"/>
     </div>
     </div>

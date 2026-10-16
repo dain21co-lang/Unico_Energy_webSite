@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
 import { SectionLabel } from "./SectionLabel";
+import { LazyVideo } from "./LazyVideo";
 
 const UNITS = [
   {
@@ -75,18 +76,18 @@ export function BusinessUnits() {
           </a>
         </div>
 
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <p className="mt-10 text-center text-xs tracking-wide text-ink-400 sm:hidden">
+          좌우로 밀어서 6개 사업 분야를 확인하세요 →
+        </p>
+        <div className="no-scrollbar -mx-6 mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 sm:mx-0 sm:mt-16 sm:grid sm:grid-cols-2 sm:gap-6 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3">
           {UNITS.map((unit, i) => (
-            <Reveal key={unit.title} delay={(i % 3) * 0.1}>
+            <div key={unit.title} className="w-[76%] shrink-0 snap-center sm:w-auto sm:shrink">
+            <Reveal delay={(i % 3) * 0.1}>
               <article className="group h-full overflow-hidden rounded-2xl border border-black/10 bg-paper-soft shadow-sm transition-colors hover:border-gold-500/50 hover:shadow-md">
                 <div className="relative aspect-[9/16] overflow-hidden bg-navy-950">
                   {unit.video ? (
-                    <video
+                    <LazyVideo
                       src={unit.video}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
                       className="absolute inset-0 h-full w-full bg-navy-950 object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
@@ -116,6 +117,7 @@ export function BusinessUnits() {
                 </div>
               </article>
             </Reveal>
+            </div>
           ))}
         </div>
       </div>

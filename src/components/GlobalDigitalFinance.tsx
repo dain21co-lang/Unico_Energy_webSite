@@ -1,9 +1,5 @@
-"use client";
-
-import React from "react";
-
-const NAVY = "#0A1628";
-const GOLD = "#C9A84C";
+import { Reveal } from "./Reveal";
+import { SectionLabel } from "./SectionLabel";
 
 const coreAreas = [
   {
@@ -24,128 +20,81 @@ const coreAreas = [
 ];
 
 const chainSteps = [
-  { label: "Energy &\nOil Trading", active: false },
-  { label: "Non-Ferrous\nMetals", active: false },
-  { label: "Raw\nMaterials", active: false },
-  { label: "Global\nLogistics", active: false },
-  { label: "Digital Asset &\nGlobal Finance", active: true },
+  "Energy &\nOil Trading",
+  "Non-Ferrous\nMetals",
+  "Raw\nMaterials",
+  "Global\nLogistics",
 ];
 
 export default function GlobalDigitalFinance() {
   return (
     <section
       id="global-digital-finance"
-      className="relative w-full bg-white py-20 md:py-28"
+      className="relative scroll-mt-20 bg-paper-soft py-28 sm:py-32"
     >
-      {/* top gold accent bar */}
-      <div className="absolute top-0 left-0 h-1.5 w-full" style={{ backgroundColor: GOLD }} />
-
-      <div className="mx-auto max-w-6xl px-6">
-        {/* header */}
-        <p className="text-xs md:text-sm tracking-widest text-gray-500 mb-2">
-          03-1. GLOBAL SUPPLY CHAIN
+      <div className="mx-auto max-w-7xl px-6 sm:px-10">
+        <SectionLabel
+          index="03-1. GLOBAL SUPPLY CHAIN"
+          title="디지털자산 · 글로벌 파이낸스"
+        />
+        <p className="mt-4 text-xs font-semibold tracking-[0.2em] text-gold-600">
+          DIGITAL ASSET &amp; GLOBAL FINANCE
         </p>
-        <h2
-          className="text-3xl md:text-5xl font-bold mb-4"
-          style={{ color: NAVY }}
-        >
-          Digital Asset &amp; Global Finance
-        </h2>
-        <p className="text-sm md:text-base text-gray-500 italic mb-10">
-          디지털자산 · 글로벌 파이낸스 — 실물자산과 글로벌 자본을 연결하는 새로운 확장 영역
+        <p className="mt-5 max-w-2xl break-keep leading-loose text-ink-300">
+          실물자산과 글로벌 자본을 연결하는 새로운 확장 영역입니다
         </p>
 
-        <hr className="border-gray-200 mb-10" />
+        <Reveal>
+          <div className="mt-10 overflow-hidden rounded-2xl bg-gradient-to-br from-navy-950 to-[#161e25] px-6 py-10 sm:px-12">
+            <p className="break-keep text-sm leading-loose text-silver-300 sm:text-base">
+              유니코에너지그룹은 에너지·원자재·인프라 사업을 통해 축적한 글로벌
+              네트워크를 기반으로, 기관 투자자 중심의 디지털자산 장외거래(OTC)
+              및 실물자산 유동화(RWA) 분야로 사업 영역을 전략적으로 검토·확장하고
+              있습니다. 중동·아시아 금융 허브와의 연계를 통해 실물자산과 디지털
+              자본시장을 잇는 글로벌 결제·파이낸싱 플랫폼 구축을 중장기 방향으로
+              하고 있습니다
+            </p>
+          </div>
+        </Reveal>
 
-        {/* lead paragraph */}
-        <div
-          className="rounded-xl px-8 py-7 md:px-12 md:py-8 mb-16"
-          style={{ backgroundColor: NAVY }}
-        >
-          <p className="text-white text-sm md:text-base leading-relaxed text-center">
-            유니코에너지그룹은 에너지·원자재·인프라 사업을 통해 축적한 글로벌 네트워크를
-            기반으로, 기관 투자자 중심의 디지털자산 장외거래(OTC) 및 실물자산 유동화(RWA)
-            분야로 사업 영역을 전략적으로 검토·확장하고 있습니다. 중동·아시아 금융
-            허브와의 연계를 통해 실물자산과 디지털 자본시장을 잇는 글로벌 결제·파이낸싱
-            플랫폼 구축을 중장기 방향으로 하고 있습니다.
-          </p>
-        </div>
-
-        {/* core areas */}
-        <h3 className="text-lg md:text-xl font-bold mb-6" style={{ color: NAVY }}>
-          핵심 추진 영역
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-          {coreAreas.map((item) => (
-            <div
-              key={item.title}
-              className="rounded-xl border bg-[#F3F2F1] px-6 py-7 hover:shadow-md transition-shadow"
-              style={{ borderColor: GOLD }}
-            >
-              <h4
-                className="text-lg md:text-xl font-serif font-bold text-center mb-3"
-                style={{ color: NAVY }}
-              >
-                {item.title}
-              </h4>
-              <div
-                className="h-[3px] w-10 mx-auto mb-4"
-                style={{ backgroundColor: GOLD }}
-              />
-              <p
-                className="text-sm font-semibold text-center whitespace-pre-line mb-2"
-                style={{ color: NAVY }}
-              >
-                {item.kr}
-              </p>
-              <p className="text-xs text-gray-500 text-center whitespace-pre-line">
-                {item.en}
-              </p>
-            </div>
+        <h3 className="mt-16 text-lg font-bold text-ink-100">핵심 추진 영역</h3>
+        <div className="mt-6 grid gap-6 lg:grid-cols-3">
+          {coreAreas.map((item, i) => (
+            <Reveal key={item.title} delay={i * 0.1}>
+              <div className="h-full rounded-2xl border border-black/10 bg-paper p-7 shadow-sm">
+                <h4 className="text-lg font-bold text-ink-100">{item.title}</h4>
+                <div className="mt-3 h-px w-10 divider-gold" />
+                <p className="mt-4 whitespace-pre-line break-keep text-sm font-semibold leading-relaxed text-ink-200">
+                  {item.kr}
+                </p>
+                <p className="mt-2 whitespace-pre-line text-xs leading-relaxed text-ink-400">
+                  {item.en}
+                </p>
+              </div>
+            </Reveal>
           ))}
         </div>
 
-        {/* hierarchy position */}
-        <h3 className="text-lg md:text-xl font-bold mb-6" style={{ color: NAVY }}>
+        <h3 className="mt-16 text-lg font-bold text-ink-100">
           GLOBAL SUPPLY CHAIN 내 위치
         </h3>
-        <div className="flex flex-wrap items-center gap-3 mb-8">
-          <div
-            className="rounded-lg px-5 py-4 text-center shrink-0"
-            style={{ backgroundColor: NAVY }}
-          >
-            <span className="text-sm md:text-base font-bold" style={{ color: GOLD }}>
-              GLOBAL
-              <br />
-              SUPPLY CHAIN
-            </span>
-          </div>
-
-          <span className="text-xl shrink-0" style={{ color: GOLD }}>
-            &#8250;
-          </span>
-
-          <div className="flex flex-wrap gap-3">
-            {chainSteps.map((step) => (
-              <div
-                key={step.label}
-                className="rounded-lg px-4 py-4 text-center border whitespace-pre-line text-xs md:text-sm font-semibold min-w-[130px]"
-                style={
-                  step.active
-                    ? { backgroundColor: NAVY, borderColor: GOLD, borderWidth: 2, color: GOLD }
-                    : { backgroundColor: "#FFFFFF", borderColor: "#D1D3D4", color: NAVY }
-                }
-              >
-                {step.label}
-              </div>
-            ))}
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {chainSteps.map((label) => (
+            <div
+              key={label}
+              className="flex items-center justify-center whitespace-pre-line rounded-xl border border-black/10 bg-paper px-3 py-4 text-center text-xs font-semibold leading-snug text-ink-200 sm:text-sm"
+            >
+              {label}
+            </div>
+          ))}
+          <div className="col-span-2 flex items-center justify-center whitespace-pre-line rounded-xl border-2 border-gold-500 bg-navy-950 px-3 py-4 text-center text-xs font-bold leading-snug text-gold-400 sm:col-span-1 sm:text-sm">
+            {"Digital Asset &\nGlobal Finance"}
           </div>
         </div>
 
-        {/* disclaimer */}
-        <p className="text-xs text-gray-400 italic">
-          ※ 본 사업 영역은 전략적 검토 및 추진 단계에 있으며, 관련 라이선스·법인 설립
-          등은 해당 국가의 규제 절차에 따라 순차적으로 진행됩니다.
+        <p className="mt-8 break-keep text-xs leading-relaxed text-ink-400">
+          ※ 본 사업 영역은 전략적 검토 및 추진 단계에 있으며, 관련 라이선스·법인
+          설립 등은 해당 국가의 규제 절차에 따라 순차적으로 진행됩니다
         </p>
       </div>
     </section>
