@@ -54,7 +54,7 @@ export default function MetalCubeHero({ onTimeUpdate, onLoadedMetadata } = {}) {
           onTimeUpdate={onTimeUpdate}
           onLoadedMetadata={onLoadedMetadata}
         >
-          <source src="/videos/hero-web-v2.mp4" type="video/mp4" />
+          <source src="/videos/hero-web-v3.mp4" type="video/mp4" />
         </video>
       </div>
     </div>
