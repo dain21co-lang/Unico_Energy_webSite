@@ -3,25 +3,24 @@ import { SectionLabel } from "./SectionLabel";
 
 export function Chairman() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-navy-950 to-[#161e25] py-28 sm:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-br from-navy-950 to-[#161e25] py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6 sm:px-10">
-        <div className="grid items-start gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl shadow-lg">
+        <div className="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="relative aspect-[778/708] w-full overflow-hidden rounded-2xl shadow-lg">
             <Image
               src="/images/chairman-photo.jpg"
               alt="유니코에너지그룹 회장 최영창"
               fill
               sizes="(min-width: 1024px) 40vw, 80vw"
-              className="object-contain"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" />
           </div>
 
           <div>
             <SectionLabel index="02. CHAIRMAN'S MESSAGE" title="회장 인사말" tone="dark" />
-            <div className="mt-6 h-px w-16 divider-gold" />
 
-            <p className="mt-8 break-keep text-xl font-medium leading-snug text-silver-300 sm:text-2xl">
+            <p className="mt-6 break-keep text-xl font-medium leading-snug text-silver-300 sm:text-2xl">
               새로운 시대를 향한 도전,
               <br />
               그리고 <span className="text-gold-400">더 큰 가치의 창조</span>

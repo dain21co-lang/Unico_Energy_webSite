@@ -77,14 +77,6 @@ export default function Downloads() {
                 </span>
               </div>
 
-              {doc.view && (
-                <a
-                  href={doc.view}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#C9A84C] text-[#C9A84C] font-semibold text-sm py-2.5 hover:bg-[#C9A84C]/10 transition-colors"
-                >
-                  {doc.view.startsWith('/en') ? 'View online' : '바로보기'}
-                </a>
-              )}
               
                 <a href={doc.file}
                 download
