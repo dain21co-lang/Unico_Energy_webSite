@@ -134,7 +134,14 @@ export default function DeckViewer({ base, total, title, backHref, backLabel, la
 
         <div
           ref={stageRef}
-          className="relative order-1 flex min-h-0 flex-1 items-center justify-center bg-black/30 p-2 md:order-2 md:p-6"
+          className="relative order-1 flex min-h-0 flex-1 cursor-pointer items-center justify-center bg-black/30 p-2 md:order-2 md:p-6"
+          onClick={(e) => {
+            // 화살표 버튼 자체를 누른 경우는 버튼이 처리합니다
+            if ((e.target as HTMLElement).closest("button")) return;
+            // 화면 왼쪽 30%를 누르면 이전 쪽, 나머지를 누르면 다음 쪽
+            const r = e.currentTarget.getBoundingClientRect();
+            go(cur + (e.clientX - r.left < r.width * 0.3 ? -1 : 1));
+          }}
           onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
           onTouchEnd={(e) => {
             if (touch.current == null) return;
