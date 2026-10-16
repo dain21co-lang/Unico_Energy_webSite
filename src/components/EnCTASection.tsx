@@ -62,6 +62,14 @@ export default function EnCTASection() {
             View Business Areas
           </a>
         </div>
+
+        <a
+          href="/en/deck"
+          className="mt-6 inline-flex min-h-[44px] items-center gap-2 text-sm font-medium text-gold-400 underline decoration-gold-400/40 underline-offset-[6px] transition-colors hover:decoration-gold-400"
+        >
+          View Business Proposal
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
     </section>
   );

@@ -5,6 +5,8 @@ interface DownloadItem {
   description: string;
   file: string;
   size: string;
+  /** 웹에서 바로 볼 수 있는 뷰어 주소(있으면 '바로보기' 버튼 표시) */
+  view?: string;
 }
 
 const documents: DownloadItem[] = [
@@ -24,12 +26,14 @@ const documents: DownloadItem[] = [
     description: '2026.08',
     file: '/documents/unico_business_proposal_kr.pdf',
     size: 'PDF',
+    view: '/deck',
   },
   {
     title: 'UNICO ENERGY GROUP Business Proposal',
     description: '2026.08',
     file: '/documents/unico_business_proposal_en.pdf',
     size: 'PDF',
+    view: '/en/deck',
   },  {
     title: '하동 LPG 탱크 터미널사업 타당성검토서',
     description: '2026.08',
@@ -71,6 +75,14 @@ export default function Downloads() {
                 </span>
               </div>
 
+              {doc.view && (
+                <a
+                  href={doc.view}
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#C9A84C] text-[#C9A84C] font-semibold text-sm py-2.5 hover:bg-[#C9A84C]/10 transition-colors"
+                >
+                  {doc.view.startsWith('/en') ? 'View online' : '바로보기'}
+                </a>
+              )}
               
                 <a href={doc.file}
                 download
