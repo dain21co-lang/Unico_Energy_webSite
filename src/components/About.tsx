@@ -15,7 +15,7 @@ const FACTS = [
 const TRUST_STATS = [
   { value: "6", label: "핵심 사업 분야" },
   { value: "3", label: "글로벌 거점" },
-  { value: "2", label: "전략 항만 터미널" },
+  { value: "2", label: "항만 터미널 추진·검토" },
   { value: "2024", label: "년 설립" },
 ];
 
@@ -28,7 +28,7 @@ export function About() {
             UNICO ENERGY GROUP
           </p>
           <h2 className="mt-4 text-2xl font-bold leading-snug text-silver-300 sm:text-3xl">
-            30년 실물자산 경력 위에 세운
+            회장의 30년 실물자산 경력 위에 세운
             글로벌 트레이딩 법인
           </h2>
           <p className="mt-5 max-w-2xl break-keep text-sm leading-relaxed text-silver-400 sm:text-base">

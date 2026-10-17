@@ -7,6 +7,8 @@ const LINKS = [
   { href: "#competitiveness", label: "핵심경쟁력" },
   { href: "#growth", label: "성장전략" },
   { href: "#esg", label: "ESG" },
+  { href: "#downloads", label: "자료실" },
+  { href: "#contact", label: "문의" },
 ];
 
 export function Footer() {
@@ -26,7 +28,7 @@ export function Footer() {
             </p>
           </div>
 
-          <ul className="flex flex-nowrap gap-x-4 sm:gap-x-8">
+          <ul className="flex flex-wrap gap-x-4 gap-y-2 sm:max-w-md sm:justify-end sm:gap-x-8">
             {LINKS.map((link) => (
               <li key={link.href}>
                 <a

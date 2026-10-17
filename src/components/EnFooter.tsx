@@ -6,6 +6,7 @@ const LINKS = [
   { href: "#competitiveness", label: "Competitiveness" },
   { href: "#growth", label: "Growth Strategy" },
   { href: "#esg", label: "ESG" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function EnFooter() {

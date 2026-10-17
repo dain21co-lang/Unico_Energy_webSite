@@ -18,7 +18,7 @@ const FACTS = [
 const TRUST_STATS = [
   { value: "6", label: "Core Business Areas" },
   { value: "3", label: "Global Hubs" },
-  { value: "2", label: "Strategic Port Terminals" },
+  { value: "2", label: "Port Terminals (Planned/Under Review)" },
   { value: "2024", label: "Founded" },
 ];
 

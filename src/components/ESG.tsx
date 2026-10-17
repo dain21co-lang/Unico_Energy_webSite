@@ -37,7 +37,7 @@ export function ESG() {
             href="#contact"
             className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-3 text-sm font-medium text-ink-200 transition-colors hover:border-gold-400/60 hover:text-gold-600"
           >
-            <span aria-hidden="true">↳</span> ESG 정책 더 알아보기
+            <span aria-hidden="true">↳</span> ESG 관련 문의하기
           </a>
         </div>
 

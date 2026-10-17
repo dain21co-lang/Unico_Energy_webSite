@@ -45,7 +45,7 @@ export function Nav() {
           onClick={() => setOpen(false)}
         >
           <span className="text-lg font-extrabold tracking-wide text-ink-100 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
-            <span className="hidden sm:inline">株式會社</span>
+            <span className="hidden sm:inline">(주)</span>
             유니코에너지그룹
           </span>
         </a>

@@ -37,7 +37,7 @@ const UNITS = [
     image: "/oil-tanker.jpg",
     video: "/videos/oil-ship-storm.mp4",
     description:
-      "Through long-term charter agreements with specialized shipping companies and AI-based logistics control, we are enhancing efficiency and stability across the entire maritime and land transport chain.",
+      "Through charter cooperation with specialized shipping companies and AI-based logistics control, we are enhancing efficiency and stability across the entire maritime and land transport chain.",
   },
   {
     tag: "3.5",

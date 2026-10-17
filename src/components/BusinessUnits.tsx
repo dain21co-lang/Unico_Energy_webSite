@@ -40,7 +40,7 @@ const UNITS = [
     image: "/oil-tanker.jpg",
     video: "/videos/oil-ship-storm.mp4",
     description:
-      "전문 선사와의 장기 용선 계약과 AI 기반 물류 관제로 해상·육상 운송 전 구간의 효율성과 안정성을 높여 나갑니다",
+      "전문 선사와의 용선 협력과 AI 기반 물류 관제로 해상·육상 운송 전 구간의 효율성과 안정성을 높여 나갑니다",
   },
   {
     tag: "3.5",

@@ -14,7 +14,7 @@ const HUBS = [
     region: "Middle East & Africa Network",
     place: "Dubai, Bahrain, Oman, Congo, Zambia",
     description:
-      "A resource hub securing aluminum and premium non-ferrous metal supply chains through direct contracts with major smelters and refiners.",
+      "A resource hub securing aluminum and premium non-ferrous metal supply chains by building direct trading relationships with major smelters and refiners.",
   },
   {
     no: "03",
