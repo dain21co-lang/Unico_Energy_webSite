@@ -3,6 +3,7 @@ export function EnBusinessVideo() {
     <section aria-label="Business Site Video" className="w-full py-16 sm:py-20">
       <div className="mx-auto w-full max-w-md overflow-hidden rounded-2xl shadow-lg relative group">
         <video
+                      poster="/videos/competitiveness-hub-poster.jpg"
           src="/videos/competitiveness-hub.mp4"
           autoPlay
           loop

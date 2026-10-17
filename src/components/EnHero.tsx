@@ -26,7 +26,7 @@ export function EnHero() {
         <MetalCubeHero onTimeUpdate={handleTimeUpdate} />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent lg:bg-gradient-to-r lg:from-navy-950/85 lg:via-navy-950/30 lg:to-transparent" />
 
       <div className="absolute inset-x-0 bottom-10 z-10 px-6 sm:px-10 lg:px-14 xl:px-20 sm:bottom-16">
         <p className="relative top-3 mb-4 text-xs font-semibold tracking-[0.35em] text-gold-400">

@@ -81,6 +81,7 @@ export function EnBusinessUnits() {
                 <div className="relative aspect-[9/16] overflow-hidden bg-navy-950">
                   {unit.video ? (
                     <video
+                      poster={unit.video.replace(/\.mp4$/, "-poster.jpg")}
                       src={unit.video}
                       autoPlay
                       loop

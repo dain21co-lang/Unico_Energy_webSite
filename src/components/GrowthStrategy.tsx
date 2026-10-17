@@ -37,6 +37,13 @@ export function GrowthStrategy() {
               에너지와 첨단 전략 원자재 영역으로 사업 포트폴리오를 단계적으로
               확장해 나가고자 합니다
             </p>
+            {/* PC: 왼쪽 칸 빈 공간에 영상 배치 */}
+            <div className="mt-12 hidden aspect-[9/16] w-full max-w-sm overflow-hidden rounded-2xl shadow-lg lg:block">
+              <LazyVideo
+                className="h-full w-full object-cover"
+                src="/videos/future-materials-web.mp4"
+              />
+            </div>
           </Reveal>
 
           <div className="space-y-6">
@@ -60,7 +67,7 @@ export function GrowthStrategy() {
                 </div>
 
                 {s.no === "5.2" && (
-                  <div className="mx-auto mt-6 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
+                  <div className="mx-auto mt-6 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg lg:hidden">
                     <LazyVideo
                       className="h-full w-full object-cover"
                       src="/videos/future-materials-web.mp4"

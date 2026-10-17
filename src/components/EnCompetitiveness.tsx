@@ -111,6 +111,7 @@ export function EnCompetitiveness() {
 
         <div className="mx-auto mt-16 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
           <video
+                      poster="/videos/hub-unico-web-poster.jpg"
             className="h-full w-full object-cover"
             autoPlay
             loop

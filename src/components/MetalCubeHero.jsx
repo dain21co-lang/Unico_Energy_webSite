@@ -42,6 +42,7 @@ export default function MetalCubeHero({ onTimeUpdate, onLoadedMetadata } = {}) {
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
     >
+      <div className="metal-cube-hero__backdrop" aria-hidden="true" />
       <div className="metal-cube-hero__glow" aria-hidden="true" />
       <div className="metal-cube-hero__card" ref={cardRef}>
         <video
@@ -50,7 +51,7 @@ export default function MetalCubeHero({ onTimeUpdate, onLoadedMetadata } = {}) {
           loop
           muted
           playsInline
-          poster="/videos/hero-poster.jpg"
+          poster="/videos/hero-web-v3-poster.jpg"
           onTimeUpdate={onTimeUpdate}
           onLoadedMetadata={onLoadedMetadata}
         >

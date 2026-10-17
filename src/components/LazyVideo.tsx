@@ -42,7 +42,7 @@ export function LazyVideo({
     <video
       ref={ref}
       className={className}
-      poster={poster}
+      poster={poster ?? src.replace(/\.mp4$/, "-poster.jpg")}
       loop
       muted
       playsInline

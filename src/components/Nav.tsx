@@ -23,6 +23,9 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // 첫 화면(어두운 영상) 위에서는 흰 글씨, 스크롤하면 기존 흰 배경 + 짙은 글씨
+  const onHero = !scrolled && !open;
+
   return (
     <header
       style={{
@@ -31,9 +34,9 @@ export function Nav() {
         top: "var(--kakao-banner-height, 0px)",
       }}
       className={`fixed inset-x-0 z-[100] transition-[background-color,top] duration-300 ${
-        scrolled
+        !onHero
           ? "bg-paper/90 backdrop-blur-md border-b border-black/5"
-          : "bg-gradient-to-b from-paper/70 to-transparent"
+          : "bg-gradient-to-b from-navy-950/75 via-navy-950/35 to-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 md:px-10">
@@ -44,7 +47,7 @@ export function Nav() {
           className="flex items-baseline gap-2"
           onClick={() => setOpen(false)}
         >
-          <span className="text-lg font-extrabold tracking-wide text-ink-100 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
+          <span className={`text-lg font-extrabold tracking-wide transition-colors ${onHero ? "text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]" : "text-ink-100"}`}>
             <span className="hidden sm:inline">(주)</span>
             유니코에너지그룹
           </span>
@@ -56,7 +59,7 @@ export function Nav() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-ink-300 transition-colors hover:text-gold-400"
+                className={`text-sm transition-colors hover:text-gold-400 ${onHero ? "text-white/90" : "text-ink-300"}`}
               >
                 {link.label}
               </a>
@@ -67,7 +70,7 @@ export function Nav() {
         {/* Desktop Contact */}
         <a
           href="#contact"
-          className="hidden rounded-full border border-gold-500/60 px-5 py-2 text-sm font-medium text-gold-600 transition-colors hover:bg-gold-500 hover:text-navy-950 md:inline-block"
+          className={`hidden rounded-full border px-5 py-2 text-sm font-medium transition-colors hover:bg-gold-500 hover:text-navy-950 md:inline-block ${onHero ? "border-gold-400/80 text-gold-300" : "border-gold-500/60 text-gold-600"}`}
         >
           투자 문의하기
         </a>
@@ -75,7 +78,7 @@ export function Nav() {
         {/* Desktop Language Switch */}
         <a
           href="/en"
-          className="hidden text-sm font-medium text-ink-300 transition-colors hover:text-gold-400 md:inline-block"
+          className={`hidden text-sm font-medium transition-colors hover:text-gold-400 md:inline-block ${onHero ? "text-white/90" : "text-ink-300"}`}
         >
           EN
         </a>
@@ -94,19 +97,19 @@ export function Nav() {
           className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
         >
           <span
-            className={`block h-0.5 w-6 bg-ink-100 transition-transform ${
+            className={`block h-0.5 w-6 ${onHero ? "bg-white" : "bg-ink-100"} transition-transform ${
               open ? "translate-y-2 rotate-45" : ""
             }`}
           />
 
           <span
-            className={`block h-0.5 w-6 bg-ink-100 transition-opacity ${
+            className={`block h-0.5 w-6 ${onHero ? "bg-white" : "bg-ink-100"} transition-opacity ${
               open ? "opacity-0" : ""
             }`}
           />
 
           <span
-            className={`block h-0.5 w-6 bg-ink-100 transition-transform ${
+            className={`block h-0.5 w-6 ${onHero ? "bg-white" : "bg-ink-100"} transition-transform ${
               open ? "-translate-y-2 -rotate-45" : ""
             }`}
           />

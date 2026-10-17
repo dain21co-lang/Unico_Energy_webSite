@@ -16,7 +16,7 @@ const TRUST_STATS = [
   { value: "6", label: "핵심 사업 분야" },
   { value: "3", label: "글로벌 거점" },
   { value: "2", label: "항만 터미널 추진·검토" },
-  { value: "2024", label: "년 설립" },
+  { value: "4", label: "대륙 네트워크" },
 ];
 
 export function About() {
@@ -119,11 +119,11 @@ export function About() {
               있습니다
             </p>
 
-            <div className="mx-auto mt-16 aspect-[1080/1874] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
+            <div className="mx-auto mt-16 lg:hidden aspect-[1080/1874] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
               <LazyVideo
                 className="h-full w-full object-cover"
                 src="/videos/purpose-web.mp4"
-                poster="/videos/purpose-poster.jpg"
+                poster="/videos/purpose-web-poster.jpg"
               />
             </div>
 
@@ -167,6 +167,14 @@ export function About() {
   </div>
 ))}
 </dl>
+            {/* PC: 오른쪽 칸 빈 공간을 채우도록 영상을 정보 카드 아래에 배치 */}
+            <div className="mx-auto mt-10 hidden aspect-[1080/1874] w-full max-w-sm overflow-hidden rounded-2xl shadow-lg lg:block">
+              <LazyVideo
+                className="h-full w-full object-cover"
+                src="/videos/purpose-web.mp4"
+                poster="/videos/purpose-web-poster.jpg"
+              />
+            </div>
       </Reveal>
     </div>
   </div>

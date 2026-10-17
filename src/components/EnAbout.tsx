@@ -19,7 +19,7 @@ const TRUST_STATS = [
   { value: "6", label: "Core Business Areas" },
   { value: "3", label: "Global Hubs" },
   { value: "2", label: "Port Terminals (Planned/Under Review)" },
-  { value: "2024", label: "Founded" },
+  { value: "4", label: "Continents in Network" },
 ];
 
 export function EnAbout() {
@@ -130,7 +130,7 @@ export function EnAbout() {
                 loop
                 muted
                 playsInline
-                poster="/videos/purpose-poster.jpg"
+                poster="/videos/purpose-web-poster.jpg"
               >
                 <source src="/videos/purpose-web.mp4" type="video/mp4" />
               </video>

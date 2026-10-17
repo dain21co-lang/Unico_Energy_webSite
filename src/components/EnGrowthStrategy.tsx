@@ -62,6 +62,7 @@ export function EnGrowthStrategy() {
                 {s.no === "5.2" && (
                   <div className="mx-auto mt-6 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
                     <video
+                      poster="/videos/future-materials-web-poster.jpg"
                       className="h-full w-full object-cover"
                       autoPlay
                       loop
@@ -79,6 +80,7 @@ export function EnGrowthStrategy() {
 
         <div className="mx-auto mt-16 aspect-[2160/3840] w-full max-w-md overflow-hidden rounded-2xl shadow-lg">
           <video
+                      poster="/videos/closing-web-poster.jpg"
             className="h-full w-full object-cover"
             autoPlay
             loop

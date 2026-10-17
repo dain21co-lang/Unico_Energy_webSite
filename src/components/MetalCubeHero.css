@@ -39,6 +39,37 @@
   user-select: none;
   pointer-events: none;
   background: #0a0a0a;
+  /* 모바일 세로 화면에서 영상 오른쪽 아래 로고가 잘리지 않도록 약간 오른쪽 기준으로 자름 */
+  object-position: 78% center;
+}
+
+/* PC 전용: 흐린 배경 + 오른쪽 세로 영상 패널 (세로 영상을 가로로 늘려 흐려지는 문제 해결) */
+.metal-cube-hero__backdrop {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .metal-cube-hero__backdrop {
+    display: block;
+    position: absolute;
+    inset: -8%;
+    background: url("/videos/hero-web-v3-poster.jpg") center / cover no-repeat;
+    filter: blur(38px) saturate(0.85) brightness(0.55);
+    z-index: 0;
+  }
+  .metal-cube-hero__card {
+    inset: auto;
+    top: 13vh;
+    bottom: 7vh;
+    right: max(5vw, calc((100vw - 1280px) / 2));
+    aspect-ratio: 9 / 16;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(224, 191, 111, 0.25);
+  }
+  .metal-cube-hero__image {
+    object-position: center;
+  }
 }
 
 @media (max-width: 900px) {
