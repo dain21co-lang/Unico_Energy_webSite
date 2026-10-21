@@ -45,8 +45,7 @@ export function EnChairman() {
               <p>
                 UNICO ENERGY GROUP is building a stable supply chain centered
                 on raw material trading, combining the UAE&apos;s emerging
-                network, Singapore&apos;s global financial expertise, and
-                Korea&apos;s industrial capabilities to grow into a
+                network and Korea&apos;s industrial capabilities to grow into a
                 comprehensive platform that enables domestic companies to
                 expand into global markets.
               </p>
