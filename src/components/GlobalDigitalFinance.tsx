@@ -36,6 +36,7 @@ export default function GlobalDigitalFinance() {
         <SectionLabel
           index="03-1. GLOBAL SUPPLY CHAIN"
           title="디지털자산 · 글로벌 파이낸스"
+          titleSize="text-[length:clamp(1.35rem,6.2vw,1.9rem)] sm:text-4xl"
         />
         <p className="mt-4 text-xs font-semibold tracking-[0.2em] text-gold-600">
           DIGITAL ASSET &amp; GLOBAL FINANCE

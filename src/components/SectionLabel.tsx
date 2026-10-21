@@ -3,12 +3,15 @@ export function SectionLabel({
   title,
   align = "left",
   tone = "light",
+  titleSize = "text-3xl sm:text-4xl",
 }: {
   index: string;
   title: string;
   align?: "left" | "center";
   /** "dark": 어두운 배경 위에서 제목을 밝게 표시 */
   tone?: "light" | "dark";
+  /** 제목 글자 크기(기본: text-3xl sm:text-4xl). 긴 제목을 한 줄로 맞출 때 지정 */
+  titleSize?: string;
 }) {
   return (
     <div className={align === "center" ? "text-center" : "text-left"}>
@@ -16,7 +19,7 @@ export function SectionLabel({
         {index}
       </p>
       <h2
-        className={`mt-3 text-3xl font-bold tracking-tight sm:text-4xl ${
+        className={`mt-3 ${titleSize} font-bold tracking-tight ${
           tone === "dark" ? "text-white" : "text-ink-100"
         }`}
       >
