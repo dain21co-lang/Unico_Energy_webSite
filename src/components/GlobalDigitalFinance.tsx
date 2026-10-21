@@ -49,7 +49,7 @@ export default function GlobalDigitalFinance() {
             <p className="break-keep text-sm leading-loose text-silver-300 sm:text-base">
               유니코에너지그룹은 에너지·원자재·인프라 사업을 통해 축적한 글로벌
               네트워크를 기반으로, 기관 투자자 중심의 디지털자산 장외거래(OTC)
-              및 실물자산 유동화(RWA) 분야로 사업 영역을 전략적으로 검토·확장하고
+              및 실물자산 유동화(RWA) 분야로 사업 영역을 전략적으로 검토하고
               있습니다. 중동·아시아 금융 허브와의 연계를 통해 실물자산과 디지털
               자본시장을 잇는 글로벌 결제·파이낸싱 플랫폼 구축을 중장기 방향으로
               하고 있습니다
@@ -57,7 +57,7 @@ export default function GlobalDigitalFinance() {
           </div>
         </Reveal>
 
-        <h3 className="mt-16 text-lg font-bold text-ink-100">핵심 추진 영역</h3>
+        <h3 className="mt-16 text-lg font-bold text-ink-100">핵심 검토 영역</h3>
         <div className="mt-6 grid gap-6 lg:grid-cols-3">
           {coreAreas.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.1}>

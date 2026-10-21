@@ -144,7 +144,7 @@ export function About() {
   <div className="absolute inset-0 -z-0">
     <Image
       src="/images/unico-global-network.jpg"
-      alt="글로벌 네트워크"
+      alt="유니코에너지그룹 글로벌 네트워크 지도"
       fill
       className="object-cover"
     />
