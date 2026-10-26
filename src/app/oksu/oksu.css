@@ -1,0 +1,43 @@
+/* 옥수 개발사업 전용 스타일 (이 경로에서만 사용) */
+.oksu {
+  --ok-forest: #0b2a24;
+  --ok-deep: #061814;
+  --ok-leaf: #3fae74;
+  --ok-mint: #a9e3c2;
+  --ok-gold: #e0bf6f;
+  --ok-p2: #5b8fd0;
+  --ok-p3: #e3884a;
+  --ok-paper: #f4f6f1;
+  --ok-ink: #10221c;
+  --ok-sub: #52645c;
+  background: var(--ok-paper);
+  color: var(--ok-ink);
+  word-break: keep-all;
+}
+
+@keyframes ok-kenburns {
+  0% { transform: scale(1.08) translate3d(-2%, 0, 0); }
+  100% { transform: scale(1.22) translate3d(3%, -2%, 0); }
+}
+.ok-slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.6s ease; }
+.ok-slide.on { opacity: 1; }
+.ok-slide.on, .ok-slide.was { animation: ok-kenburns 9s ease-out forwards; }
+
+@keyframes ok-pan { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+.ok-pan { animation: ok-pan 26s ease-in-out infinite alternate; }
+
+@keyframes ok-flow { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
+.ok-flow { stroke-dasharray: 6 6; animation: ok-flow 1.2s linear infinite; }
+
+@keyframes ok-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(224,191,111,.55); } 50% { box-shadow: 0 0 0 10px rgba(224,191,111,0); } }
+.ok-pulse { animation: ok-pulse 2.2s ease-in-out infinite; }
+
+.ok-snap { scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.ok-snap::-webkit-scrollbar { display: none; }
+.ok-snap > * { scroll-snap-align: start; }
+
+.ok-grain::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(120% 80% at 80% 0%, rgba(63,174,116,.18), transparent 60%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ok-slide.on, .ok-slide.was, .ok-pan, .ok-flow, .ok-pulse { animation: none !important; }
+}
