@@ -79,40 +79,47 @@ function Nav() {
 }
 
 /* ───────── 2. 히어로 ───────── */
-const SLIDES = [
-  { img: "aerial_full.jpg", idx: "01", label: "처리하고", pos: "30% 50%" },
-  { img: "farm_aerial.jpg", idx: "02", label: "키우고", pos: "45% 50%" },
-  { img: "master.jpg", idx: "03", label: "함께 나눕니다", pos: "40% 55%" },
+
+const PHASES_V = [
+  { idx: "01", label: "지금의 땅", at: 0 },
+  { idx: "02", label: "새로운 완성", at: 9.2 },
+  { idx: "03", label: "함께 나누는 내일", at: 17.3 },
 ];
 
 function Hero() {
   const [i, setI] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setI((v) => (v + 1) % SLIDES.length), 6000);
-    return () => clearInterval(t);
-  }, []);
+  const onTime = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const t = e.currentTarget.currentTime;
+    let k = 0;
+    PHASES_V.forEach((p, n) => { if (t >= p.at) k = n; });
+    setI(k);
+  };
+  const jump = (k: number) => {
+    const v = document.getElementById("ok-hero-video") as HTMLVideoElement | null;
+    if (v) { v.currentTime = PHASES_V[k].at; v.play().catch(() => {}); }
+    setI(k);
+  };
   return (
     <section id="top" className="relative h-[100svh] min-h-[640px] overflow-hidden bg-[var(--ok-deep)]">
-      {SLIDES.map((s, k) => (
-        <div key={s.img} className={`ok-slide ${k === i ? "on" : ""}`} style={{ backgroundImage: `url(${IMG(s.img)})`, backgroundPosition: s.pos }} />
-      ))}
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--ok-deep)] via-[var(--ok-deep)]/55 to-[var(--ok-deep)]/20" />
-      <span className="absolute right-3 top-20 z-10 rounded-full bg-black/45 px-2.5 py-0.5 text-[10.5px] font-medium text-white">조감도 · 연출 이미지</span>
+      <video id="ok-hero-video" className="absolute inset-0 h-full w-full object-cover" src="/oksu/video/oksu-hero.mp4" poster="/oksu/video/oksu-hero-poster.jpg"
+        autoPlay muted loop playsInline preload="auto" onTimeUpdate={onTime} />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--ok-deep)] via-[var(--ok-deep)]/35 to-transparent" />
+      <span className="absolute right-3 top-20 z-10 rounded-full bg-black/45 px-2.5 py-0.5 text-[10.5px] font-medium text-white">연출 영상</span>
       <div className="absolute inset-x-0 bottom-12 z-10 px-6">
-        <p className="mb-4 text-[11px] font-semibold tracking-[0.32em] text-[var(--ok-gold)]">MEDICAL WASTE · SMART FARM COMPLEX</p>
+        <p className="mb-4 text-[11px] font-semibold tracking-[0.32em] text-[var(--ok-gold)]">THE NEXT STORY OF THIS LAND</p>
         <h1 className="text-[2.15rem] font-extrabold leading-[1.3] tracking-tight text-white [text-shadow:0_2px_16px_rgba(0,0,0,.5)]">
-          <span className="underline decoration-[var(--ok-gold)] decoration-2 underline-offset-8">처리하고, 키우고,</span>
-          <br />지역과 함께 나눕니다
+          <span className="underline decoration-[var(--ok-gold)] decoration-2 underline-offset-8">이 땅의</span>
+          <br />다음 이야기
         </h1>
-        <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/80">
-          전북 완주 봉동에서 의료폐기물을 안전하게 처리하고, 그 열로 스마트팜을 키우는 복합개발 사업입니다.
+        <p className="mt-5 max-w-md text-[15px] leading-relaxed text-white/80 [text-shadow:0_1px_8px_rgba(0,0,0,.6)]">
+          전북 완주 봉동, 멈춰 있던 땅이 의료폐기물 안전 처리시설과 스마트팜, 그리고 마을이 함께하는 단지로 다시 태어납니다.
         </p>
         <a href="#vision" className="mt-6 inline-flex items-center gap-2 rounded-md border border-white/40 px-6 py-3 text-sm font-medium text-white hover:border-[var(--ok-gold)] hover:text-[var(--ok-gold)]">
           <span aria-hidden>↳</span> 사업 살펴보기
         </a>
         <div className="mt-6 flex items-center gap-5 text-sm font-semibold tracking-widest" aria-label="장면">
-          {SLIDES.map((s, k) => (
-            <button key={s.idx} onClick={() => setI(k)} className={`flex items-center gap-2 transition-colors ${k === i ? "text-white" : "text-white/35"}`}>
+          {PHASES_V.map((s, k) => (
+            <button key={s.idx} onClick={() => jump(k)} className={`flex items-center gap-2 transition-colors ${k === i ? "text-white" : "text-white/35"}`}>
               {s.idx}
               {k === i && <span className="text-[12px] font-medium tracking-normal">{s.label}</span>}
             </button>
