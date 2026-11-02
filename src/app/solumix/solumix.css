@@ -30,3 +30,10 @@
 @media (prefers-reduced-motion: reduce) {
   .smx .sx-float, .smx .sx-kb, .smx .sx-scan { animation: none; }
 }
+
+/* 레퍼런스 흐르는 띠 */
+@keyframes sx-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.smx .sx-marquee { animation: sx-marquee 28s linear infinite; width: max-content; }
+.smx .sx-noscroll { scrollbar-width: none; }
+.smx .sx-noscroll::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) { .smx .sx-marquee { animation: none; } }
