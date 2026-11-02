@@ -130,7 +130,7 @@ export default function SolumixSite() {
       <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-[#050a16]/75 backdrop-blur-md">
         <div className="mx-auto flex max-w-md items-center justify-between px-5 py-3.5">
           <a href="#top" className="flex items-center gap-2"><Mark size={26} id="hd" /><span className="brand text-[17px] font-extrabold tracking-[0.06em] text-white">SOLUMIX</span></a>
-          <div className="flex items-center gap-2"><a href="/solumix/en" className="brand rounded-full bg-white/10 px-3 py-1.5 text-[12px] font-bold tracking-wider text-[var(--sx-champ)]">EN</a><a href="#contact" className="rounded-full border border-white/40 px-3.5 py-1.5 text-[12px] font-semibold text-white">문의하기</a></div>
+          <div className="flex items-center rounded-full border border-white/30 bg-black/30 p-0.5 text-[12.5px] font-bold" role="group" aria-label="Language"><a href="/solumix" className="rounded-full px-3 py-1.5 bg-[var(--sx-gold)] text-[#1a1406]">한글</a><a href="/solumix/en" className="rounded-full px-3 py-1.5 text-white/70">EN</a></div>
         </div>
       </header>
 
