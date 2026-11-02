@@ -200,7 +200,7 @@ export default function SolumixSite() {
 
       {/* REFERENCES (어두운 배경 + 흐르는 띠) */}
       <section className="relative overflow-hidden bg-black py-16">
-        <img src={IMG("hero.jpg")} alt="" className="sx-kb absolute inset-0 h-full w-full object-cover opacity-45" />
+        <img src={IMG("face.jpg")} alt="" className="sx-kb absolute inset-0 h-full w-full object-cover opacity-35" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/80" />
         <div className="relative mx-auto max-w-md px-5">
           <p className="text-[13px] font-semibold text-[var(--sx-champ)]">Our References</p>
@@ -296,7 +296,7 @@ export default function SolumixSite() {
         <div className="mx-auto max-w-md px-5">
           <p className="text-[13px] font-semibold text-[var(--sx-champ)]">Our Story</p>
           <h2 className="mt-2 text-[24px] font-black leading-snug">작업대 위 작은 로봇에서<br />오늘의 솔루믹스까지</h2>
-          <div className="mt-7 overflow-hidden rounded-2xl"><img src={IMG("story-workshop.jpg")} alt="작업실에서 로봇을 만드는 엔지니어" className="aspect-[4/5] w-full object-cover object-top" /></div>
+          <div className="mt-7 overflow-hidden rounded-2xl"><img src={IMG("hero.jpg")} alt="빛나는 로봇 손이 들고 있는 나뭇잎" className="aspect-[4/5] w-full object-cover object-center" /></div>
           <ol className="mt-8 border-l border-[var(--sx-line)] pl-5">
             {HISTORY.map(([y, t]) => (
               <li key={y} className="relative pb-5 last:pb-0">
