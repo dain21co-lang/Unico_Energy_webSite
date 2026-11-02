@@ -16,7 +16,7 @@ export function KakaoBrowserBanner() {
   useEffect(() => {
     const ua = navigator.userAgent || "";
     // 솔루믹스 페이지는 상단 바에 한/영 전환 버튼이 있어 배너를 띄우지 않는다
-    setIsKakao(/KAKAOTALK/i.test(ua) && !window.location.pathname.startsWith("/solumix"));
+    setIsKakao(/KAKAOTALK/i.test(ua) && !/^\/(solumix|haeyeon)/.test(window.location.pathname));
   }, []);
 
   if (!isKakao) return null;

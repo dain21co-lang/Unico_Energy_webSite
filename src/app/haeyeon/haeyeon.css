@@ -1,0 +1,21 @@
+/* 해연에프엔지 전용 스타일 (이 경로에서만 사용) — 흰 바탕 + 포레스트 그린 + 오렌지 포인트 */
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&display=swap");
+.hy {
+  --hy-forest: #1f5c2e;
+  --hy-lime: #9bd24a;
+  --hy-orange: #e8692a;
+  --hy-night: #10170f;
+  --hy-paper: #f5f6f1;
+  --hy-ink: #16201a;
+  --hy-sub: #5b6760;
+  --hy-line: #dfe4dc;
+  background: #fff; color: var(--hy-ink); min-height: 100vh; width: 100%; word-break: keep-all;
+}
+.hy .hy-brand { font-family: "Sora", system-ui, sans-serif; }
+@keyframes hy-kenburns { 0% { transform: scale(1.05); } 100% { transform: scale(1.16) translate3d(-2%, -1%, 0); } }
+@keyframes hy-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.hy .hy-kb { animation: hy-kenburns 20s ease-in-out infinite alternate; }
+.hy .hy-marquee { animation: hy-marquee 26s linear infinite; width: max-content; }
+.hy .hy-noscroll { scrollbar-width: none; }
+.hy .hy-noscroll::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) { .hy .hy-kb, .hy .hy-marquee { animation: none; } }
