@@ -199,7 +199,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
           <div className="mt-10">
             <p className="hy-brand text-[11px] font-bold tracking-[0.24em] text-[var(--hy-orange)]">HOW WE PROCESS</p>
             <h3 className="mt-2 text-[21px] font-black leading-snug">{s("원물에서 식탁까지, 6단계 공정", "From raw to table in six steps")}</h3>
-            <Rise className="mx-auto mt-5 w-full max-w-[340px] overflow-hidden rounded-[22px] bg-[var(--hy-night)] shadow-lg">
+            <Rise className="ml-auto mr-[46px] mt-5 w-[calc(100%-50px)] max-w-[300px] overflow-hidden rounded-[22px] bg-[var(--hy-night)] shadow-lg">
               <video
                 key={en ? "en" : "ko"}
                 src={en ? "/haeyeon/video/process-en.mp4" : "/haeyeon/video/process.mp4"}
@@ -213,7 +213,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
                 className="aspect-[9/16] w-full object-cover"
               />
             </Rise>
-            <ol className="mt-4 flex flex-wrap justify-center gap-x-2 gap-y-1 text-[12px] font-semibold text-[var(--hy-sub)]">
+            <ol className="mt-4 mr-[46px] flex flex-wrap justify-center gap-x-2 gap-y-1 text-[12px] font-semibold text-[var(--hy-sub)]">
               {STEPS.map((t, i) => (
                 <li key={t}><span className="hy-brand text-[var(--hy-orange)]">{String(i + 1).padStart(2, "0")}</span> {t}</li>
               ))}
