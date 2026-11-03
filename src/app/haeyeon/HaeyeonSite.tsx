@@ -111,10 +111,6 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
       <section className="relative h-[100svh] min-h-[620px] overflow-hidden bg-black">
         <video className="absolute inset-0 h-full w-full object-cover" src={en ? "/haeyeon/video/haeyeon-film-en.mp4" : "/haeyeon/video/haeyeon-film.mp4"} poster="/haeyeon/video/poster.jpg"
           autoPlay muted loop playsInline preload="auto" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--hy-night)] to-transparent" />
-        <a href="#intro" className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-[11px] tracking-[0.24em] text-white/80">
-          <span className="hy-brand">SCROLL</span><Icon d={I.down} size={18} />
-        </a>
       </section>
 
       {/* 인트로 */}
