@@ -47,7 +47,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
   const [sent, setSent] = useState(false);
 
   const STATS = [
-    [s("338억", "₩33.8B"), s("2025년 매출 (외부감사 기준)", "2025 revenue (audited)")],
+    [s("344억", "₩34.4B"), s("연 매출", "Annual revenue")],
     ["2020", s("설립 · 충북 제천 본사 공장", "Founded · Jecheon HQ plant")],
     ["HACCP", s("위생 공정 · 가공 허가 보유", "Hygiene process · licensed")],
     ["B2B", s("쿠팡 로켓배송 등 온라인 공급", "Online supply incl. Coupang")],
@@ -204,7 +204,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
             ))}
           </ol>
           <div className="mt-6 flex flex-wrap gap-2">
-            {[s("HACCP 위생 공정", "HACCP process"), s("식육포장처리업 허가", "Meat packing license"), s("축산물가공업 허가", "Meat processing license"), s("ISO 품질관리 체계", "Quality control system")].map((c) => (
+            {[s("HACCP 위생 공정", "HACCP process"), s("식육포장처리업 허가", "Meat packing license"), s("축산물가공업 허가", "Meat processing license")].map((c) => (
               <span key={c} className="flex items-center gap-1.5 rounded-full border border-[var(--hy-forest)]/30 bg-white px-3 py-1.5 text-[12.5px] font-semibold text-[var(--hy-forest)]"><Icon d={I.shield} size={14} />{c}</span>
             ))}
           </div>
@@ -238,8 +238,8 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
               <img src={IMG("tof.jpg")} alt={s("ToF 비전 센서 모듈", "ToF vision sensor module")} className="aspect-square w-full object-cover" />
             </div>
             <div className="p-5">
-              <p className="text-[15px] font-bold">{s("광학 센싱 협력 검토", "Optical sensing partnership under review")}</p>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-white/70">{s("국내 실리콘 MLA 렌즈 전문기업 다오옵틱과 원물 3D 인식용 센서 적용을 검토하고 있습니다.", "We are reviewing 3D carcass-sensing applications with DAO Optic, a Korean silicon MLA lens specialist.")}</p>
+              <p className="text-[15px] font-bold">{s("광학 센싱 협력사 · 다오옵틱", "Optical sensing partner · DAO Optic")}</p>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-white/70">{s("국내 실리콘 MLA 렌즈 전문기업 다오옵틱과 협력해 원물 3D 인식용 광학 센서를 개발합니다.", "Together with DAO Optic, a Korean silicon MLA lens specialist, we are developing optical sensors for 3D carcass recognition.")}</p>
             </div>
           </Rise>
         </div>
@@ -323,7 +323,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
           <Rise className="mt-7 overflow-hidden rounded-2xl"><img src={IMG("farm.jpg")} alt="" className="aspect-[16/9] w-full object-cover" /></Rise>
           <p className="mt-6 text-[14.5px] leading-[1.8] text-[var(--hy-ink)]">{s("해연에프엔지는 쌀과 잡곡 등 엄선된 농산물부터 우수한 품질의 축산물을 1·2차 정밀 가공해 최상의 상태로 생산하는 농축산 가공·유통 전문기업입니다. 생산자에게는 안정적인 판로를, 소비자에게는 신뢰할 수 있는 먹거리를 전하며 생산자와 소비자가 함께 상생하는 구조를 만들어 갑니다.", "Haeyeon F&G is an agri-food processing and distribution company that turns carefully selected grains and high-quality meat into products at their best through primary and secondary processing. We give producers a stable market and consumers food they can trust.")}</p>
           <dl className="mt-8 grid gap-2.5 rounded-2xl bg-white p-5 text-[13.5px] shadow-sm">
-            {[[s("회사명", "Company"), s("농업회사법인 해연에프엔지 주식회사", "Haeyeon F&G Co., Ltd. (agricultural corporation)")], [s("설립", "Founded"), s("2020년 8월 31일", "August 31, 2020")], [s("본사·공장", "HQ & plant"), s("충청북도 제천시 송학주천로 54", "54 Songhakjucheon-ro, Jecheon, Chungbuk")], [s("서울사무소", "Seoul office"), s("서울 강동구 고덕비즈밸리로 26, 강동U1지식산업센터 B동 509호", "B-509, Gangdong U1 Center, 26 Godeokbizvalley-ro, Seoul")]].map(([k, v]) => (
+            {[[s("회사명", "Company"), s("농업회사법인 해연에프엔지 주식회사", "Haeyeon F&G Co., Ltd. (agricultural corporation)")], [s("설립", "Founded"), s("2020년 8월 31일", "August 31, 2020")], [s("본사·공장", "HQ & plant"), s("충청북도 제천시 송학주천로 54", "54 Songhakjucheon-ro, Jecheon, Chungbuk")], [s("서울사무소", "Seoul office"), s("서울 강동구 고덕비즈밸리로 26, 강동U1지식산업센터 B동 508호", "B-508, Gangdong U1 Center, 26 Godeokbizvalley-ro, Seoul")]].map(([k, v]) => (
               <div key={k} className="grid grid-cols-[76px_1fr] gap-3"><dt className="text-[var(--hy-sub)]">{k}</dt><dd className="font-medium">{v}</dd></div>
             ))}
           </dl>
