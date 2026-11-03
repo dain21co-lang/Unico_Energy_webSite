@@ -196,14 +196,29 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
               <Rise key={f} className="overflow-hidden rounded-xl"><img src={IMG(f)} alt={s("가공 설비", "Processing equipment")} className="aspect-[4/3] w-full object-cover" /></Rise>
             ))}
           </div>
-          <ol className="mt-8 grid grid-cols-3 gap-2">
-            {STEPS.map((t, i) => (
-              <li key={t} className="rounded-lg bg-white px-2 py-3 text-center shadow-sm">
-                <p className="hy-brand text-[11px] font-bold text-[var(--hy-orange)]">STEP {i + 1}</p>
-                <p className="mt-1 text-[12.5px] font-bold leading-tight">{t}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="mt-10">
+            <p className="hy-brand text-[11px] font-bold tracking-[0.24em] text-[var(--hy-orange)]">HOW WE PROCESS</p>
+            <h3 className="mt-2 text-[21px] font-black leading-snug">{s("원물에서 식탁까지, 6단계 공정", "From raw to table in six steps")}</h3>
+            <Rise className="mx-auto mt-5 w-full max-w-[340px] overflow-hidden rounded-[22px] bg-[var(--hy-night)] shadow-lg">
+              <video
+                key={en ? "en" : "ko"}
+                src={en ? "/haeyeon/video/process-en.mp4" : "/haeyeon/video/process.mp4"}
+                poster="/haeyeon/video/process-poster.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={s("해연에프엔지 6단계 가공 공정 영상", "Haeyeon F&G six-step process film")}
+                className="aspect-[9/16] w-full object-cover"
+              />
+            </Rise>
+            <ol className="mt-4 flex flex-wrap justify-center gap-x-2 gap-y-1 text-[12px] font-semibold text-[var(--hy-sub)]">
+              {STEPS.map((t, i) => (
+                <li key={t}><span className="hy-brand text-[var(--hy-orange)]">{String(i + 1).padStart(2, "0")}</span> {t}</li>
+              ))}
+            </ol>
+          </div>
           <div className="mt-6 flex flex-wrap gap-2">
             {[s("HACCP 위생 공정", "HACCP process"), s("식육포장처리업 허가", "Meat packing license"), s("축산물가공업 허가", "Meat processing license")].map((c) => (
               <span key={c} className="flex items-center gap-1.5 rounded-full border border-[var(--hy-forest)]/30 bg-white px-3 py-1.5 text-[12.5px] font-semibold text-[var(--hy-forest)]"><Icon d={I.shield} size={14} />{c}</span>
