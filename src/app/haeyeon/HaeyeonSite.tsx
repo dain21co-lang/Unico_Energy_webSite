@@ -284,14 +284,48 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
         </div>
       </section>
 
+      {/* CEO 인사말 */}
+      <section id="ceo" className="bg-white py-16">
+        <div className="mx-auto max-w-md px-5">
+          <p className="hy-brand text-[11px] font-bold tracking-[0.24em] text-[var(--hy-orange)]">CEO MESSAGE</p>
+          <h2 className="mt-3 text-[26px] font-black leading-snug">{L(<>먹거리 산업의<br />기술적 표준을 제시하겠습니다</>, <>Setting the technology standard<br />for Korea&rsquo;s food industry</>)}</h2>
+          <Rise className="mt-8 flex items-end gap-4">
+            <div className="w-[46%] shrink-0 overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5">
+              <img src={IMG("ceo.jpg")} alt={s("해연에프엔지 대표이사 이남미", "Haeyeon F&G CEO Lee Nam-mi")} className="aspect-[4/5] w-full object-cover object-top" />
+            </div>
+            <div className="pb-1">
+              <p className="text-[12px] font-semibold text-[var(--hy-sub)]">{s("해연에프엔지 대표이사", "Chief Executive Officer")}</p>
+              <p className="mt-1 text-[24px] font-black tracking-[0.12em]">{s("이남미", "Lee Nam-mi")}</p>
+              <div className="mt-3 h-[3px] w-10 bg-[var(--hy-orange)]" />
+              <p className="mt-3 text-[13px] leading-relaxed text-[var(--hy-forest)]">{s("정직하고 신선한 기업\n젊고 도전적인 기업", "Honest and fresh.\nYoung and bold.").split("\n").map((l) => <span key={l} className="block font-bold">{l}</span>)}</p>
+            </div>
+          </Rise>
+          <div className="mt-8 grid gap-4 border-l-[3px] border-[var(--hy-lime)] pl-4 text-[14.5px] leading-[1.85] text-[var(--hy-ink)]">
+            {(en ? [
+              "Hello, and welcome to Haeyeon F&G.",
+              "We are an agri-food processing, packaging and distribution company that breaks from the traditional mold, combining rigorous manufacturing with innovative technology to create new value in food. From carefully selected rice and grains to high-quality beef, pork, chicken and duck, we deliver products at their best through primary and secondary precision processing.",
+              "Going beyond simple manufacturing, we are moving toward AI-based smart factory and food-tech systems, bringing intelligent processes to every step from raw-material analysis to precise cutting and hygienic packaging. This capability strengthens the stability of our supply to manufacturers and delivers the freshest, safest products directly to consumers.",
+              "By giving producers a stable, data-driven market and consumers innovative products they can trust, we will complete a virtuous cycle in which both thrive. As a dependable partner to farmers and fishers, we promise to become a food-tech leader that sets the technology standard for Korea\u2019s food industry and stays one step ahead of our customers.",
+              "Thank you.",
+            ] : [
+              "안녕하십니까? 주식회사 해연에프엔지입니다.",
+              "당사는 전통적인 농축산물 가공의 틀을 깨고, 엄격한 제조 공정과 혁신적인 기술력을 결합하여 먹거리의 새로운 가치를 창출하는 농축산 가공포장·제조 및 유통 전문기업입니다. 쌀과 잡곡 등 엄선된 농산물부터 우수한 품질의 축산물(우육, 돈육, 계육, 압육)을 1, 2차 정밀 가공하여 최상의 상태로 생산하고 있습니다.",
+              "특히 당사는 단순한 제조를 넘어 AI(인공지능) 기반의 스마트 팩토리 및 푸드테크 시스템으로의 전환을 통해, 원물 분석부터 세밀한 가공, 위생적인 포장 단계까지 지능형 제조 공정을 도입하고 있습니다. 이러한 기술 집약적 제조 역량은 제조사 납품의 안정성을 극대화하고, 소비자에게는 가장 신선하고 안전한 제품을 직거래로 전달하는 원동력이 됩니다.",
+              "생산자에게는 데이터 기반의 안정적인 판로를, 소비자에게는 신뢰할 수 있는 혁신 제품을 제공함으로써 생산자와 소비자 모두가 상생하는 선순환 구조를 완성하겠습니다. 저희는 농·어업인의 든든한 파트너이자, 대한민국 먹거리 산업의 기술적 표준을 제시하는 기업으로서 고객의 요구에 한발 앞서 찾아가는 푸드테크 선도 기업이 될 것을 약속드립니다.",
+              "감사합니다.",
+            ]).map((p, i) => <p key={i}>{p}</p>)}
+          </div>
+          <p className="mt-7 text-right text-[14px] text-[var(--hy-sub)]">{s("주식회사 해연에프엔지 대표이사", "CEO, Haeyeon F&G Co., Ltd.")} <span className="ml-1 text-[18px] font-black tracking-[0.15em] text-[var(--hy-ink)]">{s("이남미", "Lee Nam-mi")}</span></p>
+        </div>
+      </section>
+
       {/* ABOUT */}
       <section className="bg-[var(--hy-paper)] py-16">
         <div className="mx-auto max-w-md px-5">
           <p className="hy-brand text-[11px] font-bold tracking-[0.24em] text-[var(--hy-orange)]">ABOUT</p>
-          <h2 className="mt-3 text-[26px] font-black leading-snug">{L(<>정직하고 신선한 기업,<br />젊고 도전적인 기업</>, <>Honest and fresh,<br />young and bold</>)}</h2>
+          <h2 className="mt-3 text-[26px] font-black leading-snug">{L(<>건강한 삶을 향한<br />우리의 발자취</>, <>Our steps toward<br />healthier living</>)}</h2>
           <Rise className="mt-7 overflow-hidden rounded-2xl"><img src={IMG("farm.jpg")} alt="" className="aspect-[16/9] w-full object-cover" /></Rise>
           <p className="mt-6 text-[14.5px] leading-[1.8] text-[var(--hy-ink)]">{s("해연에프엔지는 쌀과 잡곡 등 엄선된 농산물부터 우수한 품질의 축산물을 1·2차 정밀 가공해 최상의 상태로 생산하는 농축산 가공·유통 전문기업입니다. 생산자에게는 안정적인 판로를, 소비자에게는 신뢰할 수 있는 먹거리를 전하며 생산자와 소비자가 함께 상생하는 구조를 만들어 갑니다.", "Haeyeon F&G is an agri-food processing and distribution company that turns carefully selected grains and high-quality meat into products at their best through primary and secondary processing. We give producers a stable market and consumers food they can trust.")}</p>
-          <p className="mt-5 text-[14px] font-bold text-[var(--hy-forest)]">{s("대표이사  이 남 미", "CEO  Lee Nam-mi")}</p>
           <dl className="mt-8 grid gap-2.5 rounded-2xl bg-white p-5 text-[13.5px] shadow-sm">
             {[[s("회사명", "Company"), s("농업회사법인 해연에프엔지 주식회사", "Haeyeon F&G Co., Ltd. (agricultural corporation)")], [s("설립", "Founded"), s("2020년 8월 31일", "August 31, 2020")], [s("본사·공장", "HQ & plant"), s("충청북도 제천시 송학주천로 54", "54 Songhakjucheon-ro, Jecheon, Chungbuk")], [s("서울사무소", "Seoul office"), s("서울 강동구 고덕비즈밸리로 26, 강동U1지식산업센터 B동 509호", "B-509, Gangdong U1 Center, 26 Godeokbizvalley-ro, Seoul")]].map(([k, v]) => (
               <div key={k} className="grid grid-cols-[76px_1fr] gap-3"><dt className="text-[var(--hy-sub)]">{k}</dt><dd className="font-medium">{v}</dd></div>
