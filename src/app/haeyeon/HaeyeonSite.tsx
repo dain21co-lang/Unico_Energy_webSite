@@ -126,6 +126,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
           <div className="mt-7 flex flex-col gap-2.5">
             <a href="#business" className="flex items-center justify-between rounded-lg bg-[var(--hy-orange)] px-5 py-3.5 text-[14.5px] font-bold">{s("사업 영역 보기", "See our business")}<Icon d={I.arrow} size={18} /></a>
             <a href="#foodtech" className="flex items-center justify-between rounded-lg border border-white/40 bg-white/5 px-5 py-3.5 text-[14.5px] font-bold">{s("AI 스마트 육가공", "AI smart processing")}<Icon d={I.arrow} size={18} /></a>
+            <a href="/haeyeon/deck" className="flex items-center justify-between rounded-lg bg-white px-5 py-3.5 text-[14.5px] font-bold text-[var(--hy-forest)]"><span className="flex items-center gap-2"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={18} />{s("회사소개서 바로보기", "View company profile (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
           </div>
         </div>
       </section>
@@ -327,6 +328,22 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
               <div key={k} className="grid grid-cols-[76px_1fr] gap-3"><dt className="text-[var(--hy-sub)]">{k}</dt><dd className="font-medium">{v}</dd></div>
             ))}
           </dl>
+        </div>
+      </section>
+
+      {/* 회사소개서 */}
+      <section className="bg-[var(--hy-forest)] py-12 text-white">
+        <div className="mx-auto max-w-md px-5">
+          <p className="hy-brand text-[11px] font-bold tracking-[0.24em] text-[var(--hy-lime)]">COMPANY PROFILE</p>
+          <h2 className="mt-3 text-[22px] font-black leading-snug">{s("해연에프엔지 회사소개서", "Haeyeon F&G company profile")}</h2>
+          <a href="/haeyeon/deck" className="mt-6 block overflow-hidden rounded-xl bg-white shadow-lg">
+            <img src="/haeyeon/deck/01.webp" alt={s("회사소개서 표지", "Company profile cover")} className="aspect-[1287/910] w-full object-cover" />
+          </a>
+          <div className="mt-4 grid grid-cols-2 gap-2.5">
+            <a href="/haeyeon/deck" className="flex items-center justify-center gap-1.5 rounded-lg bg-[var(--hy-orange)] py-3.5 text-[14px] font-bold"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={17} />{s("바로보기", "View")}</a>
+            <a href="/haeyeon/files/haeyeon-company-profile.pdf" target="_blank" rel="noopener" className="flex items-center justify-center gap-1.5 rounded-lg border border-white/40 py-3.5 text-[14px] font-bold">PDF {s("내려받기", "download")}</a>
+          </div>
+          <p className="mt-3 text-[12px] text-white/60">{s("54쪽 · 휴대폰에서 바로 넘겨 볼 수 있습니다.", "54 pages, in Korean.")}</p>
         </div>
       </section>
 
