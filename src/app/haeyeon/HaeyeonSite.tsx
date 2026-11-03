@@ -107,21 +107,29 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
         <Icon d={I.up} />
       </a>
 
-      {/* HERO */}
-      <section className="relative h-[100svh] min-h-[640px] overflow-hidden bg-[var(--hy-night)]">
-        <img src={IMG("carcass.jpg")} alt="" className="hy-kb absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--hy-night)]/55 via-[var(--hy-night)]/35 to-[var(--hy-night)]/95" />
-        <div className="relative mx-auto flex h-full max-w-md flex-col justify-end px-5 pb-14 pt-24 text-white">
+      {/* HERO: 메인 영상 */}
+      <section className="relative h-[100svh] min-h-[620px] overflow-hidden bg-black">
+        <video className="absolute inset-0 h-full w-full object-cover" src={en ? "/haeyeon/video/haeyeon-film-en.mp4" : "/haeyeon/video/haeyeon-film.mp4"} poster="/haeyeon/video/poster.jpg"
+          autoPlay muted loop playsInline preload="auto" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--hy-night)] to-transparent" />
+        <a href="#intro" className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-[11px] tracking-[0.24em] text-white/80">
+          <span className="hy-brand">SCROLL</span><Icon d={I.down} size={18} />
+        </a>
+      </section>
+
+      {/* 인트로 */}
+      <section id="intro" className="bg-[var(--hy-night)] pb-14 pt-12 text-white">
+        <div className="mx-auto flex max-w-md flex-col px-5">
           <p className="hy-brand text-[11px] font-semibold tracking-[0.28em] text-[var(--hy-lime)]">HAEYEON F&amp;G · FOOD × TECHNOLOGY</p>
           <div className="mt-4 h-[3px] w-12 bg-[var(--hy-orange)]" />
-          <h1 className="mt-5 text-[32px] font-black leading-[1.25] tracking-tight">
+          <h1 className="mt-5 text-[30px] font-black leading-[1.28] tracking-tight">
             {L(<>좋은 고기는 손끝에서,<br />더 좋은 고기는<br /><span className="text-[var(--hy-lime)]">데이터에서.</span></>,
                <>Great meat comes from skilled hands.<br /><span className="text-[var(--hy-lime)]">Better meat comes from data.</span></>)}
           </h1>
           <p className="mt-4 text-[15px] leading-relaxed text-white/80">{s("충북 제천의 HACCP 가공 공장에서 축산물과 농산물을 가공·유통하는 해연에프엔지가, AI 스마트 육가공으로 다음 기준을 준비합니다.", "From its HACCP plant in Jecheon, Korea, Haeyeon F&G processes and distributes meat and produce, and is preparing the next standard with AI smart meat processing.")}</p>
           <div className="mt-7 flex flex-col gap-2.5">
             <a href="#business" className="flex items-center justify-between rounded-lg bg-[var(--hy-orange)] px-5 py-3.5 text-[14.5px] font-bold">{s("사업 영역 보기", "See our business")}<Icon d={I.arrow} size={18} /></a>
-            <a href="#foodtech" className="flex items-center justify-between rounded-lg border border-white/40 bg-white/5 px-5 py-3.5 text-[14.5px] font-bold backdrop-blur">{s("AI 스마트 육가공", "AI smart processing")}<Icon d={I.arrow} size={18} /></a>
+            <a href="#foodtech" className="flex items-center justify-between rounded-lg border border-white/40 bg-white/5 px-5 py-3.5 text-[14.5px] font-bold">{s("AI 스마트 육가공", "AI smart processing")}<Icon d={I.arrow} size={18} /></a>
           </div>
         </div>
       </section>
