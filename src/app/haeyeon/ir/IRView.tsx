@@ -11,6 +11,8 @@ import { AnimatePresence, motion } from "framer-motion";
  */
 
 const P = (f: string) => `/haeyeon/ir/${f}`;
+/* 성우 녹음 파일(public/haeyeon/ir/voice/01.mp3 ~ 30.mp3)을 넣으면 true로 바꾼다 */
+const VOICE_FILES = false;
 const IMG = (f: string) => `/haeyeon/img/${f}`;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -838,6 +840,10 @@ const NARR: Record<string, string> = {
   closing: "끝까지 들어 주셔서 감사합니다. 해연에프엔지는 좋은 고기를 넘어, 더 나은 식탁의 기준을 함께 만들겠습니다.",
 };
 
+/* 녹음 파일 재생 도우미 */
+function playClip(a: HTMLAudioElement, src: string, onEnd: () => void) { a.src = src; a.onended = onEnd; a.play().catch(() => {}); }
+function stopClip(a: HTMLAudioElement) { a.onended = null; a.pause(); }
+
 /* ───────── 모핑 블롭: 같은 구조의 SVG 경로끼리 모양이 녹아들 듯 바뀐다 ───────── */
 function blob(seed: number) {
   const N = 7; const pts: [number, number][] = [];
@@ -893,28 +899,44 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
 
   /* 나레이션: 켜면 장마다 읽고, 다 읽으면 다음 장으로 자동 진행 (동영상처럼) */
   const [voiceOn, setVoiceOn] = useState(autoVoice);
-  const canSpeak = useSyncExternalStore(() => () => {}, () => "speechSynthesis" in window, () => false);
+  const canSpeak = useSyncExternalStore(() => () => {}, () => VOICE_FILES || "speechSynthesis" in window, () => false);
   const spoken = useRef(-1);
   const active = useRef(autoVoice);
   const userOff = useRef(false);
   const idxRef = useRef(0);
   useEffect(() => { idxRef.current = i; }, [i]);
   const [kakaoNoVoice, setKakaoNoVoice] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const stopAll = useCallback(() => {
+    if (audioRef.current) stopClip(audioRef.current);
+    if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel();
+  }, []);
   const speak = useCallback((idx: number) => {
-    const synth = window.speechSynthesis; if (!synth) return;
-    synth.cancel();
+    stopAll();
     spoken.current = idx;
+    const after = () => { if (!active.current) return; window.setTimeout(() => { if (!active.current) return; setState(([c]) => (c === idx && c < N - 1 ? [c + 1, 1] : [c, 0])); }, 800); };
+    /* 성우 녹음 파일이 준비되면 그것을 우선 재생 (모든 휴대폰·카카오톡에서 같은 목소리) */
+    if (VOICE_FILES) {
+      const a = audioRef.current ?? new Audio(); audioRef.current = a;
+      playClip(a, `/haeyeon/ir/voice/${String(idx + 1).padStart(2, "0")}.mp3`, after);
+      return;
+    }
+    const synth = window.speechSynthesis; if (!synth) return;
     const u = new SpeechSynthesisUtterance(NARR[SLIDES[idx].id] ?? "");
-    u.lang = "ko-KR"; u.rate = 1.0; u.pitch = 1.0;
-    const vs = synth.getVoices().filter((v) => v.lang.toLowerCase().startsWith("ko"));
-    const best = vs.find((v) => /google|samsung|yuna|sora|heami|premium|enhanced/i.test(v.name)) ?? vs[0];
+    /* 여성 목소리 우선, 차분하고 고급스럽게: 살짝 느리게, 살짝 높게 */
+    u.lang = "ko-KR"; u.rate = 0.92; u.pitch = 1.08;
+    const vs = synth.getVoices().filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith("ko"));
+    const female = vs.filter((v) => !/minsu|injoon|hyunsu|bongjin|gookmin|male|남성|남자/i.test(v.name));
+    const best = female.find((v) => /sunhi|yuna|sora|heami|seoyeon|jimin|female|여성|여자/i.test(v.name))
+      ?? female.find((v) => /natural|premium|enhanced|neural/i.test(v.name))
+      ?? female.find((v) => /google|samsung/i.test(v.name)) ?? female[0] ?? vs[0];
     if (best) u.voice = best;
-    u.onend = () => { if (!active.current) return; window.setTimeout(() => { if (!active.current) return; setState(([c]) => (c === idx && c < N - 1 ? [c + 1, 1] : [c, 0])); }, 700); };
+    u.onend = after;
     synth.speak(u);
-  }, [N]);
+  }, [N, stopAll]);
   useEffect(() => { if (voiceOn && spoken.current !== i) speak(i); }, [i, voiceOn, speak]);
-  useEffect(() => { if (!voiceOn && typeof window !== "undefined" && window.speechSynthesis) { window.speechSynthesis.cancel(); spoken.current = -1; } }, [voiceOn]);
-  useEffect(() => () => { if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel(); }, []);
+  useEffect(() => { if (!voiceOn) { stopAll(); spoken.current = -1; } }, [voiceOn, stopAll]);
+  useEffect(() => () => stopAll(), [stopAll]);
   const toggleVoice = () => {
     if (!voiceOn) { userOff.current = false; active.current = true; speak(i); setVoiceOn(true); } else { userOff.current = true; active.current = false; setVoiceOn(false); }
   };
@@ -936,7 +958,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
   /* 안드로이드 카카오톡 인앱브라우저는 음성 기능이 없다 → 외부 브라우저로 열기 안내 */
   useEffect(() => {
     const ua = navigator.userAgent || "";
-    if (!/KAKAOTALK/i.test(ua)) return;
+    if (VOICE_FILES || !/KAKAOTALK/i.test(ua)) return;
     const t0 = window.setTimeout(() => {
       const ok = "speechSynthesis" in window && window.speechSynthesis.getVoices().some((v) => v.lang.toLowerCase().startsWith("ko"));
       if (!ok) setKakaoNoVoice(true);
@@ -1008,7 +1030,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
           </div>
           <div className="mt-1.5 flex items-center justify-between">
             {onClose ? (
-              <button type="button" onClick={() => { if (window.speechSynthesis) window.speechSynthesis.cancel(); active.current = false; onClose(); }} className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
+              <button type="button" onClick={() => { active.current = false; stopAll(); onClose(); }} className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
               </button>
             ) : (
