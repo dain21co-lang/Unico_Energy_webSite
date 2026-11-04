@@ -11,8 +11,8 @@ import { AnimatePresence, motion } from "framer-motion";
  */
 
 const P = (f: string) => `/haeyeon/ir/${f}`;
-/* 성우 녹음 파일(public/haeyeon/ir/voice/01.mp3 ~ 30.mp3)을 넣으면 true로 바꾼다 */
-const VOICE_FILES = false;
+/* 성우(CLOVA Voice) 녹음 파일: public/haeyeon/ir/voice/01.mp3 ~ — 앞에서부터 준비된 장 수. 나머지 장은 휴대폰 음성으로 읽는다 */
+const VOICE_CLIPS = 10;
 const IMG = (f: string) => `/haeyeon/img/${f}`;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -900,7 +900,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
 
   /* 나레이션: 켜면 장마다 읽고, 다 읽으면 다음 장으로 자동 진행 (동영상처럼) */
   const [voiceOn, setVoiceOn] = useState(autoVoice);
-  const canSpeak = useSyncExternalStore(() => () => {}, () => VOICE_FILES || "speechSynthesis" in window, () => false);
+  const canSpeak = useSyncExternalStore(() => () => {}, () => VOICE_CLIPS > 0 || "speechSynthesis" in window, () => false);
   const spoken = useRef(-1);
   const active = useRef(autoVoice);
   const userOff = useRef(false);
@@ -926,7 +926,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
     spoken.current = idx;
     const after = () => { if (!active.current) return; window.setTimeout(() => { if (!active.current) return; setState(([c]) => (c === idx && c < N - 1 ? [c + 1, 1] : [c, 0])); }, 800); };
     /* 성우 녹음 파일이 준비되면 그것을 우선 재생 (모든 휴대폰·카카오톡에서 같은 목소리) */
-    if (VOICE_FILES) {
+    if (idx < VOICE_CLIPS) {
       const a = audioRef.current ?? new Audio(); audioRef.current = a;
       playClip(a, `/haeyeon/ir/voice/${String(idx + 1).padStart(2, "0")}.mp3`, after);
       return;
@@ -968,7 +968,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
   /* 안드로이드 카카오톡 인앱브라우저는 음성 기능이 없다 → 외부 브라우저로 열기 안내 */
   useEffect(() => {
     const ua = navigator.userAgent || "";
-    if (VOICE_FILES || !/KAKAOTALK/i.test(ua)) return;
+    if (!/KAKAOTALK/i.test(ua)) return;
     const t0 = window.setTimeout(() => {
       const ok = "speechSynthesis" in window && window.speechSynthesis.getVoices().some((v) => v.lang.toLowerCase().startsWith("ko"));
       if (!ok) setKakaoNoVoice(true);
