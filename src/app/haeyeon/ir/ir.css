@@ -1,0 +1,40 @@
+/* 해연에프엔지 IR 뷰어 전용 (이 경로에서만 사용) — 딥 포레스트 + 샴페인 골드 */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap");
+
+.ir {
+  --ir-night: #0e2218;
+  --ir-deep: #16301f;
+  --ir-cream: #f6f1e6;
+  --ir-paper: #fbf8f1;
+  --ir-gold: #c9a35b;
+  --ir-champ: #e3cf9f;
+  --ir-gold-ink: #8a6a2e;
+  --ir-moss: #6e8a5a;
+  --ir-ink: #13261b;
+  --ir-sub: #4b574f;
+  --ir-subd: #c3d0c6;
+  --ir-line: #dccca6;
+  position: fixed;
+  inset: 0;
+  background: #071510;
+  color: var(--ir-ink);
+  word-break: keep-all;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.ir .serif { font-family: "Noto Serif KR", "Nanum Myeongjo", Georgia, serif; }
+.ir .corm { font-family: "Cormorant Garamond", Georgia, serif; }
+.ir .stage { touch-action: pan-y; }
+.ir .scroll { overflow-y: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.ir .scroll::-webkit-scrollbar { display: none; }
+@keyframes ir-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ir .marquee { animation: ir-marquee 22s linear infinite; width: max-content; }
+@keyframes ir-flow { from { background-position: 0 0; } to { background-position: 0 40px; } }
+.ir .flow { background-image: repeating-linear-gradient(180deg, var(--ir-gold) 0 8px, transparent 8px 20px); background-size: 2px 40px; animation: ir-flow 1.2s linear infinite; }
+@keyframes ir-scan { 0% { transform: translateY(-10%); } 100% { transform: translateY(1000%); } }
+.ir .scanline { animation: ir-scan 2.6s linear infinite; }
+@keyframes ir-hint { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-10px); } }
+.ir .hint { animation: ir-hint 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .ir .marquee, .ir .flow, .ir .scanline, .ir .hint { animation: none; }
+}
