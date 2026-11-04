@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { AnimatePresence, motion, animate as fmAnimate } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 /*
  * 해연에프엔지 IR 뷰어 — 모바일 전용 웹 프레젠테이션
@@ -31,36 +31,64 @@ function It({ children, className = "" }: { children: ReactNode; className?: str
   return <motion.div variants={item} className={className}>{children}</motion.div>;
 }
 
-function Count({ to, d = 0, delay = 0.35 }: { to: number; d?: number; delay?: number }) {
-  const [v, setV] = useState(0);
-  useEffect(() => {
-    const c = fmAnimate(0, to, { duration: 1.6, ease: EASE, delay, onUpdate: (x) => setV(x) });
-    return () => c.stop();
-  }, [to, delay]);
-  return <>{v.toLocaleString("ko-KR", { minimumFractionDigits: d, maximumFractionDigits: d })}</>;
+/* 오도미터: 자리마다 0~9 숫자 띠가 굴러가 목표 숫자에 멈춘다 */
+function Count({ to, d = 0, delay = 0.3 }: { to: number; d?: number; delay?: number }) {
+  const str = to.toLocaleString("ko-KR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  let di = 0;
+  return (
+    <span className="inline-flex items-start" style={{ height: "1em", lineHeight: 1 }} aria-label={str}>
+      {str.split("").map((ch, k) => {
+        if (!/\d/.test(ch)) return <span key={k} aria-hidden="true" style={{ lineHeight: 1 }}>{ch}</span>;
+        const n = Number(ch); const order = di++;
+        return (
+          <span key={k} aria-hidden="true" className="relative inline-block overflow-hidden text-center" style={{ height: "1em", width: "0.56em" }}>
+            <motion.span className="absolute inset-x-0 top-0 flex flex-col" initial={{ y: "0em" }} animate={{ y: `${-(n + 10)}em` }}
+              transition={{ duration: 1.5 + order * 0.12, delay: delay + order * 0.06, ease: EASE }}>
+              {Array.from({ length: 20 }, (_, m) => <span key={m} style={{ height: "1em", lineHeight: 1 }}>{m % 10}</span>)}
+            </motion.span>
+          </span>
+        );
+      })}
+    </span>
+  );
 }
 
+/* 제목: 선이 그어진 뒤, 마스크 안에서 글이 솟아오른다 */
 function Head({ ey, t, dark }: { ey: string; t: ReactNode; dark?: boolean }) {
   return (
-    <It>
-      <p className={`corm text-[14px] font-semibold uppercase tracking-[0.26em] ${dark ? "text-[var(--ir-gold)]" : "text-[var(--ir-gold-ink)]"}`}>{ey}</p>
-      <h2 className={`serif mt-2 text-[24px] font-bold leading-[1.36] ${dark ? "text-[var(--ir-cream)]" : "text-[var(--ir-ink)]"}`}>{t}</h2>
-    </It>
+    <div>
+      <div className="flex items-center gap-2.5">
+        <motion.span className="block h-[2px] w-7 origin-left bg-[var(--ir-gold)]" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.7, delay: 0.1, ease: EASE }} />
+        <p className={`corm text-[14px] font-semibold uppercase tracking-[0.26em] ${dark ? "text-[var(--ir-gold-ink)]" : "text-[var(--ir-gold-ink)]"}`}>{ey}</p>
+      </div>
+      <h2 className="serif mt-2 overflow-hidden text-[24px] font-bold leading-[1.36] text-[var(--ir-ink)]">
+        <motion.span className="block" initial={{ y: "105%" }} animate={{ y: "0%" }} transition={{ duration: 0.9, delay: 0.2, ease: EASE }}>{t}</motion.span>
+      </h2>
+    </div>
+  );
+}
+
+/* 살아 움직이는 물방울 모양 사진 틀 */
+function Liquid({ src, alt, className = "", pos = "center" }: { src: string; alt: string; className?: string; pos?: string }) {
+  return (
+    <motion.div className={`liquid relative overflow-hidden ${className}`} initial={{ scale: 0.6, rotate: -8 }} animate={{ scale: 1, rotate: 0 }} transition={{ duration: 1.2, ease: EASE }}>
+      <motion.img src={src} alt={alt} className="h-full w-full object-cover" style={{ objectPosition: pos }} initial={{ scale: 1.25 }} animate={{ scale: 1.04 }} transition={{ duration: 8, ease: "easeOut" }} />
+    </motion.div>
+  );
+}
+
+/* 외곽선이 그려지는 큰 숫자 */
+function Outline({ n, className = "" }: { n: string; className?: string }) {
+  return (
+    <svg viewBox="0 0 220 130" className={className} aria-hidden="true">
+      <motion.text x="0" y="112" fontSize="150" fontFamily="'Cormorant Garamond', Georgia, serif" fontWeight="600" fill="none" stroke="#2e7d32" strokeWidth="1.6"
+        strokeDasharray="900" initial={{ strokeDashoffset: 900 }} animate={{ strokeDashoffset: 0 }} transition={{ duration: 2.2, ease: "easeInOut" }}>{n}</motion.text>
+    </svg>
   );
 }
 
 function Src({ children, dark }: { children: ReactNode; dark?: boolean }) {
-  return <It><p className={`mt-5 text-[11px] leading-relaxed ${dark ? "text-[#c5deaa]" : "text-[#56704a]"}`}>{children}</p></It>;
-}
-
-function Photo({ src, dim = "from-[var(--ir-night)]/95 via-[var(--ir-night)]/55 to-[var(--ir-night)]/10", pos = "center" }: { src: string; dim?: string; pos?: string }) {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      <motion.img src={src} alt="" className="h-full w-full object-cover" style={{ objectPosition: pos }}
-        initial={{ scale: 1.18 }} animate={{ scale: 1.02 }} transition={{ duration: 9, ease: "easeOut" }} />
-      <div className={`absolute inset-0 bg-gradient-to-t ${dim}`} />
-    </div>
-  );
+  return <It><p className={`mt-5 text-[11px] leading-relaxed ${dark ? "text-[var(--ir-mute)]" : "text-[#56704a]"}`}>{children}</p></It>;
 }
 
 /* 슬라이드 껍데기: 배경은 무대(stage)가 모핑으로 칠하고, 사진 슬라이드만 자기 배경을 갖는다 */
@@ -74,18 +102,18 @@ function Body({ children, center, bottom }: { children: ReactNode; center?: bool
 
 function Divider({ n, en, ko, desc, img, pos }: { n: string; en: string; ko: string; desc: string; img: string; pos?: string }) {
   return (
-    <>
-      <Photo src={img} pos={pos} dim="from-[var(--ir-night)] via-[var(--ir-night)]/75 to-[var(--ir-night)]/20" />
-      <Body bottom>
-        <S>
-          <It><p className="corm text-[120px] font-semibold leading-[0.85] text-[var(--ir-gold)]">{n}</p></It>
-          <It><p className="corm mt-4 text-[22px] italic tracking-[0.08em] text-[var(--ir-champ)]">{en}</p></It>
-          <It><h2 className="serif mt-1 text-[40px] font-bold leading-tight text-[var(--ir-cream)]">{ko}</h2></It>
-          <It><div className="mt-5 h-[2px] w-14 bg-[var(--ir-gold)]" /></It>
-          <It><p className="mt-5 text-[14.5px] leading-relaxed text-[var(--ir-subd)]">{desc}</p></It>
-        </S>
-      </Body>
-    </>
+    <Body center>
+      <div className="relative">
+        <Outline n={n} className="w-[62%]" />
+        <Liquid src={img} alt="" pos={pos} className="absolute -right-2 top-[30px] h-[230px] w-[230px] shadow-[0_24px_60px_rgba(30,80,30,0.22)]" />
+      </div>
+      <S className="mt-[150px]">
+        <It><p className="corm text-[22px] italic tracking-[0.08em] text-[var(--ir-gold-ink)]">{en}</p></It>
+        <It><h2 className="serif mt-1 text-[40px] font-bold leading-tight">{ko}</h2></It>
+        <It><motion.div className="mt-5 h-[2px] w-14 origin-left bg-[var(--ir-gold)]" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 0.6 }} /></It>
+        <It><p className="mt-5 text-[14.5px] leading-relaxed text-[var(--ir-sub)]">{desc}</p></It>
+      </S>
+    </Body>
   );
 }
 
@@ -96,22 +124,21 @@ const dcard = "rounded-2xl bg-[var(--ir-deep)]";
 const SLIDES: Slide[] = [
   /* 01 표지 */
   { id: "cover", ch: 0, theme: "dark", render: () => (
-    <>
-      <Photo src={P("butcher.webp")} pos="60% 20%" />
-      <Body bottom>
-        <S>
-          <It className="flex items-center gap-3"><span className="h-[2px] w-10 bg-[var(--ir-gold)]" /><p className="corm text-[15px] font-semibold uppercase tracking-[0.3em] text-[var(--ir-gold)]">Investor Relations 2026</p></It>
-          <It><h1 className="serif mt-4 text-[46px] font-black leading-[1.08] tracking-tight text-[var(--ir-cream)]">해연에프엔지</h1></It>
-          <It><p className="corm mt-1 text-[26px] italic text-[var(--ir-champ)]">Haeyeon F&amp;G Co., Ltd.</p></It>
-          <It><p className="serif mt-5 text-[18px] font-medium leading-[1.6] text-[var(--ir-subd)]">좋은 고기는 손끝에서,<br />더 좋은 고기는 데이터에서.</p></It>
-          <It className="mt-8 flex items-center gap-3">
-            <img src={IMG("symbol.png")} alt="해연에프엔지 심볼" className="h-11 w-11 rounded-full bg-[var(--ir-paper)] object-contain" />
-            <p className="text-[12px] leading-snug tracking-wide text-[#d6ead0]">농업회사법인 해연에프엔지 주식회사<br />2026. 11 · 투자설명 자료</p>
-          </It>
-          <It><p className="hint mt-7 flex items-center gap-2 text-[12.5px] font-semibold text-[var(--ir-champ)]">옆으로 밀어 넘겨 보세요 <span aria-hidden="true">→</span></p></It>
-        </S>
-      </Body>
-    </>
+    <Body center>
+      <div className="relative mx-auto mt-1 w-full">
+        <Liquid src={P("butcher.webp")} alt="해연에프엔지 가공장에서 원육을 손질하는 장인" pos="60% 20%" className="mx-auto aspect-[4/5] w-[82%] shadow-[0_30px_70px_rgba(30,80,30,0.25)]" />
+        <motion.img src={IMG("symbol.png")} alt="해연에프엔지 심볼" className="absolute bottom-[-18px] left-[6%] h-[72px] w-[72px] rounded-full bg-white object-contain p-1 shadow-lg"
+          initial={{ scale: 0, rotate: -180 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 160, damping: 14, delay: 0.8 }} />
+      </div>
+      <S className="mt-9">
+        <It className="flex items-center gap-3"><motion.span className="block h-[2px] w-10 origin-left bg-[var(--ir-gold)]" initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 0.4 }} /><p className="corm text-[15px] font-semibold uppercase tracking-[0.3em] text-[var(--ir-gold-ink)]">Investor Relations 2026</p></It>
+        <h1 className="serif mt-3 overflow-hidden text-[44px] font-black leading-[1.1] tracking-tight"><motion.span className="block" initial={{ y: "105%" }} animate={{ y: "0%" }} transition={{ duration: 1, delay: 0.3, ease: EASE }}>해연에프엔지</motion.span></h1>
+        <It><p className="corm text-[24px] italic text-[var(--ir-gold-ink)]">Haeyeon F&amp;G Co., Ltd.</p></It>
+        <It><p className="serif mt-3 text-[16px] font-medium leading-[1.6] text-[var(--ir-sub)]">좋은 고기는 손끝에서, 더 좋은 고기는 데이터에서.</p></It>
+        <It><p className="mt-4 text-[11.5px] tracking-wide text-[var(--ir-mute)]">농업회사법인 해연에프엔지 주식회사 · 2026. 11 · 투자설명 자료</p></It>
+        <It><p className="hint mt-5 flex items-center gap-2 text-[12.5px] font-semibold text-[var(--ir-gold-ink)]">옆으로 밀어 넘겨 보세요 <span aria-hidden="true">→</span></p></It>
+      </S>
+    </Body>
   ) },
 
   /* 02 목차 */
@@ -144,7 +171,7 @@ const SLIDES: Slide[] = [
             <It key={l as string} className="bg-[var(--ir-night)] p-4">
               <p className="text-[12px] text-[var(--ir-subd)]">{l}</p>
               <p className="corm mt-1 text-[46px] font-semibold leading-none text-[var(--ir-champ)]"><Count to={v as number} d={d as number} /><span className="ml-0.5 text-[24px] text-[var(--ir-gold)]">억</span></p>
-              <p className="mt-1.5 text-[11.5px] text-[#cfe6b5]">{s}</p>
+              <p className="mt-1.5 text-[11.5px] text-[var(--ir-mute)]">{s}</p>
             </It>
           ))}
         </div>
@@ -208,7 +235,7 @@ const SLIDES: Slide[] = [
           <p>엄격한 제조 공정과 기술을 결합해 먹거리의 새로운 가치를 만드는 축산물 가공·유통 전문기업입니다.</p>
           <p className="mt-2">이제 AI 기반 스마트 팩토리로 전환해 원물 분석부터 정밀 가공, 위생 포장까지 지능형 공정을 도입하고, 생산자와 소비자가 함께 성장하는 선순환으로 보답하겠습니다.</p>
         </It>
-        <It className="mt-5 flex items-baseline justify-end gap-3"><span className="text-[12px] text-[#cfe6b5]">대표이사</span><span className="serif text-[22px] font-bold tracking-[0.3em] text-[var(--ir-champ)]">이남미</span></It>
+        <It className="mt-5 flex items-baseline justify-end gap-3"><span className="text-[12px] text-[var(--ir-mute)]">대표이사</span><span className="serif text-[22px] font-bold tracking-[0.3em] text-[var(--ir-champ)]">이남미</span></It>
       </S>
     </Body>
   ) },
@@ -216,7 +243,7 @@ const SLIDES: Slide[] = [
   /* 07 연혁 */
   { id: "history", ch: 2, theme: "dark", render: () => (
     <>
-      <div className="absolute inset-0 overflow-hidden"><img src={P("field.webp")} alt="" className="h-full w-full object-cover opacity-[0.16]" /></div>
+      <div className="absolute inset-0 overflow-hidden"><img src={P("field.webp")} alt="" className="h-full w-full object-cover opacity-[0.07]" /></div>
       <Body center>
         <S>
           <Head dark ey="02 · Milestones" t="설립 6년, 가공 거점에서 자산과 기술로" />
@@ -239,7 +266,7 @@ const SLIDES: Slide[] = [
 
   /* 08 주주 */
   { id: "shareholders", ch: 2, theme: "light", render: () => {
-    const segs = [[0.45, "#1E3512"], [0.3, "#F5C518"], [0.25, "#6E8A5A"]] as const;
+    const segs = [[0.45, "#1E3512"], [0.3, "#8CC63F"], [0.25, "#6E8A5A"]] as const;
     let acc = 0;
     return (
       <Body center>
@@ -247,7 +274,7 @@ const SLIDES: Slide[] = [
           <Head ey="02 · Shareholders" t="주주 구성과 지배구조" />
           <It className="relative mx-auto mt-6 h-[210px] w-[210px]">
             <svg viewBox="0 0 200 200" className="h-full w-full" aria-label="지분 구성: 이남미 45%, 박용준 30%, 유토컴퍼니 25%">
-              <circle cx="100" cy="100" r="74" fill="none" stroke="#D3E8AC" strokeWidth="30" />
+              <circle cx="100" cy="100" r="74" fill="none" stroke="#EEF3E8" strokeWidth="30" />
               {segs.map(([f, c], i) => {
                 const start = acc; acc += f;
                 return (
@@ -264,7 +291,7 @@ const SLIDES: Slide[] = [
             </div>
           </It>
           <div className="mt-6">
-            {[["#1E3512", "이남미", "대표이사", "40,500", "45%"], ["#F5C518", "박용준", "사내이사", "27,000", "30%"], ["#6E8A5A", "㈜유토컴퍼니", "법인 주주", "22,500", "25%"]].map(([c, n, r, q, p]) => (
+            {[["#1E3512", "이남미", "대표이사", "40,500", "45%"], ["#8CC63F", "박용준", "사내이사", "27,000", "30%"], ["#6E8A5A", "㈜유토컴퍼니", "법인 주주", "22,500", "25%"]].map(([c, n, r, q, p]) => (
               <It key={n} className="flex items-center gap-3 border-t border-[var(--ir-line)] py-2.5 text-[13.5px]">
                 <span className="h-3 w-3 rounded-sm" style={{ background: c }} />
                 <span className="flex-1 font-bold">{n} <span className="ml-1 text-[12px] font-normal text-[var(--ir-sub)]">{r}</span></span>
@@ -325,7 +352,7 @@ const SLIDES: Slide[] = [
         </div>
         <It className={`${card} mt-4 p-4`}>
           <div className="flex items-baseline justify-between"><p className="text-[12.5px] text-[var(--ir-sub)]">2025 매출 구성</p><p className="serif text-[18px] font-bold">341억 원</p></div>
-          <div className="mt-2.5 flex h-4 overflow-hidden rounded-full bg-[#d3e8ac]">
+          <div className="mt-2.5 flex h-4 overflow-hidden rounded-full bg-[#eef3e8]">
             <motion.div className="h-full bg-[var(--ir-ink)]" initial={{ width: "0%" }} animate={{ width: "99.2%" }} transition={{ duration: 1.4, delay: 0.5, ease: EASE }} />
             <motion.div className="h-full bg-[var(--ir-gold)]" initial={{ width: "0%" }} animate={{ width: "0.8%" }} transition={{ duration: 0.6, delay: 1.7 }} />
           </div>
@@ -417,19 +444,19 @@ const SLIDES: Slide[] = [
       <S>
         <Head dark ey="03 · Real Estate Income" t="수익형 부동산이 만드는 안정 현금흐름" />
         <It className={`${dcard} mt-5 border-t-4 border-[var(--ir-gold)] p-4`}>
-          <div className="flex items-baseline justify-between"><p className="serif text-[16px] font-bold">인천지점 · 가좌동</p><p className="text-[11px] text-[#cfe6b5]">감사 확인</p></div>
+          <div className="flex items-baseline justify-between"><p className="serif text-[16px] font-bold">인천지점 · 가좌동</p><p className="text-[11px] text-[var(--ir-mute)]">감사 확인</p></div>
           <div className="mt-3 grid grid-cols-2 gap-3">
             {[[89.5, "취득원가 (토지+건물)"], [80.1, "담보 감정가"], [2.7, "2025 임대매출"], [2.7, "임대보증금"]].map(([v, l], i) => (
-              <div key={i}><p className="text-[11px] text-[#cfe6b5]">{l}</p><p className="corm text-[32px] font-semibold leading-tight text-[var(--ir-champ)]"><Count to={v as number} d={1} />억</p></div>
+              <div key={i}><p className="text-[11px] text-[var(--ir-mute)]">{l}</p><p className="corm text-[32px] font-semibold leading-tight text-[var(--ir-champ)]"><Count to={v as number} d={1} />억</p></div>
             ))}
           </div>
           <p className="mt-2 text-[11.5px] leading-snug text-[var(--ir-subd)]">6층 공장건물 전 층 임대 · 든든한 한끼, 오렌지몽키코리아, ㈜국화, ㈜원테크놀러지 외</p>
         </It>
         <It className={`${dcard} mt-2.5 border-t-4 border-[var(--ir-moss)] p-4`}>
-          <div className="flex items-baseline justify-between"><p className="serif text-[16px] font-bold">하남미사지점</p><p className="text-[11px] text-[#cfe6b5]">회사 제시</p></div>
+          <div className="flex items-baseline justify-between"><p className="serif text-[16px] font-bold">하남미사지점</p><p className="text-[11px] text-[var(--ir-mute)]">회사 제시</p></div>
           <div className="mt-3 grid grid-cols-2 gap-3">
-            <div><p className="text-[11px] text-[#cfe6b5]">매입가</p><p className="corm text-[32px] font-semibold leading-tight text-[var(--ir-champ)]"><Count to={75} />억</p></div>
-            <div><p className="text-[11px] text-[#cfe6b5]">연 임대수익</p><p className="corm text-[32px] font-semibold leading-tight text-[var(--ir-champ)]"><Count to={2.4} d={1} />억</p></div>
+            <div><p className="text-[11px] text-[var(--ir-mute)]">매입가</p><p className="corm text-[32px] font-semibold leading-tight text-[var(--ir-champ)]"><Count to={75} />억</p></div>
+            <div><p className="text-[11px] text-[var(--ir-mute)]">연 임대수익</p><p className="corm text-[32px] font-semibold leading-tight text-[var(--ir-champ)]"><Count to={2.4} d={1} />억</p></div>
           </div>
           <p className="mt-2 text-[11.5px] leading-snug text-[var(--ir-subd)]">그랑파사쥬 1층 3개 호실 · 글로벌 커피 프랜차이즈 전체 임차</p>
         </It>
@@ -474,7 +501,7 @@ const SLIDES: Slide[] = [
         <S>
           <Head ey="04 · Profitability" t="이익 구조 — 총이익은 늘고, 비용은 정리 중" />
           <It className={`${card} mt-5 p-4`}>
-            <div className="flex justify-end gap-3 text-[11px]"><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-[#b9cf96]" />2024</span><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-[var(--ir-ink)]" />2025</span></div>
+            <div className="flex justify-end gap-3 text-[11px]"><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-[#c9d8b6]" />2024</span><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-[var(--ir-ink)]" />2025</span></div>
             <div className="relative mt-2" style={{ height: H + NEG + 24 }}>
               <div className="absolute inset-x-0 border-t border-[var(--ir-sub)]/50" style={{ top: H }} />
               <div className="absolute inset-0 grid grid-cols-3">
@@ -485,7 +512,7 @@ const SLIDES: Slide[] = [
                       return (
                         <div key={k} className="absolute flex w-[34%] flex-col items-center" style={{ left: k === 0 ? "14%" : "52%", top: v >= 0 ? H - h - 18 : H, height: h + 18 }}>
                           {v >= 0 && <span className={`text-[11px] font-bold tabular-nums ${k ? "" : "text-[var(--ir-sub)]"}`}>{v.toFixed(1)}</span>}
-                          <motion.div className={`w-full ${v >= 0 ? "origin-bottom rounded-t-md" : "origin-top rounded-b-md"} ${k ? "bg-[var(--ir-ink)]" : "bg-[#b9cf96]"}`} style={{ height: h }}
+                          <motion.div className={`w-full ${v >= 0 ? "origin-bottom rounded-t-md" : "origin-top rounded-b-md"} ${k ? "bg-[var(--ir-ink)]" : "bg-[#c9d8b6]"}`} style={{ height: h }}
                             initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1, delay: 0.4 + gi * 0.2 + k * 0.12, ease: EASE }} />
                           {v < 0 && <span className="text-[11px] font-bold tabular-nums text-[#9a5a3a]">{v.toFixed(1)}</span>}
                         </div>
@@ -512,7 +539,7 @@ const SLIDES: Slide[] = [
       <div className="flex flex-1 flex-col items-center">
         <motion.div className="flex w-full origin-bottom flex-col overflow-hidden rounded-lg" style={{ height: H }} initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.2, delay, ease: EASE }}>
           {parts.map(([v, c, t]) => (
-            <div key={t} className="flex items-center justify-center text-center text-[11px] font-bold leading-tight" style={{ flex: v, background: c, color: c === "#F5C518" || c === "#FFE58A" ? "#3b7a23" : "#e2f0c2" }}>{v >= 6 ? <span>{t}<br />{v.toFixed(1)}</span> : null}</div>
+            <div key={t} className="flex items-center justify-center text-center text-[11px] font-bold leading-tight" style={{ flex: v, background: c, color: c === "#F5C518" || c === "#8CC63F" || c === "#E6F4C9" ? "#16201a" : "#ffffff" }}>{v >= 6 ? <span>{t}<br />{v.toFixed(1)}</span> : null}</div>
           ))}
         </motion.div>
         <p className="mt-2 text-[12.5px] font-bold">{label}</p>
@@ -523,8 +550,8 @@ const SLIDES: Slide[] = [
         <S>
           <Head dark ey="04 · Balance Sheet" t="자산 96.6억 원의 91%가 토지·건물" />
           <It className="mt-6 flex gap-5 px-3">
-            <Bar label="자산 96.6억" delay={0.4} parts={[[0.6, "#6E8A5A", "기타"], [7.6, "#FFE58A", "유동자산"], [88.4, "#F5C518", "유형자산"]]} />
-            <Bar label="부채 81.1 + 자본 15.5" delay={0.7} parts={[[15.5, "#a7d45a", "자본"], [6.1, "#6E8A5A", "기타부채"], [75.0, "#24561a", "장기차입금"]]} />
+            <Bar label="자산 96.6억" delay={0.4} parts={[[0.6, "#6E8A5A", "기타"], [7.6, "#E6F4C9", "유동자산"], [88.4, "#8CC63F", "유형자산"]]} />
+            <Bar label="부채 81.1 + 자본 15.5" delay={0.7} parts={[[15.5, "#F5C518", "자본"], [6.1, "#6E8A5A", "기타부채"], [75.0, "#24561a", "장기차입금"]]} />
           </It>
           <div className="mt-5 grid gap-2">
             {[["장기차입금 75억", "IBK 중소기업시설자금, 금리 2.99%, 인천 부동산 담보 (감정 80.1억)"], ["특수관계자 차입 8.6억 → 0", "2025년 중 전액 상환, 부채 8.3억 감소"], ["자본 15.5억", "이익잉여금 9.5억 누적, 전년 대비 +2.1억"]].map(([t, d]) => (
@@ -540,7 +567,7 @@ const SLIDES: Slide[] = [
   /* 20 현금흐름 */
   { id: "cashflow", ch: 4, theme: "light", render: () => {
     const R = 8.4;
-    const rows: [string, number, number, string, string][] = [["기초 현금", 0, 0.14, "0.1", "#b9cf96"], ["영업활동", 0.14, 8.08, "+8.1", "#1E3512"], ["투자활동", 8.22, 0, "0.0", "#b9cf96"], ["재무활동", 0.02, 8.2, "−8.2", "#6E8A5A"], ["기말 현금", 0, 0.02, "0.0", "#b9cf96"]];
+    const rows: [string, number, number, string, string][] = [["기초 현금", 0, 0.14, "0.1", "#c9d8b6"], ["영업활동", 0.14, 8.08, "+8.1", "#1E3512"], ["투자활동", 8.22, 0, "0.0", "#c9d8b6"], ["재무활동", 0.02, 8.2, "−8.2", "#6E8A5A"], ["기말 현금", 0, 0.02, "0.0", "#c9d8b6"]];
     return (
       <Body center>
         <S>
@@ -558,7 +585,7 @@ const SLIDES: Slide[] = [
             ))}
           </It>
           <div className="mt-3 grid grid-cols-2 gap-2.5">
-            <It className="rounded-xl bg-[var(--ir-night)] p-3.5 text-[var(--ir-cream)]"><p className="text-[11.5px] text-[var(--ir-subd)]">영업활동 현금흐름</p><p className="corm text-[34px] font-semibold leading-tight text-[var(--ir-champ)]">+<Count to={8.1} d={1} />억</p><p className="text-[11px] text-[#cfe6b5]">전년 +4.3억</p></It>
+            <It className="rounded-xl bg-[var(--ir-night)] p-3.5 text-[var(--ir-cream)]"><p className="text-[11.5px] text-[var(--ir-subd)]">영업활동 현금흐름</p><p className="corm text-[34px] font-semibold leading-tight text-[var(--ir-champ)]">+<Count to={8.1} d={1} />억</p><p className="text-[11px] text-[var(--ir-mute)]">전년 +4.3억</p></It>
             <It className={`${card} p-3.5`}><p className="text-[11.5px] text-[var(--ir-sub)]">특수관계자 차입 상환</p><p className="corm text-[34px] font-semibold leading-tight">−<Count to={12.0} d={1} />억</p><p className="text-[11px] text-[var(--ir-sub)]">신규 차입 3.4억 포함 순상환</p></It>
           </div>
           <It className="mt-3 text-[12.5px] leading-relaxed text-[var(--ir-sub)]">기말 현금은 0.02억 원으로 낮아, 투자 유치를 통한 운전자금 확충이 필요한 시점입니다.</It>
@@ -600,7 +627,7 @@ const SLIDES: Slide[] = [
         <It className="mt-6 text-center">
           <p className="text-[12.5px] text-[var(--ir-subd)]">연간 현장 가공 인력 비용</p>
           <p className="corm text-[84px] font-semibold leading-none text-[var(--ir-champ)]"><Count to={31.9} d={1} /><span className="text-[34px] text-[var(--ir-gold)]">억</span></p>
-          <p className="mt-1 text-[12px] text-[#cfe6b5]">일용 노무비 24.6억 + 제조 복리후생비 7.3억</p>
+          <p className="mt-1 text-[12px] text-[var(--ir-mute)]">일용 노무비 24.6억 + 제조 복리후생비 7.3억</p>
         </It>
         <div className="mt-6 grid gap-2.5">
           {[["숙련 발골 인력 구인난", "고령화로 숙련공이 줄고 새로 배우는 사람은 적습니다"], ["노무비 급증", "회사 제조원가 기준 전년 대비 약 4배 증가"], ["수작업 수율 편차", "숙련도·피로도에 따라 뼈에 남는 살코기와 절단 규격이 달라집니다"]].map(([t, d], i) => (
@@ -646,17 +673,17 @@ const SLIDES: Slide[] = [
           <table className="mt-2 w-full text-[13px]">
             <tbody>
               {[["노무비 30% 절감", "9.6"], ["노무비 50% 절감", "16.0"], ["정육 수율 +1%p", "2.8"], ["정육 수율 +2%p", "5.5"], ["정육 수율 +3%p", "8.3"]].map(([k, v]) => (
-                <tr key={k} className="border-t border-white/10"><td className="py-2 text-[var(--ir-subd)]">{k}</td><td className="corm py-2 text-right text-[20px] font-semibold text-[var(--ir-champ)]">{v}</td></tr>
+                <tr key={k} className="border-t border-[var(--ir-line)]"><td className="py-2 text-[var(--ir-subd)]">{k}</td><td className="corm py-2 text-right text-[20px] font-semibold text-[var(--ir-champ)]">{v}</td></tr>
               ))}
             </tbody>
           </table>
         </It>
         <It className="mt-4">
           <p className="text-[12px] text-[var(--ir-subd)]">예시: 노무비 50% 절감 + 수율 +2%p</p>
-          {[["2025 영업이익", 6.0, "#6E8A5A"], ["원가 개선 잠재력", 21.5, "#F5C518"]].map(([l, v, c], i) => (
+          {[["2025 영업이익", 6.0, "#6E8A5A"], ["원가 개선 잠재력", 21.5, "#2E7D32"]].map(([l, v, c], i) => (
             <div key={l as string} className="mt-2">
               <div className="flex justify-between text-[12px]"><span>{l}</span><span className="font-bold tabular-nums">{(v as number).toFixed(1)}억</span></div>
-              <div className="mt-1 h-3 overflow-hidden rounded-full bg-white/10">
+              <div className="mt-1 h-3 overflow-hidden rounded-full bg-[var(--ir-line)]">
                 <motion.div className="h-full rounded-full" style={{ background: c as string }} initial={{ width: "0%" }} animate={{ width: `${((v as number) / 21.5) * 100}%` }} transition={{ duration: 1.3, delay: 0.6 + i * 0.4, ease: EASE }} />
               </div>
             </div>
@@ -692,7 +719,7 @@ const SLIDES: Slide[] = [
   /* 27 시장 */
   { id: "market", ch: 5, theme: "dark", render: () => (
     <>
-      <div className="absolute inset-0 overflow-hidden"><img src={P("table.webp")} alt="" className="h-full w-full object-cover opacity-[0.14]" /></div>
+      <div className="absolute inset-0 overflow-hidden"><img src={P("table.webp")} alt="" className="h-full w-full object-cover opacity-[0.06]" /></div>
       <Body center>
         <S>
           <Head dark ey="05 · Market Opportunity" t="균일한 규격을 원하는 시장으로" />
@@ -755,36 +782,61 @@ const SLIDES: Slide[] = [
 
   /* 30 마무리 */
   { id: "closing", ch: 6, theme: "dark", render: ({ go }) => (
-    <>
-      <Photo src={P("family.webp")} pos="50% 30%" dim="from-[var(--ir-night)] via-[var(--ir-night)]/80 to-[var(--ir-night)]/20" />
-      <Body bottom>
-        <S>
-          <It><p className="corm text-[44px] italic leading-none text-[var(--ir-champ)]">Thank you</p></It>
-          <It><h2 className="serif mt-2 text-[34px] font-bold">감사합니다</h2></It>
-          <It><p className="serif mt-3 text-[15px] leading-relaxed text-[var(--ir-subd)]">좋은 고기를 넘어, 더 나은 식탁의 기준을 함께 만들겠습니다.</p></It>
-          <It className="mt-5 grid gap-1.5 border-t border-[var(--ir-gold)]/50 pt-4 text-[12.5px]">
-            {[["대표전화", "02-544-9145"], ["이메일", "manmi1004@naver.com"], ["서울사무소", "강동구 고덕비즈밸리로 26, B동 508호"], ["가공 거점", "충북 제천시 송학주천로 54"]].map(([k, v]) => (
-              <p key={k} className="flex gap-3"><span className="w-[68px] shrink-0 text-[#cfe6b5]">{k}</span><span>{v}</span></p>
-            ))}
-          </It>
-          <It className="mt-5 grid grid-cols-2 gap-2.5">
-            <button type="button" onClick={() => go(0)} className="rounded-lg border border-[var(--ir-gold)] py-3 text-[13.5px] font-bold text-[var(--ir-champ)]">처음부터 다시</button>
-            <a href="/haeyeon" className="rounded-lg bg-[var(--ir-gold)] py-3 text-center text-[13.5px] font-bold text-[var(--ir-night)]">사이트로 돌아가기</a>
-          </It>
-          <It><p className="mt-4 text-[10.5px] leading-relaxed text-[#c5deaa]">본 자료의 계획·추정치는 회사 제시 자료에 근거하며 실제 결과와 다를 수 있습니다. 과거 재무 수치는 2025 회계연도 감사보고서 기준입니다.</p></It>
-        </S>
-      </Body>
-    </>
+    <Body center>
+      <Liquid src={P("family.webp")} alt="가족이 함께 고기를 구워 먹는 저녁 식탁" pos="50% 30%" className="mx-auto aspect-square w-[68%] shadow-[0_30px_70px_rgba(30,80,30,0.25)]" />
+      <S className="mt-7">
+        <It><p className="corm text-[40px] italic leading-none text-[var(--ir-gold-ink)]">Thank you</p></It>
+        <h2 className="serif mt-2 overflow-hidden text-[32px] font-bold"><motion.span className="block" initial={{ y: "105%" }} animate={{ y: "0%" }} transition={{ duration: 0.9, delay: 0.3, ease: EASE }}>감사합니다</motion.span></h2>
+        <It><p className="serif mt-2 text-[14.5px] leading-relaxed text-[var(--ir-sub)]">좋은 고기를 넘어, 더 나은 식탁의 기준을 함께 만들겠습니다.</p></It>
+        <It className="mt-4 grid gap-1.5 border-t border-[var(--ir-line)] pt-3.5 text-[12.5px]">
+          {[["대표전화", "02-544-9145"], ["이메일", "manmi1004@naver.com"], ["서울사무소", "강동구 고덕비즈밸리로 26, B동 508호"], ["가공 거점", "충북 제천시 송학주천로 54"]].map(([k, v]) => (
+            <p key={k} className="flex gap-3"><span className="w-[68px] shrink-0 text-[var(--ir-mute)]">{k}</span><span>{v}</span></p>
+          ))}
+        </It>
+        <It className="mt-4 grid grid-cols-2 gap-2.5">
+          <button type="button" onClick={() => go(0)} className="rounded-full border border-[var(--ir-gold-ink)] py-3 text-[13.5px] font-bold text-[var(--ir-gold-ink)]">처음부터 다시</button>
+          <a href="/haeyeon" className="rounded-full bg-[var(--ir-gold-ink)] py-3 text-center text-[13.5px] font-bold text-white">사이트로 돌아가기</a>
+        </It>
+        <It><p className="mt-3 text-[10.5px] leading-relaxed text-[var(--ir-mute)]">본 자료의 계획·추정치는 회사 제시 자료에 근거하며 실제 결과와 다를 수 있습니다. 과거 재무 수치는 2025 회계연도 감사보고서 기준입니다.</p></It>
+      </S>
+    </Body>
   ) },
 ];
 
-/* ───────── 모핑 오브 프리셋 (무대 뒤에서 모양·위치가 계속 변한다) ───────── */
-const ORBS = [
-  { left: "38%", top: "-12%", width: "95%", height: "52%", borderRadius: "50% 50% 50% 50%", rotate: 0 },
-  { left: "-35%", top: "48%", width: "90%", height: "48%", borderRadius: "42% 58% 63% 37%", rotate: 25 },
-  { left: "45%", top: "55%", width: "80%", height: "55%", borderRadius: "60% 40% 30% 70%", rotate: -20 },
-  { left: "-20%", top: "-10%", width: "75%", height: "40%", borderRadius: "35% 65% 55% 45%", rotate: 45 },
-  { left: "10%", top: "30%", width: "120%", height: "30%", borderRadius: "48% 52% 40% 60%", rotate: -12 },
+/* ───────── 모핑 블롭: 같은 구조의 SVG 경로끼리 모양이 녹아들 듯 바뀐다 ───────── */
+function blob(seed: number) {
+  const N = 7; const pts: [number, number][] = [];
+  for (let k = 0; k < N; k++) {
+    const a = (k / N) * Math.PI * 2;
+    const r = 62 + 26 * Math.sin(seed * 1.7 + k * 2.3) * Math.cos(seed * 0.9 + k);
+    pts.push([100 + r * Math.cos(a), 100 + r * Math.sin(a)]);
+  }
+  const f = (n: number) => n.toFixed(1);
+  let d = `M${f(pts[0][0])},${f(pts[0][1])}`;
+  for (let k = 0; k < N; k++) {
+    const p0 = pts[(k - 1 + N) % N], p1 = pts[k], p2 = pts[(k + 1) % N], p3 = pts[(k + 2) % N];
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${f(c1[0])},${f(c1[1])} ${f(c2[0])},${f(c2[1])} ${f(p2[0])},${f(p2[1])}`;
+  }
+  return d + "Z";
+}
+const BLOBS = Array.from({ length: 30 }, (_, k) => blob(k + 1));
+const BLOB_POS = [
+  { x: "38%", y: "-14%", scale: 1.15, rotate: 0 },
+  { x: "-42%", y: "52%", scale: 1.0, rotate: 40 },
+  { x: "46%", y: "58%", scale: 0.9, rotate: -30 },
+  { x: "-30%", y: "-12%", scale: 0.85, rotate: 70 },
+  { x: "30%", y: "26%", scale: 1.25, rotate: -15 },
+  { x: "-20%", y: "70%", scale: 1.1, rotate: 20 },
+];
+const BLOB2_POS = [
+  { x: "-34%", y: "68%", scale: 0.7, rotate: 10 },
+  { x: "54%", y: "-6%", scale: 0.6, rotate: -40 },
+  { x: "-38%", y: "8%", scale: 0.55, rotate: 60 },
+  { x: "50%", y: "72%", scale: 0.75, rotate: -20 },
+  { x: "-44%", y: "40%", scale: 0.6, rotate: 30 },
+  { x: "56%", y: "40%", scale: 0.5, rotate: -60 },
 ];
 
 export default function IRView() {
@@ -792,7 +844,7 @@ export default function IRView() {
   const [menu, setMenu] = useState(false);
   const N = SLIDES.length;
   const s = SLIDES[i];
-  const dark = s.theme === "dark";
+  const dark = false;
 
   const go = useCallback((n: number) => {
     setMenu(false);
@@ -814,29 +866,33 @@ export default function IRView() {
     return () => window.removeEventListener("keydown", onKey);
   }, [next, prev]);
 
-  const orb = ORBS[i % ORBS.length];
 
   return (
     <div className="ir">
       <div className="relative mx-auto h-[100dvh] w-full max-w-[480px] overflow-hidden">
         {/* 무대 배경: 테마에 따라 색이 모핑 */}
-        <motion.div className="absolute inset-0" animate={{ backgroundColor: dark ? "#3b7a23" : "#e2f0c2" }} transition={{ duration: 0.7 }} />
-        {/* 골드 오브: 장마다 모양·위치가 바뀌는 모핑 */}
-        <motion.div aria-hidden="true" className="pointer-events-none absolute" style={{ filter: "blur(38px)" }}
-          animate={{ ...orb, background: dark ? "radial-gradient(circle, rgba(245,197,24,0.42) 0%, rgba(245,197,24,0) 68%)" : "radial-gradient(circle, rgba(245,197,24,0.38) 0%, rgba(245,197,24,0) 68%)" }}
-          transition={{ type: "spring", stiffness: 40, damping: 16 }} />
-        {/* 골드 프레임: 테마에 따라 여백과 모서리가 모핑 */}
-        <motion.div aria-hidden="true" className="pointer-events-none absolute z-20 border"
-          animate={dark ? { top: 10, left: 10, right: 10, bottom: 10, borderRadius: 22, borderColor: "rgba(245,197,24,0.45)" } : { top: 14, left: 14, right: 14, bottom: 14, borderRadius: 6, borderColor: "rgba(245,197,24,0.6)" }}
+        <motion.div className="absolute inset-0" animate={{ backgroundColor: "#ffffff" }} transition={{ duration: 0.7 }} />
+        {/* 모핑 블롭 두 개: 장을 넘길 때마다 모양·위치·크기가 녹아들 듯 바뀐다 */}
+        <motion.svg aria-hidden="true" viewBox="0 0 200 200" className="pointer-events-none absolute left-0 top-0 w-full" style={{ filter: "blur(2px)" }}
+          animate={BLOB_POS[i % BLOB_POS.length]} transition={{ type: "spring", stiffness: 38, damping: 14 }}>
+          <defs><linearGradient id="ir-g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#ebf6dc" /><stop offset="100%" stopColor="#d5ecb4" /></linearGradient></defs>
+          <motion.path fill="url(#ir-g1)" initial={false} animate={{ d: BLOBS[i] }} transition={{ duration: 1.4, ease: EASE }} />
+        </motion.svg>
+        <motion.svg aria-hidden="true" viewBox="0 0 200 200" className="pointer-events-none absolute left-0 top-0 w-full"
+          animate={BLOB2_POS[i % BLOB2_POS.length]} transition={{ type: "spring", stiffness: 30, damping: 12 }}>
+          <motion.path fill="#fff4c2" initial={false} animate={{ d: BLOBS[(i + 11) % 30] }} transition={{ duration: 1.6, ease: EASE }} />
+        </motion.svg>
+        {/* 얇은 그린 프레임: 장마다 모서리가 살짝 모핑 */}
+        <motion.div aria-hidden="true" className="pointer-events-none absolute z-20 border border-[#d6e6c6]"
+          animate={{ top: 12, left: 12, right: 12, bottom: 12, borderRadius: i % 2 ? 26 : 8 }}
           transition={{ type: "spring", stiffness: 70, damping: 18 }} />
-
         {/* 슬라이드 */}
         <AnimatePresence initial={false} custom={dir}>
-          <motion.section key={s.id} custom={dir} className={`absolute inset-0 z-10 ${dark ? "text-[var(--ir-cream)]" : "text-[var(--ir-ink)]"}`}
+          <motion.section key={s.id} custom={dir} className={`absolute inset-0 z-10 text-[var(--ir-ink)] ${s.theme === "dark" ? "flip" : ""}`}
             variants={{
-              enter: (d: number) => ({ x: d >= 0 ? "100%" : "-100%", scale: 0.92, rotateY: d >= 0 ? -12 : 12 }),
+              enter: (d: number) => ({ x: d >= 0 ? "100%" : "-100%", scale: 0.86, rotateY: d >= 0 ? -24 : 24 }),
               center: { x: "0%", scale: 1, rotateY: 0 },
-              exit: (d: number) => ({ x: d >= 0 ? "-100%" : "100%", scale: 0.92, rotateY: d >= 0 ? 12 : -12 }),
+              exit: (d: number) => ({ x: d >= 0 ? "-100%" : "100%", scale: 0.86, rotateY: d >= 0 ? 24 : -24 }),
             }}
             initial="enter" animate="center" exit="exit"
             transition={{ x: { type: "spring", stiffness: 260, damping: 32 }, scale: { duration: 0.5 }, rotateY: { duration: 0.6 } }}
@@ -899,7 +955,7 @@ export default function IRView() {
                     <button key={c} type="button" onClick={() => go(start)} className={`flex items-center gap-4 border-t border-white/10 py-3.5 text-left ${s.ch === k ? "text-[var(--ir-champ)]" : ""}`}>
                       <span className="corm w-8 text-[26px] font-semibold text-[var(--ir-gold)]">{String(k).padStart(2, "0")}</span>
                       <span className="serif flex-1 text-[18px] font-bold">{c}</span>
-                      <span className="text-[12px] text-[#cfe6b5]">{start + 1}</span>
+                      <span className="text-[12px] text-[var(--ir-mute)]">{start + 1}</span>
                     </button>
                   );
                 })}

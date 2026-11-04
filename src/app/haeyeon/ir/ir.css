@@ -1,22 +1,24 @@
-/* 해연에프엔지 IR 뷰어 전용 (이 경로에서만 사용) — 연두·그린 + 옐로 포인트 (회사소개서 톤) */
+/* 해연에프엔지 IR 뷰어 전용 (이 경로에서만 사용) — 화이트 + 그린 포인트, 모핑 블롭 */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap");
 
 .ir {
-  --ir-night: #3b7a23;
-  --ir-deep: #2f6a1a;
-  --ir-cream: #fbfef4;
-  --ir-paper: #fbfef4;
-  --ir-gold: #f5c518;
-  --ir-champ: #ffe58a;
-  --ir-gold-ink: #4e7a12;
+  --ir-night: #1f5c2e;
+  --ir-deep: #2a6b38;
+  --ir-cream: #ffffff;
+  --ir-paper: #ffffff;
+  --ir-gold: #8cc63f;
+  --ir-champ: #e6f4c9;
+  --ir-gold-ink: #2e7d32;
   --ir-moss: #6e8a5a;
-  --ir-ink: #1e3512;
-  --ir-sub: #3e4f36;
-  --ir-subd: #e3f1d3;
-  --ir-line: #bfdd8a;
+  --ir-ink: #16201a;
+  --ir-sub: #5b6760;
+  --ir-subd: #dcebd2;
+  --ir-line: #e3e9dc;
+  --ir-mute: #cfe6b5;
+  --ir-tint: #f2f7ec;
   position: fixed;
   inset: 0;
-  background: #2a5a18;
+  background: #ffffff;
   color: var(--ir-ink);
   word-break: keep-all;
   overflow: hidden;
@@ -38,3 +40,21 @@
 @media (prefers-reduced-motion: reduce) {
   .ir .marquee, .ir .flow, .ir .scanline, .ir .hint { animation: none; }
 }
+
+/* 원래 어두웠던 장을 화이트로 뒤집는 변수 세트 */
+.ir .flip {
+  --ir-night: #ffffff;
+  --ir-cream: #16201a;
+  --ir-subd: #5b6760;
+  --ir-champ: #2e7d32;
+  --ir-gold: #6aa83a;
+  --ir-deep: #f2f7ec;
+  --ir-mute: #7a8a72;
+}
+@keyframes ir-liquid {
+  0%, 100% { border-radius: 58% 42% 38% 62% / 52% 44% 56% 48%; }
+  33% { border-radius: 40% 60% 62% 38% / 44% 58% 42% 56%; }
+  66% { border-radius: 50% 50% 34% 66% / 60% 40% 60% 40%; }
+}
+.ir .liquid { animation: ir-liquid 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .ir .liquid { animation: none; } }
