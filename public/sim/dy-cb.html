@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box;height:100%}*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>대양금속 담보부 CB 시뮬레이션</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;800&family=IBM+Plex+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one phone-width deck of 11 swipeable sheets; a soft wine "seal" shape morphs behind each sheet; numbers set in mono like a term sheet. */
+:root{
+  --paper:#FFFFFF; --ink:#16202B; --sub:#5B6673; --line:#E2E6EC;
+  --wine:#7A1F3D; --wine-wash:#F6EBEF; --steel:#3B5872; --steel-wash:#EAF0F5;
+  --good:#2E6B4E; --warn:#9C5A12; --warn-wash:#FBF2E6;
+  --f-display:"Noto Serif KR","Nanum Myeongjo",Georgia,serif;
+  --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0F1318; --ink:#E8ECF1; --sub:#9AA5B2; --line:#262D37;
+  --wine:#E58AA6; --wine-wash:#2A1820; --steel:#93B3CF; --steel-wash:#16212B;
+  --good:#74C39C; --warn:#E3A55C; --warn-wash:#2A2014; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F1318; --ink:#E8ECF1; --sub:#9AA5B2; --line:#262D37;
+  --wine:#E58AA6; --wine-wash:#2A1820; --steel:#93B3CF; --steel-wash:#16212B;
+  --good:#74C39C; --warn:#E3A55C; --warn-wash:#2A2014; color-scheme:dark}
+
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;overflow:hidden;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-wrap:anywhere}
+.deck{position:relative;height:100%;max-width:560px;margin:0 auto;overflow:hidden;touch-action:pan-y}
+.seal{position:absolute;z-index:0;background:var(--wine-wash);border-radius:46% 54% 42% 58%/55% 45% 55% 45%;
+  transition:transform 1s cubic-bezier(.7,0,.2,1),width 1s cubic-bezier(.7,0,.2,1),height 1s cubic-bezier(.7,0,.2,1),border-radius 1s ease,background-color .8s;
+  width:260px;height:260px;left:0;top:0;pointer-events:none}
+.top{position:absolute;z-index:3;left:0;right:0;top:0;padding:14px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));display:flex;align-items:center;gap:10px}
+.bar{flex:1;height:3px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--wine);transform-origin:left;transform:scaleX(.09);transition:transform .7s cubic-bezier(.7,0,.2,1)}
+.count{font-family:var(--f-num);font-size:12px;color:var(--sub);font-variant-numeric:tabular-nums}
+.slide{position:absolute;z-index:1;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  transform:translateX(105%) scale(.96);transition:transform .7s cubic-bezier(.7,0,.2,1);visibility:hidden}
+.slide.on{transform:none;visibility:visible}
+.slide.past{transform:translateX(-30%) scale(.92);visibility:hidden}
+.slide.leaving{visibility:visible}
+.wrap{min-height:100%;display:flex;flex-direction:column;justify-content:center;gap:18px;
+  padding-block:52px 96px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-num);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--wine)}
+h1,h2{font-family:var(--f-display);font-weight:800;text-wrap:balance;margin:0;letter-spacing:-.01em}
+h1{font-size:clamp(30px,8.6vw,42px);line-height:1.2}
+h2{font-size:clamp(23px,6.4vw,30px);line-height:1.3}
+p{margin:0}
+.lead{font-size:16px;color:var(--sub);max-width:34em}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+/* motion: elements are visible at rest, only offset before their slide arrives */
+[data-a]{transform:translateY(22px);transition:transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--d,0) * 90ms + 250ms)}
+.on [data-a]{transform:none}
+.cards{display:grid;gap:10px}
+.card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--paper);display:grid;gap:4px;min-width:0}
+.card .k{font-size:12.5px;color:var(--sub)}
+.card .v{font-size:17px;font-weight:700}
+.card .s{font-size:13.5px;color:var(--sub)}
+.card.hl{border-color:var(--wine);background:var(--wine-wash)}
+.ol{display:grid;gap:12px;counter-reset:n;padding:0;margin:0;list-style:none}
+.ol li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.ol li::before{counter-increment:n;content:counter(n);font-family:var(--f-num);font-weight:600;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--wine);color:var(--paper);font-size:14px}
+.ol b{display:block;font-size:16px}
+.ol span{color:var(--sub);font-size:14px}
+.terms{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.term{border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:4px;align-content:start;min-width:0}
+.term b{font-size:15px;color:var(--wine)}
+.term span{font-size:13px;line-height:1.5}
+.term em{font-style:normal;font-size:12px;color:var(--sub)}
+.note{font-size:13.5px;color:var(--sub);border-left:3px solid var(--wine);padding:2px 0 2px 12px}
+svg text{font-family:var(--f-body)}
+.flow .edge{fill:none;stroke-width:2;stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1.1s cubic-bezier(.6,0,.2,1)}
+.on .flow .edge{stroke-dashoffset:0}
+.on .flow .e1{transition-delay:.5s}.on .flow .e2{transition-delay:1.1s}.on .flow .e3{transition-delay:1.7s}
+.stack{display:flex;height:46px;border-radius:10px;overflow:hidden;border:1px solid var(--line);position:relative}
+.stack i{display:block;height:100%;transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.6,0,.2,1)}
+.on .stack i{transform:scaleX(1)}
+.stack .a{width:33.3%;background:var(--steel)}
+.stack .b{width:11.1%;background:var(--wine);transition-delay:.5s}
+.stack .c{width:55.6%;background:var(--steel-wash);transition-delay:.9s}
+.marker{position:absolute;top:-6px;bottom:-6px;left:70%;width:0;border-left:2px dashed var(--good)}
+.legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:12.5px}
+.legend div{display:grid;gap:2px}
+.legend b{font-family:var(--f-num);font-size:16px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:0}
+.big{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.big .num{font-size:52px;font-weight:600;line-height:1;color:var(--wine)}
+.tl{display:grid;gap:0;position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl .rail{position:absolute;left:6px;top:8px;width:2px;height:calc(100% - 16px);background:var(--wine);transform:scaleY(0);transform-origin:top;transition:transform 1.6s cubic-bezier(.6,0,.2,1) .3s}
+.on .tl .rail{transform:scaleY(1)}
+.step{position:relative;padding:4px 0 14px}
+.step::before{content:"";position:absolute;left:-21px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:2px solid var(--wine)}
+.step .d{font-family:var(--f-num);font-size:11.5px;color:var(--wine);letter-spacing:.05em}
+.step b{display:block;font-size:16px}
+.step span{display:block;font-size:13.5px;color:var(--sub)}
+.risk{display:grid;gap:10px}
+.risk .card{grid-template-columns:auto 1fr;column-gap:12px}
+.risk .tag{grid-row:span 2;font-family:var(--f-num);font-size:12px;font-weight:600;color:var(--warn);background:var(--warn-wash);border-radius:8px;padding:6px 8px;height:fit-content}
+.path{display:grid;gap:10px}
+.phase{border-radius:14px;padding:16px;display:grid;gap:6px}
+.phase.now{background:var(--steel-wash)}
+.phase.next{background:var(--wine-wash)}
+.phase .k{font-family:var(--f-num);font-size:11.5px;letter-spacing:.1em;color:var(--sub)}
+.phase b{font-size:17px}
+.phase span{font-size:13.5px;color:var(--sub)}
+.gate{justify-self:center;font-size:12.5px;color:var(--sub);display:flex;align-items:center;gap:8px}
+.gate::before{content:"";width:12px;height:12px;transform:rotate(45deg);border:2px solid var(--wine)}
+.checks{display:grid;gap:8px}
+.checks label{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;cursor:pointer;padding:10px 12px;border:1px solid var(--line);border-radius:12px}
+.checks input{accent-color:var(--wine);width:18px;height:18px;margin-top:3px;flex:none}
+.checks input:checked + span{color:var(--sub);text-decoration:line-through}
+.no{display:grid;gap:8px}
+.no div{font-size:14.5px;padding:10px 12px;border-radius:12px;background:var(--wine-wash);display:flex;gap:10px}
+.no div::before{content:"✕";color:var(--wine);font-weight:700}
+.nav{position:absolute;z-index:3;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;
+  padding:12px max(16px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  background:linear-gradient(to top,var(--paper) 60%,transparent)}
+.nav button{font:inherit;font-size:14px;font-weight:500;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:9px 18px;cursor:pointer}
+.nav button.go{background:var(--wine);border-color:var(--wine);color:var(--paper)}
+.nav button:disabled{color:var(--sub);cursor:default;opacity:.55}
+.nav button:focus-visible,.checks label:focus-within{outline:2px solid var(--wine);outline-offset:2px}
+.chap{font-size:12px;color:var(--sub)}
+.stamp{display:inline-block;font-family:var(--f-num);font-size:11.5px;border:1.5px solid var(--wine);color:var(--wine);border-radius:6px;padding:3px 8px;transform:rotate(-3deg);width:fit-content}
+.src{font-size:12px;color:var(--sub)}
+@media (prefers-reduced-motion: reduce){*{transition-duration:.01ms!important;transition-delay:0s!important}}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+  <div class="seal" id="seal"></div>
+  <div class="top"><div class="bar"><i id="prog"></i></div><span class="count" id="count">01 / 11</span></div>
+
+  <!-- 0 cover -->
+  <section class="slide on" data-chap="표지">
+    <div class="wrap">
+      <span class="stamp" data-a style="--d:0">SIMULATION · 2026.11</span>
+      <h1 data-a style="--d:1">대양금속<br>부동산 담보부 CB</h1>
+      <p class="lead" data-a style="--d:2">유안타증권을 통해 자금을 조달한다고 가정하고, 절차를 처음부터 끝까지 따라가 봅니다.</p>
+      <p class="note" data-a style="--d:3">실제 진행 건이 아닌 가정 검토입니다. 실행 전에는 로펌과 유안타 컴플라이언스의 확인이 필요합니다.</p>
+    </div>
+  </section>
+
+  <!-- 1 assumption -->
+  <section class="slide" data-chap="가정">
+    <div class="wrap">
+      <span class="eyebrow" data-a>01 · 가정</span>
+      <h2 data-a style="--d:1">누가, 무엇을, 얼마나</h2>
+      <div class="cards">
+        <div class="card" data-a style="--d:2"><span class="k">돈이 필요한 회사</span><span class="v">대양금속㈜</span><span class="s">KOSPI 상장 · 스테인리스 냉연강판</span></div>
+        <div class="card" data-a style="--d:3"><span class="k">돈을 대는 곳</span><span class="v">유안타증권</span><span class="s">홍상무 측이 주선하거나 직접 인수</span></div>
+        <div class="card" data-a style="--d:4"><span class="k">담보를 대신 내주는 곳</span><span class="v">주식회사 공명</span><span class="s">서부중앙시장 재개발 시행사</span></div>
+        <div class="card hl" data-a style="--d:5"><span class="k">담보물 · 규모</span><span class="v">서부중앙시장 부지 <span class="num">2순위 40억</span></span><span class="s">서대문구 북가좌동 338-19 · 1순위 약 120억 뒤</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 conclusion -->
+  <section class="slide" data-chap="결론">
+    <div class="wrap">
+      <span class="eyebrow" data-a>02 · 결론 먼저</span>
+      <h2 data-a style="--d:1">가능은 하지만, 지금은 '담보대출'이 더 현실적입니다</h2>
+      <ol class="ol">
+        <li data-a style="--d:2"><div><b>법적으로 가능한 구조입니다</b><span>준비 → 조건 협의 → 이사회·공시 → 담보 설정·입금 → 사후 관리, 5단계로 진행됩니다.</span></div></li>
+        <li data-a style="--d:3"><div><b>지금은 '주식 전환권'이 쓸모가 없습니다</b><span>대양금속 주식이 거래정지 상태라, 유안타는 사실상 부동산 담보대출로 판단합니다.</span></div></li>
+        <li data-a style="--d:4"><div><b>공명이 무엇을 받는지가 핵심입니다</b><span>대가 없이 남의 빚에 담보를 내주면 분쟁의 씨앗이 됩니다. 반드시 문서로 정리합니다.</span></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3 terms -->
+  <section class="slide" data-chap="용어">
+    <div class="wrap">
+      <span class="eyebrow" data-a>03 · 용어 풀이</span>
+      <h2 data-a style="--d:1">이 여섯 단어만 알면 됩니다</h2>
+      <div class="terms">
+        <div class="term" data-a style="--d:2"><b>CB (전환사채)</b><span>돈을 빌려주되, 나중에 주식으로 바꿀 수 있는 차용증</span><em>돈으로 받거나 주식으로 받거나</em></div>
+        <div class="term" data-a style="--d:3"><b>담보부</b><span>못 갚으면 팔아서 회수할 물건이 잡혀 있음</span><em>전당포에 맡긴 물건</em></div>
+        <div class="term" data-a style="--d:4"><b>물상보증</b><span>빚진 회사가 아닌 다른 사람이 자기 재산을 담보로 내줌</span><em>친구 대출에 내 집을 잡혀 주기</em></div>
+        <div class="term" data-a style="--d:5"><b>근저당</b><span>등기부에 '이 땅에 얼마까지 빚이 있다'고 올려 두는 것</span><em>땅에 붙이는 차용 딱지</em></div>
+        <div class="term" data-a style="--d:6"><b>선순위 · 후순위</b><span>땅을 팔았을 때 돈을 받아 가는 순서</span><em>1번이 다 받고 나서 2번</em></div>
+        <div class="term" data-a style="--d:7"><b>리픽싱</b><span>주가가 내리면 전환 가격도 내려 줌. 최초 가격의 70%까지만</span><em>가격 조정 조항</em></div>
+      </div>
+      <p class="note" data-a style="--d:8"><b>풋옵션</b>: 투자자가 일정 시점에 "돈을 일찍 돌려달라"고 요구할 수 있는 권리</p>
+    </div>
+  </section>
+
+  <!-- 4 flow -->
+  <section class="slide" data-chap="흐름">
+    <div class="wrap">
+      <span class="eyebrow" data-a>04 · 돈과 담보의 흐름</span>
+      <h2 data-a style="--d:1">돈은 대양금속으로, 담보는 공명에서</h2>
+      <svg class="flow" viewBox="0 0 340 300" role="img" aria-label="유안타증권이 대양금속에 투자금을 넣고, 공명이 서부시장 부지를 담보로 제공하는 흐름" data-a style="--d:2;width:100%;height:auto;max-width:100%">
+        <defs>
+          <marker id="aw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--wine)"/></marker>
+          <marker id="as" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--steel)"/></marker>
+        </defs>
+        <rect x="100" y="16" width="140" height="50" rx="12" style="fill:var(--steel-wash);stroke:var(--steel)"/>
+        <text x="170" y="38" text-anchor="middle" style="fill:var(--ink);font-weight:700;font-size:14px">유안타증권</text>
+        <text x="170" y="56" text-anchor="middle" style="fill:var(--sub);font-size:11px">돈을 대는 곳</text>
+        <rect x="14" y="212" width="132" height="50" rx="12" style="fill:var(--paper);stroke:var(--ink)"/>
+        <text x="80" y="234" text-anchor="middle" style="fill:var(--ink);font-weight:700;font-size:14px">대양금속</text>
+        <text x="80" y="252" text-anchor="middle" style="fill:var(--sub);font-size:11px">CB 발행 회사</text>
+        <rect x="194" y="212" width="132" height="50" rx="12" style="fill:var(--wine-wash);stroke:var(--wine)"/>
+        <text x="260" y="234" text-anchor="middle" style="fill:var(--ink);font-weight:700;font-size:14px">공명</text>
+        <text x="260" y="252" text-anchor="middle" style="fill:var(--sub);font-size:11px">서부시장 부지 소유</text>
+        <path class="edge e1" d="M118 66 L66 208" style="stroke:var(--steel)" marker-end="url(#as)"/>
+        <path class="edge e2" d="M98 210 L148 70" style="stroke:var(--sub)" marker-end="url(#as)"/>
+        <path class="edge e3" d="M252 208 L206 70" style="stroke:var(--wine)" marker-end="url(#aw)"/>
+        <text x="20" y="128" style="fill:var(--steel);font-size:11.5px;font-weight:700">① 투자금</text>
+        <text x="20" y="143" style="fill:var(--steel);font-size:11.5px">약 40억</text>
+        <text x="132" y="152" style="fill:var(--sub);font-size:11.5px;font-weight:700">③ 이자·원금</text>
+        <text x="132" y="167" style="fill:var(--sub);font-size:11.5px">(또는 주식)</text>
+        <text x="244" y="128" style="fill:var(--wine);font-size:11.5px;font-weight:700">② 2순위 담보</text>
+        <text x="244" y="143" style="fill:var(--wine);font-size:11.5px">근저당 설정</text>
+        <text x="170" y="290" text-anchor="middle" style="fill:var(--sub);font-size:11px">공명과 대양금속 사이엔 돈이 오가지 않는 것이 원칙</text>
+      </svg>
+      <p class="note" data-a style="--d:3">공명은 돈을 받지 않고 담보만 빌려줍니다. 그래서 '담보를 내주는 대가'를 따로 정해 문서로 남겨야 합니다.</p>
+    </div>
+  </section>
+
+  <!-- 5 collateral -->
+  <section class="slide" data-chap="담보">
+    <div class="wrap">
+      <span class="eyebrow" data-a>05 · 담보물 살펴보기</span>
+      <h2 data-a style="--d:1">감정가의 44%만 빚이 잡힙니다</h2>
+      <div class="big" data-a style="--d:2"><span class="num" data-count="44" data-dec="0">44</span><span>% · 담보비율 (1·2순위 합계 ÷ 감정가)</span></div>
+      <div data-a style="--d:3">
+        <div class="stack"><i class="a"></i><i class="b"></i><i class="c"></i><span class="marker" title="감정가의 70%"></span></div>
+      </div>
+      <div class="legend" data-a style="--d:4">
+        <div><span><span class="dot" style="background:var(--steel)"></span>1순위</span><b class="num"><span data-count="120">120</span>억</b></div>
+        <div><span><span class="dot" style="background:var(--wine)"></span>2순위 (이번)</span><b class="num"><span data-count="40">40</span>억</b></div>
+        <div><span><span class="dot" style="background:var(--steel-wash);border:1px solid var(--line)"></span>여유</span><b class="num"><span data-count="200.8" data-dec="1">200.8</span>억</b></div>
+      </div>
+      <p class="src" data-a style="--d:5">감정가 360.8억(토지 2,531.9㎡ × ㎡당 1,425만 원). 초록 점선은 감정가의 70%인 약 252억으로, 경매에서 70%만 받아도 1·2순위 160억은 회수된다는 가정입니다.</p>
+      <div class="cards">
+        <div class="card" data-a style="--d:6"><span class="v" style="font-size:15px">감정평가를 새로 받아야 합니다</span><span class="s">지금 감정서는 2023년 3월 기준의 초안이고, 다른 회사(WS자산운용) 용도로만 쓸 수 있습니다.</span></div>
+        <div class="card" data-a style="--d:7"><span class="v" style="font-size:15px">공유자 전원의 동의가 필요합니다</span><span class="s">공명 외 여러 명이 함께 가진 땅인데, 감정은 전체 면적 기준입니다.</span></div>
+        <div class="card" data-a style="--d:8"><span class="v" style="font-size:15px">사업 일정이 늦어졌는지 확인합니다</span><span class="s">계획상 2026년 3~5월 PF, 7월 착공이었습니다. 지금은 11월입니다.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 steps -->
+  <section class="slide" data-chap="절차">
+    <div class="wrap">
+      <span class="eyebrow" data-a>06 · 진행 절차</span>
+      <h2 data-a style="--d:1">5단계, 약 두 달</h2>
+      <div class="tl">
+        <span class="rail"></span>
+        <div class="step" data-a style="--d:2"><span class="d">D-60 ~ D-30</span><b>1. 준비</b><span>대양금속의 거래소 심사 상황 확인 · 등기부와 공유자 확인 · 새 감정평가 · 공명 이사회와 조합 동의</span></div>
+        <div class="step" data-a style="--d:3"><span class="d">D-30 ~ D-15</span><b>2. 조건 협의</b><span>유안타와 금액·만기·이자·풋옵션 결정 · 'PF 실행 시 먼저 상환' 조항 · 법률 실사 · 유안타 내부 승인</span></div>
+        <div class="step" data-a style="--d:4"><span class="d">D-14 ~ D-1</span><b>3. 이사회 결의 · 공시</b><span>대양금속 이사회에서 CB 발행 결의 → 다음 날까지 공시 · 인수계약, 담보제공계약, 신탁계약 체결</span></div>
+        <div class="step" data-a style="--d:5"><span class="d">D-DAY</span><b>4. 담보 설정 → 입금</b><span>담보 등기를 먼저 끝내고 확인한 뒤 투자금 입금 · 2주 안에 전환사채 등기</span></div>
+        <div class="step" data-a style="--d:6"><span class="d">사후</span><b>5. 사후 관리</b><span>자금 사용 내역 공시 · 주식 전환은 1년 뒤부터 · 서부시장 본PF 때 상환하고 담보 말소</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 risks -->
+  <section class="slide" data-chap="걸리는 점">
+    <div class="wrap">
+      <span class="eyebrow" data-a>07 · 걸리는 점</span>
+      <h2 data-a style="--d:1">먼저 넘어야 할 세 가지</h2>
+      <div class="risk">
+        <div class="card" data-a style="--d:2"><span class="tag">상태</span><span class="v" style="font-size:15.5px">대양금속 거래정지</span><span class="s">주식으로 바꿔도 팔 수 없어, 전환권의 가치가 없습니다. 거래소가 자금의 출처를 볼 수 있어 사전 협의가 필요합니다.</span></div>
+        <div class="card" data-a style="--d:3"><span class="tag">법</span><span class="v" style="font-size:15.5px">담보부사채신탁법</span><span class="s">사채에 부동산 담보를 붙이려면 원칙적으로 신탁회사를 거쳐야 합니다. 근저당만 설정하는 방식은 다툼의 여지가 있습니다.</span></div>
+        <div class="card" data-a style="--d:4"><span class="tag">대가</span><span class="v" style="font-size:15.5px">공명은 무엇을 받나</span><span class="s">대가 없이 담보를 내주면 공명 이사의 배임 문제가 생길 수 있습니다. 담보제공 수수료 등을 문서로 남깁니다.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 alternative -->
+  <section class="slide" data-chap="대안">
+    <div class="wrap">
+      <span class="eyebrow" data-a>08 · 대안</span>
+      <h2 data-a style="--d:1">2단계로 나누면 더 단순합니다</h2>
+      <div class="path">
+        <div class="phase now" data-a style="--d:2"><span class="k">지금</span><b>공명 물상보증부 담보대출</b><span>유안타가 대양금속에 대출하고, 공명이 서부시장 부지를 담보로 제공합니다. 사채가 아니라서 신탁 절차 부담이 적습니다.</span></div>
+        <span class="gate" data-a style="--d:3">대양금속 거래 재개</span>
+        <div class="phase next" data-a style="--d:4"><span class="k">그다음</span><b>CB 또는 유상증자로 전환</b><span>주식이 다시 거래되면 전환권에 가치가 생깁니다. 그때 대출을 CB나 증자로 바꾸는 방안을 협의합니다.</span></div>
+      </div>
+      <p class="note" data-a style="--d:5">이 방식이 맞는지는 홍상무와 로펌에 함께 확인합니다.</p>
+    </div>
+  </section>
+
+  <!-- 9 checklist -->
+  <section class="slide" data-chap="체크리스트">
+    <div class="wrap">
+      <span class="eyebrow" data-a>09 · 체크리스트</span>
+      <h2 data-a style="--d:1">하면 안 되는 것, 확인할 것</h2>
+      <div class="no">
+        <div data-a style="--d:2">투자금이 다시 공명이나 담보 제공자 쪽으로 흘러가는 구조</div>
+        <div data-a style="--d:3">공시에 적은 자금 사용 목적과 다르게 쓰는 것</div>
+        <div data-a style="--d:4">담보 등기 전에 먼저 입금하는 것</div>
+      </div>
+      <div class="checks" id="checks">
+        <label data-a style="--d:5"><input type="checkbox" id="c1"><span>대양금속 거래소 심사 진행 상황</span></label>
+        <label data-a style="--d:6"><input type="checkbox" id="c2"><span>등기부: 1순위 120억이 원금인지 채권최고액인지</span></label>
+        <label data-a style="--d:7"><input type="checkbox" id="c3"><span>공유자 명단과 전원 동의</span></label>
+        <label data-a style="--d:8"><input type="checkbox" id="c4"><span>유안타 지정 감정법인의 새 감정가</span></label>
+        <label data-a style="--d:9"><input type="checkbox" id="c5"><span>서부시장 관리처분변경인가와 PF 일정</span></label>
+        <label data-a style="--d:10"><input type="checkbox" id="c6"><span>공명이 받는 대가와 문서</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 end -->
+  <section class="slide" data-chap="마무리">
+    <div class="wrap">
+      <span class="stamp" data-a>END OF SIMULATION</span>
+      <h2 data-a style="--d:1">실행 전, 세 곳의 확인을 받습니다</h2>
+      <ol class="ol">
+        <li data-a style="--d:2"><div><b>유안타증권 (홍상무 측)</b><span>내부 심사 가능 여부, 대출과 CB 중 어느 쪽이 가능한지</span></div></li>
+        <li data-a style="--d:3"><div><b>자문 로펌</b><span>담보부사채신탁법 적용, 공명의 담보 제공 적법성</span></div></li>
+        <li data-a style="--d:4"><div><b>한국거래소</b><span>대양금속 심사 중 자금 조달에 대한 의견</span></div></li>
+      </ol>
+      <p class="src" data-a style="--d:5">자료: 서부중앙시장 감정평가서(초안, 2023.03 기준), 사업계획서(2025.02), 수지분석표 2종. 이 문서는 법률·투자 자문이 아닙니다.</p>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <button id="prev" type="button">이전</button>
+    <span class="chap" id="chap">표지</span>
+    <button id="next" type="button" class="go">다음</button>
+  </nav>
+</div>
+
+<script>
+(function(){
+  var deck=document.getElementById('deck'), slides=[].slice.call(deck.querySelectorAll('.slide')),
+      seal=document.getElementById('seal'), prog=document.getElementById('prog'),
+      count=document.getElementById('count'), chap=document.getElementById('chap'),
+      prev=document.getElementById('prev'), next=document.getElementById('next'), cur=0, N=slides.length;
+  // seal positions per slide: [x%, y%, size px, radius]
+  var seals=[[55,8,320,'46% 54% 42% 58%/55% 45% 55% 45%'],[-20,58,260,'60% 40% 55% 45%/45% 55% 45% 55%'],[62,62,240,'40% 60% 48% 52%/60% 40% 60% 40%'],
+    [-25,-6,280,'52% 48% 60% 40%/42% 58% 42% 58%'],[58,30,300,'50%'],[60,-4,220,'34% 66% 50% 50%/50% 50% 50% 50%'],
+    [-30,40,300,'58% 42% 38% 62%/52% 48% 52% 48%'],[64,70,240,'46% 54% 42% 58%/55% 45% 55% 45%'],[-18,8,260,'50% 50% 30% 70%/60% 40% 60% 40%'],
+    [60,46,250,'62% 38% 50% 50%/40% 60% 40% 60%'],[20,18,360,'50%']];
+  function placeSeal(i){
+    var s=seals[i], w=deck.clientWidth, h=deck.clientHeight;
+    seal.style.width=s[2]+'px'; seal.style.height=s[2]+'px'; seal.style.borderRadius=s[3];
+    seal.style.transform='translate('+(s[0]/100*w)+'px,'+(s[1]/100*h)+'px)';
+  }
+  function countUp(slide){
+    [].forEach.call(slide.querySelectorAll('[data-count]'),function(el){
+      var end=parseFloat(el.getAttribute('data-count')), dec=parseInt(el.getAttribute('data-dec')||'0',10), t0=null;
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=end.toFixed(dec);return;}
+      function f(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/1300), e=1-Math.pow(1-p,3); el.textContent=(end*e).toFixed(dec); if(p<1)requestAnimationFrame(f); }
+      setTimeout(function(){requestAnimationFrame(f)},450);
+    });
+  }
+  function go(i){
+    if(i<0||i>=N||i===cur)return;
+    var old=slides[cur];
+    old.classList.remove('on'); old.classList.add('leaving');
+    if(i>cur) old.classList.add('past');
+    setTimeout(function(){old.classList.remove('leaving')},700);
+    slides.forEach(function(s,k){ if(k!==cur){ s.classList.toggle('past',k<i); } });
+    var nw=slides[i]; nw.classList.remove('past'); nw.scrollTop=0;
+    void nw.offsetWidth; nw.classList.add('on');
+    cur=i; update(); countUp(nw);
+  }
+  function update(){
+    prog.style.transform='scaleX('+((cur+1)/N)+')';
+    count.textContent=(cur+1<10?'0':'')+(cur+1)+' / '+N;
+    chap.textContent=slides[cur].getAttribute('data-chap');
+    prev.disabled=cur===0; next.disabled=cur===N-1;
+    placeSeal(cur);
+  }
+  prev.addEventListener('click',function(){go(cur-1)});
+  next.addEventListener('click',function(){go(cur+1)});
+  document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight')go(cur+1); if(e.key==='ArrowLeft')go(cur-1); });
+  var sx=0, sy=0, tracking=false;
+  deck.addEventListener('pointerdown',function(e){ if(e.target.closest('button,label,input'))return; sx=e.clientX; sy=e.clientY; tracking=true; });
+  deck.addEventListener('pointerup',function(e){ if(!tracking)return; tracking=false; var dx=e.clientX-sx, dy=e.clientY-sy;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.3){ go(dx<0?cur+1:cur-1); } });
+  deck.addEventListener('pointercancel',function(){tracking=false});
+  window.addEventListener('resize',function(){placeSeal(cur)});
+  // checklist: per-viewer convenience only
+  [].forEach.call(document.querySelectorAll('#checks input'),function(c){
+    try{ c.checked=localStorage.getItem('dycb-'+c.id)==='1'; }catch(e){}
+    c.addEventListener('change',function(){ try{ localStorage.setItem('dycb-'+c.id,c.checked?'1':'0'); }catch(e){} });
+  });
+  update();
+})();
+</script>
+
+</body>
+</html>
