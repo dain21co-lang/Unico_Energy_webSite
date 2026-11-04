@@ -80,9 +80,9 @@ svg text{font-family:var(--f-body)}
 .stack{display:flex;height:46px;border-radius:10px;overflow:hidden;border:1px solid var(--line);position:relative}
 .stack i{display:block;height:100%;transform:scaleX(0);transform-origin:left;transition:transform .9s cubic-bezier(.6,0,.2,1)}
 .on .stack i{transform:scaleX(1)}
-.stack .a{width:33.3%;background:var(--steel)}
-.stack .b{width:11.1%;background:var(--wine);transition-delay:.5s}
-.stack .c{width:55.6%;background:var(--steel-wash);transition-delay:.9s}
+.stack .a{width:44.3%;background:var(--steel)}
+.stack .b{width:14.8%;background:var(--wine);transition-delay:.5s}
+.stack .c{width:40.9%;background:var(--steel-wash);transition-delay:.9s}
 .marker{position:absolute;top:-6px;bottom:-6px;left:70%;width:0;border-left:2px dashed var(--good)}
 .legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:12.5px}
 .legend div{display:grid;gap:2px}
@@ -156,7 +156,7 @@ svg text{font-family:var(--f-body)}
         <div class="card" data-a style="--d:2"><span class="k">돈이 필요한 회사</span><span class="v">대양금속㈜</span><span class="s">KOSPI 상장 · 스테인리스 냉연강판</span></div>
         <div class="card" data-a style="--d:3"><span class="k">돈을 대는 곳</span><span class="v">유안타증권</span><span class="s">홍상무 측이 주선하거나 직접 인수</span></div>
         <div class="card" data-a style="--d:4"><span class="k">담보를 대신 내주는 곳</span><span class="v">주식회사 공명</span><span class="s">서부중앙시장 재개발 시행사</span></div>
-        <div class="card hl" data-a style="--d:5"><span class="k">담보물 · 규모</span><span class="v">서부중앙시장 부지 <span class="num">2순위 40억</span></span><span class="s">서대문구 북가좌동 338-19 · 1순위 약 120억 뒤</span></div>
+        <div class="card hl" data-a style="--d:5"><span class="k">담보물 · 규모</span><span class="v">서부중앙시장 부지 <span class="num">2순위 40억</span></span><span class="s">북가좌동 338-19 중 시행사 측 지분 75%(약 570평) · 1순위 약 120억 뒤</span></div>
       </div>
     </div>
   </section>
@@ -229,21 +229,21 @@ svg text{font-family:var(--f-body)}
   <section class="slide" data-chap="담보">
     <div class="wrap">
       <span class="eyebrow" data-a>05 · 담보물 살펴보기</span>
-      <h2 data-a style="--d:1">감정가의 44%만 빚이 잡힙니다</h2>
-      <div class="big" data-a style="--d:2"><span class="num" data-count="44" data-dec="0">44</span><span>% · 담보비율 (1·2순위 합계 ÷ 감정가)</span></div>
+      <h2 data-a style="--d:1">보수적으로 계산해도 담보비율 59%</h2>
+      <div class="big" data-a style="--d:2"><span class="num" data-count="59" data-dec="0">59</span><span>% · 담보비율 (1·2순위 160억 ÷ 지분 가치 270.6억)</span></div>
       <div data-a style="--d:3">
         <div class="stack"><i class="a"></i><i class="b"></i><i class="c"></i><span class="marker" title="감정가의 70%"></span></div>
       </div>
       <div class="legend" data-a style="--d:4">
         <div><span><span class="dot" style="background:var(--steel)"></span>1순위</span><b class="num"><span data-count="120">120</span>억</b></div>
         <div><span><span class="dot" style="background:var(--wine)"></span>2순위 (이번)</span><b class="num"><span data-count="40">40</span>억</b></div>
-        <div><span><span class="dot" style="background:var(--steel-wash);border:1px solid var(--line)"></span>여유</span><b class="num"><span data-count="200.8" data-dec="1">200.8</span>억</b></div>
+        <div><span><span class="dot" style="background:var(--steel-wash);border:1px solid var(--line)"></span>여유</span><b class="num"><span data-count="110.6" data-dec="1">110.6</span>억</b></div>
       </div>
-      <p class="src" data-a style="--d:5">감정가 360.8억(토지 2,531.9㎡ × ㎡당 1,425만 원). 초록 점선은 감정가의 70%인 약 252억으로, 경매에서 70%만 받아도 1·2순위 160억은 회수된다는 가정입니다.</p>
+      <p class="src" data-a style="--d:5">지분 가치 270.6억은 2023년 감정 초안(전체 360.8억)의 75%입니다. 초록 점선은 그 70%인 약 189억으로, 경매에서 70%만 받아도 160억은 회수된다는 가정입니다. 시행사 측 예상 시장가치(전체 400~450억)로 보면 담보비율은 47~53%입니다.</p>
       <div class="cards">
         <div class="card" data-a style="--d:6"><span class="v" style="font-size:15px">감정평가를 새로 받아야 합니다</span><span class="s">지금 감정서는 2023년 3월 기준의 초안이고, 다른 회사(WS자산운용) 용도로만 쓸 수 있습니다.</span></div>
-        <div class="card" data-a style="--d:7"><span class="v" style="font-size:15px">공유자 전원의 동의가 필요합니다</span><span class="s">공명 외 여러 명이 함께 가진 땅인데, 감정은 전체 면적 기준입니다.</span></div>
-        <div class="card" data-a style="--d:8"><span class="v" style="font-size:15px">사업 일정이 늦어졌는지 확인합니다</span><span class="s">계획상 2026년 3~5월 PF, 7월 착공이었습니다. 지금은 11월입니다.</span></div>
+        <div class="card" data-a style="--d:7"><span class="v" style="font-size:15px">지분 75% 소유자 4명의 동의가 필요합니다</span><span class="s">시행사 측 지분은 전체 약 766평 중 75%(약 570평)이고 소유자는 4명입니다. 감정 초안은 전체 면적 기준이라 지분 기준으로 다시 봐야 합니다.</span></div>
+        <div class="card" data-a style="--d:8"><span class="v" style="font-size:15px">인허가는 완료, 일정은 확인합니다</span><span class="s">시행사 측 설명으로 인허가는 끝났고 용적률은 최대 약 450%입니다. 계획상 2026년 3~5월 PF였으므로 현재 일정은 확인이 필요합니다.</span></div>
       </div>
     </div>
   </section>
@@ -304,7 +304,7 @@ svg text{font-family:var(--f-body)}
       <div class="checks" id="checks">
         <label data-a style="--d:5"><input type="checkbox" id="c1"><span>대양금속 거래소 심사 진행 상황</span></label>
         <label data-a style="--d:6"><input type="checkbox" id="c2"><span>등기부: 1순위 120억이 원금인지 채권최고액인지</span></label>
-        <label data-a style="--d:7"><input type="checkbox" id="c3"><span>공유자 명단과 전원 동의</span></label>
+        <label data-a style="--d:7"><input type="checkbox" id="c3"><span>지분 75% 소유자 4명의 동의</span></label>
         <label data-a style="--d:8"><input type="checkbox" id="c4"><span>유안타 지정 감정법인의 새 감정가</span></label>
         <label data-a style="--d:9"><input type="checkbox" id="c5"><span>서부시장 관리처분변경인가와 PF 일정</span></label>
         <label data-a style="--d:10"><input type="checkbox" id="c6"><span>공명이 받는 대가와 문서</span></label>
