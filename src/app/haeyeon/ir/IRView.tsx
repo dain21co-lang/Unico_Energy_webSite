@@ -843,6 +843,7 @@ const NARR: Record<string, string> = {
 /* 녹음 파일 재생 도우미 */
 function playClip(a: HTMLAudioElement, src: string, onEnd: () => void) { a.src = src; a.onended = onEnd; a.play().catch(() => {}); }
 function stopClip(a: HTMLAudioElement) { a.onended = null; a.pause(); }
+function loopBgm(a: HTMLAudioElement) { a.loop = true; a.volume = 0.22; a.play().catch(() => {}); }
 
 /* ───────── 모핑 블롭: 같은 구조의 SVG 경로끼리 모양이 녹아들 듯 바뀐다 ───────── */
 function blob(seed: number) {
@@ -907,6 +908,15 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
   useEffect(() => { idxRef.current = i; }, [i]);
   const [kakaoNoVoice, setKakaoNoVoice] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  /* 배경음악: 잔잔한 피아노·패드 루프 (직접 작곡·합성, 저작권 문제 없음) */
+  const bgmRef = useRef<HTMLAudioElement | null>(null);
+  const startBgm = useCallback(() => {
+    const w = window as unknown as { __hyBgm?: HTMLAudioElement };
+    const a = bgmRef.current ?? w.__hyBgm ?? new Audio("/haeyeon/ir/bgm.mp3");
+    bgmRef.current = a; w.__hyBgm = a;
+    loopBgm(a);
+  }, []);
+  const stopBgm = useCallback(() => { if (bgmRef.current) bgmRef.current.pause(); }, []);
   const stopAll = useCallback(() => {
     if (audioRef.current) stopClip(audioRef.current);
     if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel();
@@ -924,7 +934,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
     const synth = window.speechSynthesis; if (!synth) return;
     const u = new SpeechSynthesisUtterance(NARR[SLIDES[idx].id] ?? "");
     /* 여성 목소리 우선, 차분하고 고급스럽게: 살짝 느리게, 살짝 높게 */
-    u.lang = "ko-KR"; u.rate = 0.92; u.pitch = 1.08;
+    u.lang = "ko-KR"; u.rate = 0.88; u.pitch = 1.02; u.volume = 0.95;
     const vs = synth.getVoices().filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith("ko"));
     const female = vs.filter((v) => !/minsu|injoon|hyunsu|bongjin|gookmin|male|남성|남자/i.test(v.name));
     const best = female.find((v) => /sunhi|yuna|sora|heami|seoyeon|jimin|female|여성|여자/i.test(v.name))
@@ -935,10 +945,10 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
     synth.speak(u);
   }, [N, stopAll]);
   useEffect(() => { if (voiceOn && spoken.current !== i) speak(i); }, [i, voiceOn, speak]);
-  useEffect(() => { if (!voiceOn) { stopAll(); spoken.current = -1; } }, [voiceOn, stopAll]);
-  useEffect(() => () => stopAll(), [stopAll]);
+  useEffect(() => { if (!voiceOn) { stopAll(); stopBgm(); spoken.current = -1; } else startBgm(); }, [voiceOn, stopAll, stopBgm, startBgm]);
+  useEffect(() => () => { stopAll(); stopBgm(); }, [stopAll, stopBgm]);
   const toggleVoice = () => {
-    if (!voiceOn) { userOff.current = false; active.current = true; speak(i); setVoiceOn(true); } else { userOff.current = true; active.current = false; setVoiceOn(false); }
+    if (!voiceOn) { userOff.current = false; active.current = true; startBgm(); speak(i); setVoiceOn(true); } else { userOff.current = true; active.current = false; stopBgm(); setVoiceOn(false); }
   };
 
   /* 휴대폰 브라우저는 첫 터치 전에는 소리를 막는다 → 화면을 처음 만지는 순간 나레이션을 자동으로 시작 */
@@ -948,12 +958,12 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
       const el = e.target as HTMLElement | null;
       if (el && el.closest && el.closest("[data-voice-btn]")) return;
       if (active.current || userOff.current) return;
-      active.current = true; speak(idxRef.current); setVoiceOn(true);
+      active.current = true; startBgm(); speak(idxRef.current); setVoiceOn(true);
     };
     window.addEventListener("pointerdown", start, { once: true, capture: true });
     window.addEventListener("keydown", start, { once: true, capture: true });
     return () => { window.removeEventListener("pointerdown", start, { capture: true }); window.removeEventListener("keydown", start, { capture: true }); };
-  }, [canSpeak, speak]);
+  }, [canSpeak, speak, startBgm]);
 
   /* 안드로이드 카카오톡 인앱브라우저는 음성 기능이 없다 → 외부 브라우저로 열기 안내 */
   useEffect(() => {
@@ -1030,7 +1040,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
           </div>
           <div className="mt-1.5 flex items-center justify-between">
             {onClose ? (
-              <button type="button" onClick={() => { active.current = false; stopAll(); onClose(); }} className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
+              <button type="button" onClick={() => { active.current = false; stopAll(); stopBgm(); onClose(); }} className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
               </button>
             ) : (

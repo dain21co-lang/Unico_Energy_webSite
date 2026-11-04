@@ -53,6 +53,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
   const openIR = (e: RMouseEvent) => {
     e.preventDefault();
     try { const synth = window.speechSynthesis; if (synth) { const u = new SpeechSynthesisUtterance(" "); u.volume = 0; synth.speak(u); } } catch { /* 음성 미지원 브라우저 */ }
+    try { const w = window as unknown as { __hyBgm?: HTMLAudioElement }; const a = w.__hyBgm ?? new Audio("/haeyeon/ir/bgm.mp3"); w.__hyBgm = a; a.loop = true; a.volume = 0.22; a.play().catch(() => {}); } catch { /* 재생 불가 */ }
     setIrOpen(true);
   };
   useEffect(() => {
