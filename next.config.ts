@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async rewrites() {
+    return [{ source: "/sim/dy-cb", destination: "/sim/dy-cb.html" }];
+  },
 };
 
 export default nextConfig;
