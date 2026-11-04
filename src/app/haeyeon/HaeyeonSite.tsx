@@ -1,8 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
+const IRView = dynamic(() => import("./ir/IRView"), { ssr: false });
 import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import type { MouseEvent as RMouseEvent, ReactNode } from "react";
 
 const IMG = (f: string) => `/haeyeon/img/${f}`;
 
@@ -45,6 +48,18 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
   const s = (ko: string, eng: string) => (en ? eng : ko);
   const [purpose, setPurpose] = useState(0);
   const [sent, setSent] = useState(false);
+  /* IR 자료: 페이지 이동 없이 같은 화면 위에 띄워, 버튼을 누른 그 터치로 나레이션까지 바로 시작 */
+  const [irOpen, setIrOpen] = useState(false);
+  const openIR = (e: RMouseEvent) => {
+    e.preventDefault();
+    try { const synth = window.speechSynthesis; if (synth) { const u = new SpeechSynthesisUtterance(" "); u.volume = 0; synth.speak(u); } } catch { /* 음성 미지원 브라우저 */ }
+    setIrOpen(true);
+  };
+  useEffect(() => {
+    if (!irOpen) return;
+    const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = prev; };
+  }, [irOpen]);
 
   const STATS = [
     [s("344억", "₩34.4B"), s("연 매출", "Annual revenue")],
@@ -83,6 +98,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
 
   return (
     <div className="hy" id="top">
+      {irOpen && <IRView autoVoice onClose={() => setIrOpen(false)} />}
       {/* 상단 바 */}
       <header className="fixed inset-x-0 top-0 z-40 border-b border-black/5 bg-white/90 backdrop-blur-md">
         <div className="mx-auto flex max-w-md items-center justify-between px-5 py-2.5">
@@ -127,7 +143,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
             <a href="#business" className="flex items-center justify-between rounded-lg bg-[var(--hy-orange)] px-5 py-3.5 text-[14.5px] font-bold">{s("사업 영역 보기", "See our business")}<Icon d={I.arrow} size={18} /></a>
             <a href="#foodtech" className="flex items-center justify-between rounded-lg border border-white/40 bg-white/5 px-5 py-3.5 text-[14.5px] font-bold">{s("AI 스마트 육가공", "AI smart processing")}<Icon d={I.arrow} size={18} /></a>
             <a href="/haeyeon/deck" className="flex items-center justify-between rounded-lg bg-white px-5 py-3.5 text-[14.5px] font-bold text-[var(--hy-forest)]"><span className="flex items-center gap-2"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={18} />{s("회사소개서 바로보기", "View company profile (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
-            <a href="/haeyeon/ir" className="flex items-center justify-between rounded-lg bg-gradient-to-r from-[#0e2218] to-[#1d3a28] px-5 py-3.5 text-[14.5px] font-bold text-[#e3cf9f] ring-1 ring-[#c9a35b]/60"><span className="flex items-center gap-2"><Icon d="M4 19V9 M10 19V5 M16 19v-7 M22 19H2" size={18} />{s("IR 자료 바로보기", "View IR deck (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
+            <a href="/haeyeon/ir" onClick={openIR} className="flex items-center justify-between rounded-lg bg-gradient-to-r from-[#0e2218] to-[#1d3a28] px-5 py-3.5 text-[14.5px] font-bold text-[#e3cf9f] ring-1 ring-[#c9a35b]/60"><span className="flex items-center gap-2"><Icon d="M4 19V9 M10 19V5 M16 19v-7 M22 19H2" size={18} />{s("IR 자료 바로보기", "View IR deck (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
           </div>
         </div>
       </section>
@@ -360,7 +376,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
             <a href="/haeyeon/files/haeyeon-company-profile.pdf" target="_blank" rel="noopener" className="flex items-center justify-center gap-1.5 rounded-lg border border-white/40 py-3.5 text-[14px] font-bold">PDF {s("내려받기", "download")}</a>
           </div>
           <p className="mt-3 text-[12px] text-white/60">{s("54쪽 · 휴대폰에서 바로 넘겨 볼 수 있습니다.", "54 pages, in Korean.")}</p>
-          <a href="/haeyeon/ir" className="mt-6 flex items-center gap-4 overflow-hidden rounded-xl bg-[#0e2218] p-4 ring-1 ring-[#c9a35b]/60">
+          <a href="/haeyeon/ir" onClick={openIR} className="mt-6 flex items-center gap-4 overflow-hidden rounded-xl bg-[#0e2218] p-4 ring-1 ring-[#c9a35b]/60">
             <img src="/haeyeon/ir/butcher.webp" alt="" className="h-20 w-16 shrink-0 rounded-md object-cover" />
             <span className="flex-1">
               <span className="hy-brand block text-[10.5px] font-bold tracking-[0.22em] text-[#c9a35b]">INVESTOR RELATIONS 2026</span>

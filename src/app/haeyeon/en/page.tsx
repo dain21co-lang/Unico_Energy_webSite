@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import HaeyeonSite from "../HaeyeonSite";
 import "../haeyeon.css";
+import "../ir/ir.css";
 
 export const metadata: Metadata = {
   title: "HAEYEON F&G | Food Innovation, Powered by Technology",

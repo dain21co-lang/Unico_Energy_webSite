@@ -137,7 +137,7 @@ const SLIDES: Slide[] = [
         <It><p className="serif mt-3 text-[16px] font-medium leading-[1.6] text-[var(--ir-sub)]">좋은 고기는 손끝에서, 더 좋은 고기는 데이터에서.</p></It>
         <It><p className="mt-4 text-[11.5px] tracking-wide text-[var(--ir-mute)]">농업회사법인 해연에프엔지 주식회사 · 2026. 11 · 투자설명 자료</p></It>
         <It><p className="hint mt-5 flex items-center gap-2 text-[12.5px] font-semibold text-[var(--ir-gold-ink)]">옆으로 밀어 넘겨 보세요 <span aria-hidden="true">→</span></p></It>
-        <It><p className="mt-1.5 text-[11.5px] text-[var(--ir-mute)]">위쪽 ‘소리’를 누르면 나레이션과 함께 동영상처럼 자동으로 넘어갑니다.</p></It>
+        <It><p className="mt-1.5 text-[11.5px] text-[var(--ir-mute)]">화면을 터치하면 나레이션이 시작되고, 동영상처럼 자동으로 넘어갑니다.</p></It>
       </S>
     </Body>
   ) },
@@ -874,7 +874,7 @@ const BLOB2_POS = [
   { x: "56%", y: "40%", scale: 0.5, rotate: -60 },
 ];
 
-export default function IRView() {
+export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boolean; onClose?: () => void } = {}) {
   const [[i, dir], setState] = useState<[number, number]>([0, 0]);
   const [menu, setMenu] = useState(false);
   const N = SLIDES.length;
@@ -892,10 +892,14 @@ export default function IRView() {
   const prev = useCallback(() => setState(([c]) => (c > 0 ? [c - 1, -1] : [c, 0])), []);
 
   /* 나레이션: 켜면 장마다 읽고, 다 읽으면 다음 장으로 자동 진행 (동영상처럼) */
-  const [voiceOn, setVoiceOn] = useState(false);
+  const [voiceOn, setVoiceOn] = useState(autoVoice);
   const canSpeak = useSyncExternalStore(() => () => {}, () => "speechSynthesis" in window, () => false);
   const spoken = useRef(-1);
-  const active = useRef(false);
+  const active = useRef(autoVoice);
+  const userOff = useRef(false);
+  const idxRef = useRef(0);
+  useEffect(() => { idxRef.current = i; }, [i]);
+  const [kakaoNoVoice, setKakaoNoVoice] = useState(false);
   const speak = useCallback((idx: number) => {
     const synth = window.speechSynthesis; if (!synth) return;
     synth.cancel();
@@ -912,8 +916,33 @@ export default function IRView() {
   useEffect(() => { if (!voiceOn && typeof window !== "undefined" && window.speechSynthesis) { window.speechSynthesis.cancel(); spoken.current = -1; } }, [voiceOn]);
   useEffect(() => () => { if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel(); }, []);
   const toggleVoice = () => {
-    if (!voiceOn) { active.current = true; speak(i); setVoiceOn(true); } else { active.current = false; setVoiceOn(false); }
+    if (!voiceOn) { userOff.current = false; active.current = true; speak(i); setVoiceOn(true); } else { userOff.current = true; active.current = false; setVoiceOn(false); }
   };
+
+  /* 휴대폰 브라우저는 첫 터치 전에는 소리를 막는다 → 화면을 처음 만지는 순간 나레이션을 자동으로 시작 */
+  useEffect(() => {
+    if (!canSpeak) return;
+    const start = (e: Event) => {
+      const el = e.target as HTMLElement | null;
+      if (el && el.closest && el.closest("[data-voice-btn]")) return;
+      if (active.current || userOff.current) return;
+      active.current = true; speak(idxRef.current); setVoiceOn(true);
+    };
+    window.addEventListener("pointerdown", start, { once: true, capture: true });
+    window.addEventListener("keydown", start, { once: true, capture: true });
+    return () => { window.removeEventListener("pointerdown", start, { capture: true }); window.removeEventListener("keydown", start, { capture: true }); };
+  }, [canSpeak, speak]);
+
+  /* 안드로이드 카카오톡 인앱브라우저는 음성 기능이 없다 → 외부 브라우저로 열기 안내 */
+  useEffect(() => {
+    const ua = navigator.userAgent || "";
+    if (!/KAKAOTALK/i.test(ua)) return;
+    const t0 = window.setTimeout(() => {
+      const ok = "speechSynthesis" in window && window.speechSynthesis.getVoices().some((v) => v.lang.toLowerCase().startsWith("ko"));
+      if (!ok) setKakaoNoVoice(true);
+    }, 1200);
+    return () => window.clearTimeout(t0);
+  }, []);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -978,13 +1007,23 @@ export default function IRView() {
             ))}
           </div>
           <div className="mt-1.5 flex items-center justify-between">
-            <a href="/haeyeon" className={`flex items-center gap-1 text-[12px] font-bold ${dark ? "text-[var(--ir-champ)]" : "text-[var(--ir-gold-ink)]"}`}>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
-            </a>
+            {onClose ? (
+              <button type="button" onClick={() => { if (window.speechSynthesis) window.speechSynthesis.cancel(); active.current = false; onClose(); }} className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
+              </button>
+            ) : (
+              <a href="/haeyeon" className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
+              </a>
+            )}
             <motion.p layout key={s.ch} initial={{ y: -8 }} animate={{ y: 0 }} className={`corm text-[13px] font-semibold uppercase tracking-[0.22em] ${dark ? "text-[var(--ir-gold)]" : "text-[var(--ir-gold-ink)]"}`}>{CHAPTERS[s.ch]}</motion.p>
             <span className="flex items-center gap-3">
-              {canSpeak && (
-                <button type="button" onClick={toggleVoice} aria-pressed={voiceOn} aria-label={voiceOn ? "나레이션 끄기" : "나레이션 켜기"}
+              {kakaoNoVoice && (
+                <a data-voice-btn href={`kakaotalk://web/openExternal?url=${encodeURIComponent("https://unicoenergygroup.com/haeyeon/ir")}`}
+                  className="rounded-full bg-[var(--ir-gold-ink)] px-2.5 py-1 text-[11px] font-bold text-white">소리로 듣기</a>
+              )}
+              {canSpeak && !kakaoNoVoice && (
+                <button type="button" data-voice-btn onClick={toggleVoice} aria-pressed={voiceOn} aria-label={voiceOn ? "나레이션 끄기" : "나레이션 켜기"}
                   className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11.5px] font-bold ${voiceOn ? "bg-[var(--ir-gold-ink)] text-white" : "border border-[var(--ir-gold-ink)]/50 text-[var(--ir-gold-ink)]"}`}>
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" />{voiceOn ? <path d="M16 8.5a5 5 0 0 1 0 7 M19 6a8.5 8.5 0 0 1 0 12" /> : <path d="M17 9l5 6 M22 9l-5 6" />}</svg>
                   {voiceOn ? "재생 중" : "소리"}

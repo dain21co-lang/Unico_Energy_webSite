@@ -18,6 +18,7 @@
   --ir-tint: #f2f7ec;
   position: fixed;
   inset: 0;
+  z-index: 200;
   background: #ffffff;
   color: var(--ir-ink);
   word-break: keep-all;
