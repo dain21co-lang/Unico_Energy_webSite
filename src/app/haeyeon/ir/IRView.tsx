@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -137,6 +137,7 @@ const SLIDES: Slide[] = [
         <It><p className="serif mt-3 text-[16px] font-medium leading-[1.6] text-[var(--ir-sub)]">좋은 고기는 손끝에서, 더 좋은 고기는 데이터에서.</p></It>
         <It><p className="mt-4 text-[11.5px] tracking-wide text-[var(--ir-mute)]">농업회사법인 해연에프엔지 주식회사 · 2026. 11 · 투자설명 자료</p></It>
         <It><p className="hint mt-5 flex items-center gap-2 text-[12.5px] font-semibold text-[var(--ir-gold-ink)]">옆으로 밀어 넘겨 보세요 <span aria-hidden="true">→</span></p></It>
+        <It><p className="mt-1.5 text-[11.5px] text-[var(--ir-mute)]">위쪽 ‘소리’를 누르면 나레이션과 함께 동영상처럼 자동으로 넘어갑니다.</p></It>
       </S>
     </Body>
   ) },
@@ -803,6 +804,40 @@ const SLIDES: Slide[] = [
   ) },
 ];
 
+/* ───────── 나레이션 원고 (장 순서와 같음) — 휴대폰 내장 한국어 음성으로 읽어 준다 ───────── */
+const NARR: Record<string, string> = {
+  cover: "해연에프엔지 투자설명 자료입니다. 좋은 고기는 손끝에서, 더 좋은 고기는 데이터에서. 지금부터 해연에프엔지를 소개합니다.",
+  contents: "자료는 투자 개요, 회사 개요, 사업 현황, 재무 현황, 성장 전략, 그리고 투자 제안 순서로 구성되어 있습니다.",
+  summary: "해연에프엔지는 2025년 매출 341억 원, 매출총이익 15억 4천만 원, 영업활동 현금흐름 8억 1천만 원을 기록했습니다. 총자산은 96억 6천만 원입니다.",
+  highlights: "핵심 투자 포인트는 여섯 가지입니다. 검증된 매출 규모, 인허가를 갖춘 가공 거점, 외부감사 적정 의견, 실물 자산, 개선되는 수익 체력, 그리고 AI 자동화를 통한 원가 개선 잠재력입니다.",
+  glance: "2020년 8월 설립된 농업회사법인으로, 충북 제천의 HACCP 가공장을 거점으로 축산물 가공과 유통, 부동산 임대 사업을 하고 있습니다.",
+  ceo: "이남미 대표이사는 생산자에게는 안정적인 판로를, 소비자에게는 믿을 수 있는 먹거리를 약속합니다. AI 스마트 팩토리로의 전환으로 투자자 여러분께 보답하겠습니다.",
+  history: "2020년 설립 이후 2023년 HACCP 인증, 2024년 인천 공장건물 취득, 2025년 매출 341억 원을 달성했고, 2026년 첫 외부감사에서 적정 의견을 받았습니다.",
+  shareholders: "주주는 이남미 대표이사 45퍼센트, 박용준 사내이사 30퍼센트, 유토컴퍼니 25퍼센트로, 경영진 지분이 75퍼센트입니다.",
+  sites: "제천의 HACCP 가공장을 중심으로 전남 영암 본점, 인천과 하남미사 지점, 그리고 서울사무소를 두고 있습니다.",
+  "div-biz": "다음은 사업 현황입니다.",
+  model: "원물 조달부터 정밀 가공, B2B 공급까지 한 회사 안에서 이루어집니다. 2025년 매출의 99퍼센트가 제품 매출입니다.",
+  products: "우육, 돈육, 가금육 정육과 소시지, 햄 원료가 되는 기계발골육까지, 한 마리를 남김없이 다룹니다.",
+  production: "원물 입고부터 출고까지 여섯 단계 공정을 HACCP 기준으로 관리하며, 식육포장처리업과 축산물가공업 허가를 모두 갖추고 있습니다.",
+  network: "부경양돈조합과 스마일팜미트 등 복수의 조달선과, 신선축산, 백조한우축산 등 고정 B2B 거래선을 확보하고 있습니다.",
+  realestate: "인천 가좌동 공장건물은 전 층 임대 중이며, 2025년 임대매출 2억 7천만 원이 이자비용 2억 4천만 원을 웃돌았습니다.",
+  "div-fin": "다음은 재무 현황입니다. 2025 회계연도 감사보고서를 기준으로 합니다.",
+  income: "2025년 매출은 341억 원으로 전년 수준을 유지했고, 매출총이익은 17퍼센트 늘었습니다. 당기순이익은 흑자로 전환했습니다.",
+  trend: "총이익률은 3.9퍼센트에서 4.5퍼센트로 높아졌습니다. 영업이익은 복리후생비와 보수적인 대손충당금 설정으로 줄었습니다.",
+  balance: "자산 96억 6천만 원 가운데 91퍼센트가 토지와 건물입니다. 차입금 75억 원은 금리 2.99퍼센트의 장기 정책자금입니다.",
+  cashflow: "영업활동에서 8억 1천만 원의 현금을 벌어, 특수관계자 차입금을 모두 갚았습니다.",
+  health: "부채비율은 664퍼센트에서 522퍼센트로, 유동비율은 105퍼센트에서 224퍼센트로 개선되었습니다.",
+  "div-ai": "다음은 성장 전략, AI 스마트 팩토리입니다.",
+  problem: "현장 가공 인력 비용은 연간 31억 9천만 원에 이릅니다. 숙련 인력 부족과 수작업 수율 편차가 이익을 가로막고 있습니다.",
+  solution: "AI 비전이 원육을 스캔하고, 딥러닝이 절단 경로를 정하며, 로봇이 정밀하게 발골합니다.",
+  impact: "노무비 50퍼센트 절감과 정육 수율 2퍼센트포인트 개선만으로도, 연간 21억 5천만 원의 원가 개선이 가능하다고 회사는 추정합니다.",
+  roadmap: "기술 검증과 파일럿, 전남 AI 스마트 육가공 센터 구축, 그리고 고단가 시장 진입의 세 단계로 실행합니다.",
+  market: "같은 규격, 같은 품질은 프랜차이즈와 단체급식, 군납, 온라인 프리미엄 시장으로 들어가는 입장권입니다.",
+  proposal: "투자금은 이익 구조를 바꾸는 설비와 부채비율 개선에 우선 배정합니다. 세부 조건은 협의 후 확정합니다.",
+  risks: "높은 레버리지와 낮은 이익률 등 주요 리스크와 그에 대한 대응 방안을 함께 정리했습니다.",
+  closing: "끝까지 들어 주셔서 감사합니다. 해연에프엔지는 좋은 고기를 넘어, 더 나은 식탁의 기준을 함께 만들겠습니다.",
+};
+
 /* ───────── 모핑 블롭: 같은 구조의 SVG 경로끼리 모양이 녹아들 듯 바뀐다 ───────── */
 function blob(seed: number) {
   const N = 7; const pts: [number, number][] = [];
@@ -855,6 +890,30 @@ export default function IRView() {
   }, [N]);
   const next = useCallback(() => setState(([c]) => (c < N - 1 ? [c + 1, 1] : [c, 0])), [N]);
   const prev = useCallback(() => setState(([c]) => (c > 0 ? [c - 1, -1] : [c, 0])), []);
+
+  /* 나레이션: 켜면 장마다 읽고, 다 읽으면 다음 장으로 자동 진행 (동영상처럼) */
+  const [voiceOn, setVoiceOn] = useState(false);
+  const canSpeak = useSyncExternalStore(() => () => {}, () => "speechSynthesis" in window, () => false);
+  const spoken = useRef(-1);
+  const active = useRef(false);
+  const speak = useCallback((idx: number) => {
+    const synth = window.speechSynthesis; if (!synth) return;
+    synth.cancel();
+    spoken.current = idx;
+    const u = new SpeechSynthesisUtterance(NARR[SLIDES[idx].id] ?? "");
+    u.lang = "ko-KR"; u.rate = 1.0; u.pitch = 1.0;
+    const vs = synth.getVoices().filter((v) => v.lang.toLowerCase().startsWith("ko"));
+    const best = vs.find((v) => /google|samsung|yuna|sora|heami|premium|enhanced/i.test(v.name)) ?? vs[0];
+    if (best) u.voice = best;
+    u.onend = () => { if (!active.current) return; window.setTimeout(() => { if (!active.current) return; setState(([c]) => (c === idx && c < N - 1 ? [c + 1, 1] : [c, 0])); }, 700); };
+    synth.speak(u);
+  }, [N]);
+  useEffect(() => { if (voiceOn && spoken.current !== i) speak(i); }, [i, voiceOn, speak]);
+  useEffect(() => { if (!voiceOn && typeof window !== "undefined" && window.speechSynthesis) { window.speechSynthesis.cancel(); spoken.current = -1; } }, [voiceOn]);
+  useEffect(() => () => { if (typeof window !== "undefined" && window.speechSynthesis) window.speechSynthesis.cancel(); }, []);
+  const toggleVoice = () => {
+    if (!voiceOn) { active.current = true; speak(i); setVoiceOn(true); } else { active.current = false; setVoiceOn(false); }
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -923,7 +982,16 @@ export default function IRView() {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
             </a>
             <motion.p layout key={s.ch} initial={{ y: -8 }} animate={{ y: 0 }} className={`corm text-[13px] font-semibold uppercase tracking-[0.22em] ${dark ? "text-[var(--ir-gold)]" : "text-[var(--ir-gold-ink)]"}`}>{CHAPTERS[s.ch]}</motion.p>
-            <button type="button" onClick={() => setMenu(true)} aria-label="목차 열기" className={`text-[12px] font-bold ${dark ? "text-[var(--ir-champ)]" : "text-[var(--ir-gold-ink)]"}`}>목차</button>
+            <span className="flex items-center gap-3">
+              {canSpeak && (
+                <button type="button" onClick={toggleVoice} aria-pressed={voiceOn} aria-label={voiceOn ? "나레이션 끄기" : "나레이션 켜기"}
+                  className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11.5px] font-bold ${voiceOn ? "bg-[var(--ir-gold-ink)] text-white" : "border border-[var(--ir-gold-ink)]/50 text-[var(--ir-gold-ink)]"}`}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z" />{voiceOn ? <path d="M16 8.5a5 5 0 0 1 0 7 M19 6a8.5 8.5 0 0 1 0 12" /> : <path d="M17 9l5 6 M22 9l-5 6" />}</svg>
+                  {voiceOn ? "재생 중" : "소리"}
+                </button>
+              )}
+              <button type="button" onClick={() => setMenu(true)} aria-label="목차 열기" className="text-[12px] font-bold text-[var(--ir-gold-ink)]">목차</button>
+            </span>
           </div>
         </div>
 
