@@ -968,7 +968,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
   /* 안드로이드 카카오톡 인앱브라우저는 음성 기능이 없다 → 외부 브라우저로 열기 안내 */
   useEffect(() => {
     const ua = navigator.userAgent || "";
-    if (!/KAKAOTALK/i.test(ua)) return;
+    if (VOICE_SET.size >= SLIDES.length || !/KAKAOTALK/i.test(ua)) return;
     const t0 = window.setTimeout(() => {
       const ok = "speechSynthesis" in window && window.speechSynthesis.getVoices().some((v) => v.lang.toLowerCase().startsWith("ko"));
       if (!ok) setKakaoNoVoice(true);
