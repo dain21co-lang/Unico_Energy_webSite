@@ -12,7 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const P = (f: string) => `/haeyeon/ir/${f}`;
 /* 성우(CLOVA Voice) 녹음 파일: public/haeyeon/ir/voice/01.mp3 ~ — 앞에서부터 준비된 장 수. 나머지 장은 휴대폰 음성으로 읽는다 */
-const VOICE_CLIPS = 10;
+const VOICE_CLIPS = 26;
 const IMG = (f: string) => `/haeyeon/img/${f}`;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
