@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "조양강 150m, 31실. 사람은 환대에, AI는 나머지에.",
     locale: "ko_KR",
     type: "website",
-    images: [{ url: "/jeongseon/img/donggang.webp" }],
+    images: [{ url: "/jeongseon/img/after1-og.jpg", width: 1200, height: 631 }],
   },
 };
 

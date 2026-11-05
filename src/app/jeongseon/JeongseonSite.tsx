@@ -153,6 +153,7 @@ export default function JeongseonSite() {
   const [ai, setAi] = useState(true);
   const [phase, setPhase] = useState(2);
   const [floor, setFloor] = useState<number | null>(null);
+  const [after, setAfter] = useState(true);
   const [showTop, setShowTop] = useState(false);
   const [wave, setWave] = useState(0);
   const spotRef = useRef<HTMLDivElement>(null);
@@ -209,8 +210,9 @@ export default function JeongseonSite() {
 
         {/* 히어로 */}
         <section className="relative h-[88dvh] min-h-[560px] overflow-hidden">
-          <img src={IMG("donggang")} alt="정선 동강 풍경" className="js-kb absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(11,23,20,.35) 0%, rgba(11,23,20,.15) 35%, rgba(11,23,20,.85) 78%, #0b1714 100%)" }} />
+          <img src={IMG("after1")} alt="정선 관광호텔 리모델링 후 예시 (AI 이미지)" className="js-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 30%" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(11,23,20,.25) 0%, rgba(11,23,20,.05) 30%, rgba(11,23,20,.82) 72%, #0b1714 100%)" }} />
+          <span className="absolute right-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ background: "rgba(11,23,20,.7)", color: "var(--js-gold)" }}>리모델링 후 예시 · AI 이미지</span>
           <div className="absolute inset-x-0 bottom-0 px-5 pb-16">
             <Lift className="text-[12px] font-semibold tracking-[0.2em]" delay={0.1}><span style={{ color: "var(--js-gold)" }}>강원도 정선군 정선읍 용탄리</span></Lift>
             <h1 className="js-serif mt-3 text-[36px] font-black leading-[1.22]">
@@ -330,7 +332,24 @@ export default function JeongseonSite() {
           <Head no="03" en="THE BUILDING" sub="2015년 사용승인을 받은 철근콘크리트 건물입니다. 아직 영업을 시작하지 않아, 리모델링과 AI 설비를 한 번에 넣기 좋습니다.">
             지하 2층 · 지상 4층<br />객실 31실
           </Head>
-          <Photo src={IMG("ext1")} alt="건물 외부 — 현재 모습" className="h-[240px]" tag="현재 모습 · 리모델링 전" />
+          {/* 리모델링 후 예시 ↔ 현재 모습: 마스크가 옆으로 쓸려 가며 바뀐다 */}
+          <Rise>
+            <div className="mb-2 flex rounded-full border p-1" style={{ borderColor: "var(--js-line)" }}>
+              {[true, false].map((v) => (
+                <button key={String(v)} onClick={() => setAfter(v)} className="relative flex-1 rounded-full py-2 text-[13px] font-bold">
+                  {after === v && <motion.span layoutId="js-ba" className="absolute inset-0 rounded-full" style={{ background: v ? "var(--js-gold)" : "#3b5a4f" }} transition={{ duration: 0.4, ease: EASE }} />}
+                  <span className="relative z-10" style={{ color: after === v ? (v ? "#0b1714" : "#e8efe9") : "var(--js-sub)" }}>{v ? "리모델링 후 (예시)" : "현재 모습"}</span>
+                </button>
+              ))}
+            </div>
+          </Rise>
+          <div className="relative h-[460px] overflow-hidden rounded-[14px]">
+            <img src={IMG("ext1")} alt="건물 외부 — 현재 모습" className="absolute inset-0 h-full w-full object-cover" />
+            <motion.div className="absolute inset-0" initial={false} animate={{ clipPath: after ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 0% 100%)" }} transition={{ duration: 0.9, ease: EASE }}>
+              <motion.img src={IMG("after1")} alt="리모델링 후 예시 (AI 이미지)" className="h-full w-full object-cover" style={{ objectPosition: "50% 45%" }} animate={{ scale: after ? 1 : 1.12 }} transition={{ duration: 1.2, ease: EASE }} />
+            </motion.div>
+            <span className="absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ background: "rgba(11,23,20,.78)", color: "var(--js-gold)" }}>{after ? "리모델링 후 예시 · AI 이미지" : "현재 모습 · 리모델링 전"}</span>
+          </div>
           <div className="mt-2 grid grid-cols-2 gap-2">
             <Photo src={IMG("ext2")} alt="건물 외부 측면" className="h-[150px]" from="left" />
             <Photo src={IMG("ext3")} alt="건물 출입구" className="h-[150px]" from="right" />
@@ -340,7 +359,7 @@ export default function JeongseonSite() {
             <Photo src={IMG("int2")} alt="객실 욕실" className="h-[120px]" />
             <Photo src={IMG("int3")} alt="객실 내부" className="h-[120px]" />
           </div>
-          <p className="mt-2 text-[11px]" style={{ color: "var(--js-sub)" }}>사진은 기존 사업계획서에 실린 현재 모습입니다. 리모델링 범위는 현장 실사 후 정합니다.</p>
+          <p className="mt-2 text-[11px]" style={{ color: "var(--js-sub)" }}>&lsquo;리모델링 후&rsquo; 사진은 AI로 만든 예시입니다. 나머지는 기존 사업계획서에 실린 현재 모습이며, 리모델링 범위는 현장 실사 후 정합니다.</p>
 
           <Rise><div className="js-serif mt-9 mb-3 text-[18px] font-bold">층별 구성 <span className="text-[12px] font-normal" style={{ color: "var(--js-sub)" }}>· 층을 눌러 보세요</span></div></Rise>
           <div className="space-y-1.5">
@@ -608,7 +627,7 @@ export default function JeongseonSite() {
             <div className="flex gap-3"><span className="w-16 shrink-0" style={{ color: "var(--js-sub)" }}>소재지</span><span>강원도 정선군 정선읍 용탄리 525 외 1필지</span></div>
           </div>
           <p className="mt-6 text-[11px] leading-[1.7]" style={{ color: "#6f857d" }}>
-            이 페이지는 투자·대출 검토를 위한 임시 사이트입니다. 수익·투자 수치는 사업계획서(2026.11 보완)의 추정·목표치이며, 업체 견적과 현장 실사에 따라 달라질 수 있습니다. 관광지 사진은 기존 사업계획서에 실린 자료입니다.
+            이 페이지는 투자·대출 검토를 위한 임시 사이트입니다. 수익·투자 수치는 사업계획서(2026.11 보완)의 추정·목표치이며, 업체 견적과 현장 실사에 따라 달라질 수 있습니다. &lsquo;리모델링 후 예시&rsquo; 이미지는 AI로 만든 것으로 실제 완공 모습과 다를 수 있습니다. 관광지·현재 건물 사진은 기존 사업계획서에 실린 자료입니다.
           </p>
         </footer>
 
