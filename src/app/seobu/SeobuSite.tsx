@@ -280,6 +280,12 @@ export default function SeobuSite() {
         <section id="plan" className="pt-14 pb-14" style={{ background: "var(--sb-paper)" }}>
           <div className="px-6">
             <Head no="02" en="DEVELOPMENT PLAN" sub="지하 4층, 지상 12층. 아래는 시장의 상업공간이, 위로는 주거공간이 이어지는 복합 건축물입니다.">주거와 상업이<br />한 건물에서 만납니다</Head>
+            <Rise>
+              <div className="relative mb-6 overflow-hidden bg-black">
+                <video className="block aspect-video w-full object-cover" src="/seobu/video/film.mp4" poster="/seobu/video/film-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="저녁의 건물 모습 영상 (AI 예시)" />
+                <span className="absolute left-2 top-2 bg-white/90 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--sb-char)" }}>AI 영상 · 예시</span>
+              </div>
+            </Rise>
             <div className="grid gap-4">
               {PLANS.map((p, i) => (
                 <Rise key={p.t} delay={i * 0.05}>
