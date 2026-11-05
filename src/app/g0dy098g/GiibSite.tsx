@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode, CSSProperties } from "react";
 import { motion, AnimatePresence, useInView, animate } from "framer-motion";
-import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES } from "./data";
+import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS } from "./data";
 
 /*
  * 벤치마킹: BlackRock(흑백 타이포·여백) · Brookfield(큰 사진 + 사진 아래 문장) · Macquarie(사업부 목록)
@@ -151,7 +151,7 @@ function Visual({ k, className, variant = 0, tag }: { k: string; className?: str
     <div ref={ref} className={`relative ${className ?? ""}`}>
       <motion.div className="absolute inset-0 overflow-hidden" initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }} transition={{ duration: 1.1, ease: EASE }}>
         <motion.div className="h-full w-full" initial={{ scale: 1.12 }} animate={{ scale: seen ? 1 : 1.12 }} transition={{ duration: 1.6, ease: EASE }}>
-          {src ? <img src={src} alt="" className="h-full w-full object-cover" /> : <HubScene variant={variant} />}
+          {src ? <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" style={{ objectPosition: IMG_POS[k] }} /> : <HubScene variant={variant} />}
         </motion.div>
         {tag && <span className="absolute bottom-2 left-2 bg-white px-1.5 py-0.5 text-[10px] font-semibold" style={{ color: "var(--gi-black)" }}>{tag}</span>}
       </motion.div>
@@ -241,7 +241,7 @@ export default function GiibSite() {
 
         {/* HERO — 코람코·글로벌PMC식: 화면 가득 찬 어두운 이미지 위에 문장 */}
         <section className="relative h-[86dvh] min-h-[560px] overflow-hidden" style={{ background: "#0b1828" }}>
-          {SRC("hero") ? <img src={SRC("hero")} alt="" className="gi-kb absolute inset-0 h-full w-full object-cover" /> : <div className="absolute inset-0"><HubScene /></div>}
+          {SRC("hero") ? <img src={SRC("hero")} alt="서울 도심 야경" className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} /> : <div className="absolute inset-0"><HubScene /></div>}
           <LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
           <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-20 top-1/3 h-[300px] w-[300px]" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,.15) 0%, rgba(8,14,24,.25) 40%, rgba(8,14,24,.9) 78%, #080e18 100%)" }} />
@@ -337,6 +337,7 @@ export default function GiibSite() {
         <section id="approach" className="px-5 pt-14 pb-14">
           <Kicker>OUR APPROACH</Kicker>
           <h2 className="mt-4 text-[28px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}><Lift>발굴에서 출구까지,<br />네 단계</Lift></h2>
+          <Visual k="approach" variant={2} className="mt-7 h-[200px]" />
           <ol className="mt-8 border-t" style={{ borderColor: "var(--gi-black)" }}>
             {PROCESS.map((p, i) => (
               <motion.li key={p.t} className="grid grid-cols-[56px_1fr] border-b py-6" style={{ borderColor: "var(--gi-line)" }}
