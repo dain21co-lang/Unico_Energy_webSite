@@ -1,0 +1,27 @@
+/* 정선 관광호텔 임시 사이트 전용 — 새벽 조양강: 짙은 솔숲 + 물빛 + 금빛 포인트 */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap");
+.js {
+  --js-night: #0b1714;
+  --js-deep: #10221d;
+  --js-card: #152b25;
+  --js-line: #24423a;
+  --js-mist: #e8efe9;
+  --js-sub: #9fb5ad;
+  --js-river: #5fb3b0;
+  --js-gold: #d2b06f;
+  --js-red: #e48b78;
+  background: var(--js-night);
+  color: var(--js-mist);
+  min-height: 100vh;
+  width: 100%;
+  word-break: keep-all;
+  overflow-x: hidden;
+}
+.js .js-serif { font-family: "Noto Serif KR", serif; }
+@keyframes js-kb { 0% { transform: scale(1.08); } 100% { transform: scale(1.22) translate3d(-3%, -2%, 0); } }
+.js .js-kb { animation: js-kb 22s ease-in-out infinite alternate; }
+@keyframes js-flow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.js .js-flow { animation: js-flow 14s linear infinite; }
+.js .js-noscroll { scrollbar-width: none; }
+.js .js-noscroll::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) { .js .js-kb, .js .js-flow { animation: none; } }
