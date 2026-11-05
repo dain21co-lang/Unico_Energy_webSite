@@ -428,14 +428,17 @@ export default function GiibSite() {
           {SRC("hero") ? <img src={SRC("hero")} alt={T("서울 도심 야경", "Seoul skyline at dusk")} className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} /> : <div className="absolute inset-0"><HubScene /></div>}
           {!SRC("hero") && (<><LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
           <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-20 top-1/3 h-[300px] w-[300px]" /></>)}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,.15) 0%, rgba(8,14,24,.25) 40%, rgba(8,14,24,.9) 78%, #080e18 100%)" }} />
-          <div className="absolute inset-x-0 bottom-0 px-5 pb-10 text-white">
+          <div className="absolute inset-0" style={{ background: lang === "en" ? "linear-gradient(180deg, rgba(8,14,24,.8) 0%, rgba(8,14,24,.45) 34%, rgba(8,14,24,0) 52%, rgba(8,14,24,0) 74%, rgba(8,14,24,.85) 100%)" : "linear-gradient(180deg, rgba(8,14,24,.15) 0%, rgba(8,14,24,.25) 40%, rgba(8,14,24,.9) 78%, #080e18 100%)" }} />
+          {/* 영문은 문장이 길어 도심을 가리므로, 문장은 하늘 쪽(위)에 두고 버튼만 아래에 둔다 */}
+          <div className={lang === "en" ? "absolute inset-0 flex flex-col justify-between px-5 pt-9 pb-8 text-white" : "absolute inset-x-0 bottom-0 px-5 pb-10 text-white"}>
+            <div>
             <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>REAL ESTATE · DEVELOPMENT · ADVISORY</Lift></div>
-            <h1 className="mt-3 text-[31px] font-extrabold leading-[1.3] tracking-[-0.02em]">
+            <h1 className={`mt-3 font-extrabold tracking-[-0.02em] ${lang === "en" ? "text-[29px] leading-[1.22]" : "text-[31px] leading-[1.3]"}`}>
               <Lift delay={1.05}>{T("사는 데서 끝내지 않습니다.", "Acquisition is only the beginning.")}</Lift>
               <Lift delay={1.2}><span style={{ color: "var(--gi-sand)" }}>{T("자산의 가치를 설계합니다.", "We design the value of assets.")}</span></Lift>
             </h1>
             <Rise delay={1.4}><p className="mt-4 text-[14.5px] leading-[1.75] text-white/75">{T("글로벌인프라허브는 부동산 투자·개발과 투자자문을 하는 회사입니다. 서류로 확인하고, 구조로 지키는 투자를 설계합니다.", "GIIB invests in, develops and advises on real estate. We verify with documents and design investments protected by structure.")}</p></Rise>
+            </div>
             <Rise delay={1.55}>
               <div className="mt-6 flex items-end justify-between gap-3">
                 <button onClick={() => go("business")} className="flex items-center gap-3 px-5 py-3.5 text-[14.5px] font-bold" style={{ background: "#fff", color: "var(--gi-black)" }}>{T("사업영역 살펴보기", "Explore Our Business")} <Arrow /></button>
