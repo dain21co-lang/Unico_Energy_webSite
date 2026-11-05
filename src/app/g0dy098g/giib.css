@@ -1,0 +1,27 @@
+/* 글로벌인프라허브 — 글로벌 금융사 톤: 흰 바탕 · 검정 타이포 · 잉크 네이비 · 코퍼 포인트 */
+.gi {
+  --gi-black: #0b0c0e;
+  --gi-ink: #10223a;
+  --gi-copper: #b98a52;
+  --gi-sand: #e9d2ad;
+  --gi-paper: #f4f3f0;
+  --gi-text: #16181c;
+  --gi-sub: #5f6670;
+  --gi-line: #dcdcd8;
+  background: #fff;
+  color: var(--gi-text);
+  min-height: 100vh;
+  width: 100%;
+  word-break: keep-all;
+  overflow-x: hidden;
+}
+.gi .gi-en { letter-spacing: 0.18em; }
+.gi .gi-noscroll { scrollbar-width: none; }
+.gi .gi-noscroll::-webkit-scrollbar { display: none; }
+@keyframes gi-dash { to { stroke-dashoffset: -40; } }
+.gi .gi-flow { animation: gi-dash 3s linear infinite; }
+@keyframes gi-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+.gi .gi-node { animation: gi-pulse 2.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes gi-kb { 0% { transform: scale(1.04); } 100% { transform: scale(1.14) translate3d(-2%, -1%, 0); } }
+.gi .gi-kb { animation: gi-kb 22s ease-in-out infinite alternate; }
+@media (prefers-reduced-motion: reduce) { .gi .gi-flow, .gi .gi-node, .gi .gi-kb { animation: none; } }
