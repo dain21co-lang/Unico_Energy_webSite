@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import type { ReactNode, CSSProperties } from "react";
+import { motion, AnimatePresence, useInView, animate } from "framer-motion";
 import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES } from "./data";
 
 /*
@@ -11,6 +11,65 @@ import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES } from "./data";
  */
 const EASE = [0.16, 1, 0.3, 1] as const;
 const SRC = (k: string) => (IMAGES[k] ? `/g0dy098g/${IMAGES[k]}` : "");
+
+/* 모핑용 블롭: 같은 구조(점 8개 · 3차 곡선)라 seed만 바꿔도 모양이 부드럽게 변한다 */
+function blob(seed: number, cx = 100, cy = 100, r = 70, jitter = 0.28) {
+  const n = 8;
+  const pts = Array.from({ length: n }, (_, i) => {
+    const a = (i / n) * Math.PI * 2;
+    const k = 1 + jitter * Math.sin(seed * 1.7 + i * 2.3) * Math.cos(seed * 0.9 + i * 1.1);
+    return [cx + Math.cos(a) * r * k, cy + Math.sin(a) * r * k];
+  });
+  const t = 0.36;
+  let d = `M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+    const c1 = [p1[0] + (p2[0] - p0[0]) * t / 2, p1[1] + (p2[1] - p0[1]) * t / 2];
+    const c2 = [p2[0] - (p3[0] - p1[0]) * t / 2, p2[1] - (p3[1] - p1[1]) * t / 2];
+    d += ` C ${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+  }
+  return d + " Z";
+}
+
+/* 계속 모양이 바뀌는 블롭 */
+function LiveBlob({ fill, seeds, dur = 9, r = 70, className, style }: { fill: string; seeds: number[]; dur?: number; r?: number; className?: string; style?: CSSProperties }) {
+  const ds = [...seeds, seeds[0]].map((sd) => blob(sd, 100, 100, r));
+  return (
+    <svg viewBox="0 0 200 200" className={className} style={style} aria-hidden="true">
+      <motion.path d={ds[0]} fill={fill} animate={{ d: ds }} transition={{ duration: dur, repeat: Infinity, ease: "easeInOut" }} />
+    </svg>
+  );
+}
+
+/* 모양 모핑: 점 개수가 같은 다각형끼리 바뀐다 (타워 → 크레인 → 문서) */
+const SHAPES: number[][][] = [
+  [[70, 170], [70, 60], [100, 30], [130, 60], [130, 170], [118, 170], [118, 100], [82, 100], [82, 170], [70, 170]],
+  [[40, 170], [40, 140], [95, 140], [95, 40], [165, 40], [165, 55], [110, 55], [110, 140], [150, 140], [150, 170]],
+  [[60, 170], [60, 30], [120, 30], [150, 60], [150, 170], [128, 170], [128, 75], [105, 52], [82, 52], [82, 170]],
+];
+const shapePath = (pts: number[][]) => "M " + pts.map(([x, y]) => `${x} ${y}`).join(" L ") + " Z";
+
+function ShapeMorph({ index }: { index: number }) {
+  return (
+    <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
+      <motion.path d={blob(index * 3 + 1, 100, 105, 82, 0.18)} fill="#10223a" animate={{ d: blob(index * 3 + 1, 100, 105, 82, 0.18) }} transition={{ duration: 0.9, ease: EASE }} />
+      <motion.path d={shapePath(SHAPES[0])} fill="#e9d2ad" stroke="#b98a52" strokeWidth="2" strokeLinejoin="round" animate={{ d: shapePath(SHAPES[index]) }} transition={{ duration: 0.9, ease: EASE }} />
+    </svg>
+  );
+}
+
+/* 숫자가 올라가는 카운터 */
+function Count({ to }: { to: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  const [v, setV] = useState(to > 100 ? to - 30 : 0);
+  useEffect(() => {
+    if (!inView) return;
+    const c = animate(to > 100 ? to - 30 : 0, to, { duration: 1.6, ease: EASE, onUpdate: (x) => setV(Math.round(x)) });
+    return () => c.stop();
+  }, [inView, to]);
+  return <span ref={ref}>{v}</span>;
+}
 
 function Rise({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
   return (
@@ -72,7 +131,9 @@ function HubScene({ variant = 0 }: { variant?: number }) {
         </g>
       ))}
       {bars.map(([x, h], i) => (
-        <rect key={x} x={x - 12} y={270 - h} width="24" height={h} rx="2" fill={i % 3 === 1 ? "url(#giBar)" : "#24405f"} stroke="#b98a52" strokeWidth="0.6" />
+        <motion.rect key={x} x={x - 12} y={270 - h} width="24" height={h} rx="2" fill={i % 3 === 1 ? "url(#giBar)" : "#24405f"} stroke="#b98a52" strokeWidth="0.6"
+          initial={{ scaleY: 0 }} animate={{ scaleY: [0, 1, 0.82 + (i % 3) * 0.06, 1] }} transition={{ duration: 6, times: [0, 0.2, 0.6, 1], delay: i * 0.08, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+          style={{ transformOrigin: `${x}px 270px` }} />
       ))}
       <line x1="0" y1="270.5" x2="340" y2="270.5" stroke="#e9d2ad" strokeWidth="1.5" />
       <circle cx={170} cy={150} r={20} fill="#10223a" stroke="#e9d2ad" strokeWidth="2" />
@@ -98,6 +159,13 @@ function Visual({ k, className, variant = 0, tag }: { k: string; className?: str
   );
 }
 
+function PrinWatch({ onSeen }: { onSeen: () => void }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const seen = useInView(ref, { margin: "-45% 0px -45% 0px" });
+  useEffect(() => { if (seen) onSeen(); }, [seen, onSeen]);
+  return <span ref={ref} className="block h-px" />;
+}
+
 const MENU: [string, string, string[]][] = [
   ["about", "회사소개", ["개요", "인사말"]],
   ["business", "사업영역", ["부동산 투자", "부동산 개발", "투자자문"]],
@@ -110,6 +178,7 @@ export default function GiibSite() {
   const [menu, setMenu] = useState(false);
   const [sub, setSub] = useState<number | null>(null);
   const [biz, setBiz] = useState<number | null>(0);
+  const [prin, setPrin] = useState(0);
   const [sent, setSent] = useState(false);
   const [showTop, setShowTop] = useState(false);
 
@@ -174,6 +243,10 @@ export default function GiibSite() {
         <section>
           <div className="relative h-[54dvh] min-h-[340px] overflow-hidden" style={{ background: "#10223a" }}>
             {SRC("hero") ? <img src={SRC("hero")} alt="" className="gi-kb absolute inset-0 h-full w-full object-cover" /> : <div className="absolute inset-0"><HubScene /></div>}
+            <LiveBlob fill="rgba(201,154,98,.32)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-16 -top-16 h-[260px] w-[260px] mix-blend-screen" />
+            <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -bottom-20 -right-16 h-[300px] w-[300px]" />
+            {/* 아래로 쓸려 내려가는 막 (첫 등장) */}
+            <motion.div className="absolute inset-0" style={{ background: "#0b0c0e" }} initial={{ clipPath: "inset(0% 0% 0% 0%)" }} animate={{ clipPath: "inset(100% 0% 0% 0%)" }} transition={{ duration: 1.2, delay: 0.1, ease: EASE }} />
           </div>
           <div className="px-5 pt-8 pb-12">
             <Kicker>REAL ESTATE INVESTMENT · DEVELOPMENT · ADVISORY</Kicker>
@@ -197,10 +270,10 @@ export default function GiibSite() {
             </p>
           </Rise>
           <div className="mt-10 grid grid-cols-3 border-t" style={{ borderColor: "var(--gi-black)" }}>
-            {[["2015", "설립"], ["3", "사업영역"], ["4", "투자 단계"]].map(([a, b], i) => (
+            {([[2015, "설립"], [3, "사업영역"], [4, "투자 단계"]] as [number, string][]).map(([a, b], i) => (
               <Rise key={b} delay={i * 0.08}>
                 <div className="pt-4" style={{ borderLeft: i ? "1px solid var(--gi-line)" : "none", paddingLeft: i ? 12 : 0 }}>
-                  <div className="text-[36px] font-extrabold leading-none tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}>{a}</div>
+                  <div className="text-[36px] font-extrabold leading-none tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Count to={a} /></div>
                   <div className="mt-2 text-[12px]" style={{ color: "var(--gi-sub)" }}>{b}</div>
                 </div>
               </Rise>
@@ -219,7 +292,10 @@ export default function GiibSite() {
         <section id="business" className="pt-14 pb-14" style={{ background: "var(--gi-paper)" }}>
           <div className="px-5">
             <Kicker>OUR BUSINESS</Kicker>
-            <h2 className="mt-4 text-[28px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}><Lift>세 개의 사업,<br />하나의 흐름</Lift></h2>
+            <div className="flex items-end justify-between gap-3">
+              <h2 className="mt-4 text-[28px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}><Lift>세 개의 사업,<br />하나의 흐름</Lift></h2>
+              <div className="h-[110px] w-[110px] shrink-0"><ShapeMorph index={biz ?? 0} /></div>
+            </div>
           </div>
           <div className="mt-8 border-t" style={{ borderColor: "var(--gi-black)" }}>
             {BUSINESS.map((b, i) => (
@@ -260,7 +336,10 @@ export default function GiibSite() {
             {PROCESS.map((p, i) => (
               <motion.li key={p.t} className="grid grid-cols-[56px_1fr] border-b py-6" style={{ borderColor: "var(--gi-line)" }}
                 initial={{ x: -24 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.06, ease: EASE }}>
-                <span className="text-[34px] font-extrabold leading-none tracking-[-0.03em]" style={{ color: "var(--gi-line)" }}>{String(i + 1).padStart(2, "0")}</span>
+                <span className="relative h-[44px] w-[44px]">
+                  <LiveBlob fill="#f4f3f0" seeds={[i + 1, i + 4, i + 7]} dur={7 + i} r={78} className="absolute inset-0 h-full w-full" />
+                  <span className="relative flex h-full w-full items-center justify-center text-[17px] font-extrabold" style={{ color: "var(--gi-copper)" }}>{String(i + 1).padStart(2, "0")}</span>
+                </span>
                 <div>
                   <div className="gi-en text-[10px] font-semibold" style={{ color: "var(--gi-copper)" }}>{p.en}</div>
                   <div className="mt-1 text-[19px] font-extrabold" style={{ color: "var(--gi-black)" }}>{p.t}</div>
@@ -272,11 +351,17 @@ export default function GiibSite() {
         </section>
 
         {/* 원칙 — 어두운 띠 */}
-        <section className="px-5 pt-14 pb-14" style={{ background: "var(--gi-black)" }}>
+        <section className="relative overflow-hidden px-5 pt-14 pb-14" style={{ background: "var(--gi-black)" }}>
+          <svg viewBox="0 0 200 200" className="pointer-events-none absolute -right-28 top-4 h-[230px] w-[230px]" aria-hidden="true">
+            <motion.path d={blob(prin * 2 + 1, 100, 100, 72, 0.32)} fill="none" stroke="#b98a52" strokeWidth="1.2" animate={{ d: blob(prin * 2 + 1, 100, 100, 72, 0.32), rotate: prin * 45 }} transition={{ duration: 1.1, ease: EASE }} style={{ transformOrigin: "100px 100px" }} />
+            <motion.path d={blob(prin * 2 + 5, 100, 100, 54, 0.3)} fill="rgba(185,138,82,.12)" animate={{ d: blob(prin * 2 + 5, 100, 100, 54, 0.3) }} transition={{ duration: 1.1, ease: EASE }} />
+            <motion.text x="100" y="112" textAnchor="middle" fontSize="38" fontWeight="800" fill="#e9d2ad" key={prin} initial={{ y: 20 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}>{`0${prin + 1}`}</motion.text>
+          </svg>
           <Kicker light>OUR PRINCIPLES</Kicker>
-          <div className="mt-6 space-y-6">
+          <div className="relative mt-6 space-y-6">
             {PRINCIPLES.map((p, i) => (
               <Rise key={p.t} delay={i * 0.05}>
+                <PrinWatch onSeen={() => setPrin(i)} />
                 <div className="border-t pt-5" style={{ borderColor: "#2b2e33" }}>
                   <div className="text-[22px] font-extrabold text-white">{p.t}</div>
                   <p className="mt-1.5 text-[14px]" style={{ color: "#a3a8b0" }}>{p.d}</p>
