@@ -67,6 +67,14 @@ export const IMAGES: Record<string, string> = {
   case4: "case4.webp", // 사례 카드 — 상장사 담보 자금조달
 };
 
+/* 움직이는 사진(GIF→MP4) — 같은 이름의 사진 위에 영상이 겹쳐 재생됩니다. 비우면 사진만 */
+export const VIDEOS: Record<string, string> = {
+  invest: "video/invest.mp4", // 사업영역 '부동산 투자' — 빌딩 앞을 걷는 모습
+  develop: "video/develop.mp4", // 사업영역 '부동산 개발' — 크레인 현장
+  advisory: "video/advisory.mp4", // 사업영역 '투자자문' — 회의실
+  city: "video/city.mp4", // 사업실적 아래 한강 야경
+};
+
 /* 첫 화면 배경 영상 — 비우면 hero 사진만 보입니다 (영상이 뜨기 전에도 사진이 먼저 보임) */
 export const HERO_VIDEO = "video/hero.mp4"; // 챗GPT GIF → MP4 변환(부드럽게 보간)
 

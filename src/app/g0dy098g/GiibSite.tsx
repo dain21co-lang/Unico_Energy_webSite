@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode, CSSProperties } from "react";
 import { motion, AnimatePresence, useInView, animate } from "framer-motion";
-import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS, HERO_VIDEO } from "./data";
+import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS, HERO_VIDEO, VIDEOS } from "./data";
 import { LangCtx, useLang, pick, CO_EN, BUSINESS_EN, PROCESS_EN, PRINCIPLES_EN, RECORD_STATS_EN, CASES_EN, SECTORS_EN, MENU_EN } from "./i18n";
 import type { Lang } from "./i18n";
 
@@ -155,8 +155,9 @@ function Visual({ k, className, variant = 0, tag }: { k: string; className?: str
   return (
     <div ref={ref} className={`relative ${className ?? ""}`}>
       <motion.div className="absolute inset-0 overflow-hidden" initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }} transition={{ duration: 1.1, ease: EASE }}>
-        <motion.div className="h-full w-full" initial={{ scale: 1.12 }} animate={{ scale: seen ? 1 : 1.12 }} transition={{ duration: 1.6, ease: EASE }}>
+        <motion.div className="relative h-full w-full" initial={{ scale: 1.12 }} animate={{ scale: seen ? 1 : 1.12 }} transition={{ duration: 1.6, ease: EASE }}>
           {src ? <img src={src} alt="" loading="lazy" className="h-full w-full object-cover" style={{ objectPosition: IMG_POS[k] }} /> : <HubScene variant={variant} />}
+          {VIDEOS[k] && seen && <video src={`/g0dy098g/${VIDEOS[k]}`} poster={src || undefined} autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS[k] }} />}
         </motion.div>
         {tag && <span className="absolute bottom-2 left-2 bg-white px-1.5 py-0.5 text-[10px] font-semibold" style={{ color: "var(--gi-black)" }}>{tag}</span>}
       </motion.div>
