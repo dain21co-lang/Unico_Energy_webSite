@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode, CSSProperties } from "react";
 import { motion, AnimatePresence, useInView, animate } from "framer-motion";
-import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS } from "./data";
+import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS } from "./data";
 
 /*
  * 벤치마킹: BlackRock(흑백 타이포·여백) · Brookfield(큰 사진 + 사진 아래 문장) · Macquarie(사업부 목록)
@@ -59,7 +59,7 @@ function ShapeMorph({ index }: { index: number }) {
 }
 
 /* 숫자가 올라가는 카운터 */
-function Count({ to }: { to: number }) {
+function Count({ to, comma = false }: { to: number; comma?: boolean }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const [v, setV] = useState(to > 100 ? to - 30 : 0);
@@ -68,7 +68,7 @@ function Count({ to }: { to: number }) {
     const c = animate(to > 100 ? to - 30 : 0, to, { duration: 1.6, ease: EASE, onUpdate: (x) => setV(Math.round(x)) });
     return () => c.stop();
   }, [inView, to]);
-  return <span ref={ref}>{v}</span>;
+  return <span ref={ref}>{comma ? v.toLocaleString("ko-KR") : v}</span>;
 }
 
 function Rise({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
@@ -180,6 +180,104 @@ function Film() {
         </div>
       </motion.div>
     </section>
+  );
+}
+
+/* 예시 표시 */
+function SampleTag() {
+  if (!SAMPLE) return null;
+  return <span className="ml-2 inline-block border px-1.5 py-[1px] align-middle text-[10px] font-semibold tracking-normal" style={{ borderColor: "var(--gi-copper)", color: "var(--gi-copper)" }}>예시</span>;
+}
+
+/* 투자 구조도: 선이 그려지며 등장하고, 점이 자금 흐름을 따라 움직인다 */
+function Structure() {
+  const ref = useRef<HTMLDivElement>(null);
+  const seen = useInView(ref, { once: true, margin: "-60px" });
+  const box = (x: number, y: number, w: number, t: string, sub: string, dark = false, i = 0) => (
+    <motion.g initial={{ scale: 0.6 }} animate={{ scale: seen ? 1 : 0.6 }} transition={{ duration: 0.7, delay: 0.2 + i * 0.12, ease: EASE }} style={{ transformOrigin: `${x + w / 2}px ${y + 24}px`, transformBox: "view-box" }}>
+      <rect x={x} y={y} width={w} height="48" rx="4" fill={dark ? "#10223a" : "#fff"} stroke={dark ? "#10223a" : "#16181c"} strokeWidth="1" />
+      <text x={x + w / 2} y={y + 21} textAnchor="middle" fontSize="12.5" fontWeight="800" fill={dark ? "#e9d2ad" : "#0b0c0e"}>{t}</text>
+      <text x={x + w / 2} y={y + 37} textAnchor="middle" fontSize="9" fill={dark ? "#c9ccd2" : "#5f6670"}>{sub}</text>
+    </motion.g>
+  );
+  const lines = ["M175 72 V118", "M175 166 V212", "M100 142 H62", "M250 142 H288", "M175 260 V296"];
+  return (
+    <div ref={ref} className="mt-8">
+      <svg viewBox="0 0 350 350" className="w-full">
+        {lines.map((d, i) => (
+          <g key={d}>
+            <motion.path d={d} stroke="#b98a52" strokeWidth="1.4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 0.8, delay: 0.5 + i * 0.12, ease: EASE }} />
+            <path d={d} stroke="#b98a52" strokeWidth="1.4" strokeDasharray="3 6" fill="none" className="gi-flow" />
+          </g>
+        ))}
+        {seen && lines.slice(0, 2).concat(lines[4]).map((d, i) => (
+          <circle key={i} r="3.2" fill="#b98a52"><animateMotion dur={`${2.2 + i * 0.3}s`} repeatCount="indefinite" path={d} /></circle>
+        ))}
+        {box(100, 24, 150, "투자자", "기관 · 법인 · 개인", false, 0)}
+        {box(100, 118, 150, "GIIB · 투자 SPC", "구조화 · 실사 · 관리", true, 1)}
+        {box(0, 118, 62, "금융기관", "브릿지·PF", false, 2)}
+        {box(288, 118, 62, "담보신탁", "신탁·담보", false, 3)}
+        {box(100, 212, 150, "부동산 자산", "오피스 · 개발 · 호텔", false, 4)}
+        {box(100, 296, 150, "출구", "매각 · 리파이낸싱", false, 5)}
+      </svg>
+    </div>
+  );
+}
+
+/* 섹터 비중 도넛: 선이 차오르고, 누르는 항목에 따라 가운데 숫자가 바뀐다 */
+function Donut() {
+  const ref = useRef<HTMLDivElement>(null);
+  const seen = useInView(ref, { once: true, margin: "-60px" });
+  const [on, setOn] = useState(0);
+  const R = 62, C = 2 * Math.PI * R;
+  let acc = 0;
+  return (
+    <div ref={ref} className="mt-8 grid grid-cols-[150px_1fr] items-center gap-5">
+      <svg viewBox="0 0 160 160" className="w-full">
+        <g transform="rotate(-90 80 80)">
+          <circle cx="80" cy="80" r={R} fill="none" stroke="#ecebe7" strokeWidth="18" />
+          {SECTORS.map((s, i) => {
+            const len = (s.v / 100) * C, off = acc; acc += len;
+            return <motion.circle key={s.t} cx="80" cy="80" r={R} fill="none" stroke={s.c} strokeDashoffset={-off}
+              initial={{ strokeDasharray: `0 ${C}`, strokeWidth: 18 }} animate={{ strokeDasharray: seen ? `${len - 1.5} ${C - len + 1.5}` : `0 ${C}`, strokeWidth: on === i ? 24 : 18 }}
+              transition={{ duration: 0.9, delay: seen ? 0.2 + i * 0.2 : 0, ease: EASE, strokeWidth: { duration: 0.3 } }} onClick={() => setOn(i)} style={{ cursor: "pointer" }} />;
+          })}
+        </g>
+        <motion.text key={on} x="80" y="84" textAnchor="middle" fontSize="28" fontWeight="800" fill="#0b0c0e" initial={{ scale: 0.6 }} animate={{ scale: 1 }} transition={{ duration: 0.4, ease: EASE }} style={{ transformOrigin: "80px 76px", transformBox: "view-box" }}>{SECTORS[on].v}%</motion.text>
+        <text x="80" y="103" textAnchor="middle" fontSize="11" fill="#5f6670">{SECTORS[on].t}</text>
+      </svg>
+      <ul className="space-y-2.5">
+        {SECTORS.map((s, i) => (
+          <li key={s.t}>
+            <button onClick={() => setOn(i)} className="flex w-full items-center gap-2.5 text-left text-[14px]" style={{ color: on === i ? "var(--gi-black)" : "var(--gi-sub)", fontWeight: on === i ? 800 : 500 }}>
+              <span className="h-3 w-3 shrink-0" style={{ background: s.c }} />{s.t}<span className="ml-auto">{s.v}%</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/* 사례 카드: 옆으로 넘기기 (코람코식) */
+function Cases() {
+  return (
+    <div className="gi-noscroll -mx-5 mt-8 flex snap-x snap-mandatory scroll-pl-5 gap-3 overflow-x-auto px-5 pb-2">
+      {CASES.map((c, i) => (
+        <motion.article key={c.t} className="w-[78%] shrink-0 snap-start border" style={{ borderColor: "var(--gi-line)", background: "#fff" }}
+          initial={{ y: 30 }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}>
+          <Visual k={c.img} variant={i + 1} className="h-[150px]" tag={c.tag} />
+          <div className="p-4">
+            <div className="text-[17px] font-extrabold leading-[1.35]" style={{ color: "var(--gi-black)" }}>{c.t}</div>
+            <p className="mt-2 text-[13px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{c.d}</p>
+            <dl className="mt-3 grid grid-cols-2 border-t pt-3 text-[12px]" style={{ borderColor: "var(--gi-line)" }}>
+              <div><dt style={{ color: "var(--gi-sub)" }}>규모</dt><dd className="mt-0.5 text-[15px] font-extrabold" style={{ color: "var(--gi-black)" }}>{c.size}</dd></div>
+              <div><dt style={{ color: "var(--gi-sub)" }}>역할</dt><dd className="mt-0.5 font-bold" style={{ color: "var(--gi-copper)" }}>{c.role}</dd></div>
+            </dl>
+          </div>
+        </motion.article>
+      ))}
+    </div>
   );
 }
 
@@ -381,6 +479,12 @@ export default function GiibSite() {
               </motion.li>
             ))}
           </ol>
+          <div className="mt-12">
+            <Kicker>HOW WE STRUCTURE</Kicker>
+            <h3 className="mt-3 text-[22px] font-extrabold leading-[1.35]" style={{ color: "var(--gi-black)" }}>투자 구조 한눈에 보기<SampleTag /></h3>
+            <p className="mt-2 text-[14px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>투자자의 자금은 SPC와 담보신탁으로 분리해 지키고, 자산 운영과 출구까지 하나의 구조로 관리합니다.</p>
+            <Structure />
+          </div>
         </section>
 
         {/* 원칙 — 어두운 띠 */}
@@ -404,15 +508,26 @@ export default function GiibSite() {
           </div>
         </section>
 
-        {/* 사업실적 */}
+        {/* 사업실적 — 코람코식 숫자 + 사례 카드 + 섹터 비중 */}
         <section id="record" className="px-5 pt-14 pb-14">
           <Kicker>TRACK RECORD</Kicker>
-          <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>사업실적</h2>
-          <div className="mt-6 border-t py-8" style={{ borderColor: "var(--gi-black)" }}>
-            <div className="text-[17px] font-bold" style={{ color: "var(--gi-black)" }}>확인된 실적을 정리하고 있습니다.</div>
-            <p className="mt-1.5 text-[14px]" style={{ color: "var(--gi-sub)" }}>계약서·증빙으로 확인되는 실적만 게시합니다.</p>
+          <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>사업실적<SampleTag /></h2>
+          <div className="mt-6 grid grid-cols-3 border-t" style={{ borderColor: "var(--gi-black)" }}>
+            {RECORD_STATS.map((r, i) => (
+              <div key={r.t} className={`py-5 ${i ? "border-l pl-3" : ""}`} style={{ borderColor: "var(--gi-line)" }}>
+                <div className="text-[26px] font-extrabold leading-none tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Count to={r.n} comma /><span className="ml-0.5 text-[12px] font-bold" style={{ color: "var(--gi-copper)" }}>{r.unit}</span></div>
+                <div className="mt-2 text-[11.5px]" style={{ color: "var(--gi-sub)" }}>{r.t}</div>
+              </div>
+            ))}
           </div>
-          <Visual k="city" variant={4} className="h-[220px]" />
+          <Cases />
+          <div className="mt-12">
+            <Kicker>PORTFOLIO MIX</Kicker>
+            <h3 className="mt-3 text-[22px] font-extrabold" style={{ color: "var(--gi-black)" }}>검토 자산 섹터 비중<SampleTag /></h3>
+            <Donut />
+          </div>
+          <Visual k="city" variant={4} className="mt-10 h-[220px]" />
+          {SAMPLE && <p className="mt-3 text-[11px]" style={{ color: "var(--gi-sub)" }}>※ 이 영역의 숫자와 사례는 화면 구성을 위한 예시이며, 확인된 실적으로 교체됩니다.</p>}
         </section>
 
         {/* 인사말 */}
@@ -424,9 +539,10 @@ export default function GiibSite() {
           <div className="mt-6 space-y-3 text-[15px] leading-[1.85]" style={{ color: "var(--gi-text)" }}>
             <p>안녕하십니까, 글로벌인프라허브 대표이사 유현근입니다.</p>
             <p>부동산 투자에서 가장 큰 손실은 확인하지 않은 숫자와 설계되지 않은 구조에서 생깁니다. 저희는 서류로 먼저 확인하고, 위험을 먼저 말씀드리며, 담보와 계약 구조로 투자자의 원금을 지키는 일을 가장 중요하게 생각합니다.</p>
+            <p>좋은 자산은 많지만, 그 자산을 끝까지 지켜 낼 구조를 갖춘 곳은 많지 않습니다. 글로벌인프라허브는 발굴과 실사, 구조화, 실행과 관리까지 한 흐름으로 책임지며, 투자자와 사업자 모두가 숫자로 납득할 수 있는 결정을 돕겠습니다.</p>
+            <p>새롭게 출발하는 글로벌인프라허브가 믿고 맡길 수 있는 부동산 투자의 거점이 될 수 있도록 늘 정직하게 일하겠습니다. 감사합니다.</p>
           </div>
           <p className="mt-6 text-[14px]" style={{ color: "var(--gi-sub)" }}>대표이사 <b className="ml-1 text-[17px] tracking-[0.12em]" style={{ color: "var(--gi-black)" }}>{CO.ceo}</b></p>
-          <p className="mt-1 text-[11px]" style={{ color: "var(--gi-copper)" }}>(인사말 초안 · 대표 확인 후 확정)</p>
         </section>
 
         {/* 문의 */}
@@ -434,7 +550,7 @@ export default function GiibSite() {
           <Kicker>CONTACT US</Kicker>
           <h2 className="mt-4 text-[28px] font-extrabold tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>문의</h2>
           <dl className="mt-6 border-t text-[14px]" style={{ borderColor: "var(--gi-black)" }}>
-            {[["주소", CO.address || <Pending>등기 정리 후 입력</Pending>], ["대표전화", CO.phone ? <a href={`tel:${CO.phone}`}>{CO.phone}</a> : <Pending />], ["이메일", CO.email ? <a href={`mailto:${CO.email}`}>{CO.email}</a> : <Pending />]].map(([k, v], i) => (
+            {([["주소", CO.address || <Pending>등기 정리 후 입력</Pending>], CO.phone ? ["대표전화", <a key="p" href={`tel:${CO.phone}`}>{CO.phone}</a>] : null, ["이메일", CO.email ? <a href={`mailto:${CO.email}`}>{CO.email}</a> : <Pending />]].filter(Boolean) as [string, ReactNode][]).map(([k, v], i) => (
               <div key={i} className="grid grid-cols-[76px_1fr] gap-3 border-b py-3.5" style={{ borderColor: "var(--gi-line)" }}>
                 <dt className="font-semibold" style={{ color: "var(--gi-black)" }}>{k}</dt><dd>{v}</dd>
               </div>

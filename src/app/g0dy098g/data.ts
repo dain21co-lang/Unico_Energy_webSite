@@ -9,9 +9,9 @@ export const CO = {
   ceo: "유현근",
   bizNo: "622-88-00109",
   founded: "2015년 5월",
-  address: "", // 등기 정리 후 본점 소재지 변경 예정
-  phone: "",
-  email: "",
+  address: "서울특별시 (본점 이전 예정)", // 등기 정리 후 실제 주소로 교체
+  phone: "", // 비워 두면 줄이 숨겨집니다
+  email: "contact@giibgroup.com", // 가상 — 실제 메일 개설 후 교체
 };
 
 export const BUSINESS = [
@@ -71,3 +71,30 @@ export const IMG_POS: Record<string, string> = {
   approach: "30% 50%",
   city: "50% 50%",
 };
+
+/*
+ * ── 맛보기용 가상 콘텐츠 (유이사 전용 시안) ──
+ * 아래 숫자·사례는 화면 구성을 보여주기 위한 예시입니다. 실제 실적이 오면 이 부분만 바꾸면 됩니다.
+ * SAMPLE = false 로 바꾸면 화면의 '예시' 표시가 사라집니다(실제 자료로 바꾼 뒤에만).
+ */
+export const SAMPLE = true;
+
+export const RECORD_STATS = [
+  { n: 2400, unit: "억 원", t: "검토 자산 규모" },
+  { n: 18, unit: "건", t: "실사·검토 자산" },
+  { n: 6, unit: "건", t: "구조화 자문" },
+];
+
+export const CASES = [
+  { tag: "오피스", t: "도심 노후 오피스 리포지셔닝", d: "권리관계 정리 후 리모델링·임대 재구성으로 자산가치를 높이는 투자 구조 설계", size: "약 620억", role: "투자 구조 설계", img: "invest" },
+  { tag: "개발", t: "수도권 주거복합 개발부지", d: "인허가 일정과 사업수지를 검토하고 브릿지→본PF 전환 구조를 자문", size: "약 980억", role: "사업성 분석 · PF 자문", img: "develop" },
+  { tag: "호텔·관광", t: "지방 관광호텔 리뉴얼", d: "기투입 공사비 증빙을 대조하고 운영사 연계로 재개장 구조를 설계", size: "약 350억", role: "실사 · 구조화", img: "approach" },
+  { tag: "투자자문", t: "상장사 부동산 담보 자금조달", d: "보유 부동산을 담보로 한 자금조달 구조와 투자 조건을 정리", size: "약 450억", role: "투자자문", img: "advisory" },
+];
+
+export const SECTORS = [
+  { t: "오피스", v: 35, c: "#10223a" },
+  { t: "개발부지", v: 25, c: "#b98a52" },
+  { t: "호텔·관광", v: 20, c: "#e9d2ad" },
+  { t: "물류·기타", v: 20, c: "#8a95a3" },
+];
