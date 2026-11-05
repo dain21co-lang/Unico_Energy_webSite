@@ -533,6 +533,16 @@ export default function JeongseonSite() {
           </div>
         </div>
         <section className="px-5 pb-12">
+          <Rise>
+            <a href="/jeongseon/stay" className="mb-4 flex items-center justify-between rounded-2xl border px-4 py-3.5" style={{ borderColor: "var(--js-gold)", background: "#1a3029" }}>
+              <span>
+                <span className="block text-[11px] font-semibold tracking-[0.15em]" style={{ color: "var(--js-gold)" }}>GUEST WEBSITE</span>
+                <span className="mt-0.5 block text-[15px] font-bold">고객용 홈페이지 시안 보기</span>
+                <span className="mt-0.5 block text-[12px]" style={{ color: "var(--js-sub)" }}>예약 · 객실 · 스마트 체크인 · AI 여행 추천</span>
+              </span>
+              <span className="text-[22px]" style={{ color: "var(--js-gold)" }}>→</span>
+            </a>
+          </Rise>
           <Rise><div className="rounded-2xl p-4" style={{ background: "var(--js-card)" }}>
             <div className="text-[13px] font-bold" style={{ color: "var(--js-gold)" }}>AI 컨시어지 추천 코스</div>
             <div className="mt-2.5 flex flex-wrap gap-1.5">

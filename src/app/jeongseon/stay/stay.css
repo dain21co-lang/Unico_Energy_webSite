@@ -1,0 +1,23 @@
+/* 정선 관광호텔 고객용 홈페이지 시안 — 한지빛 바탕 + 솔잎 녹색 + 흙빛 금색 */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Cormorant+Garamond:wght@500;600&display=swap");
+.st {
+  --st-paper: #f6f2ea;
+  --st-sand: #ece5d8;
+  --st-ink: #23201b;
+  --st-sub: #6e675c;
+  --st-line: #ddd4c4;
+  --st-pine: #2f4a3e;
+  --st-gold: #a8875a;
+  background: var(--st-paper);
+  color: var(--st-ink);
+  min-height: 100vh;
+  width: 100%;
+  word-break: keep-all;
+  overflow-x: hidden;
+}
+.st .st-serif { font-family: "Noto Serif KR", serif; }
+.st .st-en { font-family: "Cormorant Garamond", "Noto Serif KR", serif; letter-spacing: 0.08em; }
+.st .st-noscroll { scrollbar-width: none; }
+.st .st-noscroll::-webkit-scrollbar { display: none; }
+.st input[type="date"] { -webkit-appearance: none; appearance: none; background: transparent; border: 0; width: 100%; font-size: 14px; font-weight: 600; color: var(--st-ink); padding: 0; min-height: 22px; }
+.st select { -webkit-appearance: none; appearance: none; background: transparent; border: 0; width: 100%; font-size: 14px; font-weight: 600; color: var(--st-ink); }
