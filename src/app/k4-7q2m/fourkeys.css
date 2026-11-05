@@ -1,0 +1,28 @@
+/* 네 개의 열쇠 — 금고 콘셉트: 검은 호두나무 + 황동 + 크림 */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap");
+.fk {
+  --fk-bg: #0f0e0c;
+  --fk-deep: #171512;
+  --fk-card: #1f1c18;
+  --fk-line: #3a342b;
+  --fk-brass: #c9a45c;
+  --fk-brass2: #e6cc8f;
+  --fk-cream: #efe7d6;
+  --fk-sub: #a59d8c;
+  --fk-green: #8fbf9a;
+  --fk-wine: #b4505e;
+  background: var(--fk-bg);
+  color: var(--fk-cream);
+  min-height: 100vh;
+  width: 100%;
+  word-break: keep-all;
+  overflow-x: hidden;
+}
+.fk .fk-serif { font-family: "Noto Serif KR", serif; }
+.fk .fk-noscroll { scrollbar-width: none; }
+.fk .fk-noscroll::-webkit-scrollbar { display: none; }
+.fk input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 9999px; background: #3a342b; outline: none; }
+.fk input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 26px; height: 26px; border-radius: 9999px; background: var(--fk-brass); border: 3px solid #0f0e0c; box-shadow: 0 0 0 1px var(--fk-brass); }
+.fk input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 9999px; background: var(--fk-brass); border: 3px solid #0f0e0c; }
+@keyframes fk-glow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+.fk .fk-pulse { animation: fk-glow 2.4s ease-in-out infinite; }
