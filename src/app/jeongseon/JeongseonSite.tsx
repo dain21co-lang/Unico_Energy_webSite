@@ -227,9 +227,10 @@ export default function JeongseonSite() {
 
         {/* 히어로 */}
         <section className="relative h-[88dvh] min-h-[560px] overflow-hidden">
-          <img src={IMG("after1")} alt="정선 관광호텔 리모델링 후 예시 (AI 이미지)" className="js-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 30%" }} />
+          <video className="absolute inset-0 h-full w-full object-cover" src="/jeongseon/video/hero.mp4" poster="/jeongseon/video/hero-poster.webp"
+            autoPlay muted loop playsInline preload="auto" aria-label="정선 관광호텔 리모델링 후 예시 영상 (AI 영상)" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(11,23,20,.25) 0%, rgba(11,23,20,.05) 30%, rgba(11,23,20,.82) 72%, #0b1714 100%)" }} />
-          <span className="absolute right-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ background: "rgba(11,23,20,.7)", color: "var(--js-gold)" }}>리모델링 후 예시 · AI 이미지</span>
+          <span className="absolute right-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ background: "rgba(11,23,20,.7)", color: "var(--js-gold)" }}>리모델링 후 예시 · AI 영상</span>
           <div className="absolute inset-x-0 bottom-0 px-5 pb-16">
             <Lift className="text-[12px] font-semibold tracking-[0.2em]" delay={0.1}><span style={{ color: "var(--js-gold)" }}>강원도 정선군 정선읍 용탄리</span></Lift>
             <h1 className="js-serif mt-3 text-[36px] font-black leading-[1.22]">
