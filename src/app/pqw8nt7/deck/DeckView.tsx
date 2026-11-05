@@ -115,12 +115,12 @@ export default function DeckView() {
 
       {/* 상단 */}
       <header className="relative z-20 flex items-center justify-between px-4 pb-2 pt-[calc(12px+env(safe-area-inset-top,0px))]">
-        <a href="/haeyeon" className="flex items-center gap-1 text-[13px] font-bold text-[#cfe6b5]">
+        <a href="/pqw8nt7" className="flex items-center gap-1 text-[13px] font-bold text-[#cfe6b5]">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
           사이트로
         </a>
         <p className="text-[13px] font-black tracking-wide">회사소개서</p>
-        <a href="/haeyeon/files/haeyeon-company-profile.pdf" target="_blank" rel="noopener" className="rounded-full bg-[var(--hy-orange)] px-3 py-1.5 text-[12px] font-bold text-white">PDF</a>
+        <a href="/pqw8nt7/files/haeyeon-company-profile.pdf" target="_blank" rel="noopener" className="rounded-full bg-[var(--hy-orange)] px-3 py-1.5 text-[12px] font-bold text-white">PDF</a>
       </header>
       <div className="relative z-20 mx-4 h-[3px] overflow-hidden rounded-full bg-white/10">
         <motion.div className="h-full origin-left bg-[#a7d45a]" initial={false} animate={{ scaleX: i / N }} transition={{ duration: 0.6, ease: EASE }} />

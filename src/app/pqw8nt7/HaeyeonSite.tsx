@@ -105,8 +105,8 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
         <div className="mx-auto flex max-w-md items-center justify-between px-5 py-2.5">
           <a href="#top" className="flex items-center"><img src={IMG("logo.png")} alt={s("해연에프엔지", "Haeyeon F&G")} className="h-9 w-auto" /></a>
           <div className="flex items-center rounded-full border border-[var(--hy-line)] p-0.5 text-[12.5px] font-bold" role="group" aria-label="Language">
-            <a href="/haeyeon" className={`rounded-full px-3 py-1.5 ${en ? "text-[var(--hy-sub)]" : "bg-[var(--hy-forest)] text-white"}`}>한글</a>
-            <a href="/haeyeon/en" className={`rounded-full px-3 py-1.5 ${en ? "bg-[var(--hy-forest)] text-white" : "text-[var(--hy-sub)]"}`}>EN</a>
+            <a href="/pqw8nt7" className={`rounded-full px-3 py-1.5 ${en ? "text-[var(--hy-sub)]" : "bg-[var(--hy-forest)] text-white"}`}>한글</a>
+            <a href="/pqw8nt7/en" className={`rounded-full px-3 py-1.5 ${en ? "bg-[var(--hy-forest)] text-white" : "text-[var(--hy-sub)]"}`}>EN</a>
           </div>
         </div>
       </header>
@@ -143,8 +143,8 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
           <div className="mt-7 flex flex-col gap-2.5">
             <a href="#business" className="flex items-center justify-between rounded-lg bg-[var(--hy-orange)] px-5 py-3.5 text-[14.5px] font-bold">{s("사업 영역 보기", "See our business")}<Icon d={I.arrow} size={18} /></a>
             <a href="#foodtech" className="flex items-center justify-between rounded-lg border border-white/40 bg-white/5 px-5 py-3.5 text-[14.5px] font-bold">{s("AI 스마트 육가공", "AI smart processing")}<Icon d={I.arrow} size={18} /></a>
-            <a href="/haeyeon/deck" className="flex items-center justify-between rounded-lg bg-white px-5 py-3.5 text-[14.5px] font-bold text-[var(--hy-forest)]"><span className="flex items-center gap-2"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={18} />{s("회사소개서 바로보기", "View company profile (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
-            <a href="/haeyeon/ir" onClick={openIR} className="flex items-center justify-between rounded-lg bg-gradient-to-r from-[#0e2218] to-[#1d3a28] px-5 py-3.5 text-[14.5px] font-bold text-[#e3cf9f] ring-1 ring-[#c9a35b]/60"><span className="flex items-center gap-2"><Icon d="M4 19V9 M10 19V5 M16 19v-7 M22 19H2" size={18} />{s("IR 자료 바로보기", "View IR deck (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
+            <a href="/pqw8nt7/deck" className="flex items-center justify-between rounded-lg bg-white px-5 py-3.5 text-[14.5px] font-bold text-[var(--hy-forest)]"><span className="flex items-center gap-2"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={18} />{s("회사소개서 바로보기", "View company profile (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
+            <a href="/pqw8nt7/ir" onClick={openIR} className="flex items-center justify-between rounded-lg bg-gradient-to-r from-[#0e2218] to-[#1d3a28] px-5 py-3.5 text-[14.5px] font-bold text-[#e3cf9f] ring-1 ring-[#c9a35b]/60"><span className="flex items-center gap-2"><Icon d="M4 19V9 M10 19V5 M16 19v-7 M22 19H2" size={18} />{s("IR 자료 바로보기", "View IR deck (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
           </div>
         </div>
       </section>
@@ -369,15 +369,15 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
         <div className="mx-auto max-w-md px-5">
           <p className="hy-brand text-[11px] font-bold tracking-[0.24em] text-[var(--hy-lime)]">COMPANY PROFILE</p>
           <h2 className="mt-3 text-[22px] font-black leading-snug">{s("해연에프엔지 회사소개서", "Haeyeon F&G company profile")}</h2>
-          <a href="/haeyeon/deck" className="mt-6 block overflow-hidden rounded-xl bg-white shadow-lg">
+          <a href="/pqw8nt7/deck" className="mt-6 block overflow-hidden rounded-xl bg-white shadow-lg">
             <img src="/haeyeon/deck/01.webp" alt={s("회사소개서 표지", "Company profile cover")} className="aspect-[1287/910] w-full object-cover" />
           </a>
           <div className="mt-4 grid grid-cols-2 gap-2.5">
-            <a href="/haeyeon/deck" className="flex items-center justify-center gap-1.5 rounded-lg bg-[var(--hy-orange)] py-3.5 text-[14px] font-bold"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={17} />{s("바로보기", "View")}</a>
-            <a href="/haeyeon/files/haeyeon-company-profile.pdf" target="_blank" rel="noopener" className="flex items-center justify-center gap-1.5 rounded-lg border border-white/40 py-3.5 text-[14px] font-bold">PDF {s("내려받기", "download")}</a>
+            <a href="/pqw8nt7/deck" className="flex items-center justify-center gap-1.5 rounded-lg bg-[var(--hy-orange)] py-3.5 text-[14px] font-bold"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={17} />{s("바로보기", "View")}</a>
+            <a href="/pqw8nt7/files/haeyeon-company-profile.pdf" target="_blank" rel="noopener" className="flex items-center justify-center gap-1.5 rounded-lg border border-white/40 py-3.5 text-[14px] font-bold">PDF {s("내려받기", "download")}</a>
           </div>
           <p className="mt-3 text-[12px] text-white/60">{s("54쪽 · 휴대폰에서 바로 넘겨 볼 수 있습니다.", "54 pages, in Korean.")}</p>
-          <a href="/haeyeon/ir" onClick={openIR} className="mt-6 flex items-center gap-4 overflow-hidden rounded-xl bg-[#0e2218] p-4 ring-1 ring-[#c9a35b]/60">
+          <a href="/pqw8nt7/ir" onClick={openIR} className="mt-6 flex items-center gap-4 overflow-hidden rounded-xl bg-[#0e2218] p-4 ring-1 ring-[#c9a35b]/60">
             <img src="/haeyeon/ir/butcher.webp" alt="" className="h-20 w-16 shrink-0 rounded-md object-cover" />
             <span className="flex-1">
               <span className="hy-brand block text-[10.5px] font-bold tracking-[0.22em] text-[#c9a35b]">INVESTOR RELATIONS 2026</span>

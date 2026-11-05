@@ -803,7 +803,7 @@ const SLIDES: Slide[] = [
         </It>
         <It className="mt-4 grid grid-cols-2 gap-2.5">
           <button type="button" onClick={() => go(0)} className="rounded-full border border-[var(--ir-gold-ink)] py-3 text-[13.5px] font-bold text-[var(--ir-gold-ink)]">처음부터 다시</button>
-          <a href="/haeyeon" className="rounded-full bg-[var(--ir-gold-ink)] py-3 text-center text-[13.5px] font-bold text-white">사이트로 돌아가기</a>
+          <a href="/pqw8nt7" className="rounded-full bg-[var(--ir-gold-ink)] py-3 text-center text-[13.5px] font-bold text-white">사이트로 돌아가기</a>
         </It>
         <It><p className="mt-3 text-[10.5px] leading-relaxed text-[var(--ir-mute)]">본 자료의 계획·추정치는 회사 제시 자료에 근거하며 실제 결과와 다를 수 있습니다. 과거 재무 수치는 2024·2025년 법인세 신고 표준재무제표(국세청 증명) 기준입니다.</p></It>
       </S>
@@ -1049,7 +1049,7 @@ export default function IRView({ autoVoice = false, onClose }: { autoVoice?: boo
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
               </button>
             ) : (
-              <a href="/haeyeon" className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
+              <a href="/pqw8nt7" className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
               </a>
             )}

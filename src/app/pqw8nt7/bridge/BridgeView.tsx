@@ -340,7 +340,7 @@ const SLIDES: Slide[] = [
         </div>
         <It className="mt-5 grid grid-cols-2 gap-2.5">
           <button type="button" onClick={() => go(0)} className="rounded-full border border-[var(--ir-gold-ink)] py-3 text-[13.5px] font-bold text-[var(--ir-gold-ink)]">처음부터 다시</button>
-          <a href="/haeyeon/ir" className="rounded-full bg-[var(--ir-gold-ink)] py-3 text-center text-[13.5px] font-bold text-white">해연 IR 보기</a>
+          <a href="/pqw8nt7/ir" className="rounded-full bg-[var(--ir-gold-ink)] py-3 text-center text-[13.5px] font-bold text-white">해연 IR 보기</a>
         </It>
         <It><p className="mt-3 text-[10.5px] leading-relaxed text-[var(--ir-mute)]">본 자료는 협의용 초안으로, 위 사항과 금액·조건은 정식 감정과 실사 후 보정·확정됩니다.</p></It>
       </S>
@@ -555,7 +555,7 @@ export default function BridgeView({ autoVoice = false, onClose }: { autoVoice?:
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
               </button>
             ) : (
-              <a href="/haeyeon" className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
+              <a href="/pqw8nt7" className="flex items-center gap-1 text-[12px] font-bold text-[var(--ir-gold-ink)]">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>사이트
               </a>
             )}
