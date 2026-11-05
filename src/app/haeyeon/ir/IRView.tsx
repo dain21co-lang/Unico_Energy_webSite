@@ -12,9 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const P = (f: string) => `/haeyeon/ir/${f}`;
 /* 성우(CLOVA Voice) 녹음 파일이 있는 장 번호 (public/haeyeon/ir/voice/NN.mp3). 없는 장은 휴대폰 음성으로 읽는다 */
-// 3·17·18·19·20·21장은 세무조정계산서 기준 숫자로 바뀌어 재녹음 전까지 녹음 파일을 쓰지 않음
-const VOICE_REC_PENDING = new Set([3, 17, 18, 19, 20, 21]);
-const VOICE_SET = new Set(Array.from({ length: 30 }, (_, k) => k + 1).filter((n) => !VOICE_REC_PENDING.has(n)));
+const VOICE_SET = new Set(Array.from({ length: 30 }, (_, k) => k + 1));
 const IMG = (f: string) => `/haeyeon/img/${f}`;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
