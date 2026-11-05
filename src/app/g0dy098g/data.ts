@@ -58,7 +58,7 @@ export const IMAGES: Record<string, string> = {
   invest: "invest.webp", // 빌딩 앞을 걷는 투자 담당자
   develop: "develop.webp", // 공사 현장 검토
   advisory: "advisory.webp", // 회의실 자문
-  approach: "approach.webp", // 공사 현장(두 번째 컷)
+  approach: "approach.webp", // 현장 실사(손전등으로 균열 확인)
   city: "city.webp", // 한강 야경
   ceo: "ceo.webp", // 유현근 대표 프로필(AI 연출)
   case1: "case1.webp", // 사례 카드 — 오피스 (비어 있으면 그래픽)
@@ -72,6 +72,7 @@ export const VIDEOS: Record<string, string> = {
   invest: "video/invest.mp4", // 사업영역 '부동산 투자' — 빌딩 앞을 걷는 모습
   develop: "video/develop.mp4", // 사업영역 '부동산 개발' — 크레인 현장
   advisory: "video/advisory.mp4", // 사업영역 '투자자문' — 회의실
+  approach: "video/approach.mp4", // '투자 접근' — 현장 실사
   city: "video/city.mp4", // 사업실적 아래 한강 야경
 };
 
@@ -84,7 +85,7 @@ export const IMG_POS: Record<string, string> = {
   invest: "30% 40%",
   develop: "40% 50%",
   advisory: "45% 50%",
-  approach: "30% 50%",
+  approach: "55% 40%",
   city: "50% 50%",
   ceo: "50% 22%",
   case1: "62% 45%",
