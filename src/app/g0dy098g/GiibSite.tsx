@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode, CSSProperties } from "react";
 import { motion, AnimatePresence, useInView, animate } from "framer-motion";
-import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS } from "./data";
+import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS, HERO_VIDEO } from "./data";
 import { LangCtx, useLang, pick, CO_EN, BUSINESS_EN, PROCESS_EN, PRINCIPLES_EN, RECORD_STATS_EN, CASES_EN, SECTORS_EN, MENU_EN } from "./i18n";
 import type { Lang } from "./i18n";
 
@@ -426,6 +426,7 @@ export default function GiibSite() {
         {/* HERO — 코람코·글로벌PMC식: 화면 가득 찬 어두운 이미지 위에 문장 */}
         <section className="relative h-[86dvh] min-h-[560px] overflow-hidden" style={{ background: "#0b1828" }}>
           {SRC("hero") ? <img src={SRC("hero")} alt={T("서울 도심 야경", "Seoul skyline at dusk")} className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} /> : <div className="absolute inset-0"><HubScene /></div>}
+          {HERO_VIDEO && <video src={`/g0dy098g/${HERO_VIDEO}`} poster={SRC("hero") || undefined} autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} />}
           {!SRC("hero") && (<><LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
           <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-20 top-1/3 h-[300px] w-[300px]" /></>)}
           <div className="absolute inset-0" style={{ background: lang === "en" ? "linear-gradient(180deg, rgba(8,14,24,.8) 0%, rgba(8,14,24,.45) 34%, rgba(8,14,24,0) 52%, rgba(8,14,24,0) 74%, rgba(8,14,24,.85) 100%)" : "linear-gradient(180deg, rgba(8,14,24,.15) 0%, rgba(8,14,24,.25) 40%, rgba(8,14,24,.9) 78%, #080e18 100%)" }} />

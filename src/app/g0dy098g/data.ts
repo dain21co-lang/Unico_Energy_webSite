@@ -67,6 +67,9 @@ export const IMAGES: Record<string, string> = {
   case4: "case4.webp", // 사례 카드 — 상장사 담보 자금조달
 };
 
+/* 첫 화면 배경 영상 — 비우면 hero 사진만 보입니다 (영상이 뜨기 전에도 사진이 먼저 보임) */
+export const HERO_VIDEO = "video/hero.mp4"; // 챗GPT GIF → MP4 변환(부드럽게 보간)
+
 /* 사진에서 보여줄 위치(가로 세로 %). 잘리는 부분이 있으면 숫자만 바꾸면 됩니다 */
 export const IMG_POS: Record<string, string> = {
   hero: "35% 62%",
