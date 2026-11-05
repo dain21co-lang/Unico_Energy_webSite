@@ -7,12 +7,14 @@ import { AnimatePresence, motion } from "framer-motion";
 /*
  * 해연에프엔지 IR 뷰어 — 모바일 전용 웹 프레젠테이션
  * 원칙: 투명도 애니메이션 없이 위치·크기·모양만 움직인다 (갤럭시 빈 화면 방지)
- * 수치 출처: 2025 회계연도 결산 재무제표 / 추정·계획은 회사 사업계획서(2026.10)
+ * 수치 출처: 2024·2025 법인세 신고 표준재무제표(국세청 증명) / 추정·계획은 회사 사업계획서(2026.10)
  */
 
 const P = (f: string) => `/haeyeon/ir/${f}`;
 /* 성우(CLOVA Voice) 녹음 파일이 있는 장 번호 (public/haeyeon/ir/voice/NN.mp3). 없는 장은 휴대폰 음성으로 읽는다 */
-const VOICE_SET = new Set(Array.from({ length: 30 }, (_, k) => k + 1));
+// 3·17·18·19·20·21장은 세무조정계산서 기준 숫자로 바뀌어 재녹음 전까지 녹음 파일을 쓰지 않음
+const VOICE_REC_PENDING = new Set([3, 17, 18, 19, 20, 21]);
+const VOICE_SET = new Set(Array.from({ length: 30 }, (_, k) => k + 1).filter((n) => !VOICE_REC_PENDING.has(n)));
 const IMG = (f: string) => `/haeyeon/img/${f}`;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -150,7 +152,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="Table of Contents" t="목차" />
         <div className="mt-6 grid gap-2.5">
-          {[["01", "투자 개요", "핵심 숫자 · 투자 포인트", 2], ["02", "회사 개요", "연혁 · 주주 · 사업장", 4], ["03", "사업 현황", "사업모델 · 제품 · 생산 · 거래처", 9], ["04", "재무 현황", "2025 결산 기준", 15], ["05", "성장 전략", "AI 발골·절단 스마트 팩토리", 21], ["06", "투자 제안", "투자 구조 · 리스크 관리", 27]].map(([n, t, d, to]) => (
+          {[["01", "투자 개요", "핵심 숫자 · 투자 포인트", 2], ["02", "회사 개요", "연혁 · 주주 · 사업장", 4], ["03", "사업 현황", "사업모델 · 제품 · 생산 · 거래처", 9], ["04", "재무 현황", "2025 실적 기준", 15], ["05", "성장 전략", "AI 발골·절단 스마트 팩토리", 21], ["06", "투자 제안", "투자 구조 · 리스크 관리", 27]].map(([n, t, d, to]) => (
             <It key={n as string}>
               <button type="button" onClick={() => go(to as number)} className="flex w-full items-center gap-4 border-t border-[var(--ir-gold)]/60 py-3.5 text-left">
                 <span className="corm w-10 text-[34px] font-semibold leading-none text-[var(--ir-gold-ink)]">{n}</span>
@@ -170,7 +172,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head dark ey="01 · Investment Summary" t={<>연 매출 341억 원 기업이<br />AI 스마트 팩토리로<br />다음 단계를 엽니다</>} />
         <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-[var(--ir-gold)]/30">
-          {[[341, 0, "2025 매출액", "2년 연속 340억대"], [15.4, 1, "매출총이익", "전년 대비 +17.2%"], [8.1, 1, "영업활동 현금흐름", "전년 4.3억의 1.9배"], [96.6, 1, "총자산", "유형자산 88.4억"]].map(([v, d, l, s]) => (
+          {[[341, 0, "2025 매출액", "2년 연속 340억대"], [19.1, 1, "매출총이익", "전년 대비 +40%"], [11.5, 1, "영업이익", "전년 대비 +19%"], [7.1, 1, "당기순이익", "2년 연속 흑자"]].map(([v, d, l, s]) => (
             <It key={l as string} className="bg-[var(--ir-night)] p-4">
               <p className="text-[12px] text-[var(--ir-subd)]">{l}</p>
               <p className="corm mt-1 text-[46px] font-semibold leading-none text-[var(--ir-champ)]"><Count to={v as number} d={d as number} /><span className="ml-0.5 text-[24px] text-[var(--ir-gold)]">억</span></p>
@@ -180,7 +182,7 @@ const SLIDES: Slide[] = [
         </div>
         <It className={`${dcard} mt-4 p-4 text-[13.5px] leading-relaxed text-[var(--ir-subd)]`}><b className="text-[var(--ir-cream)]">사업</b>  제천 HACCP 가공 거점에서 우육·돈육·가금육을 가공해 B2B로 공급하고, 수도권 수익형 부동산에서 임대수익을 얻습니다.</It>
         <It className={`${dcard} mt-2.5 p-4 text-[13.5px] leading-relaxed text-[var(--ir-subd)]`}><b className="text-[var(--ir-cream)]">성장</b>  AI 비전·로봇 자동 발골·절단으로 노무비와 원물 손실을 줄여, 같은 매출에서 더 많은 이익을 남기는 구조로 전환합니다.</It>
-        <Src dark>출처: 2025 회계연도 결산 재무제표</Src>
+        <Src dark>출처: 법인세 신고 표준재무제표 (국세청 증명)</Src>
       </S>
     </Body>
   ) },
@@ -191,7 +193,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="01 · Investment Highlights" t="핵심 투자 포인트" />
         <div className="mt-5 grid gap-2.5">
-          {[["검증된 매출 규모", "2024·2025년 2년 연속 연 매출 340억 원대"], ["인허가 완비 가공 거점", "HACCP 인증, 식육포장처리업·축산물가공업 허가"], ["고정 B2B 거래선", "유통사·외식 프랜차이즈·정육점 반복 거래"], ["실물 자산의 뒷받침", "유형자산 88억 원, 임대매출 2.7억 > 이자비용 2.4억"], ["개선되는 수익 체력", "매출총이익 +17.2%, 부채비율 664% → 522%"], ["AI 자동화 레버리지", "연 20억 원 이상 원가 개선 잠재력 (회사 추정)"]].map(([t, d], i) => (
+          {[["검증된 매출 규모", "2024·2025년 2년 연속 연 매출 340억 원대"], ["인허가 완비 가공 거점", "HACCP 인증, 식육포장처리업·축산물가공업 허가"], ["고정 B2B 거래선", "유통사·외식 프랜차이즈·정육점 반복 거래"], ["실물 자산의 뒷받침", "유형자산 88억 원, 임대매출 2.7억 > 이자비용 2.4억"], ["개선되는 수익 체력", "매출총이익 +40%, 부채비율 406% → 281%"], ["AI 자동화 레버리지", "연 20억 원 이상 원가 개선 잠재력 (회사 추정)"]].map(([t, d], i) => (
             <It key={t} className={`flex items-center gap-4 rounded-xl p-3.5 ${i === 5 ? "bg-[var(--ir-night)] text-[var(--ir-cream)]" : "border border-[var(--ir-line)] bg-[var(--ir-paper)]"}`}>
               <span className={`corm w-8 text-[30px] font-semibold leading-none ${i === 5 ? "text-[var(--ir-gold)]" : "text-[var(--ir-gold-ink)]"}`}>{String(i + 1).padStart(2, "0")}</span>
               <span className="flex-1"><span className="serif block text-[15.5px] font-bold">{t}</span><span className={`mt-0.5 block text-[12.5px] leading-snug ${i === 5 ? "text-[var(--ir-subd)]" : "text-[var(--ir-sub)]"}`}>{d}</span></span>
@@ -212,7 +214,7 @@ const SLIDES: Slide[] = [
           <img src={IMG("logo.png")} alt="해연에프엔지 로고" className="absolute bottom-2.5 left-2.5 h-10 rounded-md bg-[var(--ir-paper)] px-2 py-1 object-contain" />
         </It>
         <dl className="mt-4">
-          {[["법인명", "농업회사법인 해연에프엔지 주식회사"], ["설립일", "2020년 8월 31일"], ["대표이사", "이남미 (최대주주, 45%)"], ["주요 사업", "축산물 가공·저장, 농축산물 유통, 부동산 임대"], ["가공 거점", "충북 제천시 송학주천로 54 (HACCP)"], ["자본금", "9억 원 · 90,000주 (2026년)"], ["2025 매출", "341억 원 (2025 결산)"], ["주거래은행", "IBK기업은행 (시설자금 75억)"]].map(([k, v], i) => (
+          {[["법인명", "농업회사법인 해연에프엔지 주식회사"], ["설립일", "2020년 8월 31일"], ["대표이사", "이남미 (최대주주, 45%)"], ["주요 사업", "축산물 가공·저장, 농축산물 유통, 부동산 임대"], ["가공 거점", "충북 제천시 송학주천로 54 (HACCP)"], ["자본금", "9억 원 · 90,000주 (2026년)"], ["2025 매출", "341억 원 (2025년)"], ["주거래은행", "IBK기업은행 (시설자금 75억)"]].map(([k, v], i) => (
             <It key={k} className={`flex gap-3 py-2.5 ${i === 0 ? "border-t-2 border-[var(--ir-ink)]" : "border-t border-[var(--ir-line)]"}`}>
               <dt className="w-[72px] shrink-0 text-[12.5px] font-bold text-[var(--ir-gold-ink)]">{k}</dt>
               <dd className="text-[13px] leading-snug">{v}</dd>
@@ -252,7 +254,7 @@ const SLIDES: Slide[] = [
           <Head dark ey="02 · Milestones" t="설립 6년, 가공 거점에서 자산과 기술로" />
           <div className="relative mt-6 pl-7">
             <motion.div className="absolute bottom-1 left-[7px] top-2 w-[2px] origin-top bg-[var(--ir-gold)]" initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.8, ease: EASE, delay: 0.3 }} />
-            {[["2020", "법인 설립", "식육포장처리업 · 축산물가공업 허가"], ["2023", "HACCP 인증", "식육포장처리업 제2023-6-0339호"], ["2024", "자산 기반 구축", "인천 가좌동 공장건물 취득 89.5억, IBK 시설자금 75억"], ["2025", "매출 341억", "매출총이익 +17%, 임대매출 2.7억"], ["2026", "본점 전남 영암 이전", "호남 산지 직매입 · AI 가공 거점 준비"], ["NEXT", "AI 스마트 팩토리", "전남 AI 육가공 센터, 발골·절단 자동화"]].map(([y, t, d], i) => (
+            {[["2020", "법인 설립", "식육포장처리업 · 축산물가공업 허가"], ["2023", "HACCP 인증", "식육포장처리업 제2023-6-0339호"], ["2024", "자산 기반 구축", "인천 가좌동 공장건물 취득 89.5억, IBK 시설자금 75억"], ["2025", "매출 341억", "매출총이익 +40%, 영업이익 11.5억"], ["2026", "본점 전남 영암 이전", "호남 산지 직매입 · AI 가공 거점 준비"], ["NEXT", "AI 스마트 팩토리", "전남 AI 육가공 센터, 발골·절단 자동화"]].map(([y, t, d], i) => (
               <It key={y} className="relative pb-4">
                 <span className={`absolute -left-7 top-1.5 h-4 w-4 rounded-full border-[3px] border-[var(--ir-night)] ${i === 5 ? "bg-[#a7d45a]" : "bg-[var(--ir-gold)]"}`} />
                 <p className={`corm text-[24px] font-semibold leading-none ${i === 5 ? "text-[#a7d45a]" : "text-[var(--ir-champ)]"}`}>{y}</p>
@@ -261,7 +263,7 @@ const SLIDES: Slide[] = [
               </It>
             ))}
           </div>
-          <Src dark>출처: 결산 재무제표, 인허가 서류, 회사 사업계획서 (2026.10)</Src>
+          <Src dark>출처: 법인세 신고 표준재무제표, 인허가 서류, 회사 사업계획서 (2026.10)</Src>
         </S>
       </Body>
     </>
@@ -361,7 +363,7 @@ const SLIDES: Slide[] = [
           </div>
           <div className="mt-2 flex justify-between text-[11.5px]"><span><b>제품</b> 338.2억 (99.2%)</span><span className="text-[var(--ir-gold-ink)]"><b>임대</b> 2.7억 (전년비 +125%)</span></div>
         </It>
-        <Src>출처: 2025 결산 손익계산서 · 거래 구조는 회사 사업계획서 기준</Src>
+        <Src>출처: 2025 법인세 신고 표준손익계산서 · 거래 구조는 회사 사업계획서 기준</Src>
       </S>
     </Body>
   ) },
@@ -463,14 +465,14 @@ const SLIDES: Slide[] = [
           </div>
           <p className="mt-2 text-[11.5px] leading-snug text-[var(--ir-subd)]">그랑파사쥬 1층 3개 호실 · 글로벌 커피 프랜차이즈 전체 임차</p>
         </It>
-        <It className="mt-3 rounded-xl bg-[var(--ir-gold)] p-3.5 text-[13px] font-medium leading-relaxed text-[var(--ir-night)]"><b>2025 임대매출 2.73억 &gt; 이자비용 2.38억</b> — 차입 이자를 임대수익으로 감당하는 구조</It>
-        <Src dark>인천: 2025 결산 재무제표 주석 · 하남미사: 2026 회사 자료 (2025년 말 재무제표 미반영)</Src>
+        <It className="mt-3 rounded-xl bg-[var(--ir-gold)] p-3.5 text-[13px] font-medium leading-relaxed text-[var(--ir-night)]"><b>2025 임대매출 2.73억 &gt; 이자비용 2.44억</b> — 차입 이자를 임대수익으로 감당하는 구조</It>
+        <Src dark>인천: 회사 재무자료 · 임대매출·이자비용: 2025 법인세 신고 표준손익계산서 · 하남미사: 2026 회사 자료</Src>
       </S>
     </Body>
   ) },
 
   /* 16 간지: 재무 */
-  { id: "div-fin", ch: 4, theme: "dark", render: () => <Divider n="04" en="Financial Review" ko="재무 현황" desc="2025 회계연도 결산 재무제표 기준 · 단위 억 원" img={P("aerial.webp")} /> },
+  { id: "div-fin", ch: 4, theme: "dark", render: () => <Divider n="04" en="Financial Review" ko="재무 현황" desc="법인세 신고 표준재무제표(국세청 증명) 기준 · 단위 억 원" img={P("aerial.webp")} /> },
 
   /* 17 손익계산서 */
   { id: "income", ch: 4, theme: "light", render: () => (
@@ -481,28 +483,28 @@ const SLIDES: Slide[] = [
           <table className="w-full text-[13px]">
             <thead><tr className="bg-[var(--ir-night)] text-[var(--ir-cream)]"><th className="px-3 py-2.5 text-left font-semibold">억 원</th><th className="px-2 py-2.5 text-right font-semibold">2024</th><th className="px-2 py-2.5 text-right font-semibold">2025</th><th className="px-3 py-2.5 text-right font-semibold">증감</th></tr></thead>
             <tbody>
-              {[["매출액", "340.1", "341.0", "+0.2%", 1], ["매출원가", "327.0", "325.6", "−0.4%", 0], ["매출총이익", "13.1", "15.4", "+17.2%", 1], ["판매관리비", "4.0", "9.3", "+133%", 0], ["영업이익", "9.1", "6.0", "−33.7%", 1], ["영업외비용", "10.5", "2.4", "−77%", 0], ["세전이익", "−1.4", "3.6", "흑자전환", 0], ["당기순이익", "−2.9", "2.1", "흑자전환", 1]].map(([k, a, b, c, bold]) => (
+              {[["매출액", "340.1", "341.0", "+0.2%", 1], ["매출원가", "326.5", "321.8", "−1.4%", 0], ["매출총이익", "13.7", "19.1", "+40.2%", 1], ["판매관리비", "4.0", "7.7", "+91.6%", 0], ["영업이익", "9.6", "11.5", "+18.8%", 1], ["영업외비용", "1.0", "2.5", "+156%", 0], ["세전이익", "8.7", "9.0", "+3.6%", 0], ["당기순이익", "7.0", "7.1", "+1.1%", 1]].map(([k, a, b, c, bold]) => (
                 <tr key={k as string} className={`border-t border-[var(--ir-line)] ${bold ? "font-bold" : ""}`}>
-                  <td className="px-3 py-2.5">{k}</td><td className="px-2 py-2.5 text-right tabular-nums text-[var(--ir-sub)]">{a}</td><td className="px-2 py-2.5 text-right tabular-nums">{b}</td><td className={`px-3 py-2.5 text-right text-[12px] ${String(c).startsWith("+") || c === "흑자전환" ? "text-[var(--ir-gold-ink)]" : "text-[var(--ir-sub)]"}`}>{c}</td>
+                  <td className="px-3 py-2.5">{k}</td><td className="px-2 py-2.5 text-right tabular-nums text-[var(--ir-sub)]">{a}</td><td className="px-2 py-2.5 text-right tabular-nums">{b}</td><td className={`px-3 py-2.5 text-right text-[12px] ${bold && String(c).startsWith("+") ? "text-[var(--ir-gold-ink)]" : "text-[var(--ir-sub)]"}`}>{c}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </It>
-        <It className="mt-3 text-[12.5px] leading-relaxed text-[var(--ir-sub)]">2024년 영업외비용에는 일회성 기타대손상각비 9.3억 원이 포함되어 있습니다. 이를 제외하면 2024년 세전이익은 7.9억 원입니다.</It>
-        <Src>출처: 2025 결산 재무제표</Src>
+        <It className="mt-3 text-[12.5px] leading-relaxed text-[var(--ir-sub)]">영업외비용은 대부분 이자비용으로, 0.96억에서 2.44억 원으로 늘었습니다. 2024년 인천 공장건물 취득 때 받은 시설자금 75억 원의 이자가 2025년에는 한 해 전체로 반영되었습니다.</It>
+        <Src>출처: 법인세 신고 표준재무제표 (국세청 증명)</Src>
       </S>
     </Body>
   ) },
 
   /* 18 수익성 추이 */
   { id: "trend", ch: 4, theme: "light", render: () => {
-    const groups: [string, number, number][] = [["매출총이익", 13.1, 15.4], ["영업이익", 9.1, 6.0], ["당기순이익", -2.9, 2.1]];
-    const max = 16; const H = 150; const NEG = 46;
+    const groups: [string, number, number][] = [["매출총이익", 13.7, 19.1], ["영업이익", 9.6, 11.5], ["당기순이익", 7.0, 7.1]];
+    const max = 20; const H = 150; const NEG = 46;
     return (
       <Body center>
         <S>
-          <Head ey="04 · Profitability" t="이익 구조 — 총이익은 늘고, 비용은 정리 중" />
+          <Head ey="04 · Profitability" t="이익 구조 — 세 가지 이익이 모두 늘었습니다" />
           <It className={`${card} mt-5 p-4`}>
             <div className="flex justify-end gap-3 text-[11px]"><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-[#c9d8b6]" />2024</span><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-[var(--ir-ink)]" />2025</span></div>
             <div className="relative mt-2" style={{ height: H + NEG + 24 }}>
@@ -527,9 +529,9 @@ const SLIDES: Slide[] = [
               </div>
             </div>
           </It>
-          <It className="mt-3 rounded-xl border-l-4 border-[var(--ir-gold)] bg-[var(--ir-paper)] p-3.5 text-[12.5px] leading-relaxed text-[var(--ir-sub)]"><b className="text-[var(--ir-ink)]">총이익률 3.9% → 4.5%</b>  원가 관리로 매출총이익이 2.3억 늘었습니다.</It>
-          <It className="mt-2 rounded-xl border-l-4 border-[var(--ir-moss)] bg-[var(--ir-paper)] p-3.5 text-[12.5px] leading-relaxed text-[var(--ir-sub)]"><b className="text-[var(--ir-ink)]">영업이익 감소 요인</b>  복리후생비 +2.4억, 매출채권 대손상각 1.7억 (보수적 충당금 설정)</It>
-          <Src>단위 억 원 · 출처: 2025 결산 손익계산서</Src>
+          <It className="mt-3 rounded-xl border-l-4 border-[var(--ir-gold)] bg-[var(--ir-paper)] p-3.5 text-[12.5px] leading-relaxed text-[var(--ir-sub)]"><b className="text-[var(--ir-ink)]">총이익률 4.0% → 5.6%</b>  원가 관리로 매출총이익이 5.5억 늘었습니다.</It>
+          <It className="mt-2 rounded-xl border-l-4 border-[var(--ir-moss)] bg-[var(--ir-paper)] p-3.5 text-[12.5px] leading-relaxed text-[var(--ir-sub)]"><b className="text-[var(--ir-ink)]">비용 증가를 넘어선 성장</b>  복리후생비 등 판매관리비가 3.7억 늘었지만 영업이익은 1.8억 증가했습니다.</It>
+          <Src>단위 억 원 · 출처: 법인세 신고 표준재무제표 (국세청 증명)</Src>
         </S>
       </Body>
     );
@@ -551,48 +553,53 @@ const SLIDES: Slide[] = [
     return (
       <Body center>
         <S>
-          <Head dark ey="04 · Balance Sheet" t="자산 96.6억 원의 91%가 토지·건물" />
+          <Head dark ey="04 · Balance Sheet" t="자산 112.1억 원 중 88.4억이 유형자산" />
           <It className="mt-6 flex gap-5 px-3">
-            <Bar label="자산 96.6억" delay={0.4} parts={[[0.6, "#6E8A5A", "기타"], [7.6, "#E6F4C9", "유동자산"], [88.4, "#8CC63F", "유형자산"]]} />
-            <Bar label="부채 81.1 + 자본 15.5" delay={0.7} parts={[[15.5, "#F5C518", "자본"], [6.1, "#6E8A5A", "기타부채"], [75.0, "#24561a", "장기차입금"]]} />
+            <Bar label="자산 112.1억" delay={0.4} parts={[[1.6, "#6E8A5A", "기타"], [22.1, "#E6F4C9", "유동자산"], [88.4, "#8CC63F", "유형자산"]]} />
+            <Bar label="부채 82.7 + 자본 29.4" delay={0.7} parts={[[29.4, "#F5C518", "자본"], [7.7, "#6E8A5A", "기타부채"], [75.0, "#24561a", "장기차입금"]]} />
           </It>
           <div className="mt-5 grid gap-2">
-            {[["장기차입금 75억", "IBK 중소기업시설자금, 금리 2.99%, 인천 부동산 담보 (감정 80.1억)"], ["특수관계자 차입 8.6억 → 0", "2025년 중 전액 상환, 부채 8.3억 감소"], ["자본 15.5억", "이익잉여금 9.5억 누적, 전년 대비 +2.1억"]].map(([t, d]) => (
+            {[["장기차입금 75억", "IBK 중소기업시설자금, 금리 2.99%, 인천 부동산 담보 (감정 80.1억)"], ["특수관계자 차입 8.6억 → 0", "2025년 중 전액 상환, 부채 총액 7.9억 감소"], ["자본 29.4억", "이익잉여금 23.4억 누적, 전년 대비 +7.1억"]].map(([t, d]) => (
               <It key={t} className={`${dcard} p-3.5`}><p className="text-[13.5px] font-bold text-[var(--ir-champ)]">{t}</p><p className="mt-0.5 text-[12px] leading-snug text-[var(--ir-subd)]">{d}</p></It>
             ))}
           </div>
-          <Src dark>출처: 2025 결산 재무상태표 및 주석</Src>
+          <Src dark>출처: 법인세 신고 표준재무제표 (국세청 증명) · 차입 조건: 회사 자료</Src>
         </S>
       </Body>
     );
   } },
 
-  /* 20 현금흐름 */
+  /* 20 유동성 (세무 신고 표준재무제표에는 현금흐름표가 없어 재무상태표 변화로 표시) */
   { id: "cashflow", ch: 4, theme: "light", render: () => {
-    const R = 8.4;
-    const rows: [string, number, number, string, string][] = [["기초 현금", 0, 0.14, "0.1", "#c9d8b6"], ["영업활동", 0.14, 8.08, "+8.1", "#1E3512"], ["투자활동", 8.22, 0, "0.0", "#c9d8b6"], ["재무활동", 0.02, 8.2, "−8.2", "#6E8A5A"], ["기말 현금", 0, 0.02, "0.0", "#c9d8b6"]];
+    const R = 22.1;
+    const rows: [string, number, number][] = [["유동자산", 21.7, 22.1], ["유동부채", 13.3, 5.0], ["특수관계자 차입", 8.6, 0]];
     return (
       <Body center>
         <S>
-          <Head ey="04 · Cash Flow" t="영업에서 번 현금으로 차입을 갚았습니다" />
+          <Head ey="04 · Liquidity" t="단기 부채를 정리해 유동성을 높였습니다" />
           <It className={`${card} mt-5 p-4`}>
-            {rows.map(([l, s, w, v, c], i) => (
-              <div key={l} className="flex items-center gap-3 py-2">
-                <span className="w-[64px] shrink-0 text-[12.5px] font-semibold">{l}</span>
-                <div className="relative h-6 flex-1">
-                  <motion.div className="absolute top-0 h-full origin-left rounded-sm" style={{ left: `${(s / R) * 100}%`, width: `${Math.max((w / R) * 100, 0.8)}%`, background: c }}
-                    initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.9, delay: 0.4 + i * 0.25, ease: EASE }} />
-                </div>
-                <span className="w-10 shrink-0 text-right text-[12.5px] font-bold tabular-nums">{v}</span>
+            <div className="flex justify-end gap-3 text-[11px]"><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-[#c9d8b6]" />2024</span><span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm bg-[var(--ir-ink)]" />2025</span></div>
+            {rows.map(([l, a, b], i) => (
+              <div key={l} className="py-2">
+                <p className="text-[12.5px] font-semibold">{l}</p>
+                {[a, b].map((v, k) => (
+                  <div key={k} className="mt-1 flex items-center gap-2">
+                    <div className="relative h-4 flex-1">
+                      <motion.div className={`absolute left-0 top-0 h-full origin-left rounded-sm ${k ? "bg-[var(--ir-ink)]" : "bg-[#c9d8b6]"}`} style={{ width: `${Math.max((v / R) * 100, 0.8)}%` }}
+                        initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.9, delay: 0.4 + i * 0.25 + k * 0.12, ease: EASE }} />
+                    </div>
+                    <span className={`w-10 shrink-0 text-right text-[12.5px] tabular-nums ${k ? "font-bold" : "text-[var(--ir-sub)]"}`}>{v.toFixed(1)}</span>
+                  </div>
+                ))}
               </div>
             ))}
           </It>
           <div className="mt-3 grid grid-cols-2 gap-2.5">
-            <It className="rounded-xl bg-[var(--ir-night)] p-3.5 text-[var(--ir-cream)]"><p className="text-[11.5px] text-[var(--ir-subd)]">영업활동 현금흐름</p><p className="corm text-[34px] font-semibold leading-tight text-[var(--ir-champ)]">+<Count to={8.1} d={1} />억</p><p className="text-[11px] text-[var(--ir-mute)]">전년 +4.3억</p></It>
-            <It className={`${card} p-3.5`}><p className="text-[11.5px] text-[var(--ir-sub)]">특수관계자 차입 상환</p><p className="corm text-[34px] font-semibold leading-tight">−<Count to={12.0} d={1} />억</p><p className="text-[11px] text-[var(--ir-sub)]">신규 차입 3.4억 포함 순상환</p></It>
+            <It className="rounded-xl bg-[var(--ir-night)] p-3.5 text-[var(--ir-cream)]"><p className="text-[11.5px] text-[var(--ir-subd)]">유동비율</p><p className="corm text-[34px] font-semibold leading-tight text-[var(--ir-champ)]"><Count to={439} />%</p><p className="text-[11px] text-[var(--ir-mute)]">전년 163%</p></It>
+            <It className={`${card} p-3.5`}><p className="text-[11.5px] text-[var(--ir-sub)]">현금·단기예금</p><p className="corm text-[34px] font-semibold leading-tight"><Count to={8.5} d={1} />억</p><p className="text-[11px] text-[var(--ir-sub)]">2025년 말</p></It>
           </div>
-          <It className="mt-3 text-[12.5px] leading-relaxed text-[var(--ir-sub)]">기말 현금은 0.02억 원으로 낮아, 투자 유치를 통한 운전자금 확충이 필요한 시점입니다.</It>
-          <Src>단위 억 원 · 출처: 2025 결산 현금흐름표</Src>
+          <It className="mt-3 text-[12.5px] leading-relaxed text-[var(--ir-sub)]">주주·임원 단기차입금 8.6억 원을 모두 갚아 유동부채가 13.3억에서 5.0억 원으로 줄었습니다.</It>
+          <Src>단위 억 원 · 출처: 법인세 신고 표준재무상태표 (국세청 증명)</Src>
         </S>
       </Body>
     );
@@ -604,7 +611,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="04 · Key Ratios" t="재무 지표 — 1년 사이의 개선" />
         <div className="mt-5 grid grid-cols-2 gap-2.5">
-          {[["부채비율", "664%", 522, "%", 0, "낮을수록 좋음"], ["유동비율", "105%", 224, "%", 0, "높을수록 좋음"], ["매출총이익률", "3.9%", 4.5, "%", 1, "높을수록 좋음"], ["EBITDA ÷ 이자", "", 3.0, "배", 1, "2025년 기준"]].map(([k, a, b, u, d, n]) => (
+          {[["부채비율", "406%", 281, "%", 0, "낮을수록 좋음"], ["유동비율", "163%", 439, "%", 0, "높을수록 좋음"], ["매출총이익률", "4.0%", 5.6, "%", 1, "높을수록 좋음"], ["EBITDA ÷ 이자", "", 5.2, "배", 1, "2025년 기준"]].map(([k, a, b, u, d, n]) => (
             <It key={k as string} className={`${card} p-4`}>
               <p className="text-[12px] font-bold text-[var(--ir-gold-ink)]">{k}</p>
               <p className="mt-1.5 text-[12px] text-[var(--ir-sub)]">{a ? `2024 ${a} →` : "\u00a0"}</p>
@@ -613,8 +620,8 @@ const SLIDES: Slide[] = [
             </It>
           ))}
         </div>
-        <It className="mt-3 rounded-xl bg-[var(--ir-night)] p-4 text-[12.5px] leading-relaxed text-[var(--ir-subd)]">부채비율은 여전히 높은 수준입니다. 다만 차입의 대부분이 <b className="text-[var(--ir-cream)]">장기 저리 정책자금(2.99%)</b>이고, 담보 부동산과 임대수익이 뒷받침합니다. 투자 유치는 이 비율을 낮추는 가장 빠른 방법입니다.</It>
-        <Src>EBITDA = 영업이익 6.0억 + 감가상각비 1.2억 · 이자비용 2.4억 · 출처: 2025 결산 재무제표</Src>
+        <It className="mt-3 rounded-xl bg-[var(--ir-night)] p-4 text-[12.5px] leading-relaxed text-[var(--ir-subd)]">부채비율이 1년 사이 406%에서 281%로 낮아졌습니다. 차입의 대부분은 <b className="text-[var(--ir-cream)]">장기 저리 정책자금(2.99%)</b>이고, 담보 부동산과 임대수익이 뒷받침합니다. 투자 유치는 이 비율을 더 낮추는 가장 빠른 방법입니다.</It>
+        <Src>EBITDA = 영업이익 11.5억 + 감가상각비 1.2억 · 이자비용 2.4억 · 출처: 법인세 신고 표준재무제표 (국세청 증명)</Src>
       </S>
     </Body>
   ) },
@@ -683,7 +690,7 @@ const SLIDES: Slide[] = [
         </It>
         <It className="mt-4">
           <p className="text-[12px] text-[var(--ir-subd)]">예시: 노무비 50% 절감 + 수율 +2%p</p>
-          {[["2025 영업이익", 6.0, "#6E8A5A"], ["원가 개선 잠재력", 21.5, "#2E7D32"]].map(([l, v, c], i) => (
+          {[["2025 영업이익", 11.5, "#6E8A5A"], ["원가 개선 잠재력", 21.5, "#2E7D32"]].map(([l, v, c], i) => (
             <div key={l as string} className="mt-2">
               <div className="flex justify-between text-[12px]"><span>{l}</span><span className="font-bold tabular-nums">{(v as number).toFixed(1)}억</span></div>
               <div className="mt-1 h-3 overflow-hidden rounded-full bg-[var(--ir-line)]">
@@ -772,7 +779,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="06 · Risks & Mitigation" t="리스크와 대응 방안" />
         <div className="mt-5 grid gap-2">
-          {[["높은 레버리지", "부채비율 522%", "장기 저리 정책자금, 임대수익으로 이자 충당, 증자로 비율 개선"], ["낮은 이익률", "영업이익률 1.8%", "AI 자동화·수율 개선, 고단가 채널 확대"], ["매출채권 회수", "대손충당금 1.7억", "거래처 신용 관리 강화, 보증보험 활용"], ["원물 가격 변동", "원재료 비중 높음", "복수 조달선, 산지 직매입 확대"], ["유동성", "기말 현금 0.02억", "영업현금흐름 흑자 유지, 운전자금 확충"], ["기술 실행", "AI 도입 초기 단계", "파일럿부터 단계적 도입, 광학 협력사와 공동 검증"]].map(([t, m, d]) => (
+          {[["높은 레버리지", "부채비율 281%", "장기 저리 정책자금, 임대수익으로 이자 충당, 증자로 비율 개선"], ["낮은 이익률", "영업이익률 3.4%", "AI 자동화·수율 개선, 고단가 채널 확대"], ["매출채권 회수", "매출채권 8.7억", "거래처 신용 관리 강화, 보증보험 활용"], ["원물 가격 변동", "원재료 비중 높음", "복수 조달선, 산지 직매입 확대"], ["유동성", "현금·단기예금 8.5억", "영업 흑자 유지, 투자 유치로 운전자금 확충"], ["기술 실행", "AI 도입 초기 단계", "파일럿부터 단계적 도입, 광학 협력사와 공동 검증"]].map(([t, m, d]) => (
             <It key={t} className={`${card} p-3`}>
               <div className="flex items-baseline justify-between gap-2"><p className="text-[13.5px] font-bold">{t}</p><p className="text-[11px] font-semibold text-[#9a5a3a]">{m}</p></div>
               <p className="mt-1 text-[12px] leading-snug text-[var(--ir-sub)]"><span className="font-bold text-[var(--ir-gold-ink)]">대응</span>  {d}</p>
@@ -800,7 +807,7 @@ const SLIDES: Slide[] = [
           <button type="button" onClick={() => go(0)} className="rounded-full border border-[var(--ir-gold-ink)] py-3 text-[13.5px] font-bold text-[var(--ir-gold-ink)]">처음부터 다시</button>
           <a href="/haeyeon" className="rounded-full bg-[var(--ir-gold-ink)] py-3 text-center text-[13.5px] font-bold text-white">사이트로 돌아가기</a>
         </It>
-        <It><p className="mt-3 text-[10.5px] leading-relaxed text-[var(--ir-mute)]">본 자료의 계획·추정치는 회사 제시 자료에 근거하며 실제 결과와 다를 수 있습니다. 과거 재무 수치는 2025 회계연도 결산 기준입니다.</p></It>
+        <It><p className="mt-3 text-[10.5px] leading-relaxed text-[var(--ir-mute)]">본 자료의 계획·추정치는 회사 제시 자료에 근거하며 실제 결과와 다를 수 있습니다. 과거 재무 수치는 2024·2025년 법인세 신고 표준재무제표(국세청 증명) 기준입니다.</p></It>
       </S>
     </Body>
   ) },
@@ -810,7 +817,7 @@ const SLIDES: Slide[] = [
 const NARR: Record<string, string> = {
   cover: "해연에프엔지 투자설명 자료입니다. 좋은 고기는 손끝에서, 더 좋은 고기는 데이터에서. 지금부터 해연에프엔지를 소개합니다.",
   contents: "자료는 투자 개요, 회사 개요, 사업 현황, 재무 현황, 성장 전략, 그리고 투자 제안 순서로 구성되어 있습니다.",
-  summary: "해연에프엔지는 2025년 매출 341억 원, 매출총이익 15억 4천만 원, 영업활동 현금흐름 8억 1천만 원을 기록했습니다. 총자산은 96억 6천만 원입니다.",
+  summary: "해연에프엔지는 2025년 매출 341억 원, 매출총이익 19억 1천만 원, 영업이익 11억 5천만 원, 당기순이익 7억 1천만 원을 기록했습니다.",
   highlights: "핵심 투자 포인트는 여섯 가지입니다. 검증된 매출 규모, 인허가를 갖춘 가공 거점, 고정 B2B 거래선, 실물 자산, 개선되는 수익 체력, 그리고 AI 자동화를 통한 원가 개선 잠재력입니다.",
   glance: "2020년 8월 설립된 농업회사법인으로, 충북 제천의 HACCP 가공장을 거점으로 축산물 가공과 유통, 부동산 임대 사업을 하고 있습니다.",
   ceo: "이남미 대표이사는 생산자에게는 안정적인 판로를, 소비자에게는 믿을 수 있는 먹거리를 약속합니다. AI 스마트 팩토리로의 전환으로 투자자 여러분께 보답하겠습니다.",
@@ -824,11 +831,11 @@ const NARR: Record<string, string> = {
   network: "부경양돈조합과 스마일팜미트 등 복수의 조달선과, 신선축산, 백조한우축산 등 고정 B2B 거래선을 확보하고 있습니다.",
   realestate: "인천 가좌동 공장건물은 전 층 임대 중이며, 2025년 임대매출 2억 7천만 원이 이자비용 2억 4천만 원을 웃돌았습니다.",
   "div-fin": "다음은 재무 현황입니다.",
-  income: "2025년 매출은 341억 원으로 전년 수준을 유지했고, 매출총이익은 17퍼센트 늘었습니다. 당기순이익은 흑자로 전환했습니다.",
-  trend: "총이익률은 3.9퍼센트에서 4.5퍼센트로 높아졌습니다. 영업이익은 복리후생비와 보수적인 대손충당금 설정으로 줄었습니다.",
-  balance: "자산 96억 6천만 원 가운데 91퍼센트가 토지와 건물입니다. 차입금 75억 원은 금리 2.99퍼센트의 장기 정책자금입니다.",
-  cashflow: "영업활동에서 8억 1천만 원의 현금을 벌어, 특수관계자 차입금을 모두 갚았습니다.",
-  health: "부채비율은 664퍼센트에서 522퍼센트로, 유동비율은 105퍼센트에서 224퍼센트로 개선되었습니다.",
+  income: "2025년 매출은 341억 원으로 전년 수준을 유지했고, 매출총이익은 40퍼센트, 영업이익은 19퍼센트 늘었습니다. 당기순이익은 7억 1천만 원으로 2년 연속 흑자입니다.",
+  trend: "총이익률은 4.0퍼센트에서 5.6퍼센트로 높아졌습니다. 판매관리비가 늘었지만, 영업이익은 1억 8천만 원 증가했습니다.",
+  balance: "자산 112억 1천만 원 가운데 88억 4천만 원이 토지와 건물 등 유형자산입니다. 차입금 75억 원은 금리 2.99퍼센트의 장기 정책자금입니다.",
+  cashflow: "주주와 임원의 단기차입금 8억 6천만 원을 모두 갚아, 유동부채가 13억 3천만 원에서 5억 원으로 줄었습니다. 유동비율은 439퍼센트로 높아졌습니다.",
+  health: "부채비율은 406퍼센트에서 281퍼센트로, 유동비율은 163퍼센트에서 439퍼센트로 개선되었습니다.",
   "div-ai": "다음은 성장 전략, AI 스마트 팩토리입니다.",
   problem: "현장 가공 인력 비용은 연간 31억 9천만 원에 이릅니다. 숙련 인력 부족과 수작업 수율 편차가 이익을 가로막고 있습니다.",
   solution: "AI 비전이 원육을 스캔하고, 딥러닝이 절단 경로를 정하며, 로봇이 정밀하게 발골합니다.",

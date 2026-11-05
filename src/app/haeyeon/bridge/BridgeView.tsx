@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 /*
  * 해연에프엔지 브릿지·PF 자금조달 제안 — 모바일 전용 모션 프레젠테이션 (IR 뷰어와 같은 엔진)
  * 원칙: 투명도 애니메이션 없이 위치·크기·모양만 움직인다 (갤럭시 빈 화면 방지)
- * 수치 출처: 2025 회계연도 결산 재무제표 / 추정·계획은 회사 사업계획서(2026.10)
+ * 수치 출처: 2025 법인세 신고 표준재무제표(국세청 증명) / 추정·계획은 회사 사업계획서(2026.10)
  */
 
 // (사진 경로 도우미는 IR과 공유하지 않음)
@@ -199,7 +199,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="02 · Borrower" t="차주 해연에프엔지 — 연 매출 341억 원" />
         <div className="mt-5 grid grid-cols-2 gap-2.5">
-          {[[341, 0, "2025 매출액", "억"], [15.4, 1, "매출총이익", "억"], [8.1, 1, "영업활동 현금흐름", "억"], [96.6, 1, "총자산", "억"]].map(([v, d, l, u]) => (
+          {[[341, 0, "2025 매출액", "억"], [19.1, 1, "매출총이익", "억"], [11.5, 1, "영업이익", "억"], [112.1, 1, "총자산", "억"]].map(([v, d, l, u]) => (
             <It key={l as string} className={`${card} p-4`}><p className="text-[12px] text-[var(--ir-sub)]">{l}</p><p className="corm mt-1 text-[40px] font-semibold leading-none text-[var(--ir-gold-ink)]"><Count to={v as number} d={d as number} /><span className="text-[20px]">{u}</span></p></It>
           ))}
         </div>
@@ -208,7 +208,7 @@ const SLIDES: Slide[] = [
             <It key={k} className="flex gap-3 border-t border-[var(--ir-line)] pt-2.5 text-[12.5px]"><span className="w-[68px] shrink-0 font-bold text-[var(--ir-gold-ink)]">{k}</span><span className="text-[var(--ir-sub)]">{v}</span></It>
           ))}
         </div>
-        <Src>2025 회계연도 결산 기준 · 상세는 해연에프엔지 IR 자료 참조</Src>
+        <Src>2025 법인세 신고 표준재무제표 기준 · 상세는 해연에프엔지 IR 자료 참조</Src>
       </S>
     </Body>
   ) },
