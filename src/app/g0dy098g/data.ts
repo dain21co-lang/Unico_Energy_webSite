@@ -60,6 +60,7 @@ export const IMAGES: Record<string, string> = {
   advisory: "advisory.webp", // 회의실 자문
   approach: "approach.webp", // 공사 현장(두 번째 컷)
   city: "city.webp", // 한강 야경
+  ceo: "ceo.webp", // 유현근 대표 프로필(AI 연출)
 };
 
 /* 사진에서 보여줄 위치(가로 세로 %). 잘리는 부분이 있으면 숫자만 바꾸면 됩니다 */
@@ -70,6 +71,7 @@ export const IMG_POS: Record<string, string> = {
   advisory: "45% 50%",
   approach: "30% 50%",
   city: "50% 50%",
+  ceo: "50% 22%",
 };
 
 /*

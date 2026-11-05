@@ -595,6 +595,7 @@ export default function GiibSite() {
         {/* 인사말 */}
         <section id="ceo" className="px-5 pt-14 pb-14" style={{ background: "var(--gi-paper)" }}>
           <Kicker>CEO MESSAGE</Kicker>
+          {SRC("ceo") && <Visual k="ceo" className="mt-5 h-[440px]" tag={T("대표이사 유현근", "CEO Hyun-geun Yoo")} />}
           <Rise>
             <p className="mt-5 text-[21px] font-bold leading-[1.55]" style={{ color: "var(--gi-black)" }}>&ldquo;{lang === "en" ? <>We will be a trusted hub<br />between investors and sponsors.</> : <>투자자와 사업자 사이에서<br />믿을 수 있는 거점이 되겠습니다.</>}&rdquo;</p>
           </Rise>
