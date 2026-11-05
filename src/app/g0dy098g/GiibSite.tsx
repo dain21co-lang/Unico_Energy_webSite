@@ -239,26 +239,31 @@ export default function GiibSite() {
           )}
         </AnimatePresence>
 
-        {/* HERO — 큰 사진 + 아래 문장 */}
-        <section>
-          <div className="relative h-[54dvh] min-h-[340px] overflow-hidden" style={{ background: "#10223a" }}>
-            {SRC("hero") ? <img src={SRC("hero")} alt="" className="gi-kb absolute inset-0 h-full w-full object-cover" /> : <div className="absolute inset-0"><HubScene /></div>}
-            <LiveBlob fill="rgba(201,154,98,.32)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-16 -top-16 h-[260px] w-[260px] mix-blend-screen" />
-            <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -bottom-20 -right-16 h-[300px] w-[300px]" />
-            {/* 아래로 쓸려 내려가는 막 (첫 등장) */}
-            <motion.div className="absolute inset-0" style={{ background: "#0b0c0e" }} initial={{ clipPath: "inset(0% 0% 0% 0%)" }} animate={{ clipPath: "inset(100% 0% 0% 0%)" }} transition={{ duration: 1.2, delay: 0.1, ease: EASE }} />
-          </div>
-          <div className="px-5 pt-8 pb-12">
-            <Kicker>REAL ESTATE INVESTMENT · DEVELOPMENT · ADVISORY</Kicker>
-            <h1 className="mt-4 text-[34px] font-extrabold leading-[1.24] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>
-              <Lift delay={0.1}>부동산의 가치를,</Lift>
-              <Lift delay={0.25}>구조로 완성합니다.</Lift>
+        {/* HERO — 코람코·글로벌PMC식: 화면 가득 찬 어두운 이미지 위에 문장 */}
+        <section className="relative h-[86dvh] min-h-[560px] overflow-hidden" style={{ background: "#0b1828" }}>
+          {SRC("hero") ? <img src={SRC("hero")} alt="" className="gi-kb absolute inset-0 h-full w-full object-cover" /> : <div className="absolute inset-0"><HubScene /></div>}
+          <LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
+          <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-20 top-1/3 h-[300px] w-[300px]" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,.15) 0%, rgba(8,14,24,.25) 40%, rgba(8,14,24,.9) 78%, #080e18 100%)" }} />
+          <div className="absolute inset-x-0 bottom-0 px-5 pb-10 text-white">
+            <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>REAL ESTATE · DEVELOPMENT · ADVISORY</Lift></div>
+            <h1 className="mt-3 text-[31px] font-extrabold leading-[1.3] tracking-[-0.02em]">
+              <Lift delay={1.05}>사는 데서 끝내지 않습니다.</Lift>
+              <Lift delay={1.2}><span style={{ color: "var(--gi-sand)" }}>자산의 가치를 설계합니다.</span></Lift>
             </h1>
-            <Rise delay={0.4}><p className="mt-5 text-[15.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>글로벌인프라허브는 부동산 투자와 개발, 투자자문을 하는 회사입니다. 서류로 확인하고, 구조로 지키는 투자를 설계합니다.</p></Rise>
-            <Rise delay={0.5}>
-              <button onClick={() => go("business")} className="mt-7 flex items-center gap-3 px-5 py-3.5 text-[14.5px] font-bold text-white" style={{ background: "var(--gi-black)" }}>사업영역 살펴보기 <Arrow /></button>
+            <Rise delay={1.4}><p className="mt-4 text-[14.5px] leading-[1.75] text-white/75">글로벌인프라허브는 부동산 투자·개발과 투자자문을 하는 회사입니다. 서류로 확인하고, 구조로 지키는 투자를 설계합니다.</p></Rise>
+            <Rise delay={1.55}>
+              <div className="mt-6 flex items-end justify-between gap-3">
+                <button onClick={() => go("business")} className="flex items-center gap-3 px-5 py-3.5 text-[14.5px] font-bold" style={{ background: "#fff", color: "var(--gi-black)" }}>사업영역 살펴보기 <Arrow /></button>
+                <div className="text-right leading-none">
+                  <div className="gi-en text-[10px] text-white/60">SINCE</div>
+                  <div className="mt-1 text-[40px] font-extrabold tracking-[-0.03em]"><Count to={2015} /></div>
+                </div>
+              </div>
             </Rise>
           </div>
+          {/* 첫 등장: 검은 막이 아래로 걷힌다 */}
+          <motion.div className="absolute inset-0" style={{ background: "#0b0c0e" }} initial={{ clipPath: "inset(0% 0% 0% 0%)" }} animate={{ clipPath: "inset(100% 0% 0% 0%)" }} transition={{ duration: 1.2, delay: 0.1, ease: EASE }} />
         </section>
 
         {/* 큰 문장 (BlackRock식) */}
