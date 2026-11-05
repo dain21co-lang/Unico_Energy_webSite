@@ -54,7 +54,7 @@ export const PRINCIPLES = [
 
 /* 사진 자리 — 파일을 public/g0dy098g/ 에 넣고 이름을 적으면 표시됩니다. 비어 있으면 그래픽으로 대신합니다 */
 export const IMAGES: Record<string, string> = {
-  hero: "hero.webp", // 서울 야경 스카이라인(세로)
+  hero: "hero.webp", // 서울 야경 스카이라인(세로 9:16)
   invest: "invest.webp", // 빌딩 앞을 걷는 투자 담당자
   develop: "develop.webp", // 공사 현장 검토
   advisory: "advisory.webp", // 회의실 자문
@@ -64,7 +64,7 @@ export const IMAGES: Record<string, string> = {
 
 /* 사진에서 보여줄 위치(가로 세로 %). 잘리는 부분이 있으면 숫자만 바꾸면 됩니다 */
 export const IMG_POS: Record<string, string> = {
-  hero: "28% 50%",
+  hero: "35% 62%",
   invest: "30% 40%",
   develop: "40% 50%",
   advisory: "45% 50%",

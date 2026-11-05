@@ -159,6 +159,30 @@ function Visual({ k, className, variant = 0, tag }: { k: string; className?: str
   );
 }
 
+/* 화면 폭 가득 영상: 막이 옆으로 걷히며 등장, 화면에 보일 때만 재생 */
+function Film() {
+  const ref = useRef<HTMLDivElement>(null);
+  const vid = useRef<HTMLVideoElement>(null);
+  const seen = useInView(ref, { once: true, margin: "-40px" });
+  const onScreen = useInView(ref);
+  useEffect(() => {
+    const v = vid.current; if (!v) return;
+    if (onScreen) v.play().catch(() => {}); else v.pause();
+  }, [onScreen]);
+  return (
+    <section ref={ref} className="relative" style={{ background: "#080e18" }}>
+      <motion.div className="relative aspect-[16/9] w-full overflow-hidden" initial={{ clipPath: "inset(0% 100% 0% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 100% 0% 0%)" }} transition={{ duration: 1.2, ease: EASE }}>
+        <video ref={vid} src="/g0dy098g/video/film.mp4" poster="/g0dy098g/video/film-poster.webp" muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,0) 55%, rgba(8,14,24,.85) 100%)" }} />
+        <div className="absolute bottom-3 left-5 right-5 flex items-end justify-between text-white">
+          <span className="gi-en text-[10px] font-semibold" style={{ color: "var(--gi-sand)" }}>SEOUL · REAL ESTATE</span>
+          <span className="text-[12px] text-white/75">도시의 가치를 구조로 담습니다</span>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
 function PrinWatch({ onSeen }: { onSeen: () => void }) {
   const ref = useRef<HTMLSpanElement>(null);
   const seen = useInView(ref, { margin: "-45% 0px -45% 0px" });
@@ -242,8 +266,8 @@ export default function GiibSite() {
         {/* HERO — 코람코·글로벌PMC식: 화면 가득 찬 어두운 이미지 위에 문장 */}
         <section className="relative h-[86dvh] min-h-[560px] overflow-hidden" style={{ background: "#0b1828" }}>
           {SRC("hero") ? <img src={SRC("hero")} alt="서울 도심 야경" className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} /> : <div className="absolute inset-0"><HubScene /></div>}
-          <LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
-          <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-20 top-1/3 h-[300px] w-[300px]" />
+          {!SRC("hero") && (<><LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
+          <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-20 top-1/3 h-[300px] w-[300px]" /></>)}
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,.15) 0%, rgba(8,14,24,.25) 40%, rgba(8,14,24,.9) 78%, #080e18 100%)" }} />
           <div className="absolute inset-x-0 bottom-0 px-5 pb-10 text-white">
             <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>REAL ESTATE · DEVELOPMENT · ADVISORY</Lift></div>
@@ -292,6 +316,9 @@ export default function GiibSite() {
             ))}
           </dl>
         </section>
+
+        {/* 영상 띠 — 서울 스카이라인 드론 */}
+        <Film />
 
         {/* 사업영역 — Macquarie식 사업부 목록 (눌러서 펼침) */}
         <section id="business" className="pt-14 pb-14" style={{ background: "var(--gi-paper)" }}>
