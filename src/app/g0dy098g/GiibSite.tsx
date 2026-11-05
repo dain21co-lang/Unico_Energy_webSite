@@ -278,7 +278,7 @@ function Cases() {
       {CASES.map((c0, i) => { const c = lang === "en" ? { ...c0, ...CASES_EN[i] } : c0; return (
         <motion.article key={c.t} className="w-[78%] shrink-0 snap-start border" style={{ borderColor: "var(--gi-line)", background: "#fff" }}
           initial={{ y: 30 }} whileInView={{ y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}>
-          <Visual k={c.img} variant={i + 1} className="h-[150px]" tag={c.tag} />
+          <Visual k={c.img} variant={i + 1} className="h-[180px]" tag={c.tag} />
           <div className="p-4">
             <div className="text-[17px] font-extrabold leading-[1.35]" style={{ color: "var(--gi-black)" }}>{c.t}</div>
             <p className="mt-2 text-[13px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{c.d}</p>

@@ -61,10 +61,10 @@ export const IMAGES: Record<string, string> = {
   approach: "approach.webp", // 공사 현장(두 번째 컷)
   city: "city.webp", // 한강 야경
   ceo: "ceo.webp", // 유현근 대표 프로필(AI 연출)
-  case1: "", // 사례 카드 — 오피스 (비어 있으면 그래픽)
-  case2: "", // 사례 카드 — 주거복합 개발부지
-  case3: "", // 사례 카드 — 관광호텔 리뉴얼
-  case4: "", // 사례 카드 — 상장사 담보 자금조달
+  case1: "case1.webp", // 사례 카드 — 오피스 (비어 있으면 그래픽)
+  case2: "case2.webp", // 사례 카드 — 주거복합 개발부지
+  case3: "case3.webp", // 사례 카드 — 관광호텔 리뉴얼
+  case4: "case4.webp", // 사례 카드 — 상장사 담보 자금조달
 };
 
 /* 사진에서 보여줄 위치(가로 세로 %). 잘리는 부분이 있으면 숫자만 바꾸면 됩니다 */
@@ -76,10 +76,10 @@ export const IMG_POS: Record<string, string> = {
   approach: "30% 50%",
   city: "50% 50%",
   ceo: "50% 22%",
-  case1: "50% 50%",
-  case2: "50% 50%",
-  case3: "50% 50%",
-  case4: "50% 50%",
+  case1: "62% 45%",
+  case2: "50% 60%",
+  case3: "45% 45%",
+  case4: "40% 55%",
 };
 
 /*
