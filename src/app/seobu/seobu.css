@@ -1,0 +1,26 @@
+/* 서울서부중앙시장 재개발사업 — 네이비 · 화이트 · 차콜 · 샴페인 골드 */
+.sb {
+  --sb-navy: #0d1a2e;
+  --sb-navy2: #15253d;
+  --sb-ink: #1d2430;
+  --sb-char: #3b4250;
+  --sb-sub: #6b7280;
+  --sb-line: #e3e5ea;
+  --sb-paper: #f6f5f1;
+  --sb-gold: #b89b62;
+  --sb-gold2: #d8c08f;
+  background: #fff;
+  color: var(--sb-ink);
+  min-height: 100vh;
+  width: 100%;
+  word-break: keep-all;
+  overflow-x: hidden;
+}
+.sb .sb-en { letter-spacing: 0.18em; }
+.sb .sb-noscroll { scrollbar-width: none; }
+.sb .sb-noscroll::-webkit-scrollbar { display: none; }
+@keyframes sb-kb { 0% { transform: scale(1.06); } 100% { transform: scale(1.18) translate3d(-2%, -1%, 0); } }
+.sb .sb-kb { animation: sb-kb 24s ease-in-out infinite alternate; }
+@keyframes sb-cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+.sb .sb-cue { animation: sb-cue 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sb .sb-kb, .sb .sb-cue { animation: none; } }
