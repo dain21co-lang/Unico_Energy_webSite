@@ -96,9 +96,9 @@ const I = {
 const NAV: [string, string][] = [["overview", "사업 소개"], ["plan", "개발 계획"], ["location", "입지"], ["scale", "사업 규모"], ["history", "추진 현황"], ["media", "홍보자료"], ["contact", "문의"]];
 
 const PLANS = [
-  { icon: I.home, t: "공동주택", en: "RESIDENCE", img: "elev-b", pos: "50% 40%", d: "지상 2~12층, 총 110세대 규모의 새로운 주거공간. 편리하고 쾌적한 생활환경을 지향합니다.", tags: ["110세대", "지상 2~12층"] },
-  { icon: I.shop, t: "판매시설", en: "RETAIL", img: "cover", pos: "60% 85%", d: "지하 2층부터 지상 1층까지 이어지는 상업공간. 시장의 상업기능을 잇고 지역 주민의 생활 편의를 더합니다.", tags: ["지하 2층~지상 1층", "생활 편의"] },
-  { icon: I.fit, t: "운동시설", en: "COMMUNITY", img: "", pos: "", d: "부대복리시설로 계획된 운동시설. 건강한 생활과 여가, 주민 커뮤니티를 위한 공간입니다.", tags: ["부대복리시설", "위치·규모 확인 필요"] },
+  { icon: I.home, t: "공동주택", en: "RESIDENCE", img: "ai-home", pos: "50% 55%", cap: "AI 이미지 · 예시", d: "지상 2~12층, 총 110세대 규모의 새로운 주거공간. 편리하고 쾌적한 생활환경을 지향합니다.", tags: ["110세대", "지상 2~12층"] },
+  { icon: I.shop, t: "판매시설", en: "RETAIL", img: "ai-retail2", pos: "50% 70%", cap: "AI 이미지 · 예시", d: "지하 2층부터 지상 1층까지 이어지는 상업공간. 시장의 상업기능을 잇고 지역 주민의 생활 편의를 더합니다.", tags: ["지하 2층~지상 1층", "생활 편의"] },
+  { icon: I.fit, t: "운동시설", en: "COMMUNITY", img: "ai-fitness", pos: "50% 45%", cap: "AI 이미지 · 예시", d: "부대복리시설로 계획된 운동시설. 건강한 생활과 여가, 주민 커뮤니티를 위한 공간입니다.", tags: ["부대복리시설", "위치·규모 확인 필요"] },
 ];
 
 const GALLERY = [
@@ -108,12 +108,15 @@ const GALLERY = [
   { f: "elev-d", t: "입면도", s: "사업계획서 수록" },
   { f: "site-1", t: "현재 사업지", s: "사업계획서 수록 현황사진" },
   { f: "site-3", t: "현재 사업지", s: "사업계획서 수록 현황사진" },
+  { f: "ai-night", t: "저녁 모습", s: "AI 이미지 · 예시" },
+  { f: "ai-home", t: "주거 공간", s: "AI 이미지 · 예시" },
 ];
 
 export default function SeobuSite() {
   const [menu, setMenu] = useState(false);
   const [active, setActive] = useState("");
   const [cmp, setCmp] = useState<"b" | "a">("b");
+  const [future, setFuture] = useState(true);
   const [floor, setFloor] = useState<number | null>(0);
   const [area, setArea] = useState(0);
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -194,9 +197,9 @@ export default function SeobuSite() {
 
         {/* HERO */}
         <section className="relative h-[78dvh] min-h-[540px] overflow-hidden" style={{ background: "var(--sb-navy)" }}>
-          <img src={IMG("aerial")} alt="서울서부중앙시장 재개발사업 조감도 (사업계획서 수록)" className="sb-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "47% 40%" }} />
+          <img src={IMG("ai-night")} alt="서울서부중앙시장 재개발사업 저녁 모습 (사업계획서 조감도를 바탕으로 한 AI 예시)" className="sb-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 45%" }} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(13,26,46,.35) 0%, rgba(13,26,46,.05) 32%, rgba(13,26,46,.78) 72%, #0d1a2e 100%)" }} />
-          <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--sb-char)" }}>사업계획서(2025.02) 수록 조감도 · 설계에 따라 변경될 수 있음</span>
+          <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--sb-char)" }}>AI 이미지 · 사업계획서 조감도를 바탕으로 한 예시</span>
           <div className="absolute inset-x-0 bottom-0 px-6 pb-16 text-white">
             <div className="sb-en text-[11.5px] font-semibold" style={{ color: "var(--sb-gold2)" }}><Lift delay={0.1}>SEOUL SEOBU CENTRAL MARKET</Lift></div>
             <h1 className="mt-3 text-[31px] font-bold leading-[1.32] tracking-tight">
@@ -226,6 +229,25 @@ export default function SeobuSite() {
               </Rise>
             ))}
           </div>
+          {/* 지금 ↔ 미래 */}
+          <Rise>
+            <div className="mt-8 mb-2 flex border p-1" style={{ borderColor: "var(--sb-line)" }}>
+              {[false, true].map((v) => (
+                <button key={String(v)} onClick={() => setFuture(v)} className="relative flex-1 py-2 text-[13px] font-bold">
+                  {future === v && <motion.span layoutId="sb-ba" className="absolute inset-0" style={{ background: v ? "var(--sb-navy)" : "var(--sb-gold)" }} transition={{ duration: 0.35, ease: EASE }} />}
+                  <span className="relative z-10" style={{ color: future === v ? (v ? "#fff" : "var(--sb-navy)") : "var(--sb-sub)" }}>{v ? "미래 (예시)" : "지금"}</span>
+                </button>
+              ))}
+            </div>
+          </Rise>
+          <div className="relative h-[480px] overflow-hidden">
+            <img src={IMG("ai-oldmarket")} alt="지금의 시장 거리 (AI 예시)" className="absolute inset-0 h-full w-full object-cover" />
+            <motion.div className="absolute inset-0" initial={false} animate={{ clipPath: future ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 0% 100%)" }} transition={{ duration: 0.9, ease: EASE }}>
+              <motion.img src={IMG("ai-retail")} alt="정비 후 상가 거리 (AI 예시)" className="h-full w-full object-cover" animate={{ scale: future ? 1 : 1.1 }} transition={{ duration: 1.2, ease: EASE }} />
+            </motion.div>
+            <span className="absolute left-2 top-2 bg-white/90 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--sb-char)" }}>{future ? "정비 후 거리 · AI 이미지 예시" : "지금의 시장 거리 · AI 이미지"}</span>
+          </div>
+          <p className="mt-2 text-[11px]" style={{ color: "var(--sb-sub)" }}>버튼을 눌러 시장 거리의 지금과 미래를 비교해 보세요. 두 장면 모두 이해를 돕기 위한 AI 이미지입니다.</p>
           <Rise>
             <dl className="mt-8 border-t text-[13.5px]" style={{ borderColor: "var(--sb-navy)" }}>
               {[
@@ -262,7 +284,7 @@ export default function SeobuSite() {
               {PLANS.map((p, i) => (
                 <Rise key={p.t} delay={i * 0.05}>
                   <div className="overflow-hidden bg-white">
-                    {p.img ? <Photo src={IMG(p.img)} alt={`${p.t} — 사업계획서 수록 이미지`} className="h-[200px]" pos={p.pos} cap="사업계획서 수록" /> : (
+                    {p.img ? <Photo src={IMG(p.img)} alt={`${p.t} — 사업계획서 수록 이미지`} className="h-[230px]" pos={p.pos} cap={p.cap} /> : (
                       <div className="flex h-[140px] items-center justify-center" style={{ background: "linear-gradient(135deg, #15253d, #0d1a2e)" }}>
                         <div className="text-center"><span style={{ color: "var(--sb-gold2)" }}><Icon d={p.icon} size={40} /></span><div className="mt-1 text-[11px] text-white/60">이미지 준비 중</div></div>
                       </div>
@@ -354,6 +376,8 @@ export default function SeobuSite() {
           </div>
           <div className="px-6">
             <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--sb-sub)" }}>주변 환경은 사업계획서(2025.02) &lsquo;사업지 주변 환경분석&rsquo;에 기재된 내용이며, 거리·소요시간은 별도 확인 전입니다.</p>
+            <Photo src={IMG("ai-stream")} alt="인근 하천 산책로 (AI 예시)" className="mt-7 h-[420px]" pos="50% 60%" cap="인근 하천 산책로 · AI 이미지 예시" />
+            <p className="mt-2 text-[11px]" style={{ color: "var(--sb-sub)" }}>사업계획서에 기재된 &lsquo;인근 하천 운동로&rsquo;를 표현한 AI 이미지로, 실제 장소 사진이 아닙니다.</p>
             <Rise><div className="mt-9 mb-3 text-[16px] font-bold" style={{ color: "var(--sb-navy)" }}>사업지 주변</div></Rise>
             <div className="grid grid-cols-2 gap-2">
               {["street-1", "street-2", "street-3", "street-4"].map((f) => <Photo key={f} src={IMG(f)} alt="사업지 주변 거리 (사업계획서 수록)" className="h-[110px]" />)}
@@ -490,7 +514,7 @@ export default function SeobuSite() {
           <div className="mt-1 text-[16px] font-bold text-white">{PROJECT.nameKo}</div>
           <p className="mt-4 text-[12px] leading-[1.8]">{PROJECT.operators.join(" · ")}<br />{PROJECT.address}</p>
           <p className="mt-5 text-[11px] leading-[1.7]" style={{ color: "#66748a" }}>
-            이 페이지는 사업 소개를 위한 임시 홈페이지입니다. 조감도·입면도·현황사진은 사업계획서(2025.02)에 수록된 자료이며 설계에 따라 변경될 수 있습니다. 규모 수치는 감정평가서 DRAFT 및 설계변경안 등 기존 검토자료 기준으로, 확정된 인허가 수치가 아닙니다.
+            이 페이지는 사업 소개를 위한 임시 홈페이지입니다. 조감도·입면도·현황사진은 사업계획서(2025.02)에 수록된 자료이며 설계에 따라 변경될 수 있습니다. &lsquo;AI 이미지&rsquo; 표시가 있는 사진은 이해를 돕기 위해 만든 예시로, 실제 완공 모습·입점 업체·조망과 다를 수 있습니다. 규모 수치는 감정평가서 DRAFT 및 설계변경안 등 기존 검토자료 기준으로, 확정된 인허가 수치가 아닙니다.
           </p>
           <p className="sb-en mt-5 text-[10.5px]">© 2026 SEOUL SEOBU CENTRAL MARKET</p>
         </footer>
