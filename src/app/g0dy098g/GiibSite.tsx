@@ -429,9 +429,9 @@ export default function GiibSite() {
           {HERO_VIDEO && <video src={`/g0dy098g/${HERO_VIDEO}`} poster={SRC("hero") || undefined} autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} />}
           {!SRC("hero") && (<><LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
           <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-20 top-1/3 h-[300px] w-[300px]" /></>)}
-          <div className="absolute inset-0" style={{ background: lang === "en" ? "linear-gradient(180deg, rgba(8,14,24,.8) 0%, rgba(8,14,24,.45) 34%, rgba(8,14,24,0) 52%, rgba(8,14,24,0) 74%, rgba(8,14,24,.85) 100%)" : "linear-gradient(180deg, rgba(8,14,24,.15) 0%, rgba(8,14,24,.25) 40%, rgba(8,14,24,.9) 78%, #080e18 100%)" }} />
-          {/* 영문은 문장이 길어 도심을 가리므로, 문장은 하늘 쪽(위)에 두고 버튼만 아래에 둔다 */}
-          <div className={lang === "en" ? "absolute inset-0 flex flex-col justify-between px-5 pt-9 pb-8 text-white" : "absolute inset-x-0 bottom-0 px-5 pb-10 text-white"}>
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,.8) 0%, rgba(8,14,24,.45) 34%, rgba(8,14,24,0) 52%, rgba(8,14,24,0) 74%, rgba(8,14,24,.85) 100%)" }} />
+          {/* 문장은 하늘 쪽(위)에 두고 버튼만 아래에 둬서 도심이 가려지지 않게 */}
+          <div className="absolute inset-0 flex flex-col justify-between px-5 pt-9 pb-8 text-white">
             <div>
             <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>REAL ESTATE · DEVELOPMENT · ADVISORY</Lift></div>
             <h1 className={`mt-3 font-extrabold tracking-[-0.02em] ${lang === "en" ? "text-[29px] leading-[1.22]" : "text-[31px] leading-[1.3]"}`}>
