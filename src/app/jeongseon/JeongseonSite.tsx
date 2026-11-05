@@ -125,6 +125,14 @@ const JOURNEY = [
   ["퇴실", "정산은 자동으로 끝나고, 청소 인력에게 객실이 자동 배정됩니다."],
 ];
 
+const STORY = [
+  { img: "after-night", t: "도착", d: "저녁 늦게 도착해도 조명이 길을 안내하고, 모바일키는 이미 휴대폰에 와 있습니다." },
+  { img: "after-lobby", t: "셀프 체크인", d: "프런트 대기 없이 키오스크나 휴대폰으로 1분 만에 입실합니다." },
+  { img: "after-room", t: "스마트룸", d: "미리 맞춰진 온도, 휴대폰으로 조절하는 조명. 창밖은 정선의 산입니다." },
+  { img: "after-cafe", t: "지하 1층 카페·한식당", d: "가족·연수 손님이 함께 식사하는 공간. 임대 운영으로 부대 수입을 만듭니다." },
+  { img: "after-river", t: "조양강 아침 산책", d: "호텔에서 걸어서 2분, 물안개 낀 강변이 정선의 하루를 엽니다." },
+];
+
 const PL = [
   { k: "총매출", a: 6.25, b: 7.5, d: "+20%" },
   { k: "운영비", a: 3.0, b: 2.72, d: "−9%" },
@@ -158,6 +166,15 @@ export default function JeongseonSite() {
   const [wave, setWave] = useState(0);
   const spotRef = useRef<HTMLDivElement>(null);
   const [spotIdx, setSpotIdx] = useState(0);
+  const storyRef = useRef<HTMLDivElement>(null);
+  const storySeen = useInView(storyRef, { once: true, margin: "-40px" });
+  const [storyIdx, setStoryIdx] = useState(0);
+  const onStoryScroll = () => {
+    const el = storyRef.current;
+    if (!el) return;
+    const w = el.firstElementChild ? (el.firstElementChild as HTMLElement).offsetWidth + 12 : 1;
+    setStoryIdx(Math.min(STORY.length - 1, Math.round(el.scrollLeft / w)));
+  };
   const plRef = useRef<HTMLDivElement>(null);
   const plSeen = useInView(plRef, { once: true, margin: "-60px" });
 
@@ -374,6 +391,20 @@ export default function JeongseonSite() {
             ))}
             <div className="flex h-2 items-center"><div className="h-[3px] w-full rounded" style={{ background: "#3b5a4f" }} /></div>
           </div>
+          <AnimatePresence initial={false}>
+            {floor !== null && (
+              <motion.div key={floor <= 3 ? "room" : floor === 4 ? "cafe" : "none"} className="relative mt-3 overflow-hidden rounded-[14px]"
+                initial={{ height: 0 }} animate={{ height: floor <= 4 ? 300 : 0 }} exit={{ height: 0 }} transition={{ duration: 0.55, ease: EASE }}>
+                {floor <= 4 && (
+                  <>
+                    <motion.img src={IMG(floor <= 3 ? "after-room" : "after-cafe")} alt={floor <= 3 ? "객실 리모델링 후 예시" : "지하 1층 카페·한식당 예시"} className="h-[300px] w-full object-cover"
+                      initial={{ scale: 1.15 }} animate={{ scale: 1 }} transition={{ duration: 1, ease: EASE }} />
+                    <span className="absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ background: "rgba(11,23,20,.72)", color: "var(--js-gold)" }}>AI 이미지 · 예시</span>
+                  </>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <div className="mt-7 overflow-hidden rounded-2xl border" style={{ borderColor: "var(--js-line)" }}>
             {[["소재지", "정선읍 용탄리 525 외 1필지"], ["대지면적", "950㎡ (287평)"], ["건축 / 연면적", "187.14㎡ / 1,266㎡"], ["구조", "철근콘크리트 라멘조"], ["객실", "31실 (실당 17.28㎡ 동일)"], ["부대시설", "지하 1·2층 각 267.69㎡"], ["주차", "계획 10대 (법정 7대)"], ["사용승인", "2015.07.22"]].map(([a, b], i) => (
@@ -455,7 +486,7 @@ export default function JeongseonSite() {
         </section>
 
         {/* 05 고객 여정 */}
-        <section id="journey" className="px-5 pt-16 pb-12">
+        <section id="journey" className="px-5 pt-16">
           <Head no="05" en="GUEST JOURNEY" sub="예약부터 퇴실까지, 손님이 기다리는 순간을 AI가 대신 맡습니다.">
             기다림 없는<br />하룻밤
           </Head>
@@ -471,7 +502,37 @@ export default function JeongseonSite() {
               </Rise>
             ))}
           </div>
-          <Rise><div className="mt-8 rounded-2xl p-4" style={{ background: "var(--js-card)" }}>
+          {/* 하룻밤 미리보기 */}
+          <Rise><div className="mt-10 mb-3 flex items-end justify-between">
+            <div className="js-serif text-[18px] font-bold">하룻밤 미리보기</div>
+            <div className="text-[12px]" style={{ color: "var(--js-sub)" }}><span style={{ color: "var(--js-gold)" }}>{storyIdx + 1}</span> / {STORY.length}</div>
+          </div></Rise>
+        </section>
+        <div className="pb-8">
+          <div ref={storyRef} onScroll={onStoryScroll} className="js-noscroll flex snap-x snap-mandatory gap-3 overflow-x-auto px-5">
+            {STORY.map((s, i) => (
+              <motion.div key={s.img} className="relative h-[460px] w-[74%] shrink-0 snap-center overflow-hidden rounded-2xl"
+                initial={{ clipPath: "inset(0% 0% 0% 100% round 16px)" }} animate={{ clipPath: storySeen ? "inset(0% 0% 0% 0% round 16px)" : "inset(0% 0% 0% 100% round 16px)" }}
+                transition={{ duration: 1, delay: Math.min(i, 2) * 0.12, ease: EASE }}>
+                <motion.img src={IMG(s.img)} alt={`${s.t} — 리모델링 후 예시 (AI 이미지)`} className="h-full w-full object-cover"
+                  animate={{ scale: storyIdx === i ? 1.04 : 1.14 }} transition={{ duration: 1.4, ease: EASE }} loading="lazy" />
+                <div className="absolute inset-x-0 bottom-0 p-4 pt-16" style={{ background: "linear-gradient(180deg, transparent, rgba(8,17,15,.92))" }}>
+                  <div className="text-[11px] font-semibold tracking-[0.15em]" style={{ color: "var(--js-gold)" }}>{String(i + 1).padStart(2, "0")}</div>
+                  <div className="js-serif text-[19px] font-bold">{s.t}</div>
+                  <p className="mt-1 text-[12.5px] leading-[1.6]" style={{ color: "#cfdcd6" }}>{s.d}</p>
+                </div>
+                <span className="absolute left-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold" style={{ background: "rgba(11,23,20,.72)", color: "var(--js-gold)" }}>AI 이미지 · 예시</span>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-3 flex justify-center gap-1.5">
+            {STORY.map((_, i) => (
+              <motion.span key={i} className="h-1.5 rounded-full" animate={{ width: i === storyIdx ? 18 : 6, backgroundColor: i === storyIdx ? "#d2b06f" : "#24423a" }} transition={{ duration: 0.3 }} />
+            ))}
+          </div>
+        </div>
+        <section className="px-5 pb-12">
+          <Rise><div className="rounded-2xl p-4" style={{ background: "var(--js-card)" }}>
             <div className="text-[13px] font-bold" style={{ color: "var(--js-gold)" }}>AI 컨시어지 추천 코스</div>
             <div className="mt-2.5 flex flex-wrap gap-1.5">
               {["하이원 리조트", "동강 래프팅", "병방치 스카이워크", "정선 5일장", "화암동굴", "민둥산"].map((t) => (
