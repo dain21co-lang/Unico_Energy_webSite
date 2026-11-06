@@ -69,10 +69,10 @@ export const IMAGES: Record<string, string> = {
 
 /* 움직이는 사진(GIF→MP4) — 같은 이름의 사진 위에 영상이 겹쳐 재생됩니다. 비우면 사진만 */
 export const VIDEOS: Record<string, string> = {
-  invest: "", // 걷는 장면은 GIF 반복이 어색해 사진으로 되돌림 — 제미나이 영상 받으면 교체
+  invest: "video/invest.mp4", // 사업영역 '부동산 투자' — 제미나이 10초 영상(걷는 모습)
   develop: "video/develop.mp4", // 사업영역 '부동산 개발' — 크레인 현장
-  advisory: "video/advisory.mp4", // 사업영역 '투자자문' — 회의실
-  approach: "video/approach.mp4", // '투자 접근' — 현장 실사
+  advisory: "", // GIF 앞뒤 반복이 어색해 사진으로 — 제미나이 영상 받으면 "video/advisory.mp4"
+  approach: "", // GIF 앞뒤 반복이 어색해 사진으로 — 제미나이 영상 받으면 "video/approach.mp4"
   city: "video/city.mp4", // 사업실적 아래 한강 야경
 };
 
