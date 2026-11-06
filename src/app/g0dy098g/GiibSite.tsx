@@ -197,39 +197,144 @@ function SampleTag() {
   return <span className="ml-2 inline-block border px-1.5 py-[1px] align-middle text-[10px] font-semibold tracking-normal" style={{ borderColor: "var(--gi-copper)", color: "var(--gi-copper)" }}>{pick(lang, "예시", "Sample")}</span>;
 }
 
-/* 투자 구조도: 선이 그려지며 등장하고, 점이 자금 흐름을 따라 움직인다 */
+/* 투자 구조도 — 어두운 카드 위 컬러 노드, 흐르는 그라데이션 선과 빛 입자, 가운데 모핑 블롭.
+ * 단계가 차례로 강조되고(자동), 누르면 그 단계 설명이 아래에 바뀐다 */
+const ST_NODES = [
+  { k: "inv", x: 100, y: 22, w: 150, c: "#f0a45a", ko: ["투자자", "기관 · 법인 · 개인"], en: ["Investors", "Institutions · Corporates · Individuals"],
+    dko: "기관·법인·개인 투자자의 자금이 들어옵니다.", den: "Capital comes in from institutions, corporates and individuals." },
+  { k: "spc", x: 105, y: 150, w: 140, c: "#e9d2ad", ko: ["GIIB · 투자 SPC", "구조화 · 실사 · 관리"], en: ["GIIB · Investment SPC", "Structuring · DD · Management"],
+    dko: "GIIB가 투자 SPC를 세워 실사·구조화·관리를 맡습니다. 투자금은 회사 자산과 분리됩니다.", den: "GIIB sets up an investment SPC and runs due diligence, structuring and management. Investor money stays ring-fenced." },
+  { k: "lend", x: 4, y: 150, w: 74, c: "#5b9cf0", ko: ["금융기관", "브릿지·PF"], en: ["Lenders", "Bridge·PF"],
+    dko: "브릿지·PF 대출로 부족한 자금을 채웁니다.", den: "Bridge and PF loans fill the funding gap." },
+  { k: "trust", x: 272, y: 150, w: 74, c: "#3cc3a8", ko: ["담보신탁", "신탁·담보"], en: ["Trust", "Collateral"],
+    dko: "자산을 신탁에 맡겨 담보를 확보하고 투자자를 보호합니다.", den: "Assets are placed in trust to secure collateral and protect investors." },
+  { k: "asset", x: 100, y: 278, w: 150, c: "#a58cf2", ko: ["부동산 자산", "오피스 · 개발 · 호텔"], en: ["Real Estate", "Office · Development · Hotel"],
+    dko: "오피스·개발부지·호텔 등 실제 자산을 매입하고 개발합니다.", den: "Real assets — offices, development sites, hotels — are acquired or developed." },
+  { k: "exit", x: 100, y: 388, w: 150, c: "#ef7f74", ko: ["출구", "매각 · 리파이낸싱"], en: ["Exit", "Sale · Refinancing"],
+    dko: "매각이나 리파이낸싱으로 수익을 회수합니다.", den: "Returns are realized through sale or refinancing." },
+];
+/* 흐름 순서: 투자자 → SPC ← 금융기관 · 담보신탁, SPC → 자산 → 출구 */
+const ST_ORDER = [0, 2, 3, 1, 4, 5];
+const ST_LINES = [
+  { d: "M175 78 V150", from: "#f0a45a", to: "#e9d2ad", g: [175, 78, 175, 150] },
+  { d: "M78 178 H105", from: "#5b9cf0", to: "#e9d2ad", g: [78, 178, 105, 178] },
+  { d: "M272 178 H245", from: "#3cc3a8", to: "#e9d2ad", g: [272, 178, 245, 178] },
+  { d: "M175 206 V278", from: "#e9d2ad", to: "#a58cf2", g: [175, 206, 175, 278] },
+  { d: "M175 334 V388", from: "#a58cf2", to: "#ef7f74", g: [175, 334, 175, 388] },
+];
+
+function StIcon({ k, c }: { k: string; c: string }) {
+  const p = { fill: "none", stroke: c, strokeWidth: 1.6, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  switch (k) {
+    case "inv": return <g {...p}><circle cx="-3" cy="-3" r="2.6" /><path d="M-8 5 q5 -6 10 0" /><circle cx="4.5" cy="-2" r="2.1" /><path d="M2 5 q3 -4.5 7 0" /></g>;
+    case "spc": return <g {...p}><circle r="2.4" fill={c} /><circle r="6.5" /><path d="M0 -6.5 V-9 M6.5 0 H9 M0 6.5 V9 M-6.5 0 H-9" /></g>;
+    case "lend": return <g {...p}><path d="M-8 -2 L0 -7 L8 -2 Z M-6 0 V5 M-2 0 V5 M2 0 V5 M6 0 V5 M-8 7 H8" /></g>;
+    case "trust": return <g {...p}><path d="M0 -8 L7 -5 V0 C7 4 4 7 0 8 C-4 7 -7 4 -7 0 V-5 Z" /><path d="M-3 0 L-1 2.5 L3.5 -2.5" /></g>;
+    case "asset": return <g {...p}><path d="M-7 8 V-4 L-1 -7 V8 M-1 -2 H7 V8 M-9 8 H9 M-4.5 -1 V0 M-4.5 3 V4 M2.5 2 V3 M4.5 2 V3" /></g>;
+    default: return <g {...p}><path d="M-6 6 L6 -6 M-1 -6 H6 V1" /><path d="M-7 -1 V7 H1" /></g>;
+  }
+}
+
 function Structure() {
   const lang = useLang();
-  const T = (ko: string, en: string) => pick(lang, ko, en);
   const ref = useRef<HTMLDivElement>(null);
   const seen = useInView(ref, { once: true, margin: "-60px" });
-  const box = (x: number, y: number, w: number, t: string, sub: string, dark = false, i = 0) => (
-    <motion.g initial={{ scale: 0.6 }} animate={{ scale: seen ? 1 : 0.6 }} transition={{ duration: 0.7, delay: 0.2 + i * 0.12, ease: EASE }} style={{ transformOrigin: `${x + w / 2}px ${y + 24}px`, transformBox: "view-box" }}>
-      <rect x={x} y={y} width={w} height="48" rx="4" fill={dark ? "#10223a" : "#fff"} stroke={dark ? "#10223a" : "#16181c"} strokeWidth="1" />
-      <text x={x + w / 2} y={y + 21} textAnchor="middle" fontSize="12.5" fontWeight="800" fill={dark ? "#e9d2ad" : "#0b0c0e"}>{t}</text>
-      <text x={x + w / 2} y={y + 37} textAnchor="middle" fontSize="9" fill={dark ? "#c9ccd2" : "#5f6670"}>{sub}</text>
-    </motion.g>
-  );
-  const lines = ["M175 72 V118", "M175 166 V212", "M100 142 H62", "M250 142 H288", "M175 260 V296"];
+  const onScreen = useInView(ref);
+  const [step, setStep] = useState(0); // ST_ORDER 안의 위치
+  const [manual, setManual] = useState(false);
+  useEffect(() => {
+    if (!seen || manual || !onScreen) return;
+    const t = window.setInterval(() => setStep((s) => (s + 1) % ST_ORDER.length), 2600);
+    return () => window.clearInterval(t);
+  }, [seen, manual, onScreen]);
+  const active = ST_ORDER[step];
+  const node = ST_NODES[active];
   return (
-    <div ref={ref} className="mt-8">
-      <svg viewBox="0 0 350 350" className="w-full">
-        {lines.map((d, i) => (
-          <g key={d}>
-            <motion.path d={d} stroke="#b98a52" strokeWidth="1.4" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 0.8, delay: 0.5 + i * 0.12, ease: EASE }} />
-            <path d={d} stroke="#b98a52" strokeWidth="1.4" strokeDasharray="3 6" fill="none" className="gi-flow" />
+    <div ref={ref} className="relative mt-8 overflow-hidden px-3 pt-5 pb-6" style={{ background: "linear-gradient(160deg, #0f2440 0%, #0a1626 60%, #12203a 100%)" }}>
+      {/* 배경에서 천천히 모양이 바뀌는 컬러 블롭 */}
+      <LiveBlob fill="rgba(91,156,240,.20)" seeds={[2, 5, 8, 3]} dur={12} className="pointer-events-none absolute -left-20 -top-16 h-[240px] w-[240px]" />
+      <LiveBlob fill="rgba(165,140,242,.16)" seeds={[4, 7, 1, 6]} dur={14} r={76} className="pointer-events-none absolute -right-24 top-40 h-[260px] w-[260px]" />
+      <LiveBlob fill="rgba(60,195,168,.14)" seeds={[6, 9, 3, 8]} dur={10} className="pointer-events-none absolute -bottom-20 left-10 h-[220px] w-[220px]" />
+      <svg viewBox="0 0 350 450" className="relative w-full" style={{ overflow: "visible" }} role="img" aria-label={pick(lang, "투자 구조도", "Investment structure diagram")}>
+        <defs>
+          {ST_LINES.map((l, i) => (
+            <linearGradient key={i} id={`gi-st-g${i}`} gradientUnits="userSpaceOnUse" x1={l.g[0]} y1={l.g[1]} x2={l.g[2]} y2={l.g[3]}>
+              <stop offset="0%" stopColor={l.from} /><stop offset="100%" stopColor={l.to} />
+            </linearGradient>
+          ))}
+          <radialGradient id="gi-st-core" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#e9d2ad" stopOpacity=".55" /><stop offset="100%" stopColor="#b98a52" stopOpacity="0" /></radialGradient>
+          <filter id="gi-st-glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.4" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+          <pattern id="gi-st-grid" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M22 0 H0 V22" fill="none" stroke="#ffffff" strokeOpacity=".05" strokeWidth="1" /></pattern>
+        </defs>
+        <rect width="350" height="450" fill="url(#gi-st-grid)" />
+
+        {/* 가운데 SPC 뒤: 모핑 블롭 + 퍼지는 고리 */}
+        <motion.path d={blob(1, 175, 178, 62, 0.22)} fill="url(#gi-st-core)" animate={{ d: [blob(1, 175, 178, 62, 0.22), blob(4, 175, 178, 66, 0.26), blob(7, 175, 178, 60, 0.2), blob(1, 175, 178, 62, 0.22)] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }} />
+        {[0, 1].map((i) => (
+          <motion.circle key={i} cx="175" cy="178" r="58" fill="none" stroke="#e9d2ad" strokeOpacity=".35" strokeWidth="1" initial={{ scale: 0.7 }} animate={seen ? { scale: [0.7, 1.35] } : {}} transition={{ duration: 3.2, delay: i * 1.6, repeat: Infinity, ease: "easeOut" }} style={{ transformOrigin: "175px 178px", transformBox: "view-box" }} />
+        ))}
+
+        {/* 연결선: 그려지며 등장 → 흐르는 점선 → 빛 입자 */}
+        {ST_LINES.map((l, i) => (
+          <g key={l.d}>
+            <motion.path d={l.d} stroke={`url(#gi-st-g${i})`} strokeWidth="2.4" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 0.9, delay: 0.4 + i * 0.15, ease: EASE }} />
+            <path d={l.d} stroke="#ffffff" strokeOpacity=".55" strokeWidth="1" strokeDasharray="2 7" fill="none" className="gi-flow" />
+            {seen && [0, 1].map((j) => (
+              <circle key={j} r="3.4" fill={j ? l.to : l.from} filter="url(#gi-st-glow)">
+                <animateMotion dur={`${1.8 + i * 0.15}s`} begin={`${j * 0.9 + i * 0.2}s`} repeatCount="indefinite" path={l.d} />
+              </circle>
+            ))}
           </g>
         ))}
-        {seen && lines.slice(0, 2).concat(lines[4]).map((d, i) => (
-          <circle key={i} r="3.2" fill="#b98a52"><animateMotion dur={`${2.2 + i * 0.3}s`} repeatCount="indefinite" path={d} /></circle>
-        ))}
-        {box(100, 24, 150, T("투자자", "Investors"), T("기관 · 법인 · 개인", "Institutions · Corporates · Individuals"), false, 0)}
-        {box(100, 118, 150, T("GIIB · 투자 SPC", "GIIB · Investment SPC"), T("구조화 · 실사 · 관리", "Structuring · DD · Management"), true, 1)}
-        {box(0, 118, 62, T("금융기관", "Lenders"), T("브릿지·PF", "Bridge·PF"), false, 2)}
-        {box(288, 118, 62, T("담보신탁", "Trust"), T("신탁·담보", "Collateral"), false, 3)}
-        {box(100, 212, 150, T("부동산 자산", "Real Estate"), T("오피스 · 개발 · 호텔", "Office · Development · Hotel"), false, 4)}
-        {box(100, 296, 150, T("출구", "Exit"), T("매각 · 리파이낸싱", "Sale · Refinancing"), false, 5)}
+
+        {/* 노드 */}
+        {ST_NODES.map((n, i) => {
+          const on = active === i;
+          const big = n.k === "spc";
+          const h = big ? 56 : 56;
+          const narrow = n.w < 100;
+          const [t, sub] = lang === "en" ? n.en : n.ko;
+          return (
+            <motion.g key={n.k} onClick={() => { setManual(true); setStep(ST_ORDER.indexOf(i)); }} style={{ cursor: "pointer", transformOrigin: `${n.x + n.w / 2}px ${n.y + h / 2}px`, transformBox: "view-box" }}
+              initial={{ scale: 0.5 }} animate={{ scale: seen ? (on ? 1.07 : 1) : 0.5 }} transition={{ duration: 0.6, delay: seen && !manual ? 0 : 0.15 + i * 0.1, ease: EASE }}>
+              <rect x={n.x} y={n.y} width={n.w} height={h} rx="12" fill={big ? "#1b3658" : "#132a46"} stroke={n.c} strokeWidth={on ? 2.2 : 1} strokeOpacity={on ? 1 : 0.55} filter={on ? "url(#gi-st-glow)" : undefined} />
+              {narrow ? (
+                <>
+                  <g transform={`translate(${n.x + n.w / 2} ${n.y + 15})`}><StIcon k={n.k} c={n.c} /></g>
+                  <text x={n.x + n.w / 2} y={n.y + 37} textAnchor="middle" fontSize="11.5" fontWeight="800" fill="#ffffff">{t}</text>
+                  <text x={n.x + n.w / 2} y={n.y + 49} textAnchor="middle" fontSize="8.5" fill="#9fb0c6">{sub}</text>
+                </>
+              ) : (
+                <>
+                  <circle cx={n.x + 24} cy={n.y + h / 2} r="14" fill={n.c} fillOpacity=".16" stroke={n.c} strokeOpacity=".5" />
+                  <g transform={`translate(${n.x + 24} ${n.y + h / 2})`}><StIcon k={n.k} c={n.c} /></g>
+                  <text x={n.x + 46} y={n.y + 25} fontSize={big ? 12.5 : 13} fontWeight="800" fill={big ? "#e9d2ad" : "#ffffff"}>{t}</text>
+                  <text x={n.x + 46} y={n.y + 40} fontSize="9" fill="#9fb0c6">{sub}</text>
+                </>
+              )}
+            </motion.g>
+          );
+        })}
       </svg>
+
+      {/* 단계 표시 + 설명 */}
+      <div className="relative mt-2 flex justify-center gap-1.5">
+        {ST_ORDER.map((ni, i) => (
+          <button key={ni} aria-label={`${i + 1}`} onClick={() => { setManual(true); setStep(i); }} className="h-1.5 rounded-full" style={{ width: step === i ? 22 : 8, background: step === i ? ST_NODES[ni].c : "#2c4566", transition: "width .4s, background .4s" }} />
+        ))}
+      </div>
+      <div className="relative mt-4 min-h-[76px] overflow-hidden px-2">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div key={`${active}-${lang}`} initial={{ y: 24 }} animate={{ y: 0 }} exit={{ y: -24 }} transition={{ duration: 0.35, ease: EASE }}>
+            <div className="flex items-center gap-2 text-[15px] font-extrabold text-white">
+              <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ background: node.c }} />
+              <span className="gi-en text-[10px]" style={{ color: node.c }}>{`0${step + 1}`}</span>
+              {(lang === "en" ? node.en : node.ko)[0]}
+            </div>
+            <p className="mt-1.5 text-[13.5px] leading-[1.7]" style={{ color: "#b8c4d4" }}>{lang === "en" ? node.den : node.dko}</p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
