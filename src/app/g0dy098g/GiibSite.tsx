@@ -370,7 +370,8 @@ export default function GiibSite() {
   const coAddr = lang === "en" ? CO_EN.address : CO.address;
   const [menu, setMenu] = useState(false);
   const [sub, setSub] = useState<number | null>(null);
-  const [biz, setBiz] = useState<number | null>(0);
+  const [biz, setBiz] = useState(0); // 모핑 아이콘이 따라가는 항목
+  const [open, setOpen] = useState<number[]>([0, 1, 2]); // 세 사업 모두 펼친 채 시작 (영상이 바로 보이게)
   const [prin, setPrin] = useState(0);
   const [sent, setSent] = useState(false);
   const [showTop, setShowTop] = useState(false);
@@ -511,22 +512,23 @@ export default function GiibSite() {
             <Kicker>OUR BUSINESS</Kicker>
             <div className="flex items-end justify-between gap-3">
               <h2 className="mt-4 text-[28px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? <>Three businesses,<br />one flow</> : <>세 개의 사업,<br />하나의 흐름</>}</Lift></h2>
-              <div className="h-[110px] w-[110px] shrink-0"><ShapeMorph index={biz ?? 0} /></div>
+              <div className="h-[110px] w-[110px] shrink-0"><ShapeMorph index={biz} /></div>
             </div>
           </div>
           <div className="mt-8 border-t" style={{ borderColor: "var(--gi-black)" }}>
             {biz_.map((b, i) => (
               <div key={b.no} className="border-b bg-white" style={{ borderColor: "var(--gi-line)" }}>
-                <button onClick={() => setBiz(biz === i ? null : i)} className="flex w-full items-center gap-4 px-5 py-6 text-left">
+                <PrinWatch onSeen={() => setBiz(i)} />
+                <button onClick={() => { setOpen((o) => (o.includes(i) ? o.filter((x) => x !== i) : [...o, i])); setBiz(i); }} className="flex w-full items-center gap-4 px-5 py-6 text-left">
                   <span className="text-[13px] font-bold" style={{ color: "var(--gi-copper)" }}>{b.no}</span>
                   <span className="flex-1">
                     <span className="block text-[21px] font-extrabold" style={{ color: "var(--gi-black)" }}>{b.t}</span>
                     {lang === "ko" && <span className="gi-en mt-1 block text-[10px] font-semibold" style={{ color: "var(--gi-sub)" }}>{b.en}</span>}
                   </span>
-                  <motion.span animate={{ rotate: biz === i ? 45 : 0 }} transition={{ duration: 0.3 }} className="text-[28px] font-light leading-none" style={{ color: "var(--gi-black)" }}>+</motion.span>
+                  <motion.span animate={{ rotate: open.includes(i) ? 45 : 0 }} transition={{ duration: 0.3 }} className="text-[28px] font-light leading-none" style={{ color: "var(--gi-black)" }}>+</motion.span>
                 </button>
                 <AnimatePresence initial={false}>
-                  {biz === i && (
+                  {open.includes(i) && (
                     <motion.div key="d" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.45, ease: EASE }}>
                       <div className="px-5 pb-7">
                         <Visual k={["invest", "develop", "advisory"][i]} variant={i + 1} className="h-[200px]" />
