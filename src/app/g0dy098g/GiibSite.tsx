@@ -294,6 +294,26 @@ function Cases() {
   );
 }
 
+/* 남색 거점(HUB) 모션그래픽 — 첫 시안의 메인 그래픽을 문의 아래 띠로 */
+function HubBand() {
+  const lang = useLang();
+  const ref = useRef<HTMLDivElement>(null);
+  const seen = useInView(ref, { once: true, margin: "-40px" });
+  return (
+    <div ref={ref} className="relative mt-6 h-[280px]">
+      <motion.div className="absolute inset-0 overflow-hidden" style={{ background: "#10223a" }} initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }} transition={{ duration: 1.1, ease: EASE }}>
+        <HubScene />
+        <LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-16 -top-14 h-[200px] w-[200px]" />
+        <LiveBlob fill="rgba(31,59,95,.45)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-16 top-1/3 h-[220px] w-[220px]" />
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between px-4 pb-3" style={{ background: "linear-gradient(180deg, rgba(11,24,40,0) 0%, rgba(11,24,40,.85) 100%)" }}>
+          <span className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-sand)" }}>GLOBAL INFRA HUB</span>
+          <span className="text-[12px] text-white/80">{pick(lang, "사람과 자본, 자산을 잇는 거점", "Connecting people, capital and assets")}</span>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 function PrinWatch({ onSeen }: { onSeen: () => void }) {
   const ref = useRef<HTMLSpanElement>(null);
   const seen = useInView(ref, { margin: "-45% 0px -45% 0px" });
@@ -643,6 +663,7 @@ export default function GiibSite() {
             <button type="submit" className="mt-2 flex items-center justify-between px-5 py-4 text-[15px] font-bold text-white" style={{ background: "var(--gi-black)" }}>{T("문의 보내기", "Send Inquiry")} <Arrow /></button>
             <p className="min-h-[1em] text-[12.5px]" style={{ color: "var(--gi-copper)" }} aria-live="polite">{sent ? T("임시 홈페이지라 아직 전송되지 않습니다. 정식 오픈 후 담당자에게 바로 전달됩니다.", "This is a preview site, so messages are not sent yet. After launch they will go straight to our team.") : ""}</p>
           </form>
+          <HubBand />
         </section>
 
         {/* 푸터 */}

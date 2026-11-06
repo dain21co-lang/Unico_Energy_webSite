@@ -72,7 +72,7 @@ export const VIDEOS: Record<string, string> = {
   invest: "video/invest.mp4", // 사업영역 '부동산 투자' — 제미나이 10초 영상(걷는 모습)
   develop: "video/develop.mp4", // 사업영역 '부동산 개발' — 크레인 현장
   advisory: "video/advisory.mp4", // 사업영역 '투자자문' — 제미나이 10초 영상(회의실)
-  approach: "", // GIF 앞뒤 반복이 어색해 사진으로 — 제미나이 영상 받으면 "video/approach.mp4"
+  approach: "video/approach.mp4", // '투자 접근' — 제미나이 10초 영상(현장 실사)
   city: "video/city.mp4", // 사업실적 아래 한강 야경
 };
 
