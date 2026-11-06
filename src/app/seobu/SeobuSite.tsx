@@ -198,8 +198,10 @@ export default function SeobuSite() {
         {/* HERO */}
         <section className="relative h-[78dvh] min-h-[540px] overflow-hidden" style={{ background: "var(--sb-navy)" }}>
           <img src={IMG("ai-night")} alt="서울서부중앙시장 재개발사업 저녁 모습 (사업계획서 조감도를 바탕으로 한 AI 예시)" className="sb-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 45%" }} />
+          {/* 첫 화면 영상 — 사진은 영상이 뜨기 전 대기 화면 */}
+          <video src="/seobu/video/hero.mp4" poster={IMG("ai-night")} autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(13,26,46,.35) 0%, rgba(13,26,46,.05) 32%, rgba(13,26,46,.78) 72%, #0d1a2e 100%)" }} />
-          <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--sb-char)" }}>AI 이미지 · 사업계획서 조감도를 바탕으로 한 예시</span>
+          <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--sb-char)" }}>AI 영상 · 사업계획서 조감도를 바탕으로 한 예시</span>
           <div className="absolute inset-x-0 bottom-0 px-6 pb-16 text-white">
             <div className="sb-en text-[11.5px] font-semibold" style={{ color: "var(--sb-gold2)" }}><Lift delay={0.1}>SEOUL SEOBU CENTRAL MARKET</Lift></div>
             <h1 className="mt-3 text-[31px] font-bold leading-[1.32] tracking-tight">
