@@ -250,7 +250,7 @@ function Structure() {
   const active = ST_ORDER[step];
   const node = ST_NODES[active];
   return (
-    <div ref={ref} className="relative mt-8 overflow-hidden px-3 pt-5 pb-6" style={{ background: "linear-gradient(160deg, #0f2440 0%, #0a1626 60%, #12203a 100%)" }}>
+    <div ref={ref} className="relative mt-6 pt-2 pb-2">
       {/* 배경에서 천천히 모양이 바뀌는 컬러 블롭 */}
       <LiveBlob fill="rgba(91,156,240,.20)" seeds={[2, 5, 8, 3]} dur={12} className="pointer-events-none absolute -left-20 -top-16 h-[240px] w-[240px]" />
       <LiveBlob fill="rgba(165,140,242,.16)" seeds={[4, 7, 1, 6]} dur={14} r={76} className="pointer-events-none absolute -right-24 top-40 h-[260px] w-[260px]" />
@@ -673,10 +673,11 @@ export default function GiibSite() {
               </motion.li>
             ))}
           </ol>
-          <div className="mt-12">
-            <Kicker>HOW WE STRUCTURE</Kicker>
-            <h3 className="mt-3 text-[22px] font-extrabold leading-[1.35]" style={{ color: "var(--gi-black)" }}>{T("투자 구조 한눈에 보기", "Our investment structure at a glance")}<SampleTag /></h3>
-            <p className="mt-2 text-[14px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{T("투자자의 자금은 SPC와 담보신탁으로 분리해 지키고, 자산 운영과 출구까지 하나의 구조로 관리합니다.", "Investor capital is ring-fenced through an SPC and a collateral trust, and everything from operations to exit is managed as one structure.")}</p>
+          {/* 구조도는 화면 폭 가득 어두운 띠로, 아래 '원칙' 검은 섹션과 이어지게 */}
+          <div className="relative -mx-5 -mb-14 mt-12 overflow-hidden px-5 pt-12 pb-10" style={{ background: "linear-gradient(180deg, #10284a 0%, #0b1a2e 55%, #0b0c0e 100%)" }}>
+            <Kicker light>HOW WE STRUCTURE</Kicker>
+            <h3 className="mt-3 text-[22px] font-extrabold leading-[1.35] text-white">{T("투자 구조 한눈에 보기", "Our investment structure at a glance")}<SampleTag /></h3>
+            <p className="mt-2 text-[14px] leading-[1.7]" style={{ color: "#a9b6c8" }}>{T("투자자의 자금은 SPC와 담보신탁으로 분리해 지키고, 자산 운영과 출구까지 하나의 구조로 관리합니다.", "Investor capital is ring-fenced through an SPC and a collateral trust, and everything from operations to exit is managed as one structure.")}</p>
             <Structure />
           </div>
         </section>
