@@ -150,7 +150,7 @@ const STATE: Record<UnitState, { l: string; bg: string; fg: string }> = {
   check: { l: "확인 필요", bg: "#fff", fg: "#b9653f" },
 };
 
-/* ── 첫 화면 건물 그래픽: 윤곽이 그려지고 4·5층 창이 하나씩 켜진다 ── */
+/* ── 첫 화면 건물 그래픽: 윤곽이 그려지고 3·4층 창이 하나씩 켜진다 ── */
 const edgeX = (y: number) => Math.min(330, 240 + (y - 90)); // 사선 지붕 오른쪽 경계
 const FL = [
   { top: 90, left: 84 }, { top: 130, left: 62 }, { top: 170, left: 40 }, { top: 210, left: 20 }, { top: 250, left: 20 },
@@ -163,13 +163,13 @@ function HeroBuilding() {
     FL.forEach((f, fi) => {
       if (fi === 4) return;
       const y = f.top + 11;
-      for (let x = f.left + 12; x + 14 <= edgeX(y) - 8; x += 22) out.push({ x, y, fl: fi, lit: fi > 1 && (x * 7 + fi * 13) % 5 === 0 });
+      for (let x = f.left + 12; x + 14 <= edgeX(y) - 8; x += 22) out.push({ x, y, fl: fi, lit: (fi === 0 || fi === 3) && (x * 7 + fi * 13) % 5 === 0 });
     });
     return out;
   }, []);
   let h = 0;
   return (
-    <svg ref={ref} viewBox="0 0 360 310" className="block w-full" aria-label="The K 빌딩 4·5층에 들어서는 스마트호스텔 개념 그래픽">
+    <svg ref={ref} viewBox="0 0 360 310" className="block w-full" aria-label="The K 빌딩 3·4층에 들어서는 스마트호스텔 개념 그래픽">
       <defs>
         <linearGradient id="tk-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#1f4a46" /><stop offset="1" stopColor="#123430" /></linearGradient>
       </defs>
@@ -185,7 +185,7 @@ function HeroBuilding() {
           initial={{ scaleY: 0 }} animate={{ scaleY: seen ? 1 : 0 }} style={{ transformOrigin: `${51 + i * 50}px 284px` }} transition={{ duration: 0.6, delay: 1.4 + i * 0.05, ease: EASE }} />
       ))}
       {wins.map((w, i) => {
-        const hostel = w.fl <= 1;
+        const hostel = w.fl === 1 || w.fl === 2;
         const order = hostel ? h++ : 0;
         return (
           <motion.rect key={i} x={w.x} y={w.y} width={14} height={18} rx={1}
@@ -194,11 +194,11 @@ function HeroBuilding() {
             transition={{ duration: 0.5, delay: hostel ? 2.1 + order * 0.14 : 1.6 + (i % 7) * 0.08 }} />
         );
       })}
-      {/* 4·5층 표시 */}
+      {/* 3·4층 표시 */}
       <motion.g initial={{ x: 30 }} animate={{ x: seen ? 0 : 30 }} transition={{ duration: 0.8, delay: 3.6, ease: EASE }}>
-        <rect x="282" y="104" width="64" height="26" rx="3" fill="#e2734a" />
-        <text x="314" y="115" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" letterSpacing="1">4·5F</text>
-        <text x="314" y="125" textAnchor="middle" fontSize="6.5" fill="#fff">스마트호스텔(안)</text>
+        <rect x="290" y="150" width="64" height="26" rx="3" fill="#e2734a" />
+        <text x="322" y="161" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" letterSpacing="1">3·4F</text>
+        <text x="322" y="171" textAnchor="middle" fontSize="6.5" fill="#fff">스마트호스텔(안)</text>
       </motion.g>
       <motion.line x1="0" y1="290" x2="360" y2="290" stroke="#8fd3bf" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 1.2, ease: "easeInOut" }} />
     </svg>
@@ -234,9 +234,9 @@ function RoomPlan({ k }: { k: string }) {
   );
 }
 
-/* ── 4·5층 전환 전후 도식 ── */
+/* ── 3·4층 전환 전후 도식 ── */
 function FloorSwap({ after }: { after: boolean }) {
-  const rows = FLOORS.filter((f) => f.f === "5F" || f.f === "4F");
+  const rows = FLOORS.filter((f) => f.f === "4F" || f.f === "3F");
   return (
     <svg viewBox="0 0 320 150" className="block w-full">
       {rows.map((fl, ri) => {
@@ -250,22 +250,23 @@ function FloorSwap({ after }: { after: boolean }) {
               const w = (u.m2 / total) * 290;
               const ux = 26 + x; x += w;
               const rooms = Math.max(3, Math.round(u.m2 / 24));
+              const keep = u.n === "304";
               return (
                 <g key={u.n}>
-                  <motion.rect x={ux} y={y} width={w - 3} height={54} initial={false} animate={{ fill: after ? "#0e2b29" : u.s === "vacant" ? "#ece9e2" : "#dfe7e5" }} transition={{ duration: 0.6, delay: after ? ri * 0.15 : 0 }} stroke="#c9c4b8" strokeWidth="0.8" />
+                  <motion.rect x={ux} y={y} width={w - 3} height={54} initial={false} animate={{ fill: after && !keep ? "#0e2b29" : keep && after ? "#e2734a" : u.s === "vacant" ? "#ece9e2" : "#dfe7e5" }} transition={{ duration: 0.6, delay: after ? ri * 0.15 : 0 }} stroke="#c9c4b8" strokeWidth="0.8" />
                   {Array.from({ length: rooms }).map((_, r) => {
                     const rw = (w - 9) / rooms;
-                    return <motion.rect key={r} x={ux + 3 + r * rw} y={y + 5} width={rw - 2} height={22} rx={1.5} initial={false} animate={{ scaleY: after ? 1 : 0, fill: "#ffcf86" }} style={{ transformOrigin: `${ux + 3 + r * rw}px ${y + 5}px` }} transition={{ duration: 0.45, delay: after ? 0.25 + ri * 0.2 + ui * 0.05 + r * 0.03 : 0, ease: EASE }} />;
+                    return <motion.rect key={r} x={ux + 3 + r * rw} y={y + 5} width={rw - 2} height={22} rx={1.5} initial={false} animate={{ scaleY: after && !keep ? 1 : 0, fill: "#ffcf86" }} style={{ transformOrigin: `${ux + 3 + r * rw}px ${y + 5}px` }} transition={{ duration: 0.45, delay: after ? 0.25 + ri * 0.2 + ui * 0.05 + r * 0.03 : 0, ease: EASE }} />;
                   })}
                   <text x={ux + (w - 3) / 2} y={y + 40} textAnchor="middle" fontSize="8.5" fontWeight="700" fill={after ? "#fff" : "#3a4644"}>{u.n}</text>
-                  <text x={ux + (w - 3) / 2} y={y + 50} textAnchor="middle" fontSize="6.5" fill={after ? "#8fd3bf" : "#6b7775"}>{after ? "객실" : u.s === "vacant" ? "공실" : u.n === "401" ? "명도 협의" : "사용 정리"}</text>
+                  <text x={ux + (w - 3) / 2} y={y + 50} textAnchor="middle" fontSize="6.5" fill={after ? "#8fd3bf" : "#6b7775"}>{keep ? (after ? "5층 이전" : "노래방") : after ? "객실" : u.s === "vacant" ? "공실" : "명도 협의"}</text>
                 </g>
               );
             })}
           </g>
         );
       })}
-      <text x="26" y="146" fontSize="7" fill="#6b7775">4·5층 호실 배치를 면적 비율로 단순화한 도식</text>
+      <text x="26" y="146" fontSize="7" fill="#6b7775">3·4층 호실 배치를 면적 비율로 단순화한 도식 · 304호 노래방은 5층 이전</text>
     </svg>
   );
 }
@@ -562,13 +563,13 @@ export default function TheKSite() {
               {[false, true].map((v) => (
                 <button key={String(v)} onClick={() => setAfter(v)} className="relative flex-1 py-2 text-[13px] font-bold">
                   {after === v && <motion.span layoutId="tk-ba" className="absolute inset-0" style={{ background: v ? "var(--tk-deep)" : "var(--tk-sand)" }} transition={{ duration: 0.35, ease: EASE }} />}
-                  <span className="relative z-10" style={{ color: after === v ? (v ? "#fff" : "var(--tk-deep)") : "var(--tk-sub)" }}>{v ? "전환 후 (안)" : "지금 (4·5층)"}</span>
+                  <span className="relative z-10" style={{ color: after === v ? (v ? "#fff" : "var(--tk-deep)") : "var(--tk-sub)" }}>{v ? "전환 후 (안)" : "지금 (3·4층)"}</span>
                 </button>
               ))}
             </div>
           </Rise>
           <div className="border p-3" style={{ borderColor: "var(--tk-line)" }}><FloorSwap after={after} /></div>
-          <p className="mt-2 text-[11px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>4·5층 전체(7개 호실, 약 912㎡)를 40실 안팎의 객실로 바꾸는 1단계 방안입니다. 소유주 측 확인: 5층 전체 사용 가능, 4층 교회 명도 가능.</p>
+          <p className="mt-2 text-[11px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>3·4층(약 950㎡)을 40실 안팎의 객실로 바꾸는 1단계 방안입니다. 소유주 측 확인: 2·3·4층 명도 가능, 5층은 노래방·당구장 등이 모이는 놀이층으로.</p>
         </section>
 
         {/* 건물 갤러리 띠 */}
@@ -999,12 +1000,12 @@ export default function TheKSite() {
                                 {CANDIDATES[cand].pros.map((p) => <li key={p} className="flex gap-2"><span className="mt-0.5 shrink-0" style={{ color: "#2f8f7a" }}><Icon d={I.check} size={15} /></span>{p}</li>)}
                                 {CANDIDATES[cand].cons.map((p) => <li key={p} className="flex gap-2" style={{ color: "var(--tk-char)" }}><span className="mt-0.5 shrink-0" style={{ color: "var(--tk-coral)" }}><Icon d={I.plus} size={15} /></span>{p}</li>)}
                               </ul>
-                              <p className="mt-2 text-[10.5px]" style={{ color: "var(--tk-sub)" }}>평면 투시도: 분양 브로슈어 · 객실 {roomTotal}실은 1단계 4·5층 기준 가정</p>
+                              <p className="mt-2 text-[10.5px]" style={{ color: "var(--tk-sub)" }}>평면 투시도: 분양 브로슈어 · 객실 {roomTotal}실은 1단계 3·4층 기준 가정</p>
                             </>
                           )}
                           {pi === 2 && (
                             <div className="-mx-4 -mb-5 p-4" style={{ background: "var(--tk-deep)" }}>
-                              <div className="text-[12px] font-bold text-white">1단계 4·5층 {roomTotal}실 · 사업성 계산기 (안)</div>
+                              <div className="text-[12px] font-bold text-white">1단계 3·4층 {roomTotal}실 · 사업성 계산기 (안)</div>
                               <div className="mt-4 text-center">
                                 <div className="text-[12px]" style={{ color: "#8fb0ab" }}>예상 월 매출 (안)</div>
                                 <div className="mt-1 text-[36px] font-bold leading-none" style={{ color: "var(--tk-glow)" }}>약 <Roll to={Math.round(sim.rev)} /><span className="text-[16px]">만원</span></div>
