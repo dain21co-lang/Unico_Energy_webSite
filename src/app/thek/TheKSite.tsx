@@ -683,7 +683,10 @@ export default function TheKSite() {
         <section id="smart" className="px-6 pt-16 pb-14" style={{ background: "var(--tk-deep)" }}>
           <Head dark no="03" en="SMART SYSTEM" sub="예약, 체크인, 객실 제어, 보안까지. 사람이 상주하지 않아도 AI와 IoT가 24시간 호스텔을 운영합니다.">사람 대신 AI가<br />24시간 지킵니다</Head>
           <div className="-mx-6 mb-6">
-            <Photo src={IMG("checkin-wide")} alt="무인 체크인 로비 (AI 이미지 예시)" className="aspect-video w-full" pos="50% 50%" cap="무인 체크인 로비 · AI 이미지 예시" />
+            <div className="relative aspect-video w-full overflow-hidden bg-black">
+              <video src="/thek/video/checkin.mp4" poster="/thek/video/checkin-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="무인 체크인 장면 (AI 영상 예시)" className="h-full w-full object-cover" />
+              <span className="absolute bottom-2 left-2 bg-white/90 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>무인 체크인 · AI 영상 예시</span>
+            </div>
           </div>
           <div ref={smartRef}>
             <div className="grid grid-cols-5 gap-1">
