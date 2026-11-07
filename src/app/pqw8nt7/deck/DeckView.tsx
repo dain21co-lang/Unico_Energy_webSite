@@ -120,7 +120,7 @@ export default function DeckView() {
           사이트로
         </a>
         <p className="text-[13px] font-black tracking-wide">회사소개서</p>
-        <a href="/pqw8nt7/files/haeyeon-company-profile.pdf" target="_blank" rel="noopener" className="rounded-full bg-[var(--hy-orange)] px-3 py-1.5 text-[12px] font-bold text-white">PDF</a>
+        <a href="/haeyeon/files/haeyeon-company-profile.pdf" download="해연에프엔지_회사소개서.pdf" className="rounded-full bg-[var(--hy-orange)] px-3 py-1.5 text-[12px] font-bold text-white">PDF</a>
       </header>
       <div className="relative z-20 mx-4 h-[3px] overflow-hidden rounded-full bg-white/10">
         <motion.div className="h-full origin-left bg-[#a7d45a]" initial={false} animate={{ scaleX: i / N }} transition={{ duration: 0.6, ease: EASE }} />

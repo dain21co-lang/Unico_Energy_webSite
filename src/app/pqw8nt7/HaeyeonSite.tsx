@@ -41,7 +41,35 @@ const I = {
   brain: "M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3h1V4z M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3h-1V4z",
   blade: "M4 20L18 6a2.8 2.8 0 0 1 4 4L8 24 M14 10l4 4",
   down: "M6 9l6 6 6-6",
+  dl: "M12 4v11 M7 10l5 5 5-5 M5 20h14",
 };
+
+const PDF = "/haeyeon/files/haeyeon-company-profile.pdf";
+const PDF_NAME = "해연에프엔지_회사소개서.pdf";
+
+/* 국세청 홈택스 표준재무제표증명(2023~2025) — 단위: 억 원 */
+const FIN = [
+  { y: "2023", rev: 254.4, op: 8.42, net: 6.98, eq: 15.3 },
+  { y: "2024", rev: 340.1, op: 9.65, net: 7.01, eq: 22.3 },
+  { y: "2025", rev: 341.0, op: 11.46, net: 7.09, eq: 29.4 },
+];
+
+/* 재무 막대: 아래에서 위로 자라며 등장 (투명도는 쓰지 않음) */
+function FinBars({ k, unit, color, en }: { k: "rev" | "op" | "net" | "eq"; unit: string; color: string; en: boolean }) {
+  const max = Math.max(...FIN.map((f) => f[k]));
+  return (
+    <div className="flex h-[150px] items-end justify-between gap-3">
+      {FIN.map((f, i) => (
+        <div key={f.y} className="flex flex-1 flex-col items-center justify-end">
+          <p className="mb-1.5 text-[13px] font-extrabold" style={{ color: i === 2 ? color : "var(--hy-ink)" }}>{f[k].toLocaleString(en ? "en-US" : "ko-KR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}<span className="ml-0.5 text-[10px] font-semibold text-[var(--hy-sub)]">{unit}</span></p>
+          <motion.div className="w-full max-w-[56px] rounded-t-md" style={{ height: `${(f[k] / max) * 100}px`, background: i === 2 ? color : "#d9e3dc", transformOrigin: "bottom" }}
+            initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.9, delay: 0.1 + i * 0.12, ease: [0.16, 1, 0.3, 1] }} />
+          <p className="mt-2 text-[12px] font-bold text-[var(--hy-sub)]">{f.y}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function HaeyeonSite({ en = false }: { en?: boolean }) {
   const L = (ko: ReactNode, eng: ReactNode) => (en ? eng : ko);
@@ -63,7 +91,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
   }, [irOpen]);
 
   const STATS = [
-    [s("344억", "₩34.4B"), s("연 매출", "Annual revenue")],
+    [s("341억", "₩34.1B"), s("2025년 매출 · 국세청 신고 기준", "2025 revenue · per tax filing")],
     ["2020", s("설립 · 충북 제천 본사 공장", "Founded · Jecheon HQ plant")],
     ["HACCP", s("위생 공정 · 가공 허가 보유", "Hygiene process · licensed")],
     ["B2B", s("쿠팡 로켓배송 등 온라인 공급", "Online supply incl. Coupang")],
@@ -113,9 +141,9 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
 
       {/* 빠른 메뉴 */}
       <nav aria-label="Quick menu" className="fixed right-3 z-40 flex flex-col gap-1.5" style={{ bottom: "calc(92px + env(safe-area-inset-bottom, 0px))" }}>
-        {[[I.chat, "#contact", s("문의", "Contact")], [I.factory, "#production", s("생산", "Production")], [I.chip, "#foodtech", "AI"], [I.pin, "#location", s("오시는 길", "Location")]].map(([ic, href, label], i) => (
-          <a key={label} href={href} aria-label={label}
-            className={`flex h-11 w-11 items-center justify-center rounded-lg shadow-lg ${i === 0 ? "bg-[var(--hy-orange)] text-white" : "bg-white text-[var(--hy-ink)] ring-1 ring-black/5"}`}>
+        {[[I.dl, PDF, s("회사소개서 내려받기", "Download company profile")], [I.chat, "#contact", s("문의", "Contact")], [I.factory, "#production", s("생산", "Production")], [I.chip, "#foodtech", "AI"], [I.pin, "#location", s("오시는 길", "Location")]].map(([ic, href, label], i) => (
+          <a key={label} href={href} aria-label={label} {...(href === PDF ? { download: PDF_NAME } : {})}
+            className={`flex h-11 w-11 items-center justify-center rounded-lg shadow-lg ${i === 0 ? "bg-[var(--hy-forest)] text-white" : i === 1 ? "bg-[var(--hy-orange)] text-white" : "bg-white text-[var(--hy-ink)] ring-1 ring-black/5"}`}>
             <Icon d={ic} />
           </a>
         ))}
@@ -144,6 +172,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
             <a href="#business" className="flex items-center justify-between rounded-lg bg-[var(--hy-orange)] px-5 py-3.5 text-[14.5px] font-bold">{s("사업 영역 보기", "See our business")}<Icon d={I.arrow} size={18} /></a>
             <a href="#foodtech" className="flex items-center justify-between rounded-lg border border-white/40 bg-white/5 px-5 py-3.5 text-[14.5px] font-bold">{s("AI 스마트 육가공", "AI smart processing")}<Icon d={I.arrow} size={18} /></a>
             <a href="/pqw8nt7/deck" className="flex items-center justify-between rounded-lg bg-white px-5 py-3.5 text-[14.5px] font-bold text-[var(--hy-forest)]"><span className="flex items-center gap-2"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={18} />{s("회사소개서 바로보기", "View company profile (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
+            <a href={PDF} download={PDF_NAME} className="flex items-center justify-between rounded-lg border border-white/40 bg-white/5 px-5 py-3.5 text-[14.5px] font-bold"><span className="flex items-center gap-2"><Icon d={I.dl} size={18} />{s("회사소개서 PDF 내려받기", "Download company profile (PDF)")}</span><span className="text-[11.5px] font-semibold text-white/60">54{s("쪽", "p")}</span></a>
             <a href="/pqw8nt7/ir" onClick={openIR} className="flex items-center justify-between rounded-lg bg-gradient-to-r from-[#0e2218] to-[#1d3a28] px-5 py-3.5 text-[14.5px] font-bold text-[#e3cf9f] ring-1 ring-[#c9a35b]/60"><span className="flex items-center gap-2"><Icon d="M4 19V9 M10 19V5 M16 19v-7 M22 19H2" size={18} />{s("IR 자료 바로보기", "View IR deck (Korean)")}</span><Icon d={I.arrow} size={18} /></a>
           </div>
         </div>
@@ -158,6 +187,27 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
               <p className="mt-1 text-[12px] leading-snug text-[var(--hy-sub)]">{l}</p>
             </Rise>
           ))}
+        </div>
+      </section>
+
+      {/* 재무 현황 — 국세청 홈택스 표준재무제표증명 */}
+      <section id="finance" className="bg-[var(--hy-cream,#f6f4ee)] py-12">
+        <div className="mx-auto max-w-md px-5">
+          <p className="hy-brand text-[11px] font-bold tracking-[0.24em] text-[var(--hy-orange)]">FINANCIALS</p>
+          <h2 className="mt-3 text-[24px] font-black leading-snug">{L(<>숫자로 확인하는<br />3년의 성장</>, <>Three years of growth,<br />in numbers</>)}</h2>
+          <p className="mt-3 text-[13.5px] leading-relaxed text-[var(--hy-sub)]">{s("매출은 2년 만에 254억에서 341억 원으로, 영업이익은 8.4억에서 11.5억 원으로 늘었고 3년 연속 흑자를 냈습니다.", "Revenue grew from ₩25.4B to ₩34.1B in two years, operating profit from ₩0.84B to ₩1.15B, with three straight profitable years.")}</p>
+          <div className="mt-6 grid gap-3">
+            {([["rev", s("매출액", "Revenue"), "var(--hy-forest)"], ["op", s("영업이익", "Operating profit"), "var(--hy-orange)"], ["net", s("당기순이익", "Net income"), "#3c8a5a"], ["eq", s("자본총계", "Total equity"), "#c9a35b"]] as ["rev" | "op" | "net" | "eq", string, string][]).map(([k, label, c]) => (
+              <Rise key={k} className="rounded-2xl bg-white p-5 shadow-sm">
+                <div className="mb-3 flex items-baseline justify-between">
+                  <p className="text-[15px] font-black">{label}</p>
+                  <p className="text-[11px] text-[var(--hy-sub)]">{s("단위: 억 원", "Unit: ₩100M")}</p>
+                </div>
+                <FinBars k={k} unit={s("억", "")} color={c} en={en} />
+              </Rise>
+            ))}
+          </div>
+          <p className="mt-4 text-[11.5px] leading-relaxed text-[var(--hy-sub)]">{s("출처: 국세청 홈택스 표준재무제표증명(2023~2025 사업연도, 정기신고) · 사업자등록번호 784-86-01834", "Source: Korea National Tax Service standard financial statement certificates (FY2023–2025)")}</p>
         </div>
       </section>
 
@@ -374,7 +424,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
           </a>
           <div className="mt-4 grid grid-cols-2 gap-2.5">
             <a href="/pqw8nt7/deck" className="flex items-center justify-center gap-1.5 rounded-lg bg-[var(--hy-orange)] py-3.5 text-[14px] font-bold"><Icon d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" size={17} />{s("바로보기", "View")}</a>
-            <a href="/pqw8nt7/files/haeyeon-company-profile.pdf" target="_blank" rel="noopener" className="flex items-center justify-center gap-1.5 rounded-lg border border-white/40 py-3.5 text-[14px] font-bold">PDF {s("내려받기", "download")}</a>
+            <a href={PDF} download={PDF_NAME} className="flex items-center justify-center gap-1.5 rounded-lg bg-white py-3.5 text-[14px] font-bold text-[var(--hy-forest)]"><Icon d={I.dl} size={17} />PDF {s("내려받기", "download")}</a>
           </div>
           <p className="mt-3 text-[12px] text-white/60">{s("54쪽 · 휴대폰에서 바로 넘겨 볼 수 있습니다.", "54 pages, in Korean.")}</p>
           <a href="/pqw8nt7/ir" onClick={openIR} className="mt-6 flex items-center gap-4 overflow-hidden rounded-xl bg-[#0e2218] p-4 ring-1 ring-[#c9a35b]/60">
