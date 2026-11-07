@@ -268,6 +268,26 @@ function FloorSwap({ after }: { after: boolean }) {
   );
 }
 
+/* 브랜드 필름 — 누르면 재생 (모바일 데이터 절약: 미리 받지 않음) */
+function FilmPlayer() {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [on, setOn] = useState(false);
+  return (
+    <div className="relative overflow-hidden bg-black" style={{ aspectRatio: "9 / 16", maxHeight: "78vh" }}>
+      <video ref={ref} src="/thek/video/brand_film.mp4" poster="/thek/video/film-poster.webp" playsInline preload="none" controls={on} onEnded={() => setOn(false)} className="h-full w-full object-cover" />
+      {!on && (
+        <button onClick={() => { setOn(true); ref.current?.play(); }} aria-label="브랜드 필름 재생" className="absolute inset-0 flex flex-col items-center justify-end pb-10">
+          <motion.span className="flex h-16 w-16 items-center justify-center rounded-full" style={{ background: "var(--tk-coral)" }} animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 2, repeat: Infinity }}>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+          </motion.span>
+          <span className="mt-3 text-[13px] font-bold text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,.6)" }}>눌러서 보기</span>
+        </button>
+      )}
+      <span className="absolute left-2 top-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 영상 · 예시</span>
+    </div>
+  );
+}
+
 const STAYS: [number, string][] = [[1, "1박"], [2, "2박"], [3, "3박"], [7, "1주"], [30, "한 달 (STAY 30)"]];
 const LOGS = ["203호 모바일 키 체크인", "복도 B 순찰 완료", "205호 빈 방 절전 전환", "라운지 재실 6명", "201호 청소 완료 · 점검 기록", "택배 2건 락커 보관", "출입 이상 없음 · 야간 모드"];
 
@@ -417,9 +437,10 @@ export default function TheKSite() {
         <section id="home" className="relative overflow-hidden px-6 pt-11" style={{ background: "radial-gradient(120% 70% at 80% 10%, #1d4a46 0%, #0e2b29 55%, #0a201e 100%)" }}>
           {AI_READY.includes("hero") && (
             <>
-              <motion.img src={IMG("hero")} alt="더케이 스마트호스텔 외관 (AI 이미지 예시)" className="absolute inset-x-0 top-0 h-[calc(100%-120px)] w-full object-cover" style={{ objectPosition: "50% 100%" }} initial={{ scale: 1.08 }} animate={{ scale: 1 }} transition={{ duration: 2.4, ease: EASE }} />
+              <img src="/thek/video/hero-poster.webp" alt="더케이 스마트호스텔 외관 (AI 영상 예시)" className="absolute inset-x-0 top-0 h-[calc(100%-120px)] w-full object-cover" style={{ objectPosition: "50% 100%" }} />
+              <video src="/thek/video/hero.mp4" poster="/thek/video/hero-poster.webp" autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="absolute inset-x-0 top-0 h-[calc(100%-120px)] w-full object-cover" style={{ objectPosition: "50% 100%" }} />
               <div className="absolute inset-x-0 top-0 h-[calc(100%-120px)]" style={{ background: "linear-gradient(180deg,rgba(10,32,30,.78) 0%,rgba(10,32,30,.35) 30%,rgba(10,32,30,0) 55%,rgba(10,32,30,.15) 85%,#0a201e 100%)" }} />
-              <span className="absolute right-3 top-3 z-10 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 이미지 · 예시</span>
+              <span className="absolute right-3 top-3 z-10 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 영상 · 예시</span>
             </>
           )}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -472,6 +493,17 @@ export default function TheKSite() {
               </motion.div>
             ))}
           </div>
+
+          <Rise>
+            <div className="mt-10">
+              <div className="mb-2 flex items-baseline justify-between">
+                <div><span className="tk-en text-[10.5px] font-bold" style={{ color: "var(--tk-coral)" }}>BRAND FILM</span><div className="text-[17px] font-bold" style={{ color: "var(--tk-deep)" }}>파주의 밤, 깨어 있는 건물 하나</div></div>
+                <span className="text-[11px]" style={{ color: "var(--tk-sub)" }}>40초</span>
+              </div>
+              <FilmPlayer />
+              <p className="mt-2 text-[11px]" style={{ color: "var(--tk-sub)" }}>AI로 만든 예시 영상으로, 실제 건물·객실과 다를 수 있습니다.</p>
+            </div>
+          </Rise>
 
           <Rise><div className="mt-12 text-[18px] font-bold" style={{ color: "var(--tk-deep)" }}>사업 소개 <span className="text-[12px] font-normal" style={{ color: "var(--tk-sub)" }}>· 빈 층을 머무는 공간으로</span></div></Rise>
           <p className="mt-2 text-[13.5px] leading-[1.75]" style={{ color: "var(--tk-char)" }}>2020년 준공된 지하 1층·지상 5층 근린생활·업무 복합건물의 공실 호실을 묶어 객실로 바꿉니다. 건물은 공실을 줄이고, 방문객은 도심 한가운데서 합리적인 숙소를 얻습니다.</p>
