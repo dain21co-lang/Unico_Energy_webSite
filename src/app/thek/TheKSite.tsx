@@ -752,7 +752,7 @@ export default function TheKSite() {
               </div>
             ))}
           </div>
-          <Shot f="security" label="AI 보안·관제 장면" className="mt-6 h-[360px]" pos="50% 40%" dark />
+          <Shot f="security" label="AI 보안·관제 장면" className="mt-6 h-[420px]" pos="50% 42%" dark />
           <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "#7f9e99" }}>관제 화면은 운영 방식을 보여 주는 예시입니다. 무인 장비와 AI·로봇 솔루션의 도입 범위는 협의 중이며 설계 단계에서 확정합니다.</p>
         </section>
 
