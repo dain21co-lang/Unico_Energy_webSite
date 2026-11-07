@@ -564,7 +564,7 @@ export default function TheKSite() {
             ) : (
               <motion.div key="l" className="px-6" initial={{ clipPath: "inset(0% 0% 0% 100%)" }} animate={{ clipPath: "inset(0% 0% 0% 0%)" }} exit={{ clipPath: "inset(0% 100% 0% 0%)" }} transition={{ duration: 0.5, ease: EASE }}>
                 <div className="mt-4 bg-white">
-                  <Shot f="longstay" label="장기 체류 객실" className="h-[230px]" dark />
+                  <Shot f="longstay" label="장기 체류 객실" className="h-[300px]" pos="50% 45%" dark />
                   <div className="p-5">
                     <div className="flex items-baseline justify-between">
                       <div><div className="tk-en text-[10.5px] font-bold" style={{ color: "var(--tk-coral)" }}>{LONGSTAY.t}</div><div className="text-[19px] font-bold" style={{ color: "var(--tk-deep)" }}>{LONGSTAY.sub}</div></div>
@@ -671,21 +671,21 @@ export default function TheKSite() {
               </div>
             ))}
           </div>
-          <Shot f="security" label="AI 보안·관제 장면" className="mt-6 h-[200px]" dark />
+          <Shot f="security" label="AI 보안·관제 장면" className="mt-6 h-[360px]" pos="50% 40%" dark />
           <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "#7f9e99" }}>관제 화면은 운영 방식을 보여 주는 예시입니다. 무인 장비와 AI·로봇 솔루션의 도입 범위는 협의 중이며 설계 단계에서 확정합니다.</p>
         </section>
 
         {/* FACILITIES */}
         <section id="facilities" className="px-6 pt-16 pb-14">
           <Head no="04" en="FACILITIES" sub="객실 밖에서도 생활이 이어지도록. 라운지와 주방, 업무 공간을 투숙객 모두가 함께 씁니다.">방 밖의 시간까지<br />편안하게</Head>
-          <Shot f="lounge" label="스마트 라운지" className="h-[300px]" />
+          <Shot f="lounge" label="스마트 라운지" className="h-[420px]" pos="50% 55%" />
           <div className="mt-4 grid gap-3">
             {FACILITIES.map((f, i) => (
               <Rise key={f.k} delay={i * 0.05}>
                 <div className="grid grid-cols-[110px_1fr] gap-3 border p-2.5" style={{ borderColor: "var(--tk-line)" }}>
                   {f.k === "lounge" ? (
-                    <div className="flex h-[96px] items-center justify-center" style={{ background: "var(--tk-deep)", color: "var(--tk-glow)" }}><Icon d={I.sofa} size={32} /></div>
-                  ) : <Shot f={f.k} label={f.t} className="h-[96px]" />}
+                    <div className="flex h-[110px] items-center justify-center" style={{ background: "var(--tk-deep)", color: "var(--tk-glow)" }}><Icon d={I.sofa} size={32} /></div>
+                  ) : <Shot f={f.k} label={f.t} className="h-[110px]" pos="50% 45%" />}
                   <div className="py-1">
                     <div className="tk-en text-[9.5px] font-bold" style={{ color: "var(--tk-coral)" }}>{f.en}</div>
                     <div className="text-[15px] font-bold" style={{ color: "var(--tk-deep)" }}>{f.t}</div>
