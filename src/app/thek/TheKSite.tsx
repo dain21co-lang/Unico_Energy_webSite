@@ -682,7 +682,9 @@ export default function TheKSite() {
         {/* SMART SYSTEM */}
         <section id="smart" className="px-6 pt-16 pb-14" style={{ background: "var(--tk-deep)" }}>
           <Head dark no="03" en="SMART SYSTEM" sub="예약, 체크인, 객실 제어, 보안까지. 사람이 상주하지 않아도 AI와 IoT가 24시간 호스텔을 운영합니다.">사람 대신 AI가<br />24시간 지킵니다</Head>
-          <Photo src={IMG("checkin")} alt="무인 체크인 로비 (AI 이미지 예시)" className="mb-6 h-[340px]" pos="50% 40%" cap="무인 체크인 로비 · AI 이미지 예시" />
+          <div className="-mx-6 mb-6">
+            <Photo src={IMG("checkin-wide")} alt="무인 체크인 로비 (AI 이미지 예시)" className="aspect-video w-full" pos="50% 50%" cap="무인 체크인 로비 · AI 이미지 예시" />
+          </div>
           <div ref={smartRef}>
             <div className="grid grid-cols-5 gap-1">
               {JOURNEY.map((j, i) => (
