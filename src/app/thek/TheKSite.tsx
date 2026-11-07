@@ -780,9 +780,16 @@ export default function TheKSite() {
             {FACILITIES.map((f, i) => (
               <Rise key={f.k} delay={i * 0.05}>
                 <div className="grid grid-cols-[110px_1fr] gap-3 border p-2.5" style={{ borderColor: "var(--tk-line)" }}>
-                  {!AI_READY.includes(f.k) || f.k === "lounge" ? (
-                    <div className="flex h-[110px] items-center justify-center" style={{ background: f.k === "lounge" ? "var(--tk-deep)" : "var(--tk-coral)", color: f.k === "lounge" ? "var(--tk-glow)" : "#fff" }}><Icon d={I[f.icon]} size={32} /></div>
-                  ) : <Shot f={f.k} label={f.t} className="h-[110px]" pos="50% 45%" />}
+                  {f.k === "parking" ? (
+                    <div className="relative flex h-[110px] flex-col justify-between overflow-hidden p-2.5" style={{ background: "var(--tk-deep)", color: "#fff" }}>
+                      <div className="absolute inset-0" style={{ backgroundImage: "repeating-linear-gradient(90deg,transparent 0 26px,rgba(255,207,134,.16) 26px 28px)" }} />
+                      <div className="relative flex items-center gap-1.5"><span className="flex h-6 w-6 items-center justify-center rounded-[5px] text-[14px] font-black" style={{ background: "#2f6fd6" }}>P</span><span className="tk-en text-[9px] font-bold tracking-widest" style={{ color: "var(--tk-glow)" }}>PARKING</span></div>
+                      <div className="relative"><span className="text-[34px] font-black leading-none" style={{ color: "var(--tk-glow)" }}>39</span><span className="ml-0.5 text-[12px] font-bold">대</span></div>
+                      <div className="relative flex gap-1 text-[9.5px] font-semibold"><span className="rounded-sm px-1.5 py-0.5" style={{ background: "rgba(255,255,255,.14)" }}>지상 9</span><span className="rounded-sm px-1.5 py-0.5" style={{ background: "rgba(255,255,255,.14)" }}>지하 30</span></div>
+                    </div>
+                  ) : !AI_READY.includes(f.k) ? (
+                    <div className="flex h-[110px] items-center justify-center" style={{ background: "var(--tk-coral)", color: "#fff" }}><Icon d={I[f.icon]} size={32} /></div>
+                  ) : <Shot f={f.k} label={f.t} className="h-[110px]" pos={f.k === "lounge" ? "30% 60%" : "50% 45%"} />}
                   <div className="py-1">
                     <div className="tk-en text-[9.5px] font-bold" style={{ color: "var(--tk-coral)" }}>{f.en}</div>
                     <div className="text-[15px] font-bold" style={{ color: "var(--tk-deep)" }}>{f.t}</div>
