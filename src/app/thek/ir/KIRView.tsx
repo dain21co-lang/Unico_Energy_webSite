@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import TheKLogo from "../TheKLogo";
 import { PROJECT, CEO, FLOORS, CANDIDATES, ROOMS, CHECKS, ROADMAP, JOURNEY, LOCATION } from "../data";
 import { SCEN, PHASE2, CAPEX1, CAPEX1_SUM, CAPEX2_ADD, COST1, FIXED1, ROOMS1N, ROOMS_ALL } from "../finance";
 
@@ -214,8 +215,7 @@ const SLIDES: Slide[] = [
       <Body bottom>
         <S>
           <It className="flex items-center gap-3"><motion.span className="block h-px w-10 origin-left" style={{ background: "var(--k-gold)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.9, delay: 0.4 }} /><p className="corm text-[14px] font-semibold uppercase tracking-[0.32em]" style={{ color: "var(--k-gold)" }}>Business Plan & IR 2026</p></It>
-          <h1 className="mt-3 overflow-hidden text-[52px] font-black leading-[1.02] tracking-tight"><motion.span className="block" initial={{ y: "105%" }} animate={{ y: "0%" }} transition={{ duration: 1, delay: 0.3, ease: EASE }}>THE K<span style={{ color: "var(--k-coral)" }}>.</span></motion.span></h1>
-          <It><p className="corm text-[22px] font-semibold uppercase tracking-[0.34em] goldtext">Smart Hostel</p></It>
+          <h1 className="mt-4"><TheKLogo width={200} variant="dark" tag="SMART HOSTEL" trigger="mount" /></h1>
           <It><p className="serif mt-4 text-[17px] font-medium leading-[1.6]">파주 금촌, 머무는 방식이<br />스마트해집니다</p></It>
           <It><p className="mt-3 text-[11.5px] tracking-wide" style={{ color: "var(--k-sub)" }}>더케이 스마트호스텔(가칭) 사업계획서 · 투자제안서 · 2026. 11</p></It>
           <It><p className="hint mt-6 flex items-center gap-2 text-[12.5px] font-semibold" style={{ color: "var(--k-champ)" }}>옆으로 밀어 넘겨 보세요 <span aria-hidden="true">→</span></p></It>
@@ -837,7 +837,7 @@ const SLIDES: Slide[] = [
     <Body center>
       <S className="text-center">
         <It><p className="corm text-[14px] font-semibold uppercase tracking-[0.34em]" style={{ color: "var(--k-gold)" }}>Thank you</p></It>
-        <h2 className="mt-3 overflow-hidden text-[60px] font-black leading-none"><motion.span className="block" initial={{ y: "105%" }} animate={{ y: "0%" }} transition={{ duration: 1, delay: 0.3, ease: EASE }}>THE K<span style={{ color: "var(--k-coral)" }}>.</span></motion.span></h2>
+        <h2 className="mt-4"><TheKLogo width={210} variant="dark" tag="SMART HOSTEL" trigger="mount" /></h2>
         <It><p className="corm mt-1 text-[22px] italic goldtext">Stay smart, live local.</p></It>
         <It><p className="serif mt-6 whitespace-pre-line text-[16px] leading-[1.8]">{CEO.closing}</p></It>
         <It><p className="mt-6 text-[11.5px] leading-[1.7]" style={{ color: "var(--k-sub)" }}>{PROJECT.nameKo}(가칭) · {CEO.title} {CEO.name}<br />{PROJECT.address} ({PROJECT.roadAddress})</p></It>

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { motion, AnimatePresence, animate, useInView } from "framer-motion";
 import { PROJECT, CEO, BUILDING, FLOORS, CANDIDATES, ROOMS, LONGSTAY, AMENITIES, FACILITIES, AI_READY, JOURNEY, NEARBY, TRIPS, DEMAND, LOCATION, CHECKS, ROADMAP } from "./data";
+import TheKLogo from "./TheKLogo";
 import type { UnitState } from "./data";
 import { model, FIXED1, CAPEX1_SUM } from "./finance";
 
@@ -401,8 +402,8 @@ export default function TheKSite() {
         {/* 헤더 */}
         <header className="sticky top-0 z-40 border-b" style={{ background: "rgba(255,255,255,.95)", borderColor: "var(--tk-line)", backdropFilter: "blur(10px)" }}>
           <div className="flex h-[54px] items-center justify-between px-4">
-            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-baseline gap-1.5 text-left leading-none">
-              <span className="text-[22px] font-black tracking-tight" style={{ color: "var(--tk-deep)" }}>THE K<span style={{ color: "var(--tk-coral)" }}>.</span></span>
+            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-end gap-2 text-left leading-none">
+              <TheKLogo width={64} variant="light" trigger="mount" speed={1.5} loopShine={false} />
               <span className="tk-en text-[9.5px] font-bold" style={{ color: "var(--tk-sub)" }}>SMART HOSTEL</span>
             </button>
             <div className="flex items-center gap-2">
@@ -427,7 +428,7 @@ export default function TheKSite() {
           {menu && (
             <motion.div key="m" className="fixed inset-y-0 right-0 z-50 w-full max-w-[480px] overflow-y-auto" style={{ background: "var(--tk-deep)" }} initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ duration: 0.5, ease: EASE }}>
               <div className="flex h-[54px] items-center justify-between px-5">
-                <span className="text-[20px] font-black text-white">THE K<span style={{ color: "var(--tk-coral)" }}>.</span></span>
+                <TheKLogo width={64} variant="dark" trigger="mount" speed={1.5} loopShine={false} />
                 <button onClick={() => setMenu(false)} aria-label="메뉴 닫기" className="text-[28px] leading-none text-white">×</button>
               </div>
               <div className="px-6 pt-2 pb-10">
@@ -460,7 +461,8 @@ export default function TheKSite() {
             <div className="tk-drift absolute inset-y-0 left-0 w-[200%]" style={{ backgroundImage: "linear-gradient(#ffffff0b 1px, transparent 1px), linear-gradient(90deg, #ffffff0b 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
           </div>
           <div className="relative text-white">
-            <div className="tk-en text-[11px] font-semibold" style={{ color: "var(--tk-mint)" }}><Lift delay={0.1}>PREMIUM SMART HOSTEL · PAJU</Lift></div>
+            <TheKLogo width={170} variant="dark" tag="SMART HOSTEL" trigger="mount" className="mb-5 -ml-1" />
+            <div className="tk-en text-[11px] font-semibold" style={{ color: "var(--tk-mint)" }}><Lift delay={0.1}>PAJU · GEUMCHON</Lift></div>
             <h1 className="mt-3 text-[34px] font-bold leading-[1.22] tracking-tight">
               <Lift delay={0.25}>Stay smart,</Lift>
               <Lift delay={0.4}><span style={{ color: "var(--tk-glow)" }}>live local.</span></Lift>
@@ -529,7 +531,7 @@ export default function TheKSite() {
                     <div className="text-[11.5px]" style={{ color: "#8fb0ab" }}>{PROJECT.nameKo} {CEO.title}</div>
                     <div className="mt-0.5 text-[24px] font-bold tracking-[0.3em] text-white">{CEO.name}</div>
                   </div>
-                  <span className="text-[30px] font-black leading-none" style={{ color: "var(--tk-coral)" }}>K.</span>
+                  <TheKLogo width={92} variant="dark" />
                 </div>
               </Rise>
               <div className="mt-8 p-4" style={{ background: "#0a201e" }}>
@@ -1077,7 +1079,7 @@ export default function TheKSite() {
         </section>
 
         <footer className="px-6 pt-10 pb-12" style={{ background: "#081a18", color: "#86a39f" }}>
-          <div className="text-[24px] font-black text-white">THE K<span style={{ color: "var(--tk-coral)" }}>.</span> <span className="tk-en text-[10px] font-bold" style={{ color: "#86a39f" }}>SMART HOSTEL</span></div>
+          <TheKLogo width={130} variant="dark" tag="SMART HOSTEL" />
           <div className="mt-1 text-[13px] text-white/80">{PROJECT.nameKo} ({PROJECT.tag})</div>
           <p className="mt-4 text-[12px] leading-[1.8]">{PROJECT.building}<br />{PROJECT.address} ({PROJECT.roadAddress})</p>
           <p className="mt-5 text-[11px] leading-[1.7]" style={{ color: "#5f7e79" }}>
