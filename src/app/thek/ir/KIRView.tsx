@@ -509,7 +509,7 @@ const SLIDES: Slide[] = [
         <div className="mt-5 grid grid-cols-2 gap-2">
           {[["lounge", "스마트 라운지"], ["kitchen", "공유 주방"], ["work", "업무 존"], ["laundry", "세탁 · 스마트 락커"]].map(([f, t], i) => (
             <It key={f} className="relative">
-              <Pic src={IMG(f)} alt={`${t} (AI 이미지 예시)`} className="h-[190px] w-full" pos="50% 45%" delay={0.25 + i * 0.12} />
+              <Pic src={IMG(f)} alt={`${t} (AI 이미지 예시)`} className="h-[150px] w-full" pos="50% 45%" delay={0.25 + i * 0.12} />
               <div className="absolute inset-x-0 bottom-0 rounded-b-[18px] p-2.5" style={{ background: "linear-gradient(180deg,transparent,rgba(10,19,34,.92))" }}>
                 <p className="serif text-[13.5px] font-bold">{t}</p>
               </div>
@@ -517,8 +517,13 @@ const SLIDES: Slide[] = [
           ))}
         </div>
         <div className="mt-2 grid grid-cols-2 gap-2">
-          {[[IC.home, "1층 K-편의점", "24시간 간편식사 · 한강라면 K문화 체험"], [IC.users, "5층 놀이층", "코인노래방 · 놀숲 · 당구장 · 오페라 라이브"]].map(([ic, t2, d]) => (
-            <It key={t2} className="glass flex items-center gap-2.5 rounded-xl p-2.5"><Ico d={ic} size={18} /><div><p className="text-[12.5px] font-bold">{t2}</p><p className="text-[10px] leading-[1.4]" style={{ color: "var(--k-sub)" }}>{d}</p></div></It>
+          {[["store", "1층 K-편의점", "간편식사 · 한강라면"], ["play", "5층 놀이층", "코인노래방 · 당구장"]].map(([f, t2, d], i) => (
+            <It key={f} className="relative">
+              <Pic src={IMG(f)} alt={`${t2} (AI 이미지 예시)`} className="h-[150px] w-full" pos="50% 40%" delay={0.7 + i * 0.12} />
+              <div className="absolute inset-x-0 bottom-0 rounded-b-[18px] p-2.5" style={{ background: "linear-gradient(180deg,transparent,rgba(10,19,34,.92))" }}>
+                <p className="serif text-[13px] font-bold">{t2}</p><p className="text-[9.5px]" style={{ color: "var(--k-champ)" }}>{d}</p>
+              </div>
+            </It>
           ))}
         </div>
         <Src>AI 이미지 예시 · 공용공간 구성은 설계 후 확정 · 편의점·놀이층은 유치 계획</Src>
