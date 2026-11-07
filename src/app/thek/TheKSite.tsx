@@ -272,7 +272,7 @@ function FloorSwap({ after }: { after: boolean }) {
 }
 
 /* 브랜드 필름 — 화면에 보이면 소리 없이 자동 재생, 벗어나면 멈춤. 누르면 일시정지/재생 */
-function FilmPlayer() {
+function FilmPlayer({ src = "/thek/video/brand_film.mp4", poster = "/thek/video/film-poster.webp", className = "", badgeBottom = false }: { src?: string; poster?: string; className?: string; badgeBottom?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   const box = useRef<HTMLDivElement>(null);
   const near = useInView(box, { margin: "300px 0px" });
@@ -284,8 +284,8 @@ function FilmPlayer() {
     if (seen && !paused) v.play().catch(() => {}); else v.pause();
   }, [seen, paused]);
   return (
-    <div ref={box} className="relative overflow-hidden bg-black" style={{ aspectRatio: "9 / 16", maxHeight: "78vh" }} onClick={() => setPaused((p) => !p)}>
-      <video ref={ref} src={near ? "/thek/video/brand_film.mp4" : undefined} poster="/thek/video/film-poster.webp" muted loop playsInline preload={near ? "auto" : "none"}
+    <div ref={box} className={`relative overflow-hidden bg-black ${className}`} style={{ aspectRatio: "9 / 16", maxHeight: "78vh" }} onClick={() => setPaused((p) => !p)}>
+      <video ref={ref} src={near ? src : undefined} poster={poster} muted loop playsInline preload={near ? "auto" : "none"}
         onTimeUpdate={(e) => { const v = e.currentTarget; if (v.duration) setProg(v.currentTime / v.duration); }} className="h-full w-full object-cover" />
       <div className="absolute inset-x-0 bottom-0 h-[3px]" style={{ background: "rgba(255,255,255,.2)" }}>
         <div className="h-full origin-left" style={{ background: "var(--tk-coral)", transform: `scaleX(${prog})` }} />
@@ -297,7 +297,7 @@ function FilmPlayer() {
           </motion.span>
         )}
       </AnimatePresence>
-      <span className="absolute left-2 top-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 영상 · 예시</span>
+      <span className={`absolute left-2 bg-white/85 px-1.5 py-0.5 text-[10px] ${badgeBottom ? "bottom-3" : "top-2"}`} style={{ color: "var(--tk-char)" }}>AI 영상 · 예시</span>
     </div>
   );
 }
@@ -763,7 +763,7 @@ export default function TheKSite() {
               </div>
             ))}
           </div>
-          <Shot f="security" label="AI 보안·관제 장면" className="mt-6 h-[430px]" pos="50% 30%" dark />
+          <FilmPlayer src="/thek/video/security.mp4" poster="/thek/video/security-poster.webp" className="mt-6" badgeBottom />
           <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "#7f9e99" }}>관제 화면은 운영 방식을 보여 주는 예시입니다. 무인 장비와 AI·로봇 솔루션의 도입 범위는 협의 중이며 설계 단계에서 확정합니다.</p>
         </section>
 

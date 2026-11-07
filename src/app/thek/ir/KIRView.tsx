@@ -572,7 +572,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="AI Security" t="사람 대신 AI가 지키는 밤" />
         <div className="mt-5 grid grid-cols-[0.9fr_1.1fr] gap-2.5">
-          <It><Pic src={IMG("security")} alt="관제 화면을 확인하는 대표 (AI 이미지 예시)" className="h-[250px] w-full" pos="50% 35%" cap="AI 이미지 · 예시" /></It>
+          <It><Pic src={IMG("security")} alt="새벽 관제 화면을 확인하는 대표 (AI 영상 장면 예시)" className="h-[250px] w-full" pos="50% 35%" cap="AI 이미지 · 예시" /></It>
           <div className="grid content-start gap-2">
             {[[IC.bolt, "IoT 에너지", "빈 방 자동 절전"], [IC.shield, "원격 보안", "출입·화재 즉시 알림"], [IC.phone, "AI 컨시어지", "다국어 24시간 응답"]].map(([ic, t, d]) => (
               <It key={t} className="glass flex items-center gap-2.5 rounded-xl p-2.5"><Ico d={ic} size={18} /><div><p className="text-[13px] font-bold">{t}</p><p className="text-[10.5px]" style={{ color: "var(--k-sub)" }}>{d}</p></div></It>
