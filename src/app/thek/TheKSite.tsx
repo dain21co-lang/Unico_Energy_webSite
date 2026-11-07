@@ -134,6 +134,7 @@ function Shot({ f, label, className, pos = "50% 50%", dark = false }: { f: strin
 }
 
 const GALLERY = [
+  { f: "ext-2", t: "오픈 후 외관 (예시)", s: "AI 이미지 · 예시" },
   { f: "real-s", t: "현재 건물 (남측)", s: "감정평가서 사진 · 2021" },
   { f: "real-nw", t: "현재 건물 (북서측)", s: "감정평가서 사진 · 2021" },
   { f: "r-se", t: "남동측 투시도", s: "분양 브로슈어 · 간판은 예시" },
@@ -416,8 +417,8 @@ export default function TheKSite() {
         <section id="home" className="relative overflow-hidden px-6 pt-11" style={{ background: "radial-gradient(120% 70% at 80% 10%, #1d4a46 0%, #0e2b29 55%, #0a201e 100%)" }}>
           {AI_READY.includes("hero") && (
             <>
-              <img src={IMG("hero")} alt="더케이 스마트호스텔 (AI 이미지 예시)" className="absolute inset-0 h-full w-full object-cover" />
-              <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(14,43,41,.55),rgba(14,43,41,.15) 40%,rgba(10,32,30,.92))" }} />
+              <motion.img src={IMG("hero")} alt="더케이 스마트호스텔 외관 (AI 이미지 예시)" className="absolute inset-x-0 top-0 h-[calc(100%-120px)] w-full object-cover" style={{ objectPosition: "50% 100%" }} initial={{ scale: 1.08 }} animate={{ scale: 1 }} transition={{ duration: 2.4, ease: EASE }} />
+              <div className="absolute inset-x-0 top-0 h-[calc(100%-120px)]" style={{ background: "linear-gradient(180deg,rgba(10,32,30,.78) 0%,rgba(10,32,30,.35) 30%,rgba(10,32,30,0) 55%,rgba(10,32,30,.15) 85%,#0a201e 100%)" }} />
               <span className="absolute right-3 top-3 z-10 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 이미지 · 예시</span>
             </>
           )}
@@ -438,7 +439,7 @@ export default function TheKSite() {
             </Rise>
           </div>
           {!AI_READY.includes("hero") && <div className="relative -mx-2 mt-4"><HeroBuilding /></div>}
-          {AI_READY.includes("hero") && <div className="h-[260px]" />}
+          {AI_READY.includes("hero") && <div className="h-[330px]" />}
           {/* 예약 바 */}
           <Rise delay={0.4} className="relative -mx-2 -mb-px">
             <div className="bg-white p-4 shadow-2xl" style={{ borderTop: "3px solid var(--tk-coral)" }}>
@@ -599,6 +600,7 @@ export default function TheKSite() {
         {/* SMART SYSTEM */}
         <section id="smart" className="px-6 pt-16 pb-14" style={{ background: "var(--tk-deep)" }}>
           <Head dark no="03" en="SMART SYSTEM" sub="예약, 체크인, 객실 제어, 보안까지. 사람이 상주하지 않아도 AI와 IoT가 24시간 호스텔을 운영합니다.">사람 대신 AI가<br />24시간 지킵니다</Head>
+          <Photo src={IMG("checkin")} alt="무인 체크인 로비 (AI 이미지 예시)" className="mb-6 h-[340px]" pos="50% 40%" cap="무인 체크인 로비 · AI 이미지 예시" />
           <div ref={smartRef}>
             <div className="grid grid-cols-5 gap-1">
               {JOURNEY.map((j, i) => (

@@ -84,7 +84,7 @@ export const FACILITIES = [
 ];
 
 /* 첫 화면·섹션 사진 슬롯 — 받은 AI 이미지 파일명(확장자 없이)을 여기에 추가하면 자동으로 사진이 들어갑니다 */
-export const AI_READY: string[] = [];
+export const AI_READY: string[] = ["hero", "checkin", "room-single"];
 
 /* 투숙 흐름 — AI·IoT 운영 (도입 범위는 협의 중) */
 export const JOURNEY = [
