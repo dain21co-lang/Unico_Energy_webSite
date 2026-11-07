@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { motion, AnimatePresence, animate, useInView } from "framer-motion";
-import { PROJECT, BUILDING, FLOORS, CANDIDATES, ROOMS, LONGSTAY, AMENITIES, FACILITIES, AI_READY, JOURNEY, NEARBY, TRIPS, DEMAND, LOCATION, CHECKS, ROADMAP } from "./data";
+import { PROJECT, CEO, BUILDING, FLOORS, CANDIDATES, ROOMS, LONGSTAY, AMENITIES, FACILITIES, AI_READY, JOURNEY, NEARBY, TRIPS, DEMAND, LOCATION, CHECKS, ROADMAP } from "./data";
 import type { UnitState } from "./data";
 
 /* 원칙: 투명도는 움직이지 않는다 (갤럭시 빈 화면 방지) — 위치·크기·마스크·색·SVG 경로만 움직인다 */
@@ -492,6 +492,44 @@ export default function TheKSite() {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* 대표 인사말 */}
+          <div className="-mx-6 mt-12 overflow-hidden" style={{ background: "var(--tk-deep)" }}>
+            <Photo src={IMG("ceo")} alt={`${CEO.title} ${CEO.name}`} className="h-[440px]" pos="50% 22%" />
+            <div className="relative px-6 pt-8 pb-10">
+              <div className="tk-en text-[10.5px] font-bold" style={{ color: "var(--tk-coral2)" }}>GREETING · 대표 인사말</div>
+              <h3 className="mt-3 text-[25px] font-bold leading-[1.4] text-white">
+                <Lift>{CEO.headline[0]}</Lift>
+                <Lift delay={0.15}><span style={{ color: "var(--tk-glow)" }}>{CEO.headline[1]}</span></Lift>
+              </h3>
+              <motion.div className="mt-5 h-px w-12 origin-left" style={{ background: "var(--tk-coral)" }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.9, ease: EASE }} />
+              <div className="mt-5 space-y-4">
+                {CEO.body.map((p, i) => (
+                  <Rise key={i} delay={i * 0.06}><p className="text-[14.5px] leading-[1.95]" style={{ color: "#c9dbd7" }}>{p}</p></Rise>
+                ))}
+              </div>
+              <Rise>
+                <p className="mt-7 whitespace-pre-line text-[17px] font-bold leading-[1.7] text-white">{CEO.closing}</p>
+                <div className="mt-6 flex items-end justify-between border-t pt-4" style={{ borderColor: "#24504b" }}>
+                  <div>
+                    <div className="text-[11.5px]" style={{ color: "#8fb0ab" }}>{PROJECT.nameKo} {CEO.title}</div>
+                    <div className="mt-0.5 text-[24px] font-bold tracking-[0.3em] text-white">{CEO.name}</div>
+                  </div>
+                  <span className="text-[30px] font-black leading-none" style={{ color: "var(--tk-coral)" }}>K.</span>
+                </div>
+              </Rise>
+              <div className="mt-8 p-4" style={{ background: "#0a201e" }}>
+                <div className="tk-en mb-3 text-[10px] font-bold" style={{ color: "var(--tk-mint)" }}>PROFILE</div>
+                <div className="space-y-2">
+                  {CEO.career.map((c, i) => (
+                    <motion.div key={c.t} className="grid grid-cols-[52px_1fr] gap-2 text-[12.5px]" initial={{ x: -16 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.04, ease: EASE }}>
+                      <span className="font-bold" style={{ color: "var(--tk-glow)" }}>{c.y}</span><span style={{ color: "#c3d6d2" }}>{c.t}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
 
           <Rise>
@@ -1003,7 +1041,7 @@ export default function TheKSite() {
           <div className="mt-1 text-[13px] text-white/80">{PROJECT.nameKo} ({PROJECT.tag})</div>
           <p className="mt-4 text-[12px] leading-[1.8]">{PROJECT.building}<br />{PROJECT.address} ({PROJECT.roadAddress})</p>
           <p className="mt-5 text-[11px] leading-[1.7]" style={{ color: "#5f7e79" }}>
-            오픈 준비 중인 사업을 소개하는 임시 홈페이지입니다. 건물 사진은 감정평가서(2021) 수록 사진, 투시도·평면도는 분양 브로슈어 자료이며 그 안의 간판·인물은 예시입니다. &lsquo;AI 이미지&rsquo; 표시 사진과 건물 그래픽·객실 평면·관제 화면은 이해를 돕기 위한 예시로 실제와 다를 수 있습니다. 객실 구성·요금·매출은 확정 전 계획(안)이며, 숙박 영업 범위는 인허가 확인 후 확정됩니다.
+            오픈 준비 중인 사업을 소개하는 임시 홈페이지입니다. 건물 사진은 감정평가서(2021) 수록 사진, 투시도·평면도는 분양 브로슈어 자료이며 그 안의 간판·인물은 예시입니다. 대표 사진은 실제 사진을 바탕으로 배경을 연출했습니다. &lsquo;AI 이미지&rsquo; 표시 사진과 건물 그래픽·객실 평면·관제 화면은 이해를 돕기 위한 예시로 실제와 다를 수 있습니다. 객실 구성·요금·매출은 확정 전 계획(안)이며, 숙박 영업 범위는 인허가 확인 후 확정됩니다.
           </p>
           <p className="tk-en mt-5 text-[10.5px]">© 2026 THE K SMART HOSTEL</p>
         </footer>
