@@ -268,21 +268,32 @@ function FloorSwap({ after }: { after: boolean }) {
   );
 }
 
-/* 브랜드 필름 — 누르면 재생 (모바일 데이터 절약: 미리 받지 않음) */
+/* 브랜드 필름 — 화면에 보이면 소리 없이 자동 재생, 벗어나면 멈춤. 누르면 일시정지/재생 */
 function FilmPlayer() {
   const ref = useRef<HTMLVideoElement>(null);
-  const [on, setOn] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
+  const near = useInView(box, { margin: "300px 0px" });
+  const seen = useInView(box, { amount: 0.45 });
+  const [paused, setPaused] = useState(false);
+  const [prog, setProg] = useState(0);
+  useEffect(() => {
+    const v = ref.current; if (!v) return;
+    if (seen && !paused) v.play().catch(() => {}); else v.pause();
+  }, [seen, paused]);
   return (
-    <div className="relative overflow-hidden bg-black" style={{ aspectRatio: "9 / 16", maxHeight: "78vh" }}>
-      <video ref={ref} src="/thek/video/brand_film.mp4" poster="/thek/video/film-poster.webp" playsInline preload="none" controls={on} onEnded={() => setOn(false)} className="h-full w-full object-cover" />
-      {!on && (
-        <button onClick={() => { setOn(true); ref.current?.play(); }} aria-label="브랜드 필름 재생" className="absolute inset-0 flex flex-col items-center justify-end pb-10">
-          <motion.span className="flex h-16 w-16 items-center justify-center rounded-full" style={{ background: "var(--tk-coral)" }} animate={{ scale: [1, 1.08, 1] }} transition={{ duration: 2, repeat: Infinity }}>
+    <div ref={box} className="relative overflow-hidden bg-black" style={{ aspectRatio: "9 / 16", maxHeight: "78vh" }} onClick={() => setPaused((p) => !p)}>
+      <video ref={ref} src={near ? "/thek/video/brand_film.mp4" : undefined} poster="/thek/video/film-poster.webp" muted loop playsInline preload={near ? "auto" : "none"}
+        onTimeUpdate={(e) => { const v = e.currentTarget; if (v.duration) setProg(v.currentTime / v.duration); }} className="h-full w-full object-cover" />
+      <div className="absolute inset-x-0 bottom-0 h-[3px]" style={{ background: "rgba(255,255,255,.2)" }}>
+        <div className="h-full origin-left" style={{ background: "var(--tk-coral)", transform: `scaleX(${prog})` }} />
+      </div>
+      <AnimatePresence>
+        {paused && (
+          <motion.span key="p" className="absolute left-1/2 top-1/2 -ml-8 -mt-8 flex h-16 w-16 items-center justify-center rounded-full" style={{ background: "rgba(226,115,74,.9)" }} initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={{ duration: 0.25 }}>
             <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
           </motion.span>
-          <span className="mt-3 text-[13px] font-bold text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,.6)" }}>눌러서 보기</span>
-        </button>
-      )}
+        )}
+      </AnimatePresence>
       <span className="absolute left-2 top-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 영상 · 예시</span>
     </div>
   );
