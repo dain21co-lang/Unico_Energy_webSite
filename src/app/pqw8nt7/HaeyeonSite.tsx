@@ -432,7 +432,7 @@ export default function HaeyeonSite({ en = false }: { en?: boolean }) {
             <span className="flex-1">
               <span className="hy-brand block text-[10.5px] font-bold tracking-[0.22em] text-[#c9a35b]">INVESTOR RELATIONS 2026</span>
               <span className="mt-1 block text-[16px] font-black text-[#f6f1e6]">{s("IR 자료 바로보기", "View IR deck (Korean)")}</span>
-              <span className="mt-0.5 block text-[12px] text-white/60">{s("30장 · 모션 프레젠테이션 · 2025 감사보고서 기준", "30 slides, motion presentation")}</span>
+              <span className="mt-0.5 block text-[12px] text-white/60">{s("30장 · 모션 프레젠테이션 · 국세청 신고 재무제표 기준", "30 slides, motion presentation")}</span>
             </span>
             <span className="text-[#e3cf9f]"><Icon d={I.arrow} size={20} /></span>
           </a>
