@@ -758,14 +758,19 @@ export default function TheKSite() {
               </div>
             ))}
           </div>
-          <Shot f="security" label="AI 보안·관제 장면" className="mt-6 h-[420px]" pos="50% 42%" dark />
+          <Shot f="security" label="AI 보안·관제 장면" className="mt-6 h-[430px]" pos="50% 30%" dark />
           <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "#7f9e99" }}>관제 화면은 운영 방식을 보여 주는 예시입니다. 무인 장비와 AI·로봇 솔루션의 도입 범위는 협의 중이며 설계 단계에서 확정합니다.</p>
         </section>
 
         {/* FACILITIES */}
         <section id="facilities" className="px-6 pt-16 pb-14">
           <Head no="04" en="FACILITIES" sub="객실 밖에서도 생활이 이어지도록. 라운지와 주방, 업무 공간을 투숙객 모두가 함께 씁니다.">방 밖의 시간까지<br />편안하게</Head>
-          <Shot f="lounge" label="스마트 라운지" className="h-[420px]" pos="50% 55%" />
+          <div className="-mx-6">
+            <div className="relative aspect-video w-full overflow-hidden bg-black">
+              <video src="/thek/video/lounge.mp4" poster="/thek/video/lounge-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="스마트 라운지 장면 (AI 영상 예시)" className="h-full w-full object-cover" />
+              <span className="absolute bottom-2 left-2 bg-white/90 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>스마트 라운지 · AI 영상 예시</span>
+            </div>
+          </div>
           <div className="mt-4 grid gap-3">
             {FACILITIES.map((f, i) => (
               <Rise key={f.k} delay={i * 0.05}>
