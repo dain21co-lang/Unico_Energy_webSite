@@ -4,11 +4,12 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { PROJECT, CEO, FLOORS, CANDIDATES, ROOMS, CHECKS, ROADMAP, JOURNEY, LOCATION } from "../data";
+import { SCEN, PHASE2, CAPEX1, CAPEX1_SUM, CAPEX2_ADD, COST1, FIXED1, ROOMS1N, ROOMS_ALL } from "../finance";
 
 /*
  * THE K 스마트호스텔(가칭) IR — 모바일 전용 웹 프레젠테이션
  * 원칙: 투명도 애니메이션 없이 위치·크기·모양·마스크·색만 움직인다 (갤럭시 빈 화면 방지)
- * 근거: 감정평가서(2021.10.28) · 임대현황표(2026.02.28) · 분양 브로슈어 · 기존 고시텔 사업계획서(투자규모 5억)
+ * 근거: 감정평가서(2021.10.28) · 임대현황표(2026.02.28) · 분양 브로슈어 · 소유주 측 확인(4·5층 사용 가능, 2026.11)
  * 재무 수치는 모두 설계·시장조사 전 가정(안)이며, 계산식은 아래 FIN에 그대로 남겨 둔다.
  */
 
@@ -16,20 +17,10 @@ const IMG = (f: string) => `/thek/img/${f}.webp`;
 const VID = (f: string) => `/thek/video/${f}`;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/* ───────── 재무 가정 (안) ───────── */
-const R1 = ROOMS; // 2층 18실
-const R4 = [{ k: "single", n: 10, night: 4.5, month: 50 }, { k: "double", n: 4, night: 6, month: 62 }, { k: "family", n: 2, night: 8, month: 75 }]; // 4층 16실 (안)
-const sum = (a: { n: number; month: number }[]) => a.reduce((s, r) => s + r.n * r.month, 0);
-const sumN = (a: { n: number; night: number }[]) => a.reduce((s, r) => s + r.n * r.night, 0);
-const P1 = { rev: sum(R1) * 0.85, fixed: 480, varRate: 0.05, capex: 5.0 };
-const P2 = { rev: sumN(R1) * 30 * 0.6, fixed: 480, varRate: 0.25, capex: 5.0 };
-const P3 = { rev: (sumN(R1) + sumN(R4)) * 30 * 0.6, fixed: 810, varRate: 0.25, capex: 9.4 };
-const ebitda = (p: { rev: number; fixed: number; varRate: number }) => p.rev - p.fixed - p.rev * p.varRate;
-const PH = [
-  { k: "1단계", t: "월 단위 운영", s: "2층 18실 · 다중생활시설 · 입실률 85%", ...P1 },
-  { k: "2단계", t: "일 단위 전환", s: "2층 18실 · 숙박업 허가 시 · 가동률 60%", ...P2 },
-  { k: "3단계", t: "4층 확장", s: "2·4층 34실 · 일 단위 · 가동률 60%", ...P3 },
-].map((p) => ({ ...p, eb: ebitda(p), yRev: (p.rev * 12) / 10000, yEb: (ebitda(p) * 12) / 10000 }));
+/* ───────── 재무 가정 (안): ../finance.ts 한 곳에서 계산 ───────── */
+const S1 = SCEN[1];
+const PAY1 = CAPEX1_SUM / S1.yEb;
+const PAY2 = (CAPEX1_SUM + CAPEX2_ADD) / PHASE2.yEb;
 
 type Ctx = { go: (n: number) => void; active: boolean };
 type Slide = { id: string; ch: number; photo?: string; pos?: string; render: (c: Ctx) => ReactNode };
@@ -260,9 +251,9 @@ const SLIDES: Slide[] = [
   { id: "summary", ch: 1, render: () => (
     <Body center>
       <S>
-        <Head ey="Executive Summary" t={<>빈 층을 매출로 바꾸는<br />소형 스마트호스텔</>} sub="2020년 준공된 파주 금촌 The K 빌딩의 공실 호실을 묶어, 프런트 없이 AI·IoT로 운영하는 객실로 전환합니다." />
+        <Head ey="Executive Summary" t={<>두 개 층을 통째로,<br />무인 스마트호스텔로</>} sub="2020년 준공된 파주 금촌 The K 빌딩의 4·5층 전체를 프런트 없이 AI·IoT로 운영하는 호스텔로 전환합니다." />
         <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl" style={{ background: "var(--k-line)" }}>
-          {[[18, "실", "1단계 객실 (안)", "2층 공실 4개 호실"], [366, "㎡", "1단계 전용면적", "500㎡ 미만 소형"], [10, "개", "건물 내 공실 호실", "2026.02 임대현황"], [24, "h", "무인 운영", "모바일 체크인 · 원격 관제"]].map(([v, u, l, s]) => (
+          {[[ROOMS1N, "실", "1단계 객실 (안)", "4·5층 전체 7개 호실"], [912, "㎡", "1단계 전용면적", "두 개 층 통째로"], [ROOMS_ALL, "실", "2단계 확장 시 (안)", "2·3층 일부 추가"], [24, "h", "무인 운영", "모바일 체크인 · 원격 관제"]].map(([v, u, l, s]) => (
             <It key={l as string} className="bg-[#111e35] p-4">
               <p className="text-[11.5px]" style={{ color: "var(--k-sub)" }}>{l}</p>
               <p className="corm mt-1 text-[44px] font-semibold leading-none goldtext"><Count to={v as number} /><span className="ml-0.5 text-[20px]">{u}</span></p>
@@ -270,8 +261,8 @@ const SLIDES: Slide[] = [
             </It>
           ))}
         </div>
-        <It className="glass mt-4 rounded-2xl p-4 text-[13px] leading-[1.75]" ><b style={{ color: "var(--k-champ)" }}>전략</b>  월 단위(다중생활시설)로 먼저 열어 공실을 해소하고, 숙박업 허가가 확인되면 일 단위로 전환해 수익을 키웁니다.</It>
-        <Src>출처: 감정평가서(2021) · 임대현황표(2026.02.28) · 객실 수는 설계 전 가정(안)</Src>
+        <It className="glass mt-4 rounded-2xl p-4 text-[13px] leading-[1.75]" ><b style={{ color: "var(--k-champ)" }}>전략</b>  관광진흥법상 호스텔업 등록을 추진하고, 유학생·외국인 근로자 장기 투숙과 단기 숙박을 함께 운영해 안정성과 수익성을 동시에 잡습니다.</It>
+        <Src>출처: 감정평가서(2021) · 임대현황표(2026.02.28) · 소유주 측 확인(4·5층 사용 가능) · 객실 수는 설계 전 가정(안)</Src>
       </S>
     </Body>
   ) },
@@ -282,7 +273,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="Investment Highlights" t="핵심 투자 포인트" />
         <div className="mt-5 grid gap-2.5">
-          {[[IC.home, "준공 6년 차 신축급 건물", "지하 1층·지상 5층, 엘리베이터·스프링클러·주차 39대"], [IC.layers, "즉시 쓸 수 있는 공실", "2층 4개 호실·4층 3개 호실이 비어 있음"], [IC.key, "인건비를 줄인 무인 운영", "모바일 체크인·원격 관제로 프런트 상주 인력 최소화"], [IC.chart, "단계별 리스크 관리", "월 단위로 시작 → 허가 확인 후 일 단위 → 4층 확장"], [IC.shield, "AI 실증 무대", "무인 체크인·IoT·관제 솔루션을 실제 시설에서 운영"]].map(([ic, t, d], i) => (
+          {[[IC.home, "준공 6년 차 신축급 건물", "지하 1층·지상 5층, 엘리베이터·스프링클러·주차 39대"], [IC.layers, "두 개 층을 통째로", "5층 전체 사용 가능 · 4층 교회 명도 가능 — 동선 분리된 전용 호스텔"], [IC.key, "인건비를 줄인 무인 운영", "모바일 체크인·원격 관제로 프런트 상주 인력 최소화"], [IC.chart, "장기 + 단기 혼합 운영", "유학생·외국인 근로자 장기 투숙이 바닥을, 단기·데이 유스가 수익을"], [IC.pin, "넉넉한 주차 · 편의점", "자주식 39대, 1·2층 편의점 유치로 24시간 간편식당 역할"]].map(([ic, t, d], i) => (
             <It key={t} className={`flex items-center gap-3.5 rounded-2xl p-3.5 ${i === 3 ? "border border-[#c9a96e]" : "glass"}`}>
               <Ico d={ic} />
               <span className="flex-1"><span className="serif block text-[15px] font-bold" style={{ color: i === 3 ? "var(--k-champ)" : undefined }}>{t}</span><span className="mt-0.5 block text-[12px] leading-snug" style={{ color: "var(--k-sub)" }}>{d}</span></span>
@@ -403,11 +394,11 @@ const SLIDES: Slide[] = [
     return (
       <Body center>
         <S>
-          <Head ey="Vacancy" t={<>비어 있는 <span className="goldtext"><Count to={vac} /></span>개 호실</>} sub="임대현황표 기준 공실이 2층과 4층에 몰려 있어, 층 단위로 묶기 좋습니다." />
+          <Head ey="Vacancy" t={<>비어 있는 <span className="goldtext"><Count to={vac} /></span>개 호실</>} sub="4·5층은 공실과 명도·정리 가능 호실을 합쳐 두 층 전체를 호스텔로 씁니다. 2층 공실은 2단계 확장 공간입니다." />
           <div className="mt-6 space-y-1.5">
             {FLOORS.map((f, fi) => (
               <It key={f.f} className="flex items-center gap-2">
-                <span className="corm w-8 text-[18px] font-bold" style={{ color: f.f === "2F" || f.f === "4F" ? "var(--k-champ)" : "var(--k-mute)" }}>{f.f}</span>
+                <span className="corm w-8 text-[18px] font-bold" style={{ color: f.f === "5F" || f.f === "4F" ? "var(--k-champ)" : "var(--k-mute)" }}>{f.f}</span>
                 <div className="flex flex-1 gap-1">
                   {f.units.map((u, ui) => (
                     <motion.div key={u.n} className="flex h-9 items-center justify-center rounded text-[9.5px] font-bold" style={{ flex: u.m2 }}
@@ -429,15 +420,15 @@ const SLIDES: Slide[] = [
   { id: "candidates", ch: 3, render: () => (
     <Body center>
       <S>
-        <Head ey="Space Options" t="1단계 2층, 확장 4층" />
+        <Head ey="Space Plan" t="1단계 4·5층, 확장 2·3층" />
         {CANDIDATES.map((c, i) => (
           <It key={c.k} className="glass mt-4 overflow-hidden rounded-2xl">
             <Pic src={IMG(c.img)} alt={`${c.f} 평면 투시도`} className="h-[120px] w-full" delay={0.25 + i * 0.2} />
             <div className="flex items-end justify-between px-4 pt-3">
-              <div><p className="corm text-[12px] font-bold tracking-[0.22em]" style={{ color: "var(--k-gold)" }}>{i === 0 ? "PHASE 1" : "PHASE 3"}</p><p className="serif text-[16px] font-bold">{c.f} · {c.units}</p></div>
+              <div><p className="corm text-[12px] font-bold tracking-[0.22em]" style={{ color: "var(--k-gold)" }}>{i === 0 ? "PHASE 1" : "PHASE 2"}</p><p className="serif text-[16px] font-bold">{c.f}</p><p className="text-[11px]" style={{ color: "var(--k-sub)" }}>{c.units}</p></div>
               <p className="corm text-[26px] font-semibold goldtext">{c.m2.toFixed(0)}㎡</p>
             </div>
-            <p className="px-4 pb-3.5 pt-1 text-[12px] leading-[1.6]" style={{ color: "var(--k-sub)" }}>{c.pros[1]} · {c.cons[0]}</p>
+            <p className="px-4 pb-3.5 pt-1 text-[12px] leading-[1.6]" style={{ color: "var(--k-sub)" }}>{c.pros[0]} · {c.cons[0]}</p>
           </It>
         ))}
         <Src>평면 투시도: 분양 브로슈어 · 면적은 전용면적 합계</Src>
@@ -449,10 +440,10 @@ const SLIDES: Slide[] = [
   { id: "mix", ch: 4, render: () => (
     <Body center>
       <S>
-        <Head ey="Room Mix" t="2층 18실 구성 (안)" />
+        <Head ey="Room Mix" t={`1단계 ${ROOMS1N}실 구성 (안)`} />
         <It className="relative mx-auto mt-5 flex items-center justify-center">
-          <Donut data={[{ v: 12, c: "#c9a96e" }, { v: 4, c: "#ecdcb6" }, { v: 2, c: "#e2734a" }]} size={190} />
-          <div className="absolute text-center"><p className="corm text-[48px] font-semibold leading-none goldtext"><Count to={18} /></p><p className="text-[11px]" style={{ color: "var(--k-sub)" }}>객실</p></div>
+          <Donut data={ROOMS.map((r, k) => ({ v: r.n, c: ["#c9a96e", "#ecdcb6", "#e2734a"][k] }))} size={190} />
+          <div className="absolute text-center"><p className="corm text-[48px] font-semibold leading-none goldtext"><Count to={ROOMS1N} /></p><p className="text-[11px]" style={{ color: "var(--k-sub)" }}>객실</p></div>
         </It>
         <div className="mt-5 grid gap-2">
           {ROOMS.map((r, i) => (
@@ -464,7 +455,7 @@ const SLIDES: Slide[] = [
             </It>
           ))}
         </div>
-        <Src>객실 크기·수는 설계 전 가정(안) · 다중생활시설 기준상 객실 내 취사시설 없음</Src>
+        <Src>객실 크기·수는 설계 전 가정(안) · 4·5층 약 912㎡ 기준</Src>
       </S>
     </Body>
   ) },
@@ -505,7 +496,7 @@ const SLIDES: Slide[] = [
             </It>
           ))}
         </div>
-        <It className="glass mt-3 rounded-2xl p-4 text-[12.5px] leading-[1.8]" >주 1회 청소·침구 교체 · 업무 라운지·공유 주방 · 택배 수령 · 보증금 부담 최소화<br /><span style={{ color: "var(--k-sub)" }}>1단계는 이 월 단위 상품으로 먼저 엽니다.</span></It>
+        <It className="glass mt-3 rounded-2xl p-4 text-[12.5px] leading-[1.8]" >주 1회 청소·침구 교체 · 업무 라운지·공유 주방 · 택배 수령 · 보증금 부담 최소화<br /><span style={{ color: "var(--k-sub)" }}>유학생·외국인 근로자의 장기 투숙이 매출의 바닥을 받칩니다.</span></It>
       </S>
     </Body>
   ) },
@@ -590,7 +581,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="Target" t="누가 머물까" sub="파주를 찾는 단기·중기 체류객을 네 그룹으로 나눠, 객실·요금·서비스를 맞춥니다." />
         <div className="mt-5 grid grid-cols-2 gap-2.5">
-          {[[IC.brief, "출장 · 파견", "산업단지·공사 현장 단기 근무자", "평일 · 1~4주"], [IC.users, "군 방문 가족", "면회·수료식으로 파주를 찾는 가족", "주말 · 1~2박"], [IC.map, "관광 · 여행", "임진각·DMZ, 헤이리, 출판도시", "주말·성수기"], [IC.home, "입주 대기", "이사·전입 전 잠시 머무는 1~2인", "월 단위"]].map(([ic, t, d, tag], i) => (
+          {[[IC.users, "유학생 · 외국인 근로자", "중동·대만·동남아 출신 장기 투숙", "월 단위"], [IC.brief, "출장 · 파견", "산업단지·공사 현장 단기 근무자", "평일 · 1~4주"], [IC.map, "관광 · 여행", "임진각·DMZ, 헤이리, 출판도시", "주말·성수기"], [IC.home, "데이 유스", "낮 시간 휴식·업무 시간제 이용", "당일"]].map(([ic, t, d, tag], i) => (
             <It key={t} className="glass rounded-2xl p-3.5">
               <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.45 + i * 0.1 }}><Ico d={ic} size={19} /></motion.div>
               <p className="serif mt-2 text-[14.5px] font-bold">{t}</p>
@@ -599,44 +590,59 @@ const SLIDES: Slide[] = [
             </It>
           ))}
         </div>
-        <Src>수요층은 사업 가정 · 시장조사 후 보완</Src>
+        <Src>장기 투숙·데이 유스 수요는 소유주 측 현장 의견 · 시장조사 후 보완</Src>
       </S>
     </Body>
   ) },
 
-  /* 20 단계 전략 */
+  /* 20 왜 지금 */
+  { id: "whynow", ch: 6, render: () => (
+    <Body center>
+      <S>
+        <Head ey="Why Now" t={<>호스텔이 다시<br /><span className="goldtext">주목받는 이유</span></>} />
+        <div className="mt-5 grid gap-2.5">
+          {[[IC.map, "방한 외국인 증가 · 숙박 수요 다변화", "호스텔 등 다양한 숙박 형태에 대한 관심 확대 (야놀자파트너스 보도자료, 2026.08)"], [IC.brief, "대형 플랫폼의 호스텔 진출", "야놀자파트너스, 브랜드 호스텔 '스테이 아리재' 론칭 · 호스텔 사업자 컨설팅 확대"], [IC.users, "금촌의 장기 투숙 수요", "중동·대만·동남아 유학생과 근로자 — 소유주 측 현장 의견"], [IC.key, "무인 운영의 비용 경쟁력", "프런트 인력 없이 데이 유스·야간 체크인까지 대응"]].map(([ic, t2, d]) => (
+            <It key={t2} className="glass flex items-center gap-3.5 rounded-2xl p-3.5"><Ico d={ic} /><div><p className="serif text-[14.5px] font-bold">{t2}</p><p className="mt-0.5 text-[11.5px] leading-[1.55]" style={{ color: "var(--k-sub)" }}>{d}</p></div></It>
+          ))}
+        </div>
+        <Src>출처: 야놀자 보도자료 &lsquo;야놀자파트너스, 브랜드 호스텔 스테이 아리재 론칭&rsquo;(2026.08.07) · 현장 의견은 시장조사로 보완</Src>
+      </S>
+    </Body>
+  ) },
+
+  /* 21 단계 전략 */
   { id: "phases", ch: 6, render: () => (
     <Body center>
       <S>
-        <Head ey="Phased Strategy" t={<>작게 열고,<br />확인하며 키웁니다</>} />
+        <Head ey="Phased Strategy" t={<>두 개 층으로 열고,<br />검증하며 넓힙니다</>} />
         <div className="relative mt-6">
           <motion.div className="absolute bottom-6 left-[22px] top-6 w-[2px] origin-top" style={{ background: "linear-gradient(var(--k-gold),var(--k-coral))" }} initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.6, delay: 0.4, ease: EASE }} />
-          {PH.map((p, i) => (
-            <It key={p.k} className="relative mb-3 flex gap-4 last:mb-0">
-              <motion.span className="relative z-10 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full text-[12px] font-bold" style={{ background: i === 0 ? "var(--k-gold)" : "var(--k-navy2)", color: i === 0 ? "#0a1322" : "var(--k-champ)", border: "1px solid var(--k-line)" }}
-                initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.6 + i * 0.25 }}>{p.k}</motion.span>
+          {[["준비", "인허가 · 명도", "호스텔업 등록 요건 확인 · 4층 명도 · 신탁 동의", "파주시 확인 후 설계·공사 착수"], ["1단계", `4·5층 ${ROOMS1N}실 오픈`, "장기 투숙 + 단기 숙박 혼합 운영", `투자 약 ${CAPEX1_SUM.toFixed(1)}억 원 (안)`], ["2단계", `2·3층 일부 · 총 ${ROOMS_ALL}실`, "현재 공실 호실 위주로 16실 추가", `추가 투자 약 ${CAPEX2_ADD.toFixed(1)}억 원 (안)`]].map(([k, t2, s2, d], i) => (
+            <It key={k} className="relative mb-3 flex gap-4 last:mb-0">
+              <motion.span className="relative z-10 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full text-[12px] font-bold" style={{ background: i === 1 ? "var(--k-gold)" : "var(--k-navy2)", color: i === 1 ? "#0a1322" : "var(--k-champ)", border: "1px solid var(--k-line)" }}
+                initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.6 + i * 0.25 }}>{k}</motion.span>
               <div className="glass flex-1 rounded-2xl p-3.5">
-                <p className="serif text-[15.5px] font-bold">{p.t}</p>
-                <p className="mt-0.5 text-[11.5px]" style={{ color: "var(--k-sub)" }}>{p.s}</p>
-                <p className="mt-2 text-[12px]">{["공실 해소 · 안정적 월 수입 · 운영 데이터 확보", "숙박업 허가가 확인되는 범위에서 단기 투숙 확대", "4층 공실 3개 호실을 더해 34실 규모로"][i]}</p>
+                <p className="serif text-[15.5px] font-bold">{t2}</p>
+                <p className="mt-0.5 text-[11.5px]" style={{ color: "var(--k-sub)" }}>{s2}</p>
+                <p className="mt-2 text-[12px]" style={{ color: "var(--k-champ)" }}>{d}</p>
               </div>
             </It>
           ))}
         </div>
-        <Src>2·3단계는 숙박업 영업 가능 여부(파주시) 확인을 전제로 함</Src>
+        <Src>등록이 늦어지면 2층 공실(500㎡ 미만)을 다중생활시설로 먼저 운영하는 대안을 둡니다</Src>
       </S>
     </Body>
   ) },
 
-  /* 21 매출 시뮬레이션 */
+  /* 22 매출 시뮬레이션 */
   { id: "revenue", ch: 6, render: () => {
-    const max = Math.max(...PH.map((p) => p.yRev));
+    const max = Math.max(...SCEN.map((p) => p.yRev));
     return (
       <Body center>
         <S>
-          <Head ey="Revenue (안)" t="단계별 연 매출 시뮬레이션" />
+          <Head ey="Revenue (안)" t={`1단계 ${ROOMS1N}실 연 매출 시뮬레이션`} />
           <div className="mt-7 flex h-[230px] items-end justify-around gap-3 border-b px-2" style={{ borderColor: "var(--k-line)" }}>
-            {PH.map((p, i) => (
+            {SCEN.map((p, i) => (
               <div key={p.k} className="flex flex-1 flex-col items-center">
                 <p className="corm mb-1.5 text-[22px] font-bold goldtext"><Count to={p.yRev} d={2} delay={0.6 + i * 0.2} /><span className="text-[12px]">억</span></p>
                 <motion.div className="w-full max-w-[64px] origin-bottom rounded-t-lg" style={{ height: `${(p.yRev / max) * 170}px`, background: i === 0 ? "linear-gradient(#ecdcb6,#9c8050)" : i === 1 ? "linear-gradient(#c9a96e,#7a5f33)" : "linear-gradient(#e2734a,#8a3f22)" }}
@@ -645,87 +651,86 @@ const SLIDES: Slide[] = [
             ))}
           </div>
           <div className="mt-2 flex justify-around text-center">
-            {PH.map((p) => <div key={p.k} className="flex-1"><p className="text-[12px] font-bold">{p.k}</p><p className="text-[10px]" style={{ color: "var(--k-mute)" }}>{p.t}</p></div>)}
+            {SCEN.map((p) => <div key={p.k} className="flex-1"><p className="text-[12px] font-bold">{p.k}</p><p className="text-[9.5px] leading-tight" style={{ color: "var(--k-mute)" }}>{p.d}</p></div>)}
           </div>
           <It className="glass mt-5 rounded-2xl p-3.5 text-[11.5px] leading-[1.8] text-[#9eabbf]">
-            1단계: 월 {won(sum(ROOMS))}만 원(만실) × 입실률 85%<br />2단계: 1박 만실 {won(sumN(ROOMS))}만 원 × 30일 × 가동률 60%<br />3단계: 34실 1박 만실 {won(sumN(ROOMS) + sumN(R4))}만 원 × 30일 × 60%
+            장기 투숙: 월 요금 × 입실률 90%<br />단기 숙박: 1박 요금 × 30일 × 가동률<br />부가매출: 데이 유스·편의점 임대·세탁 등 객실 매출의 5%<br />2단계 {ROOMS_ALL}실(기준): 연 약 {PHASE2.yRev.toFixed(2)}억 원
           </It>
-          <Src>요금·입실률은 주변 시세 조사 전 가정(안)</Src>
+          <Src>요금은 싱글 1박 4.5만·월 50만 원 등 주변 시세 조사 전 가정(안)</Src>
         </S>
       </Body>
     );
   } },
 
-  /* 22 비용 구조 */
+  /* 23 비용 구조 */
   { id: "cost", ch: 6, render: () => (
     <Body center>
       <S>
-        <Head ey="Cost Structure (안)" t="작은 팀, 낮은 고정비" sub="프런트 상주 인력 없이 현장 관리·청소를 파트타임으로 운영하고, 나머지는 시스템이 맡습니다." />
+        <Head ey="Cost Structure (안)" t="40실을 작은 팀으로" sub="프런트 상주 인력 없이 현장 관리 1명과 청소 파트타임으로 운영하고, 나머지는 시스템이 맡습니다." />
         <div className="mt-5 grid grid-cols-[150px_1fr] items-center gap-4">
           <div className="relative flex items-center justify-center">
-            <Donut data={[{ v: 250, c: "#c9a96e" }, { v: 150, c: "#ecdcb6" }, { v: 80, c: "#5fb7a0" }]} size={150} />
-            <div className="absolute text-center"><p className="corm text-[30px] font-bold leading-none goldtext"><Count to={480} /></p><p className="text-[10px]" style={{ color: "var(--k-sub)" }}>만 원 / 월</p></div>
+            <Donut data={COST1.map((c) => ({ v: c.v, c: c.c }))} size={150} />
+            <div className="absolute text-center"><p className="corm text-[28px] font-bold leading-none goldtext"><Count to={FIXED1} /></p><p className="text-[10px]" style={{ color: "var(--k-sub)" }}>만 원 / 월</p></div>
           </div>
           <div className="grid gap-2 text-[12px]">
-            {[["#c9a96e", "인건비", "현장 관리·청소 파트타임", 250], ["#ecdcb6", "공과금·통신", "전기·수도·가스·인터넷", 150], ["#5fb7a0", "시스템·보험·소모품", "PMS·도어락·관제 구독 등", 80]].map(([c, t, d, v]) => (
-              <It key={t as string} className="flex items-start gap-2"><i className="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style={{ background: c as string }} /><div className="flex-1"><p className="font-bold">{t} <span className="corm float-right text-[15px] goldtext">{v as number}만</span></p><p className="text-[10.5px]" style={{ color: "var(--k-mute)" }}>{d}</p></div></It>
+            {COST1.map((c) => (
+              <It key={c.t} className="flex items-start gap-2"><i className="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-sm" style={{ background: c.c }} /><div className="flex-1"><p className="font-bold">{c.t} <span className="corm float-right text-[15px] goldtext">{c.v}만</span></p><p className="text-[10.5px]" style={{ color: "var(--k-mute)" }}>{c.d}</p></div></It>
             ))}
           </div>
         </div>
-        <It className="glass mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl text-center" >
-          <div className="p-3"><p className="text-[11px]" style={{ color: "var(--k-sub)" }}>변동비 · 월 단위</p><p className="corm text-[24px] font-bold goldtext">매출의 5%</p></div>
-          <div className="p-3"><p className="text-[11px]" style={{ color: "var(--k-sub)" }}>변동비 · 일 단위</p><p className="corm text-[24px] font-bold goldtext">매출의 25%</p></div>
+        <It className="glass mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl text-center">
+          <div className="p-3"><p className="text-[11px]" style={{ color: "var(--k-sub)" }}>변동비 · 장기 투숙</p><p className="corm text-[24px] font-bold goldtext">매출의 5%</p></div>
+          <div className="p-3"><p className="text-[11px]" style={{ color: "var(--k-sub)" }}>변동비 · 단기 숙박</p><p className="corm text-[24px] font-bold goldtext">매출의 25%</p></div>
         </It>
-        <Src>2층 18실 기준 · 3단계 34실은 고정비 월 810만 원 가정 · 일 단위 변동비는 예약 채널 수수료·세탁·청소 포함 · 임차료는 건물주와 협의 사항으로 별도</Src>
+        <Src>단기 변동비는 예약 채널 수수료·세탁·청소 포함 · 임차료는 건물주와 협의 사항으로 별도</Src>
       </S>
     </Body>
   ) },
 
-  /* 23 손익 */
+  /* 24 손익 */
   { id: "ebitda", ch: 6, render: () => (
     <Body center>
       <S>
-        <Head ey="Operating Profit (안)" t={<>허가가 사업성의 <span className="goldtext">열쇠</span>입니다</>} />
+        <Head ey="Operating Profit (안)" t={<>혼합 운영으로 <span className="goldtext">균형</span>을 잡습니다</>} />
         <div className="mt-5 grid gap-2.5">
-          {PH.map((p, i) => (
-            <It key={p.k} className="glass rounded-2xl p-4">
+          {[...SCEN.map((p) => ({ k: `1단계 · ${p.k}`, s: p.d, yRev: p.yRev, yEb: p.yEb })), { k: `2단계 · ${ROOMS_ALL}실`, s: "기준 가정", yRev: PHASE2.yRev, yEb: PHASE2.yEb }].map((p, i, arr) => (
+            <It key={p.k} className="glass rounded-2xl p-3.5">
               <div className="flex items-baseline justify-between">
-                <p className="serif text-[15px] font-bold">{p.k} · {p.t}</p>
-                <p className="corm text-[13px]" style={{ color: "var(--k-sub)" }}>매출 {p.yRev.toFixed(2)}억</p>
+                <p className="serif text-[14.5px] font-bold">{p.k}</p>
+                <p className="corm text-[12.5px]" style={{ color: "var(--k-sub)" }}>매출 {p.yRev.toFixed(2)}억</p>
               </div>
-              <div className="mt-2.5 h-2 overflow-hidden rounded-full" style={{ background: "#1d2f4f" }}>
-                <motion.div className="h-full origin-left rounded-full" style={{ width: `${(p.yEb / PH[2].yEb) * 100}%`, background: i === 2 ? "var(--k-coral)" : "var(--k-gold)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.6 + i * 0.2, ease: EASE }} />
+              <div className="mt-2 h-2 overflow-hidden rounded-full" style={{ background: "#1d2f4f" }}>
+                <motion.div className="h-full origin-left rounded-full" style={{ width: `${(p.yEb / Math.max(...arr.map((x) => x.yEb))) * 100}%`, background: i === 3 ? "var(--k-coral)" : "var(--k-gold)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1.2, delay: 0.6 + i * 0.15, ease: EASE }} />
               </div>
-              <div className="mt-2 flex items-baseline justify-between">
-                <p className="text-[11px]" style={{ color: "var(--k-mute)" }}>임차료 전 영업이익 (연)</p>
-                <p className="corm text-[26px] font-bold goldtext"><Count to={p.yEb} d={2} delay={0.7 + i * 0.2} /><span className="text-[13px]">억</span></p>
+              <div className="mt-1.5 flex items-baseline justify-between">
+                <p className="text-[10.5px]" style={{ color: "var(--k-mute)" }}>{p.s} · 임차료 전 영업이익 (연)</p>
+                <p className="corm text-[22px] font-bold goldtext"><Count to={p.yEb} d={2} delay={0.7 + i * 0.15} /><span className="text-[12px]">억</span></p>
               </div>
             </It>
           ))}
         </div>
-        <It className="mt-4 rounded-2xl border border-[#e2734a] p-3.5 text-[12px] leading-[1.75]"><div><b style={{ color: "var(--k-coral)" }}>판단 포인트</b>  월 단위만으로는 공실 해소 효과가 중심이고, 투자 회수는 일 단위 전환에서 본격화됩니다. 숙박업 영업 가능 여부를 가장 먼저 확인해야 하는 이유입니다.</div></It>
         <Src>영업이익 = 매출 − 고정비 − 변동비 (임차료·감가상각·이자·세금 전) · 모두 가정(안)</Src>
       </S>
     </Body>
   ) },
 
-  /* 24 투자 계획 */
+  /* 25 투자 계획 */
   { id: "capex", ch: 6, render: () => (
     <Body center>
       <S>
-        <Head ey="Investment Plan (안)" t={<>1단계 <span className="goldtext"><Count to={5} />억</span> 원으로 시작</>} sub="기존 고시텔 사업계획서의 투자규모(5억 원)를 기준으로, 2층 18실 공사·장비를 배분했습니다." />
+        <Head ey="Investment Plan (안)" t={<>1단계 약 <span className="goldtext"><Count to={CAPEX1_SUM} d={1} /></span>억 원</>} sub={`4·5층 ${ROOMS1N}실 공사·장비·오픈 자금입니다. 공사비는 견적 전 단가로 잡았습니다.`} />
         <div className="mt-5 grid gap-2">
-          {[["인테리어 · 객실 구획", "2층 약 110평 × 평당 300만 원", 3.3], ["가구 · 침구 · 가전", "18실 × 실당 500만 원", 0.9], ["무인 시스템 · IT · 보안", "키오스크·도어락·관제·와이파이", 0.5], ["오픈 · 예비비", "인허가·마케팅·운전자금", 0.3]].map(([t, d, v], i) => (
-            <It key={t as string} className="glass rounded-xl p-3">
-              <div className="flex items-baseline justify-between"><p className="text-[13px] font-bold">{t}</p><p className="corm text-[20px] font-bold goldtext">{(v as number).toFixed(1)}억</p></div>
-              <p className="text-[10.5px]" style={{ color: "var(--k-mute)" }}>{d}</p>
-              <div className="mt-2 h-1.5 overflow-hidden rounded-full" style={{ background: "#1d2f4f" }}><motion.div className="h-full origin-left rounded-full" style={{ width: `${((v as number) / 3.3) * 100}%`, background: "var(--k-gold)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1, delay: 0.5 + i * 0.12, ease: EASE }} /></div>
+          {CAPEX1.map((c, i) => (
+            <It key={c.t} className="glass rounded-xl p-3">
+              <div className="flex items-baseline justify-between"><p className="text-[13px] font-bold">{c.t}</p><p className="corm text-[20px] font-bold goldtext">{c.v.toFixed(1)}억</p></div>
+              <p className="text-[10.5px]" style={{ color: "var(--k-mute)" }}>{c.d}</p>
+              <div className="mt-2 h-1.5 overflow-hidden rounded-full" style={{ background: "#1d2f4f" }}><motion.div className="h-full origin-left rounded-full" style={{ width: `${(c.v / CAPEX1[0].v) * 100}%`, background: "var(--k-gold)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 1, delay: 0.5 + i * 0.12, ease: EASE }} /></div>
             </It>
           ))}
         </div>
         <It className="mt-3 grid grid-cols-3 gap-2 text-center">
-          {[["2단계 기준", `약 ${(PH[1].capex / PH[1].yEb).toFixed(1)}년`, "투자 회수 (안)"], ["3단계 추가", `+${(PH[2].capex - PH[1].capex).toFixed(1)}억`, "4층 16실"], ["3단계 기준", `약 ${(PH[2].capex / PH[2].yEb).toFixed(1)}년`, "투자 회수 (안)"]].map(([a, b, c]) => (
-            <div key={a} className="glass rounded-xl py-2.5"><p className="text-[10px]" style={{ color: "var(--k-sub)" }}>{a}</p><p className="corm text-[19px] font-bold goldtext">{b}</p><p className="text-[9.5px]" style={{ color: "var(--k-mute)" }}>{c}</p></div>
+          {[["1단계 기준", `약 ${PAY1.toFixed(1)}년`, "투자 회수 (안)"], ["2단계 추가", `+${CAPEX2_ADD.toFixed(1)}억`, "16실"], ["2단계 기준", `약 ${PAY2.toFixed(1)}년`, "투자 회수 (안)"]].map(([a2, b2, c2]) => (
+            <div key={a2} className="glass rounded-xl py-2.5"><p className="text-[10px]" style={{ color: "var(--k-sub)" }}>{a2}</p><p className="corm text-[19px] font-bold goldtext">{b2}</p><p className="text-[9.5px]" style={{ color: "var(--k-mute)" }}>{c2}</p></div>
           ))}
         </It>
         <Src>투자 회수 = 투자금 ÷ 연 영업이익(임차료 전) · 실제 견적·임대 조건에 따라 달라짐</Src>
@@ -760,7 +765,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="Risk & Response" t="리스크와 대응" />
         <div className="mt-5 grid gap-2">
-          {[["숙박업 허가 제한", "월 단위(다중생활시설)로 먼저 운영, 허가 범위 확인 후 전환"], ["수요 변동", "단기·장기 고객군 병행, 기업·기관 장기 계약으로 바닥 수요 확보"], ["무인 운영 장애", "원격 관제 + 비상 연락 체계, 장애 시 현장 담당 즉시 출동"], ["공사비 초과", "평당 단가·실당 비용 상한 설정, 예비비 별도 편성"], ["기존 임차인 민원", "출입 동선 분리, 방음 시공, 관리비 분담 사전 합의"]].map(([r, a], i) => (
+          {[["호스텔업 등록 지연", "2층 공실(500㎡ 미만)을 다중생활시설로 먼저 운영, 등록 후 전환"], ["수요 변동", "단기·장기 고객군 병행, 기업·기관 장기 계약으로 바닥 수요 확보"], ["무인 운영 장애", "원격 관제 + 비상 연락 체계, 장애 시 현장 담당 즉시 출동"], ["명도 일정 지연", "5층 우선 착공, 4층은 명도 완료 후 순차 공사"], ["공사비 초과", "평당 단가·실당 비용 상한 설정, 예비비 별도 편성"], ["기존 임차인 민원", "출입 동선 분리, 방음 시공, 관리비 분담 사전 합의"]].map(([r, a], i) => (
             <It key={r} className="grid grid-cols-[1fr_auto_1.4fr] items-center gap-2">
               <div className="rounded-xl p-2.5 text-[12px] font-bold" style={{ background: "#1a2a46" }}>{r}</div>
               <motion.span className="text-[14px]" style={{ color: "var(--k-gold)" }} initial={{ x: -8 }} animate={{ x: 0 }} transition={{ repeat: Infinity, repeatType: "mirror", duration: 0.9, delay: i * 0.1 }}>→</motion.span>
@@ -798,7 +803,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="Proposal" t={<>함께 만들<br /><span className="goldtext">첫 번째 THE K</span></>} />
         <div className="mt-5 grid gap-2.5">
-          {[[IC.hand, "투자 · 공동 사업", "1단계 5억 원(안) — 2층 18실 공사·장비·오픈 자금"], [IC.users, "운영 파트너", "전문 숙박 운영사 위탁 운영 검토 — 예약·가격·관리 노하우 결합"], [IC.home, "건물 · 임대 조건", "공실 호실 장기 임대 및 용도 협의, 신탁 동의 절차 공동 진행"], [IC.bolt, "AI · 기술 파트너", "무인 체크인·IoT·관제 솔루션 실증 협력"]].map(([ic, t, d]) => (
+          {[[IC.hand, "투자 · 공동 사업", `1단계 약 ${CAPEX1_SUM.toFixed(1)}억 원(안) — 4·5층 ${ROOMS1N}실 공사·장비·오픈 자금`], [IC.users, "운영 파트너", "전문 숙박 운영사 위탁 운영 검토 — 예약·가격·관리 노하우 결합"], [IC.home, "건물 · 임대 조건", "4·5층 장기 임대·명도 일정, 용도변경과 신탁 동의 절차 공동 진행"], [IC.bolt, "AI · 기술 파트너", "무인 체크인·IoT·관제 솔루션 실증 협력"]].map(([ic, t, d]) => (
             <It key={t} className="glass flex items-center gap-3.5 rounded-2xl p-3.5"><Ico d={ic} /><div><p className="serif text-[15px] font-bold">{t}</p><p className="mt-0.5 text-[12px] leading-[1.55]" style={{ color: "var(--k-sub)" }}>{d}</p></div></It>
           ))}
         </div>

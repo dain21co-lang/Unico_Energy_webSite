@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { motion, AnimatePresence, animate, useInView } from "framer-motion";
 import { PROJECT, CEO, BUILDING, FLOORS, CANDIDATES, ROOMS, LONGSTAY, AMENITIES, FACILITIES, AI_READY, JOURNEY, NEARBY, TRIPS, DEMAND, LOCATION, CHECKS, ROADMAP } from "./data";
 import type { UnitState } from "./data";
+import { model, FIXED1, CAPEX1_SUM } from "./finance";
 
 /* 원칙: 투명도는 움직이지 않는다 (갤럭시 빈 화면 방지) — 위치·크기·마스크·색·SVG 경로만 움직인다 */
 const IMG = (f: string) => `/thek/img/${f}.webp`;
@@ -149,7 +150,7 @@ const STATE: Record<UnitState, { l: string; bg: string; fg: string }> = {
   check: { l: "확인 필요", bg: "#fff", fg: "#b9653f" },
 };
 
-/* ── 첫 화면 건물 그래픽: 윤곽이 그려지고 2층 창이 하나씩 켜진다 ── */
+/* ── 첫 화면 건물 그래픽: 윤곽이 그려지고 4·5층 창이 하나씩 켜진다 ── */
 const edgeX = (y: number) => Math.min(330, 240 + (y - 90)); // 사선 지붕 오른쪽 경계
 const FL = [
   { top: 90, left: 84 }, { top: 130, left: 62 }, { top: 170, left: 40 }, { top: 210, left: 20 }, { top: 250, left: 20 },
@@ -162,13 +163,13 @@ function HeroBuilding() {
     FL.forEach((f, fi) => {
       if (fi === 4) return;
       const y = f.top + 11;
-      for (let x = f.left + 12; x + 14 <= edgeX(y) - 8; x += 22) out.push({ x, y, fl: fi, lit: fi !== 3 && (x * 7 + fi * 13) % 5 === 0 });
+      for (let x = f.left + 12; x + 14 <= edgeX(y) - 8; x += 22) out.push({ x, y, fl: fi, lit: fi > 1 && (x * 7 + fi * 13) % 5 === 0 });
     });
     return out;
   }, []);
   let h = 0;
   return (
-    <svg ref={ref} viewBox="0 0 360 310" className="block w-full" aria-label="The K 빌딩 2층에 들어서는 스마트호스텔 개념 그래픽">
+    <svg ref={ref} viewBox="0 0 360 310" className="block w-full" aria-label="The K 빌딩 4·5층에 들어서는 스마트호스텔 개념 그래픽">
       <defs>
         <linearGradient id="tk-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#1f4a46" /><stop offset="1" stopColor="#123430" /></linearGradient>
       </defs>
@@ -184,7 +185,7 @@ function HeroBuilding() {
           initial={{ scaleY: 0 }} animate={{ scaleY: seen ? 1 : 0 }} style={{ transformOrigin: `${51 + i * 50}px 284px` }} transition={{ duration: 0.6, delay: 1.4 + i * 0.05, ease: EASE }} />
       ))}
       {wins.map((w, i) => {
-        const hostel = w.fl === 3;
+        const hostel = w.fl <= 1;
         const order = hostel ? h++ : 0;
         return (
           <motion.rect key={i} x={w.x} y={w.y} width={14} height={18} rx={1}
@@ -193,12 +194,11 @@ function HeroBuilding() {
             transition={{ duration: 0.5, delay: hostel ? 2.1 + order * 0.14 : 1.6 + (i % 7) * 0.08 }} />
         );
       })}
-      {/* 2층 표시 */}
+      {/* 4·5층 표시 */}
       <motion.g initial={{ x: 30 }} animate={{ x: seen ? 0 : 30 }} transition={{ duration: 0.8, delay: 3.6, ease: EASE }}>
-        <motion.line x1="330" y1="230" x2="346" y2="230" stroke="#e2734a" strokeWidth="1.4" />
-        <rect x="300" y="190" width="58" height="26" rx="3" fill="#e2734a" />
-        <text x="329" y="201" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" letterSpacing="1">2F</text>
-        <text x="329" y="211" textAnchor="middle" fontSize="6.5" fill="#fff">스마트호스텔(안)</text>
+        <rect x="282" y="104" width="64" height="26" rx="3" fill="#e2734a" />
+        <text x="314" y="115" textAnchor="middle" fontSize="7.5" fontWeight="700" fill="#fff" letterSpacing="1">4·5F</text>
+        <text x="314" y="125" textAnchor="middle" fontSize="6.5" fill="#fff">스마트호스텔(안)</text>
       </motion.g>
       <motion.line x1="0" y1="290" x2="360" y2="290" stroke="#8fd3bf" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 1.2, ease: "easeInOut" }} />
     </svg>
@@ -234,36 +234,38 @@ function RoomPlan({ k }: { k: string }) {
   );
 }
 
-/* ── 2층 전환 전후 도식 ── */
+/* ── 4·5층 전환 전후 도식 ── */
 function FloorSwap({ after }: { after: boolean }) {
-  const units = FLOORS.find((f) => f.f === "2F")!.units;
-  const total = units.reduce((a, u) => a + u.m2, 0);
-  let x = 0;
+  const rows = FLOORS.filter((f) => f.f === "5F" || f.f === "4F");
   return (
-    <svg viewBox="0 0 320 120" className="block w-full">
-      {units.map((u) => {
-        const w = (u.m2 / total) * 316;
-        const ux = 2 + x; x += w;
-        const target = u.s === "vacant";
-        const rooms = target ? Math.max(3, Math.round(u.m2 / 22)) : 0;
+    <svg viewBox="0 0 320 150" className="block w-full">
+      {rows.map((fl, ri) => {
+        const total = fl.units.reduce((a, u) => a + u.m2, 0);
+        let x = 0;
+        const y = 8 + ri * 64;
         return (
-          <g key={u.n}>
-            <motion.rect x={ux} y={10} width={w - 3} height={90} initial={false}
-              animate={{ fill: target ? (after ? "#0e2b29" : "#ece9e2") : "#dfe7e5" }} transition={{ duration: 0.6 }} stroke="#c9c4b8" strokeWidth="0.8" />
-            {target && Array.from({ length: rooms }).map((_, r) => {
-              const rw = (w - 9) / rooms;
+          <g key={fl.f}>
+            <text x="0" y={y + 32} fontSize="10" fontWeight="700" fill="#0e2b29">{fl.f}</text>
+            {fl.units.map((u, ui) => {
+              const w = (u.m2 / total) * 290;
+              const ux = 26 + x; x += w;
+              const rooms = Math.max(3, Math.round(u.m2 / 24));
               return (
-                <motion.rect key={r} x={ux + 3 + r * rw} y={16} width={rw - 2} height={36} rx={1.5} initial={false}
-                  animate={{ scaleY: after ? 1 : 0, fill: "#ffcf86" }} style={{ transformOrigin: `${ux + 3 + r * rw}px 16px` }} transition={{ duration: 0.45, delay: after ? 0.2 + r * 0.06 : 0, ease: EASE }} />
+                <g key={u.n}>
+                  <motion.rect x={ux} y={y} width={w - 3} height={54} initial={false} animate={{ fill: after ? "#0e2b29" : u.s === "vacant" ? "#ece9e2" : "#dfe7e5" }} transition={{ duration: 0.6, delay: after ? ri * 0.15 : 0 }} stroke="#c9c4b8" strokeWidth="0.8" />
+                  {Array.from({ length: rooms }).map((_, r) => {
+                    const rw = (w - 9) / rooms;
+                    return <motion.rect key={r} x={ux + 3 + r * rw} y={y + 5} width={rw - 2} height={22} rx={1.5} initial={false} animate={{ scaleY: after ? 1 : 0, fill: "#ffcf86" }} style={{ transformOrigin: `${ux + 3 + r * rw}px ${y + 5}px` }} transition={{ duration: 0.45, delay: after ? 0.25 + ri * 0.2 + ui * 0.05 + r * 0.03 : 0, ease: EASE }} />;
+                  })}
+                  <text x={ux + (w - 3) / 2} y={y + 40} textAnchor="middle" fontSize="8.5" fontWeight="700" fill={after ? "#fff" : "#3a4644"}>{u.n}</text>
+                  <text x={ux + (w - 3) / 2} y={y + 50} textAnchor="middle" fontSize="6.5" fill={after ? "#8fd3bf" : "#6b7775"}>{after ? "객실" : u.s === "vacant" ? "공실" : u.n === "401" ? "명도 협의" : "사용 정리"}</text>
+                </g>
               );
             })}
-            <text x={ux + (w - 3) / 2} y={target ? 78 : 60} textAnchor="middle" fontSize="9" fontWeight="700" fill={target && after ? "#fff" : "#3a4644"}>{u.n}</text>
-            <text x={ux + (w - 3) / 2} y={target ? 90 : 72} textAnchor="middle" fontSize="7" fill={target && after ? "#8fd3bf" : "#6b7775"}>{target ? (after ? "객실" : "공실") : u.s === "use" ? "영업 중" : "확인"}</text>
           </g>
         );
       })}
-      <line x1="2" y1="108" x2="318" y2="108" stroke="#0e2b29" strokeWidth="1.5" />
-      <text x="2" y="118" fontSize="7" fill="#6b7775">2층 호실 배치를 면적 비율로 단순화한 도식</text>
+      <text x="26" y="146" fontSize="7" fill="#6b7775">4·5층 호실 배치를 면적 비율로 단순화한 도식</text>
     </svg>
   );
 }
@@ -313,8 +315,8 @@ export default function TheKSite() {
   const [plan, setPlan] = useState(false);
   const [step, setStep] = useState(0);
   const [auto, setAuto] = useState(true);
-  const [mode, setMode] = useState<"month" | "night">("month");
-  const [occ, setOcc] = useState(85);
+  const [lsh, setLsh] = useState(50);
+  const [occ, setOcc] = useState(65);
   const [open, setOpen] = useState<number | null>(0);
   const [partner, setPartner] = useState<number | null>(null);
   const [gal, setGal] = useState(0);
@@ -371,7 +373,6 @@ export default function TheKSite() {
     setRoom(Math.min(ROOMS.length - 1, Math.round(el.scrollLeft / w)));
   };
   const findRoom = () => { setRoomMode(bk.stay >= 30 ? "long" : "short"); go("rooms"); };
-  const switchMode = (m: "month" | "night") => { setMode(m); setOcc(m === "month" ? 85 : 60); };
 
   const counts = useMemo(() => {
     const c = { use: 0, vacant: 0, check: 0 };
@@ -379,8 +380,7 @@ export default function TheKSite() {
     return c;
   }, []);
   const roomTotal = ROOMS.reduce((a, r) => a + r.n, 0);
-  const rev = ROOMS.map((r) => ({ ...r, v: (mode === "month" ? r.month : r.night * 30) * r.n * (occ / 100) }));
-  const revSum = rev.reduce((a, r) => a + r.v, 0);
+  const sim = model(ROOMS, lsh / 100, occ / 100, FIXED1);
   const picked = ROOMS.find((r) => r.k === bk.room) ?? ROOMS[0];
   const est = bk.stay >= 30 ? picked.month : Math.round(picked.night * bk.stay * 10) / 10;
   const mapQ = encodeURIComponent("경기도 파주시 금촌동 958-12");
@@ -562,13 +562,13 @@ export default function TheKSite() {
               {[false, true].map((v) => (
                 <button key={String(v)} onClick={() => setAfter(v)} className="relative flex-1 py-2 text-[13px] font-bold">
                   {after === v && <motion.span layoutId="tk-ba" className="absolute inset-0" style={{ background: v ? "var(--tk-deep)" : "var(--tk-sand)" }} transition={{ duration: 0.35, ease: EASE }} />}
-                  <span className="relative z-10" style={{ color: after === v ? (v ? "#fff" : "var(--tk-deep)") : "var(--tk-sub)" }}>{v ? "전환 후 (안)" : "지금 (2층)"}</span>
+                  <span className="relative z-10" style={{ color: after === v ? (v ? "#fff" : "var(--tk-deep)") : "var(--tk-sub)" }}>{v ? "전환 후 (안)" : "지금 (4·5층)"}</span>
                 </button>
               ))}
             </div>
           </Rise>
           <div className="border p-3" style={{ borderColor: "var(--tk-line)" }}><FloorSwap after={after} /></div>
-          <p className="mt-2 text-[11px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>2026.02.28 임대현황표 기준 2층 공실 4개 호실(201·203·204·205호)을 객실로 바꾸는 방안입니다.</p>
+          <p className="mt-2 text-[11px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>4·5층 전체(7개 호실, 약 912㎡)를 40실 안팎의 객실로 바꾸는 1단계 방안입니다. 소유주 측 확인: 5층 전체 사용 가능, 4층 교회 명도 가능.</p>
         </section>
 
         {/* 건물 갤러리 띠 */}
@@ -779,8 +779,8 @@ export default function TheKSite() {
             {FACILITIES.map((f, i) => (
               <Rise key={f.k} delay={i * 0.05}>
                 <div className="grid grid-cols-[110px_1fr] gap-3 border p-2.5" style={{ borderColor: "var(--tk-line)" }}>
-                  {f.k === "lounge" ? (
-                    <div className="flex h-[110px] items-center justify-center" style={{ background: "var(--tk-deep)", color: "var(--tk-glow)" }}><Icon d={I.sofa} size={32} /></div>
+                  {!AI_READY.includes(f.k) || f.k === "lounge" ? (
+                    <div className="flex h-[110px] items-center justify-center" style={{ background: f.k === "lounge" ? "var(--tk-deep)" : "var(--tk-coral)", color: f.k === "lounge" ? "var(--tk-glow)" : "#fff" }}><Icon d={I[f.icon]} size={32} /></div>
                   ) : <Shot f={f.k} label={f.t} className="h-[110px]" pos="50% 45%" />}
                   <div className="py-1">
                     <div className="tk-en text-[9.5px] font-bold" style={{ color: "var(--tk-coral)" }}>{f.en}</div>
@@ -794,7 +794,7 @@ export default function TheKSite() {
           <div className="mt-6 p-4" style={{ background: "var(--tk-sand)" }}>
             <div className="text-[14px] font-bold" style={{ color: "var(--tk-deep)" }}>편의 서비스 (안)</div>
             <div className="mt-2 flex flex-wrap gap-1.5 text-[12px]">
-              {["택배 수령", "짐 보관", "우산·어댑터 대여", "주차 (건물 내)", "셀프 조식", "장기 투숙 청소"].map((t) => <span key={t} className="bg-white px-2.5 py-1" style={{ color: "var(--tk-char)" }}>{t}</span>)}
+              {["다국어 안내 (영·중·아랍어 등)", "택배 수령", "짐 보관", "데이 유스 (시간제)", "셀프 조식", "장기 투숙 청소"].map((t) => <span key={t} className="bg-white px-2.5 py-1" style={{ color: "var(--tk-char)" }}>{t}</span>)}
             </div>
           </div>
         </section>
@@ -923,7 +923,7 @@ export default function TheKSite() {
             <span>
               <span className="tk-en block text-[10px] font-bold" style={{ color: "#c9a96e" }}>BUSINESS PLAN & IR</span>
               <span className="block text-[16px] font-bold">사업계획서 바로 보기</span>
-              <span className="block text-[11.5px]" style={{ color: "#9eabbf" }}>30장 · 옆으로 넘겨 보는 투자제안서</span>
+              <span className="block text-[11.5px]" style={{ color: "#9eabbf" }}>31장 · 옆으로 넘겨 보는 투자제안서</span>
             </span>
             <span className="flex h-11 w-11 items-center justify-center rounded-full" style={{ background: "#c9a96e", color: "#0a1322" }}><Icon d={I.arrow} size={20} /></span>
           </a>
@@ -999,37 +999,34 @@ export default function TheKSite() {
                                 {CANDIDATES[cand].pros.map((p) => <li key={p} className="flex gap-2"><span className="mt-0.5 shrink-0" style={{ color: "#2f8f7a" }}><Icon d={I.check} size={15} /></span>{p}</li>)}
                                 {CANDIDATES[cand].cons.map((p) => <li key={p} className="flex gap-2" style={{ color: "var(--tk-char)" }}><span className="mt-0.5 shrink-0" style={{ color: "var(--tk-coral)" }}><Icon d={I.plus} size={15} /></span>{p}</li>)}
                               </ul>
-                              <p className="mt-2 text-[10.5px]" style={{ color: "var(--tk-sub)" }}>평면 투시도: 분양 브로슈어 · 객실 {roomTotal}실은 2층 기준 가정</p>
+                              <p className="mt-2 text-[10.5px]" style={{ color: "var(--tk-sub)" }}>평면 투시도: 분양 브로슈어 · 객실 {roomTotal}실은 1단계 4·5층 기준 가정</p>
                             </>
                           )}
                           {pi === 2 && (
                             <div className="-mx-4 -mb-5 p-4" style={{ background: "var(--tk-deep)" }}>
-                              <div className="flex border p-1" style={{ borderColor: "#24504b" }}>
-                                {([["month", "월 단위 (다중생활시설)"], ["night", "일 단위 (숙박업 가정)"]] as const).map(([k, l]) => (
-                                  <button key={k} onClick={() => switchMode(k)} className="relative flex-1 py-2.5 text-[12px] font-bold">
-                                    {mode === k && <motion.span layoutId="tk-mode" className="absolute inset-0" style={{ background: "var(--tk-coral)" }} transition={{ duration: 0.35, ease: EASE }} />}
-                                    <span className="relative z-10" style={{ color: mode === k ? "#fff" : "#8fb0ab" }}>{l}</span>
-                                  </button>
-                                ))}
-                              </div>
-                              <div className="mt-5 text-center">
+                              <div className="text-[12px] font-bold text-white">1단계 4·5층 {roomTotal}실 · 사업성 계산기 (안)</div>
+                              <div className="mt-4 text-center">
                                 <div className="text-[12px]" style={{ color: "#8fb0ab" }}>예상 월 매출 (안)</div>
-                                <div className="mt-1 text-[36px] font-bold leading-none" style={{ color: "var(--tk-glow)" }}>약 <Roll to={Math.round(revSum)} /><span className="text-[16px]">만원</span></div>
-                                <div className="mt-2 text-[12px]" style={{ color: "#8fb0ab" }}>연 환산 약 {(revSum * 12 / 10000).toFixed(2)}억원</div>
+                                <div className="mt-1 text-[36px] font-bold leading-none" style={{ color: "var(--tk-glow)" }}>약 <Roll to={Math.round(sim.rev)} /><span className="text-[16px]">만원</span></div>
+                                <div className="mt-2 text-[12px]" style={{ color: "#8fb0ab" }}>연 매출 약 {sim.yRev.toFixed(2)}억 · 임차료 전 영업이익 약 {sim.yEb.toFixed(2)}억</div>
                               </div>
                               <div className="mt-5">
-                                <div className="mb-1 flex justify-between text-[12.5px]"><span style={{ color: "#c3d6d2" }}>입실률</span><span className="font-bold text-white">{occ}%</span></div>
-                                <input type="range" min={30} max={100} step={5} value={occ} onChange={(e) => setOcc(+e.target.value)} className="tk-range" style={{ ["--p" as string]: `${((occ - 30) / 70) * 100}%` }} aria-label="입실률" />
+                                <div className="mb-1 flex justify-between text-[12.5px]"><span style={{ color: "#c3d6d2" }}>장기 투숙 비중</span><span className="font-bold text-white">{lsh}%</span></div>
+                                <input type="range" min={0} max={100} step={10} value={lsh} onChange={(e) => setLsh(+e.target.value)} className="tk-range" style={{ ["--p" as string]: `${lsh}%` }} aria-label="장기 투숙 비중" />
+                              </div>
+                              <div className="mt-3">
+                                <div className="mb-1 flex justify-between text-[12.5px]"><span style={{ color: "#c3d6d2" }}>단기 숙박 가동률</span><span className="font-bold text-white">{occ}%</span></div>
+                                <input type="range" min={30} max={95} step={5} value={occ} onChange={(e) => setOcc(+e.target.value)} className="tk-range" style={{ ["--p" as string]: `${((occ - 30) / 65) * 100}%` }} aria-label="단기 숙박 가동률" />
                               </div>
                               <div className="mt-4 space-y-2.5">
-                                {rev.map((r) => (
-                                  <div key={r.k}>
-                                    <div className="flex justify-between text-[12px]"><span className="text-white">{r.t} <span style={{ color: "#8fb0ab" }}>× {r.n}실 · {mode === "month" ? `월 ${r.month}만` : `1박 ${r.night}만`}</span></span><span className="font-bold text-white">{Math.round(r.v).toLocaleString()}만</span></div>
-                                    <div className="mt-1 h-2" style={{ background: "#1b4440" }}><motion.div className="h-full origin-left" style={{ background: r.k === "single" ? "var(--tk-coral)" : r.k === "double" ? "var(--tk-glow)" : "var(--tk-mint)" }} initial={false} animate={{ scaleX: revSum ? r.v / revSum : 0 }} transition={{ duration: 0.6, ease: EASE }} /></div>
+                                {([["장기 투숙 (입실률 90%)", sim.longR, "var(--tk-mint)"], ["단기 숙박", sim.shortR, "var(--tk-coral)"], ["부가매출 (데이 유스·편의점 임대 등)", sim.extra, "var(--tk-glow)"]] as [string, number, string][]).map(([l, v, c]) => (
+                                  <div key={l}>
+                                    <div className="flex justify-between text-[12px]"><span className="text-white">{l}</span><span className="font-bold text-white">{Math.round(v).toLocaleString()}만</span></div>
+                                    <div className="mt-1 h-2" style={{ background: "#1b4440" }}><motion.div className="h-full origin-left" style={{ background: c }} initial={false} animate={{ scaleX: sim.rev ? v / sim.rev : 0 }} transition={{ duration: 0.6, ease: EASE }} /></div>
                                   </div>
                                 ))}
                               </div>
-                              <p className="mt-4 text-[11px] leading-[1.7]" style={{ color: "#a9c1bd" }}>· 가격은 주변 시세 조사 전 가정치 · 일 단위는 30일 기준, 숙박업 인허가가 확인될 때만 해당 · 매출만 표시(임대료·인건비·공사비는 견적 후)</p>
+                              <p className="mt-4 text-[11px] leading-[1.7]" style={{ color: "#a9c1bd" }}>· 요금은 주변 시세 조사 전 가정치 · 고정비 월 1,130만 원, 변동비 장기 5%·단기 25% · 임차료·감가상각·이자·세금 전 · 1단계 투자 약 {CAPEX1_SUM.toFixed(1)}억 원(안)</p>
                             </div>
                           )}
                           {pi === 3 && (
