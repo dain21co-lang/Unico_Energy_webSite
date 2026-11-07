@@ -62,12 +62,29 @@ export const ROOMS = [
   { k: "family", t: "패밀리 트윈", en: "FAMILY", m2: 16, n: 2, bed: "싱글 2 + 이층침대", month: 75, night: 8, d: "가족 방문·소규모 일행용. 3~4인까지." },
 ];
 
-export const SHARED = [
-  { t: "라운지", d: "체크인 대기·업무·휴식 겸용", icon: "sofa" },
-  { t: "공유 주방", d: "간단 조리·셀프 조식", icon: "cup" },
-  { t: "세탁실", d: "코인 세탁·건조기", icon: "wash" },
-  { t: "짐 보관함", d: "스마트 락커 · 체크아웃 후 보관", icon: "box" },
+/* 장기 체류 플랜 (Zoku형) — 월 단위, 다중생활시설로 운영 가능한 형태 */
+export const LONGSTAY = {
+  t: "STAY 30", sub: "한 달 살기 플랜", from: 50,
+  d: "출장·파견·이사 준비처럼 몇 주에서 몇 달 머무는 분을 위한 월 단위 플랜입니다. 짐을 풀고 일하고 쉬는 생활을 한 곳에서.",
+  items: ["월 단위 계약 · 보증금 부담 최소화", "주 1회 객실 청소 · 침구 교체", "업무 라운지 · 공유 주방 무제한", "택배 수령 · 짐 보관"],
+};
+
+/* 객실 기본 제공 */
+export const AMENITIES = [
+  { t: "모바일 키", icon: "key" }, { t: "개별 욕실", icon: "drop" }, { t: "개별 냉난방", icon: "bolt" },
+  { t: "전용 와이파이", icon: "wifi" }, { t: "업무 책상", icon: "desk" }, { t: "침구 교체", icon: "bed" },
 ];
+
+/* 공용시설 — img는 AI 이미지 파일명 (AI_READY에 있을 때만 사진 표시) */
+export const FACILITIES = [
+  { k: "lounge", t: "스마트 라운지", en: "SMART LOUNGE", d: "체크인 대기, 노트북 작업, 여행자끼리의 대화가 한 공간에서 이어지는 공유 라운지.", icon: "sofa" },
+  { k: "kitchen", t: "공유 주방", en: "KITCHEN", d: "간단한 조리와 셀프 조식(안). 장기 투숙객의 생활 거점.", icon: "cup" },
+  { k: "work", t: "업무 존", en: "WORK ZONE", d: "콘센트 좌석과 화상회의 부스(안). 출장 중에도 일이 멈추지 않게.", icon: "desk" },
+  { k: "laundry", t: "세탁·락커", en: "LAUNDRY & LOCKER", d: "코인 세탁·건조기, 체크아웃 후 짐을 맡기는 스마트 락커.", icon: "wash" },
+];
+
+/* 첫 화면·섹션 사진 슬롯 — 받은 AI 이미지 파일명(확장자 없이)을 여기에 추가하면 자동으로 사진이 들어갑니다 */
+export const AI_READY: string[] = [];
 
 /* 투숙 흐름 — AI·IoT 운영 (도입 범위는 협의 중) */
 export const JOURNEY = [
@@ -79,6 +96,13 @@ export const JOURNEY = [
 ];
 
 /* 예상 수요층 — 사업 가정 (시장조사 전) */
+export const NEARBY = [
+  { t: "경의중앙선", d: "금촌역 · 금릉역 생활권" },
+  { t: "버스", d: "건물 인근 버스정류장" },
+  { t: "자가용", d: "건물 내 자주식 주차 39대" },
+];
+export const TRIPS = ["임진각 · DMZ", "헤이리 예술마을", "파주출판도시", "파주 아울렛"];
+
 export const DEMAND = [
   { t: "출장 · 파견", d: "파주 일대 산업단지·공사 현장의 단기 근무자", icon: "brief" },
   { t: "군 방문 가족", d: "면회·수료식 등으로 파주를 찾는 가족", icon: "users" },
