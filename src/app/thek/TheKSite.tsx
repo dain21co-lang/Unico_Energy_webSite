@@ -438,6 +438,7 @@ export default function TheKSite() {
                   </motion.button>
                 ))}
                 <button onClick={() => go("reservation")} className="mt-7 w-full py-3.5 text-[15px] font-bold text-white" style={{ background: "var(--tk-coral)" }}>예약 · 입실 문의</button>
+                <a href="/thek/ir" className="mt-2 block w-full border py-3.5 text-center text-[15px] font-bold" style={{ borderColor: "#c9a96e", color: "#ecdcb6" }}>사업계획서 (IR) 보기</a>
                 <p className="mt-6 text-[12px] leading-[1.7]" style={{ color: "#86a39f" }}>{PROJECT.building}<br />{PROJECT.address} ({PROJECT.roadAddress})</p>
               </div>
             </motion.div>
@@ -903,6 +904,15 @@ export default function TheKSite() {
               </div>
             ))}
           </dl>
+
+          <a href="/thek/ir" className="relative mt-8 flex items-center justify-between overflow-hidden px-5 py-4 text-white" style={{ background: "linear-gradient(120deg,#0a1322,#182a48)" }}>
+            <span>
+              <span className="tk-en block text-[10px] font-bold" style={{ color: "#c9a96e" }}>BUSINESS PLAN & IR</span>
+              <span className="block text-[16px] font-bold">사업계획서 바로 보기</span>
+              <span className="block text-[11.5px]" style={{ color: "#9eabbf" }}>30장 · 옆으로 넘겨 보는 투자제안서</span>
+            </span>
+            <span className="flex h-11 w-11 items-center justify-center rounded-full" style={{ background: "#c9a96e", color: "#0a1322" }}><Icon d={I.arrow} size={20} /></span>
+          </a>
 
           {/* 파트너용 정보 */}
           <div className="mt-10">
