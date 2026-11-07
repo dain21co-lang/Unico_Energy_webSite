@@ -134,7 +134,7 @@ function Shot({ f, label, className, pos = "50% 50%", dark = false }: { f: strin
 }
 
 const GALLERY = [
-  { f: "ext-2", t: "오픈 후 외관 (예시)", s: "AI 이미지 · 예시" },
+  { f: "ext-2", t: "오픈 후 외관 (예시)", s: "AI 영상 · 예시" },
   { f: "real-s", t: "현재 건물 (남측)", s: "감정평가서 사진 · 2021" },
   { f: "real-nw", t: "현재 건물 (북서측)", s: "감정평가서 사진 · 2021" },
   { f: "r-se", t: "남동측 투시도", s: "분양 브로슈어 · 간판은 예시" },
@@ -576,7 +576,11 @@ export default function TheKSite() {
           <div ref={galRef} onScroll={onGalScroll} className="tk-noscroll flex snap-x snap-mandatory gap-3 overflow-x-auto px-6">
             {GALLERY.map((g, i) => (
               <button key={g.f} onClick={() => setLightbox(i)} className="w-[78%] shrink-0 snap-center text-left">
-                <Photo src={IMG(g.f)} alt={`${g.t} — ${g.s}`} className="h-[200px]" />
+                {g.f === "ext-2" ? (
+                  <div className="relative aspect-video w-full overflow-hidden bg-black">
+                    <video src="/thek/video/exterior.mp4" poster="/thek/video/exterior-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="오픈 후 외관 (AI 영상 예시)" className="h-full w-full object-cover" />
+                  </div>
+                ) : <Photo src={IMG(g.f)} alt={`${g.t} — ${g.s}`} className="aspect-video w-full" />}
                 <div className="mt-2 text-[14px] font-bold" style={{ color: "var(--tk-deep)" }}>{g.t}</div>
                 <div className="text-[11.5px]" style={{ color: "var(--tk-sub)" }}>{g.s}</div>
               </button>
