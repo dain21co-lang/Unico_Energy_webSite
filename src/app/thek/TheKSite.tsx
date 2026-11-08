@@ -303,6 +303,83 @@ function FilmPlayer({ src = "/thek/video/brand_film.mp4", poster = "/thek/video/
   );
 }
 
+const TOUR = [
+  { f: "5F", t: "놀이층", tag: "유치 계획", c: "#e2734a", img: "play", d: "코인노래방 · 놀숲 · 당구장 · 오페라 라이브. 3층 노래방도 5층으로 옮겨 오는 방안. 객실보다 위층이라 소음 부담이 적습니다." },
+  { f: "4F", t: "스마트호스텔", tag: "1단계", c: "#ffcf86", img: "room-single", d: "401~404호를 객실로. 3층과 합쳐 1단계 40실 안팎. 테라스는 휴식 공간으로." },
+  { f: "3F", t: "스마트호스텔", tag: "1단계", c: "#ffcf86", img: "lounge", d: "301·302·303·305호를 객실·라운지로. 테라스(301·304·305호)는 라운지와 연결." },
+  { f: "2F", t: "객실 확장", tag: "2단계", c: "#8fd3bf", img: "room-double", d: "201~205호를 객실로 바꿔 20실 추가 — 전체 60실." },
+  { f: "1F", t: "K-편의점", tag: "유치 계획", c: "#e2734a", img: "store", d: "약 20평 24시간 편의점, 한강라면 같은 K문화 체험. 나머지는 기존 상가 그대로." },
+  { f: "B1", t: "주차 39대", tag: "자주식", c: "#7fa7c9", img: "", d: "지하 30대 · 지상 9대. 주변 숙박시설보다 넉넉한 주차." },
+];
+
+function FloorTour() {
+  const box = useRef<HTMLDivElement>(null);
+  const seen = useInView(box, { once: true, amount: 0.35 });
+  const [sel, setSel] = useState(4);
+  const [auto, setAuto] = useState(true);
+  useEffect(() => {
+    if (!seen || !auto) return;
+    const id = setInterval(() => setSel((s) => (s + TOUR.length - 1) % TOUR.length), 3200);
+    return () => clearInterval(id);
+  }, [seen, auto]);
+  const F = TOUR[sel];
+  const RH = 44;
+  return (
+    <div ref={box} className="mt-6 p-4" style={{ background: "linear-gradient(160deg,#123733,#0a201e)" }}>
+      <div className="flex items-baseline justify-between">
+        <div className="tk-en text-[10px] font-bold" style={{ color: "var(--tk-mint)" }}>FLOOR GUIDE</div>
+        <div className="text-[10.5px]" style={{ color: "#7f9e99" }}>층을 눌러 보세요 · (안)</div>
+      </div>
+      <div className="mt-1 text-[17px] font-bold text-white">한 건물에서 머물고, 먹고, 놀고</div>
+      <div className="mt-3 flex gap-3">
+        {/* 건물 단면 */}
+        <div className="relative w-[118px] shrink-0">
+          <div className="mx-auto h-[10px] w-[86%]" style={{ background: "#24504b", clipPath: "polygon(6% 100%, 94% 100%, 100% 0, 0 0)" }} />
+          {TOUR.map((x, i) => {
+            const on = i === sel;
+            return (
+              <button key={x.f} onClick={() => { setSel(i); setAuto(false); }} className="relative block w-full text-left" style={{ height: RH, marginTop: i === 5 ? 6 : 2 }} aria-label={`${x.f} ${x.t}`}>
+                <div className="absolute inset-0" style={{ background: i === 5 ? "#0b1b1a" : "#183e3a", border: i === 5 ? "1px dashed #2f5a55" : "none" }} />
+                <motion.div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${x.c}${on ? "f0" : "55"}, ${x.c}${on ? "a0" : "22"})` }}
+                  initial={{ clipPath: "inset(0 100% 0 0)" }} animate={{ clipPath: seen ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)" }} transition={{ duration: 0.7, delay: 0.25 + (5 - i) * 0.16, ease: EASE }} />
+                {i < 5 && <div className="absolute inset-y-[9px] right-2 flex gap-[3px]">{[0, 1, 2].map((w) => <span key={w} className="w-[7px]" style={{ background: on ? "#fff8e6" : "#0e2b2999" }} />)}</div>}
+                <div className="relative flex h-full items-center gap-1.5 pl-2">
+                  <span className="text-[13px] font-black" style={{ color: on ? "#0e2b29" : "#fff" }}>{x.f}</span>
+                  <span className="text-[9.5px] font-bold leading-tight" style={{ color: on ? "#0e2b29" : "#c3d6d2" }}>{x.t}</span>
+                </div>
+              </button>
+            );
+          })}
+          {/* 엘리베이터 표시 */}
+          <motion.span className="absolute -left-2.5 h-[10px] w-[10px] rounded-full" style={{ background: "#ffcf86", boxShadow: "0 0 10px #ffcf86", top: 10 + RH / 2 - 5 }}
+            animate={{ y: sel * (RH + 2) + (sel === 5 ? 4 : 0) }} transition={{ duration: 0.6, ease: EASE }} />
+        </div>
+        {/* 층 설명 */}
+        <div className="relative min-w-0 flex-1 overflow-hidden" style={{ height: 6 * (RH + 2) + 14 }}>
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.div key={F.f} className="absolute inset-0 flex flex-col" initial={{ clipPath: "inset(100% 0 0 0)", y: 16 }} animate={{ clipPath: "inset(0% 0 0 0)", y: 0 }} exit={{ clipPath: "inset(0 0 100% 0)", y: -16 }} transition={{ duration: 0.55, ease: EASE }}>
+              {F.img ? (
+                <div className="relative h-[150px] w-full overflow-hidden"><img src={IMG(F.img)} alt={`${F.f} ${F.t} (AI 이미지 예시)`} className="h-full w-full object-cover" /><span className="absolute left-1.5 top-1.5 bg-white/85 px-1 py-0.5 text-[9px]" style={{ color: "var(--tk-char)" }}>AI 이미지 · 예시</span></div>
+              ) : (
+                <div className="relative flex h-[150px] w-full flex-col justify-center overflow-hidden px-3" style={{ background: "#0b1b1a", backgroundImage: "repeating-linear-gradient(90deg,transparent 0 30px,rgba(127,167,201,.18) 30px 32px)" }}>
+                  <span className="flex h-7 w-7 items-center justify-center rounded-[5px] text-[15px] font-black text-white" style={{ background: "#2f6fd6" }}>P</span>
+                  <span className="mt-2 text-[34px] font-black leading-none" style={{ color: "var(--tk-glow)" }}>39<span className="ml-0.5 text-[13px] text-white">대</span></span>
+                </div>
+              )}
+              <div className="mt-2.5 flex items-center gap-1.5">
+                <span className="text-[20px] font-black" style={{ color: F.c }}>{F.f}</span>
+                <span className="text-[15px] font-bold text-white">{F.t}</span>
+                <span className="ml-auto shrink-0 border px-1.5 py-0.5 text-[9.5px] font-bold" style={{ borderColor: F.c, color: F.c }}>{F.tag}</span>
+              </div>
+              <p className="mt-1 text-[11.5px] leading-[1.6]" style={{ color: "#c3d6d2" }}>{F.d}</p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const STAYS: [number, string][] = [[1, "1박"], [2, "2박"], [3, "3박"], [7, "1주"], [30, "한 달 (STAY 30)"]];
 const LOGS = ["203호 모바일 키 체크인", "복도 B 순찰 완료", "205호 빈 방 절전 전환", "라운지 재실 6명", "201호 청소 완료 · 점검 기록", "택배 2건 락커 보관", "출입 이상 없음 · 야간 모드"];
 
@@ -572,6 +649,7 @@ export default function TheKSite() {
           </Rise>
           <div className="border p-3" style={{ borderColor: "var(--tk-line)" }}><FloorSwap after={after} /></div>
           <p className="mt-2 text-[11px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>3·4층(약 950㎡)을 40실 안팎의 객실로 바꾸는 1단계 방안입니다. 소유주 측 확인: 2·3·4층 명도 가능, 5층은 노래방·당구장 등이 모이는 놀이층으로.</p>
+          <FloorTour />
         </section>
 
         {/* 건물 갤러리 띠 */}
