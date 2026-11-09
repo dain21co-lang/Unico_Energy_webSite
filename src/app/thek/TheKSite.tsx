@@ -484,6 +484,7 @@ export default function TheKSite() {
               <span className="tk-en text-[9.5px] font-bold" style={{ color: "var(--tk-sub)" }}>SMART HOSTEL</span>
             </button>
             <div className="flex items-center gap-2">
+              <a href="/thek/en" className="text-[11px] font-bold tracking-wide" style={{ color: "var(--tk-sub)" }}><span style={{ color: "var(--tk-deep)" }}>KO</span> | EN</a>
               <button onClick={() => go("reservation")} className="rounded-full px-3.5 py-1.5 text-[12.5px] font-bold text-white" style={{ background: "var(--tk-coral)" }}>예약 문의</button>
               <button onClick={() => setMenu(true)} aria-label="메뉴 열기" className="flex h-10 w-9 flex-col items-end justify-center gap-[5px]">
                 <span className="h-[1.5px] w-6" style={{ background: "var(--tk-deep)" }} /><span className="h-[1.5px] w-4" style={{ background: "var(--tk-coral)" }} /><span className="h-[1.5px] w-6" style={{ background: "var(--tk-deep)" }} />
