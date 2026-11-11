@@ -1,0 +1,26 @@
+/* 강화 제1광산 임시 홈페이지 전용 — 화이트 · 네이비 · 코퍼릿 블루 (삼표·시벨코 계열 벤치마킹) */
+.gw {
+  --gw-ink: #10263f;
+  --gw-deep: #0c2340;
+  --gw-stone: #ffffff;
+  --gw-paper: #f2f5f9;
+  --gw-sub: #566473;
+  --gw-line: #dbe2ea;
+  --gw-copper: #1260b8;
+  --gw-copper2: #8fc4f5;
+  --gw-sea: #3d8fd1;
+  background: var(--gw-stone);
+  color: var(--gw-ink);
+  word-break: keep-all;
+  -webkit-tap-highlight-color: transparent;
+}
+.gw .gw-en { letter-spacing: 0.18em; text-transform: uppercase; }
+.gw .gw-noscroll { scrollbar-width: none; }
+.gw .gw-noscroll::-webkit-scrollbar { display: none; }
+@keyframes gw-kb { from { transform: scale(1.12); } to { transform: scale(1); } }
+.gw .gw-kb { animation: gw-kb 14s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .gw .gw-kb { animation: none; } }
+.gw .gw-wm { position: absolute; left: -4px; top: -30px; font-size: 64px; font-weight: 900; line-height: 1; letter-spacing: -0.02em; color: transparent; -webkit-text-stroke: 1px #d5deea; white-space: nowrap; pointer-events: none; user-select: none; }
+.gw .gw-wm.dark { -webkit-text-stroke: 1px rgba(255,255,255,.14); }
+.gw .gw-snap { scroll-snap-type: x mandatory; }
+.gw .gw-snap > * { scroll-snap-align: start; }
