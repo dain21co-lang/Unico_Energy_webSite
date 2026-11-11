@@ -629,7 +629,7 @@ export default function TheKSiteEn() {
             <div className="mt-10">
               <div className="mb-2 flex items-baseline justify-between">
                 <div><span className="tk-en text-[10.5px] font-bold" style={{ color: "var(--tk-coral)" }}>BRAND FILM</span><div className="text-[17px] font-bold" style={{ color: "var(--tk-deep)" }}>One building awake through Paju's night</div></div>
-                <span className="text-[11px]" style={{ color: "var(--tk-sub)" }}>40 sec</span>
+                <span className="text-[11px]" style={{ color: "var(--tk-sub)" }}>1 min</span>
               </div>
               <FilmPlayer />
               <p className="mt-2 text-[11px]" style={{ color: "var(--tk-sub)" }}>Sample video made with AI; the actual building and rooms may differ.</p>

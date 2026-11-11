@@ -629,7 +629,7 @@ export default function TheKSite() {
             <div className="mt-10">
               <div className="mb-2 flex items-baseline justify-between">
                 <div><span className="tk-en text-[10.5px] font-bold" style={{ color: "var(--tk-coral)" }}>BRAND FILM</span><div className="text-[17px] font-bold" style={{ color: "var(--tk-deep)" }}>파주의 밤, 깨어 있는 건물 하나</div></div>
-                <span className="text-[11px]" style={{ color: "var(--tk-sub)" }}>40초</span>
+                <span className="text-[11px]" style={{ color: "var(--tk-sub)" }}>1분</span>
               </div>
               <FilmPlayer />
               <p className="mt-2 text-[11px]" style={{ color: "var(--tk-sub)" }}>AI로 만든 예시 영상으로, 실제 건물·객실과 다를 수 있습니다.</p>
