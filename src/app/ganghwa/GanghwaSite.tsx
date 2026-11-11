@@ -355,7 +355,7 @@ export default function GanghwaSite() {
         <section id="location" className="px-6 pt-16 pb-14">
           <Head no="03" wm="LOCATION" en="Location & Logistics" sub="인천국제공항, 송도 11공구, 인천만 조력발전 예정지가 가까운 거리에 있습니다. 해상 운송으로 수요처에 직접 공급하는 방안을 검토합니다.">수도권에 가장 가까운<br />대규모 광산</Head>
           <div className="relative -mx-6 mb-5 h-[540px] overflow-hidden bg-black">
-            <video src="/ganghwa/barge.mp4" poster="/ganghwa/barge-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="새벽 물안개 속에 장석을 실은 바지선이 떠나는 장면 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" />
+            <video src="/ganghwa/voyage.mp4" poster="/ganghwa/barge-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="새벽 물안개 속에 장석을 실은 바지선이 떠나 송도 앞 부두에서 돌을 내리는 장면 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-x-0 bottom-0 h-52" style={{ background: "linear-gradient(180deg,transparent,rgba(8,26,48,.6) 40%,rgba(8,26,48,.92))" }} />
             <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
             <div className="absolute inset-x-0 bottom-5 px-6 text-white">
