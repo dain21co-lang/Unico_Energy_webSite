@@ -353,6 +353,15 @@ export default function SeobuSite() {
               <p className="pt-2 text-[11px] leading-[1.6]" style={{ color: "var(--sb-sub)" }}>분양조견표(검토안) 기준 세대별 면적입니다. 확정된 주택형이 아니며 설계에 따라 달라질 수 있습니다.</p>
             </div>
           </div>
+          <div className="mt-10 px-6">
+            <div className="sb-en text-[11px] font-bold" style={{ color: "var(--sb-gold)" }}>FROM LINE TO LIFE</div>
+            <div className="mt-1 text-[19px] font-bold" style={{ color: "var(--sb-navy)" }}>한 줄의 선이 건물이 되기까지</div>
+            <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: "var(--sb-sub)" }}>도면에서 골조, 스케치를 거쳐 완성된 모습까지 45초.</p>
+            <div className="relative mt-3 overflow-hidden" style={{ aspectRatio: "9 / 16" }}>
+              <video className="absolute inset-0 h-full w-full object-cover" src="/seobu/video/sketch.mp4" poster="/seobu/video/sketch-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="도면이 건물로 바뀌는 과정 (AI 영상 예시)" />
+              <span className="absolute bottom-2 left-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--sb-char)" }}>AI 영상 · 사업계획서 도면을 바탕으로 한 예시</span>
+            </div>
+          </div>
         </section>
 
         {/* 03 입지 */}
