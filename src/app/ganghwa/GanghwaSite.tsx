@@ -118,6 +118,47 @@ const ESG = [
   { k: "G", n: "Governance", l: ["투명한 자금 집행", "감사를 통한 리스크 통제 체계", "주주 및 투자자 가치 제고"] },
 ];
 
+/* 01 개요 — 현장 사진을 측량·탐사 화면처럼 보여 주는 장면 (사진은 실제 현장 사진, 효과만 덧입힘) */
+function SiteScope() {
+  const ref = useRef<HTMLDivElement>(null);
+  const seen = useInView(ref, { once: true, margin: "-40px" });
+  const corner = (c: string) => <motion.span className={`absolute h-5 w-5 ${c}`} style={{ borderColor: "var(--gw-copper2)" }} initial={{ scale: 0 }} animate={{ scale: seen ? 1 : 0 }} transition={{ duration: 0.5, delay: 0.9, ease: EASE }} />;
+  return (
+    <div ref={ref} className="relative -mx-6 h-[400px] overflow-hidden" style={{ background: "var(--gw-deep)" }}>
+      <motion.div className="absolute inset-0" initial={{ clipPath: "inset(0 0 100% 0)" }} animate={{ clipPath: seen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)" }} transition={{ duration: 1.2, ease: EASE }}>
+        <motion.img src={IMG("site")} alt="강화군 온수리 일대 현장 전경" className="h-full w-full object-cover" style={{ objectPosition: "100% 60%", filter: "grayscale(.45) contrast(1.18) brightness(.78)" }} initial={{ scale: 1.25 }} animate={{ scale: seen ? 1.06 : 1.25 }} transition={{ duration: 6, ease: "easeOut" }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,64,.72) 0%, rgba(18,96,184,.18) 38%, rgba(12,35,64,.35) 62%, #0c2340 100%)" }} />
+        <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(143,196,245,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(143,196,245,.13) 1px, transparent 1px)", backgroundSize: "39px 39px" }} />
+        <motion.div className="absolute inset-x-0 h-[70px]" style={{ background: "linear-gradient(180deg, transparent, rgba(143,196,245,.28) 92%, rgba(143,196,245,.9))", top: -70 }} animate={seen ? { y: [0, 470] } : {}} transition={{ duration: 3.6, ease: "linear", repeat: Infinity, repeatDelay: 1.4, delay: 1.2 }} />
+      </motion.div>
+      <div className="absolute inset-4">{corner("left-0 top-0 border-l-2 border-t-2")}{corner("right-0 top-0 border-r-2 border-t-2")}{corner("bottom-0 left-0 border-b-2 border-l-2")}{corner("bottom-0 right-0 border-b-2 border-r-2")}</div>
+      <div className="absolute left-[80%] top-[57%]">
+        <motion.span className="absolute -left-[22px] -top-[22px] h-11 w-11 rounded-full border" style={{ borderColor: "var(--gw-copper2)" }} animate={seen ? { scale: [0.5, 1.5, 0.5] } : { scale: 0 }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }} />
+        <motion.span className="absolute -left-[5px] -top-[5px] h-2.5 w-2.5 rounded-full" style={{ background: "var(--gw-copper2)" }} initial={{ scale: 0 }} animate={{ scale: seen ? 1 : 0 }} transition={{ duration: 0.4, delay: 1.1 }} />
+        <motion.div className="absolute right-4 top-[-38px] whitespace-nowrap border-r-2 pr-2 text-right text-white" style={{ borderColor: "var(--gw-copper2)" }} initial={{ x: 14 }} animate={{ x: seen ? 0 : 14 }} transition={{ duration: 0.6, delay: 1.3, ease: EASE }}>
+          <div className="gw-en text-[9px] font-bold" style={{ color: "var(--gw-copper2)" }}>Onsu-ri</div>
+          <div className="text-[12px] font-bold">온수리 일대</div>
+        </motion.div>
+      </div>
+      <div className="absolute left-8 top-8 text-white">
+        <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Site · Onsu-ri, Ganghwa</div>
+        <div className="mt-1.5 overflow-hidden text-[22px] font-black leading-tight tracking-tight"><motion.div initial={{ y: "110%" }} animate={{ y: seen ? "0%" : "110%" }} transition={{ duration: 0.9, delay: 0.6, ease: EASE }}>강화 온수리,</motion.div></div>
+        <div className="overflow-hidden text-[22px] font-black leading-tight tracking-tight" style={{ color: "var(--gw-copper2)" }}><motion.div initial={{ y: "110%" }} animate={{ y: seen ? "0%" : "110%" }} transition={{ duration: 0.9, delay: 0.75, ease: EASE }}>돌이 잠든 땅</motion.div></div>
+      </div>
+      <div className="absolute inset-x-8 bottom-8 grid grid-cols-3 gap-px" style={{ background: "rgba(143,196,245,.3)" }}>
+        {[["광업권", "2건", "79560 · 79562"], ["매장량", "1.78억t", "원자료 기재"], ["인천공항", "15km", "반경"]].map(([k, v, d], i) => (
+          <motion.div key={k} className="px-2.5 py-2 text-white" style={{ background: "rgba(8,26,48,.82)" }} initial={{ y: 24 }} animate={{ y: seen ? 0 : 24 }} transition={{ duration: 0.6, delay: 1.2 + i * 0.12, ease: EASE }}>
+            <div className="text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</div>
+            <div className="text-[17px] font-black leading-tight">{v}</div>
+            <div className="text-[9.5px] text-white/70">{d}</div>
+          </motion.div>
+        ))}
+      </div>
+      <span className="absolute right-8 top-8 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>현장 사진</span>
+    </div>
+  );
+}
+
 /* 맺음 장면 — 처음 첫 화면이던 정지 이미지 3장과 번호 탭 구성을 그대로 살려 문안만 새로 쓴 섹션 */
 const CLOSE = [
   { img: "hero", pos: "50% 55%", alt: "조력발전 방조제 참고 이미지 (AI)", cap: "조력발전 방조제 참고 이미지 · AI", en: "Why Ganghwa · Proximity", t: ["수도권에서", "가장 가까운 장석 광산,", "강화 제1광산"], d: "인천만 조력발전과 송도 매립처럼 서해안 인프라가 필요로 하는 돌, 그 가까이에서 공급하는 것을 목표로 합니다." },
@@ -266,7 +307,7 @@ export default function GanghwaSite() {
         {/* 01 광산 소개 */}
         <section id="about" className="px-6 pt-16 pb-14">
           <Head no="01" wm="MINE" en="The Mine" sub="강화 제1광산은 인천 강화군 화도면 온수리 일대에 위치한 장석 광산입니다. 2013년 광업권이 설정되었고, 친환경 터널식 채굴 방식의 개발을 구상하고 있습니다.">강화 제1광산 개요</Head>
-          <Photo src={IMG("site")} alt="강화군 화도면 온수리 일대 전경" className="h-[200px]" pos="50% 60%" cap="강화군 온수리 일대 전경" />
+          <SiteScope />
           <dl className="mt-5 border-t" style={{ borderColor: "var(--gw-line)" }}>
             {[["자산명", "강화 제1광산"], ["법적 권리", "광업권 등록번호 79560호, 79562호 (2013년 4월 설정)"], ["위치", "인천광역시 강화군 화도면 온수리 일대"], ["개발권자", "진수웅 기술사 (한자엔지니어링)"], ["광종", "장석 (이오라이트 및 엑시톤 함유 — 원자료 기재)"], ["총 매장량", "178,185,150톤 (65,994,500㎥)"]].map(([k, v], i) => (
               <motion.div key={k} className="grid grid-cols-[84px_1fr] gap-3 border-b py-3 text-[13.5px] leading-[1.6]" style={{ borderColor: "var(--gw-line)" }} initial={{ x: -18 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}>
