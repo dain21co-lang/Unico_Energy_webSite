@@ -356,6 +356,17 @@ export default function GanghwaSite() {
         {/* 08 문의 */}
         <section id="contact" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-deep)" }}>
           <Head no="08" wm="CONTACT" en="Contact" dark sub="사업 제휴와 투자 검토 문의를 받습니다.">문의</Head>
+          <div className="mb-6 overflow-hidden" style={{ background: "rgba(255,255,255,.06)" }}>
+            <Photo src={IMG("chairman")} alt="이봉수 회장" className="h-[250px]" pos="62% 30%" />
+            <div className="flex items-end justify-between px-5 py-4 text-white">
+              <div>
+                <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Project Lead</div>
+                <div className="mt-1 text-[22px] font-bold tracking-[0.2em]">이 봉 수</div>
+                <div className="mt-0.5 text-[12.5px] text-white/70">(주)에이치앤엘 파트너스 회장</div>
+              </div>
+              <span className="gw-en text-[10px] font-bold text-white/50">H&amp;L Partners</span>
+            </div>
+          </div>
           <dl className="grid gap-px text-[13.5px]" style={{ background: "rgba(255,255,255,.12)" }}>
             {[["기획·자문", "(주)에이치앤엘 파트너스 · H&L Partners"], ["담당", "이봉수"], ["이메일", "ybssby@naver.com"], ["웹사이트", "www.handl.top"], ["소재지", "인천광역시 강화군 화도면 온수리 일대"]].map(([k, v]) => (
               <div key={k} className="grid grid-cols-[84px_1fr] gap-3 px-4 py-3 text-white" style={{ background: "var(--gw-deep)" }}><dt className="font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</dt><dd className="leading-[1.6]">{v}</dd></div>
@@ -370,7 +381,7 @@ export default function GanghwaSite() {
 
         <footer className="px-6 pt-8 pb-12" style={{ background: "#081a30", color: "#8fa0b0" }}>
           <div className="text-[18px] font-black text-white">강화 제1광산</div>
-          <p className="mt-3 text-[11.5px] leading-[1.75]">사업 준비 단계에서 내용을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면과 방조제 사진은 AI로 만든 참고 이미지이고, 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
+          <p className="mt-3 text-[11.5px] leading-[1.75]">사업 준비 단계에서 내용을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면과 방조제 사진은 AI로 만든 참고 이미지이고, 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 대표 사진은 실제 사진을 바탕으로 배경을 연출했습니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
           <p className="gw-en mt-5 text-[10px]">© 2026 Ganghwa Mine No.1</p>
         </footer>
 
