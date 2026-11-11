@@ -70,13 +70,13 @@ function MapArt() {
   const seen = useInView(ref, { once: true, amount: 0.4 });
   const pts: [number, number, string, string][] = [[118, 86, "강화 제1광산", "Ganghwa Mine"], [70, 168, "인천국제공항", "Incheon Int'l Airport"], [236, 196, "송도 11공구 · 대학 캠퍼스", "Songdo Zone 11"], [176, 250, "인천만 조력발전 예정지", "Tidal Power Site"]];
   return (
-    <svg ref={ref} viewBox="0 0 320 290" className="w-full" role="img" aria-label="강화 제1광산과 인천국제공항, 송도 11공구, 인천만 조력발전 예정지의 위치 관계 도식">
+    <svg ref={ref} viewBox="-22 -50 362 345" className="w-full" role="img" aria-label="강화 제1광산과 인천국제공항, 송도 11공구, 인천만 조력발전 예정지의 위치 관계 도식">
       <path d="M40,40 C80,18 150,24 176,54 C196,78 186,112 160,126 C128,142 82,136 58,112 C34,90 22,60 40,40Z" fill="#e4edf6" stroke="#a9c2dc" />
       <path d="M210,60 C250,48 300,70 312,120 C320,170 300,240 262,270 L226,282 C214,240 222,200 206,160 C196,128 196,84 210,60Z" fill="#edf2f7" stroke="#c0cfdf" />
       <path d="M40,150 C62,140 100,150 104,172 C104,190 70,196 48,186 C34,178 30,160 40,150Z" fill="#e4edf6" stroke="#a9c2dc" />
       <text x="96" y="52" fontSize="9" fill="#7a8794">강화도</text><text x="262" y="110" fontSize="9" fill="#7a8794">인천</text>
       <motion.circle cx="118" cy="86" r="128" fill="none" stroke="#1260b8" strokeWidth="1" strokeDasharray="4 5" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 2, delay: 0.2 }} />
-      <text x="212" y="24" fontSize="9" fill="#1260b8">15km Radius</text>
+      <text x="214" y="-10" fontSize="9" fill="#1260b8">15km Radius</text>
       {pts.slice(1).map(([x, y], i) => <motion.path key={i} d={`M118,86 L${x},${y}`} stroke="#0c2340" strokeWidth="1.8" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 1, delay: 0.7 + i * 0.25, ease: EASE }} />)}
       {pts.map(([x, y, a, b], i) => (
         <g key={a}>
