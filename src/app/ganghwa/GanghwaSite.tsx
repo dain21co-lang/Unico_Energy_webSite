@@ -94,6 +94,11 @@ const HERO = [
   { img: "site", pos: "50% 60%", alt: "강화군 화도면 온수리 일대 전경", cap: "강화군 온수리 일대 전경", en: "Ganghwa · Incheon", t: ["인천 강화,", "온수리에서", "시작합니다"], d: "2013년 광업권이 설정된 강화 제1광산. 인천국제공항과 송도가 가까운 자리입니다." },
   { img: "tunnel", pos: "50% 50%", alt: "터널식 채굴 갱구 참고 이미지", cap: "터널식 채굴 참고 이미지", en: "Eco Tunnel Mining", t: ["땅 위는 그대로,", "채굴은", "터널 안에서"], d: "노천 채굴 대신 갱도·터널식 채굴로 경관과 산림 훼손을 줄이는 방식을 구상합니다." },
 ];
+const GREETING = [
+  "강화의 산은 오랜 시간 그 자리에서 장석을 품어 왔습니다. 저희는 그 자원이 유리와 도자기가 되고, 바다를 막는 방조제의 돌이 되어, 우리 생활을 받치는 기반으로 쓰이기를 바랍니다.",
+  "자원 개발은 서두를수록 잃는 것이 많은 일입니다. 그래서 산의 겉모습은 지키고 땅속에서 조용히 일하는 터널식 채굴을 택하려 합니다. 지역 주민과 이익을 나누는 방법도 처음부터 함께 고민하겠습니다.",
+  "지금은 준비 단계입니다. 이 홈페이지에 적힌 숫자와 계획에는 확인이 더 필요한 가정이 많습니다. 확인된 것은 확인된 대로, 남은 과제는 과제대로 숨김없이 말씀드리겠습니다.",
+];
 const MINERALS = [
   { k: "장석", en: "FELDSPAR", img: "feldspar", pos: "50% 50%", cap: "장석 표본", t: "안정적 기반 사업", d: "A/B/C급 장석 및 폐장석 생산, 세라믹 및 유리 원료 공급.", n: <>연 매출 73.2억 원, 순이익률 33.3% 예상<Asm /></>, tag: "실적 증빙 미확인" },
   { k: "골재", en: "AGGREGATE", img: "aggregate", pos: "50% 50%", cap: "골재 규격별 표본", t: "인프라 자재 사업", d: "건축용, 매립용, 기반시설용 골재(KS규격 준수 목표). 방조제 및 송도 인프라 공급 참여를 검토합니다.", n: <>일반 골재 매출 150억 원 예상<Asm /></>, tag: "공급계약 미확인" },
@@ -186,6 +191,25 @@ export default function GanghwaSite() {
               <div className="mt-2 text-[12px] font-bold" style={{ opacity: 1 }}>{l}</div>
             </div>
           ))}
+        </section>
+
+        {/* 인사말 */}
+        <section className="pt-12 pb-14" style={{ background: "var(--gw-deep)" }}>
+          <Photo src={IMG("chairman")} alt="이봉수 회장" className="mx-6 h-[250px]" pos="62% 30%" />
+          <div className="px-6 pt-7 text-white">
+            <div className="gw-en text-[11px] font-bold" style={{ color: "var(--gw-copper2)" }}>Greeting · 인사말</div>
+            <h2 className="mt-2.5 text-[25px] font-bold leading-[1.4] tracking-tight"><Lift>땅이 품은 것을,</Lift><Lift delay={0.12}><span style={{ color: "var(--gw-copper2)" }}>다음 세대의 기반으로</span></Lift></h2>
+            <div className="mt-5 grid gap-4">
+              {GREETING.map((x, i) => <Rise key={i} delay={i * 0.06}><p className="text-[14.5px] leading-[1.95]" style={{ color: "#c9d6e4" }}>{x}</p></Rise>)}
+            </div>
+            <Rise>
+              <p className="mt-7 text-[17px] font-bold leading-[1.7]">한 걸음씩, 바르게 가겠습니다.<br />지켜봐 주시고 함께해 주십시오.</p>
+              <div className="mt-6 flex items-end justify-between border-t pt-4" style={{ borderColor: "rgba(255,255,255,.18)" }}>
+                <div><div className="text-[11.5px]" style={{ color: "#9fb3c8" }}>(주)에이치앤엘 파트너스 회장</div><div className="mt-0.5 text-[24px] font-bold tracking-[0.3em]">이봉수</div></div>
+                <span className="gw-en text-[10px] font-bold text-white/50">H&amp;L Partners</span>
+              </div>
+            </Rise>
+          </div>
         </section>
 
         {/* 01 광산 소개 */}
@@ -356,17 +380,6 @@ export default function GanghwaSite() {
         {/* 08 문의 */}
         <section id="contact" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-deep)" }}>
           <Head no="08" wm="CONTACT" en="Contact" dark sub="사업 제휴와 투자 검토 문의를 받습니다.">문의</Head>
-          <div className="mb-6 overflow-hidden" style={{ background: "rgba(255,255,255,.06)" }}>
-            <Photo src={IMG("chairman")} alt="이봉수 회장" className="h-[250px]" pos="62% 30%" />
-            <div className="flex items-end justify-between px-5 py-4 text-white">
-              <div>
-                <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Project Lead</div>
-                <div className="mt-1 text-[22px] font-bold tracking-[0.2em]">이 봉 수</div>
-                <div className="mt-0.5 text-[12.5px] text-white/70">(주)에이치앤엘 파트너스 회장</div>
-              </div>
-              <span className="gw-en text-[10px] font-bold text-white/50">H&amp;L Partners</span>
-            </div>
-          </div>
           <dl className="grid gap-px text-[13.5px]" style={{ background: "rgba(255,255,255,.12)" }}>
             {[["기획·자문", "(주)에이치앤엘 파트너스 · H&L Partners"], ["담당", "이봉수"], ["이메일", "ybssby@naver.com"], ["웹사이트", "www.handl.top"], ["소재지", "인천광역시 강화군 화도면 온수리 일대"]].map(([k, v]) => (
               <div key={k} className="grid grid-cols-[84px_1fr] gap-3 px-4 py-3 text-white" style={{ background: "var(--gw-deep)" }}><dt className="font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</dt><dd className="leading-[1.6]">{v}</dd></div>
