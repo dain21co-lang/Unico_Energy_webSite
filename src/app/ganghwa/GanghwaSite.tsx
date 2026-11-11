@@ -118,6 +118,50 @@ const ESG = [
   { k: "G", n: "Governance", l: ["투명한 자금 집행", "감사를 통한 리스크 통제 체계", "주주 및 투자자 가치 제고"] },
 ];
 
+/* 맺음 장면 — 처음 첫 화면이던 정지 이미지 3장과 번호 탭 구성을 그대로 살려 문안만 새로 쓴 섹션 */
+const CLOSE = [
+  { img: "hero", pos: "50% 55%", alt: "조력발전 방조제 참고 이미지 (AI)", cap: "조력발전 방조제 참고 이미지 · AI", en: "Why Ganghwa · Proximity", t: ["수도권에서", "가장 가까운 장석 광산,", "강화 제1광산"], d: "인천만 조력발전과 송도 매립처럼 서해안 인프라가 필요로 하는 돌, 그 가까이에서 공급하는 것을 목표로 합니다." },
+  { img: "site", pos: "50% 60%", alt: "강화군 화도면 온수리 일대 전경", cap: "강화군 온수리 일대 전경", en: "Why Ganghwa · Origin", t: ["2013년 광업권,", "온수리에서", "다시 시작합니다"], d: "인천국제공항과 송도가 가까운 강화군 화도면 온수리. 장석 생산에서 골재·인프라 소재까지 단계적으로 넓혀 가는 구상입니다." },
+  { img: "tunnel", pos: "50% 50%", alt: "터널식 채굴 갱구 참고 이미지 (AI)", cap: "터널식 채굴 참고 이미지 · AI", en: "Why Ganghwa · Method", t: ["산은 그대로 두고,", "가치는", "산 안에서 캡니다"], d: "노천 채굴 대신 갱도·터널식 채굴로 경관과 산림 훼손을 줄이는 방식을 목표로 합니다." },
+];
+function Closing() {
+  const ref = useRef<HTMLElement>(null);
+  const seen = useInView(ref, { amount: 0.35 });
+  const [i, setI] = useState(0);
+  useEffect(() => { if (!seen) return; const t = setTimeout(() => setI((x) => (x + 1) % CLOSE.length), 6500); return () => clearTimeout(t); }, [seen, i]);
+  const c = CLOSE[i];
+  return (
+    <section ref={ref} className="relative h-[640px] overflow-hidden" style={{ background: "var(--gw-deep)" }}>
+      <AnimatePresence initial={false}>
+        <motion.div key={i} className="absolute inset-0" initial={{ clipPath: "inset(0 0 0 100%)" }} animate={{ clipPath: "inset(0 0 0 0%)" }} exit={{ clipPath: "inset(0 0 0 0%)", zIndex: -1 }} transition={{ duration: 0.9, ease: EASE }}>
+          <motion.img src={IMG(c.img)} alt={c.alt} className="h-full w-full object-cover" style={{ objectPosition: c.pos }} initial={{ scale: 1.14 }} animate={{ scale: seen ? 1 : 1.14 }} transition={{ duration: 7, ease: "easeOut" }} />
+        </motion.div>
+      </AnimatePresence>
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,64,.55) 0%, rgba(12,35,64,.08) 28%, rgba(12,35,64,.78) 64%, #0c2340 100%)" }} />
+      <div className="absolute left-6 top-6 text-white">
+        <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Why Ganghwa</div>
+        <div className="mt-1 text-[14px] font-bold">왜 강화 제1광산인가</div>
+      </div>
+      <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>{c.cap}</span>
+      <div className="absolute inset-x-0 bottom-[58px] px-6 pb-6 text-white">
+        <div className="gw-en text-[11px] font-semibold" style={{ color: "var(--gw-copper2)" }}>{c.en}</div>
+        <h2 key={i} className="mt-3 text-[29px] font-bold leading-[1.3] tracking-tight">
+          {c.t.map((x, k) => <span key={x} className="block overflow-hidden"><motion.span className="block" initial={{ y: "108%" }} animate={{ y: seen ? "0%" : "108%" }} transition={{ duration: 0.9, delay: 0.15 + k * 0.13, ease: EASE }} style={{ color: k === c.t.length - 1 ? "var(--gw-copper2)" : undefined }}>{x}</motion.span></span>)}
+        </h2>
+        <motion.p key={`p${i}`} className="mt-3 text-[14px] leading-[1.75] text-white/80" initial={{ y: 20 }} animate={{ y: 0 }} transition={{ duration: 0.8, delay: 0.5, ease: EASE }}>{c.d}</motion.p>
+      </div>
+      <div className="absolute inset-x-0 bottom-0 grid grid-cols-3">
+        {CLOSE.map((x, k) => (
+          <button key={x.img} onClick={() => setI(k)} className="relative h-[58px] text-[13px] font-bold" style={{ background: i === k ? "#fff" : "rgba(8,26,48,.86)", color: i === k ? "var(--gw-copper)" : "#fff" }} aria-label={`왜 강화 ${k + 1}번째 장면`}>
+            0{k + 1}
+            {i === k && <motion.span key={`b${i}${seen}`} className="absolute inset-x-0 top-0 h-[3px] origin-left" style={{ background: "var(--gw-copper)" }} initial={{ scaleX: 0 }} animate={{ scaleX: seen ? 1 : 0 }} transition={{ duration: 6.5, ease: "linear" }} />}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function GanghwaSite() {
   const [active, setActive] = useState("about");
   const [ph, setPh] = useState(0);
@@ -388,6 +432,9 @@ export default function GanghwaSite() {
           </div>
           <Rise><p className="mt-2 border-l-2 py-1 pl-4 text-[16px] font-bold leading-[1.6]" style={{ borderColor: "var(--gw-copper)" }}>자원의 본질을 혁신하여,<br />지속 가능한 인프라의 미래를 짓습니다.</p></Rise>
         </section>
+
+        {/* 맺음 — 처음 첫 화면 3장 */}
+        <Closing />
 
         {/* 08 문의 */}
         <section id="contact" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-deep)" }}>
