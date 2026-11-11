@@ -334,7 +334,12 @@ export default function GanghwaSite() {
         {/* 06 친환경 채굴 */}
         <section id="eco" className="pt-14 pb-14" style={{ background: "var(--gw-paper)" }}>
           <div className="px-6"><Head no="06" wm="ECO" en="Eco Mining & ESG" sub="노천 채굴이 아닌 갱도·터널식 채굴로 경관과 산림 훼손을 줄이는 것을 목표로 합니다.">땅 위를 지키는<br />터널식 채굴 구상</Head></div>
-          <Photo src={IMG("tunnel")} alt="터널식 채굴 갱구 참고 이미지" className="h-[240px]" cap="터널식 채굴 참고 이미지" />
+          <div className="relative h-[560px] overflow-hidden bg-black">
+            <video src="/ganghwa/tunnel.mp4" poster="/ganghwa/tunnel-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="숲 아래 갱구로 들어가 조명이 켜진 터널 안으로 이어지는 장면 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-x-0 bottom-0 h-28" style={{ background: "linear-gradient(180deg,transparent,rgba(8,26,48,.75))" }} />
+            <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
+            <p className="absolute inset-x-0 bottom-4 px-6 text-[15px] font-bold leading-[1.5] text-white">숲은 그대로, 채굴은 산 안에서.</p>
+          </div>
           <div className="px-6">
             <div className="mt-5 grid gap-2.5">
               {[["표토층 보존", "지표를 유지하고 지하로 채굴하는 방식 (달성 여부 미검증)"], ["소음·분진 저감", "밀폐형 시스템 도입 구상 (성능 미검증)"], ["자연 배수구조 활용", "지형을 따르는 배수 계획"], ["해안 규제", "해안 50m 관련 규제 적합성 검토 필요"]].map(([a, b], i) => (
