@@ -263,7 +263,7 @@ const SLIDES: Slide[] = [
           {["강화 장석광산 기반", "조력발전 인프라", "소재 플랫폼"].map((t, i) => <motion.span key={t} className={`block ${i === 2 ? "goldtext" : ""}`} initial={{ y: "110%" }} animate={{ y: "0%" }} transition={{ duration: 1, delay: 0.3 + i * 0.14, ease: EASE }}>{t}</motion.span>)}
         </h1>
         <It><p className="mt-4 text-[12.5px] leading-[1.8]" style={{ color: SUB }}>PART 1 프로젝트 본질 · PART 2 금융 구조(가정)<br />PART 3 ESG · 공공성</p></It>
-        <It><p className="mt-5 border-t pt-3 text-[11.5px]" style={{ borderColor: "var(--k-line)", color: SUB }}>(주)에이치앤엘 파트너스 · H&amp;L PARTNERS</p></It>
+        <It><p className="mt-5 border-t pt-3 text-[11.5px]" style={{ borderColor: "var(--k-line)", color: SUB }}>(주)에이치엔엘파트너스 · H&amp;L PARTNERS</p></It>
         <It><p className="hint mt-3 text-[12px] font-bold" style={{ color: "var(--k-champ)" }}>옆으로 밀어 넘겨 보세요 →</p></It>
       </S>
     </Body>
@@ -953,7 +953,7 @@ const SLIDES: Slide[] = [
           {["국가 에너지 안보 및 탄소중립 정책 완벽 부합", "친환경 현지 조달을 통한 독보적 ESG 달성", "SPC & 상장사 CB 구조를 통한 투자 안정성 극대화"].map((t) => <It key={t} className="flex gap-2"><span style={{ color: GOLD }}>✓</span><span>{t}</span></It>)}
         </div>
         <It><p className="serif mt-5 text-[15px] font-bold leading-[1.7]" style={{ color: "var(--k-champ)" }}>본 프로젝트는 압도적 수익성과 국가적 명분을 동시에 달성하는 대체 불가능한 기회입니다. 대한민국의 에너지 지형을 바꾸는 위대한 여정에 귀하를 초대합니다.</p></It>
-        <It><p className="mt-5 border-t pt-3 text-[11px] leading-[1.7]" style={{ borderColor: "var(--k-line)", color: SUB }}>(주)에이치앤엘 파트너스 · H&amp;L PARTNERS<br />{ASM_NOTE}</p></It>
+        <It><p className="mt-5 border-t pt-3 text-[11px] leading-[1.7]" style={{ borderColor: "var(--k-line)", color: SUB }}>(주)에이치엔엘파트너스 · H&amp;L PARTNERS<br />{ASM_NOTE}</p></It>
       </S>
     </Body>
   ) },

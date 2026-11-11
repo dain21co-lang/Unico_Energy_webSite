@@ -205,7 +205,7 @@ export default function GanghwaSite() {
             <Rise>
               <p className="mt-7 text-[17px] font-bold leading-[1.7]">한 걸음씩, 바르게 가겠습니다.<br />지켜봐 주시고 함께해 주십시오.</p>
               <div className="mt-6 flex items-end justify-between border-t pt-4" style={{ borderColor: "rgba(255,255,255,.18)" }}>
-                <div><div className="text-[11.5px]" style={{ color: "#9fb3c8" }}>(주)에이치앤엘 파트너스 회장</div><div className="mt-0.5 text-[24px] font-bold tracking-[0.3em]">이봉수</div></div>
+                <div><div className="text-[11.5px]" style={{ color: "#9fb3c8" }}>(주)에이치엔엘파트너스 대표이사</div><div className="mt-0.5 text-[24px] font-bold tracking-[0.3em]">이봉수</div></div>
                 <span className="gw-en text-[10px] font-bold text-white/50">H&amp;L Partners</span>
               </div>
             </Rise>
@@ -381,11 +381,12 @@ export default function GanghwaSite() {
         <section id="contact" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-deep)" }}>
           <Head no="08" wm="CONTACT" en="Contact" dark sub="사업 제휴와 투자 검토 문의를 받습니다.">문의</Head>
           <dl className="grid gap-px text-[13.5px]" style={{ background: "rgba(255,255,255,.12)" }}>
-            {[["기획·자문", "(주)에이치앤엘 파트너스 · H&L Partners"], ["담당", "이봉수"], ["이메일", "ybssby@naver.com"], ["웹사이트", "www.handl.top"], ["소재지", "인천광역시 강화군 화도면 온수리 일대"]].map(([k, v]) => (
-              <div key={k} className="grid grid-cols-[84px_1fr] gap-3 px-4 py-3 text-white" style={{ background: "var(--gw-deep)" }}><dt className="font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</dt><dd className="leading-[1.6]">{v}</dd></div>
+            {[["회사", "(주)에이치엔엘파트너스 · H&L Partners"], ["대표이사", "이봉수"], ["전화", "010-7213-0060"], ["이메일", "ybssby8@gmail.com"], ["웹사이트", "www.handl.top"], ["주소", "서울시 강남구 논현로79길 56, 3층 (역삼동 741-41)"], ["광산 소재지", "인천광역시 강화군 화도면 온수리 일대"]].map(([k, v]) => (
+              <div key={k} className="grid grid-cols-[88px_1fr] gap-3 px-4 py-3 text-white" style={{ background: "var(--gw-deep)" }}><dt className="font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</dt><dd className="leading-[1.6]">{v}</dd></div>
             ))}
           </dl>
-          <a href="mailto:ybssby@naver.com?subject=%EA%B0%95%ED%99%94%20%EC%A0%9C1%EA%B4%91%EC%82%B0%20%EC%82%AC%EC%97%85%20%EB%AC%B8%EC%9D%98" className="mt-5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "var(--gw-copper)", color: "#fff" }}>이메일로 문의하기</a>
+          <a href="tel:01072130060" className="mt-5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "#fff", color: "var(--gw-ink)" }}>전화로 문의하기</a>
+          <a href="mailto:ybssby8@gmail.com?subject=%EA%B0%95%ED%99%94%20%EC%A0%9C1%EA%B4%91%EC%82%B0%20%EC%82%AC%EC%97%85%20%EB%AC%B8%EC%9D%98" className="mt-2.5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "var(--gw-copper)", color: "#fff" }}>이메일로 문의하기</a>
           <a href="/m3k8fz1" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
             <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Investment Memorandum</span><span className="mt-0.5 block text-[15px] font-bold">투자 검토 자료 보기</span><span className="block text-[11.5px] text-white/60">45장 · 옆으로 넘겨 보는 문서 (수치와 금융 구조는 가정)</span></span>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8fc4f5" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg>
