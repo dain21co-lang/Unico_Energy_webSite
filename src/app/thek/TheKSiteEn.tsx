@@ -651,6 +651,12 @@ export default function TheKSiteEn() {
           <div className="border p-3" style={{ borderColor: "var(--tk-line)" }}><FloorSwap after={after} /></div>
           <p className="mt-2 text-[11px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>Phase 1 turns floors 3–4 (about 950㎡) into around 40 rooms. Confirmed by the owner: floors 2–4 can be vacated, and 5F becomes a play floor with karaoke and billiards.</p>
           <FloorTour />
+          <div className="mt-10">
+            <div className="tk-en text-[10.5px] font-bold" style={{ color: "var(--tk-coral)" }}>DESIGN STORY</div>
+            <div className="text-[19px] font-bold" style={{ color: "var(--tk-deep)" }}>From a single line to a place to stay</div>
+            <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>How one sketch becomes a building, and a light at the entrance. 2 min 7 sec (Korean captions).</p>
+            <FilmPlayer src="/thek/video/sketch.mp4" poster="/thek/video/sketch-poster.webp" className="mt-3" badgeBottom />
+          </div>
         </section>
 
         {/* 건물 갤러리 띠 */}
@@ -1018,6 +1024,18 @@ export default function TheKSiteEn() {
           </a>
 
                   </section>
+
+        {/* 엔딩 영상 */}
+        <section className="relative overflow-hidden bg-black" style={{ aspectRatio: "9 / 14" }}>
+          <video src="/thek/video/ending.mp4" poster="/thek/video/ending-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="THE K Smart Hostel at night (AI sample video)" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 100%" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(8,26,24,.82) 0%,rgba(8,26,24,.25) 38%,rgba(8,26,24,0) 60%,#081a18 100%)" }} />
+          <div className="absolute inset-x-0 top-0 flex flex-col items-center px-6 pt-12 text-center">
+            <TheKLogo width={150} variant="dark" tag="SMART HOSTEL" />
+            <Rise delay={0.2}><p className="mt-5 text-[15px] leading-[1.7]" style={{ color: "#c3d6d2" }}>Geumchon, Paju — where your day comes to rest.</p></Rise>
+            <Rise delay={0.35}><p className="text-[19px] font-bold leading-[1.6] text-white">Tonight, too, we'll leave the light on.</p></Rise>
+          </div>
+          <span className="absolute bottom-3 left-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI video · sample</span>
+        </section>
 
         <footer className="px-6 pt-10 pb-12" style={{ background: "#081a18", color: "#86a39f" }}>
           <TheKLogo width={130} variant="dark" tag="SMART HOSTEL" />

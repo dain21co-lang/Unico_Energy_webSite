@@ -651,6 +651,12 @@ export default function TheKSite() {
           <div className="border p-3" style={{ borderColor: "var(--tk-line)" }}><FloorSwap after={after} /></div>
           <p className="mt-2 text-[11px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>3·4층(약 950㎡)을 40실 안팎의 객실로 바꾸는 1단계 방안입니다. 소유주 측 확인: 2·3·4층 명도 가능, 5층은 노래방·당구장 등이 모이는 놀이층으로.</p>
           <FloorTour />
+          <div className="mt-10">
+            <div className="tk-en text-[10.5px] font-bold" style={{ color: "var(--tk-coral)" }}>DESIGN STORY</div>
+            <div className="text-[19px] font-bold" style={{ color: "var(--tk-deep)" }}>한 장의 선에서, 머무름의 미래로</div>
+            <p className="mt-1.5 text-[12.5px] leading-[1.6]" style={{ color: "var(--tk-sub)" }}>스케치 한 장이 건물이 되고, 입구의 불빛이 되기까지. 2분 7초.</p>
+            <FilmPlayer src="/thek/video/sketch.mp4" poster="/thek/video/sketch-poster.webp" className="mt-3" badgeBottom />
+          </div>
         </section>
 
         {/* 건물 갤러리 띠 */}
@@ -1155,6 +1161,18 @@ export default function TheKSite() {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* 엔딩 영상 */}
+        <section className="relative overflow-hidden bg-black" style={{ aspectRatio: "9 / 14" }}>
+          <video src="/thek/video/ending.mp4" poster="/thek/video/ending-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="더케이 스마트호스텔 야경 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 100%" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(8,26,24,.82) 0%,rgba(8,26,24,.25) 38%,rgba(8,26,24,0) 60%,#081a18 100%)" }} />
+          <div className="absolute inset-x-0 top-0 flex flex-col items-center px-6 pt-12 text-center">
+            <TheKLogo width={150} variant="dark" tag="SMART HOSTEL" />
+            <Rise delay={0.2}><p className="mt-5 text-[15px] leading-[1.7]" style={{ color: "#c3d6d2" }}>파주 금촌, 당신의 하루가 머무는 곳.</p></Rise>
+            <Rise delay={0.35}><p className="text-[19px] font-bold leading-[1.6] text-white">오늘 밤도 불을 켜 두겠습니다.</p></Rise>
+          </div>
+          <span className="absolute bottom-3 left-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 영상 · 예시</span>
         </section>
 
         <footer className="px-6 pt-10 pb-12" style={{ background: "#081a18", color: "#86a39f" }}>
