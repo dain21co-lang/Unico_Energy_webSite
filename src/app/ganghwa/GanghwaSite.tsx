@@ -89,10 +89,13 @@ function MapArt() {
   );
 }
 
+/* 첫 화면 영상 「돌 하나의 여정」 3구간 — 구간마다 문구가 바뀌고, 번호 탭을 누르면 그 구간으로 이동 */
+const SEG = [0, 9.7, 19.1];
+const SEG_END = 28.8;
 const HERO = [
-  { img: "hero", pos: "50% 55%", alt: "조력발전 방조제 참고 이미지 (AI)", cap: "조력발전 방조제 참고 이미지 · AI", en: "Infrastructure Materials", t: ["수도권에서 가장 가까운", "장석 광산,", "강화 제1광산"], d: "장석 생산에서 골재, 인프라 소재까지. 조력발전·송도 매립 수요와 연계하는 사업 구상입니다." },
-  { img: "site", pos: "50% 60%", alt: "강화군 화도면 온수리 일대 전경", cap: "강화군 온수리 일대 전경", en: "Ganghwa · Incheon", t: ["인천 강화,", "온수리에서", "시작합니다"], d: "2013년 광업권이 설정된 강화 제1광산. 인천국제공항과 송도가 가까운 자리입니다." },
-  { img: "tunnel", pos: "50% 50%", alt: "터널식 채굴 갱구 참고 이미지", cap: "터널식 채굴 참고 이미지", en: "Eco Tunnel Mining", t: ["땅 위는 그대로,", "채굴은", "터널 안에서"], d: "노천 채굴 대신 갱도·터널식 채굴로 경관과 산림 훼손을 줄이는 방식을 구상합니다." },
+  { en: "Ganghwa Mine No.1", t: ["강화의 산이", "오랜 시간 품어 온 돌,", "장석"], d: "인천 강화 온수리. 수도권에서 가장 가까운 장석 광산입니다." },
+  { en: "Feldspar · Glass · Ceramics", t: ["그 돌은", "유리와 도자기가", "되고"], d: "장석은 유리와 세라믹의 원료입니다. 사업은 원물 생산에서 시작합니다." },
+  { en: "Infrastructure Materials", t: ["바다를 막는", "방조제의 돌이", "됩니다"], d: "조력발전·송도 매립 수요와 연계하는 인프라 소재 사업 구상입니다." },
 ];
 const GREETING = [
   "강화의 산은 오랜 시간 그 자리에서 장석을 품어 왔습니다. 저희는 그 자원이 유리와 도자기가 되고, 바다를 막는 방조제의 돌이 되어, 우리 생활을 받치는 기반으로 쓰이기를 바랍니다.",
@@ -121,7 +124,15 @@ export default function GanghwaSite() {
   const [esg, setEsg] = useState(0);
   const [top, setTop] = useState(false);
   const [hs, setHs] = useState(0);
-  useEffect(() => { const id = setTimeout(() => setHs((h) => (h + 1) % 3), 6000); return () => clearTimeout(id); }, [hs]);
+  const [hp, setHp] = useState(0);
+  const heroV = useRef<HTMLVideoElement>(null);
+  const onHeroTime = () => {
+    const v = heroV.current; if (!v) return;
+    const s = v.currentTime; const i = s < SEG[1] ? 0 : s < SEG[2] ? 1 : 2;
+    const end = i < 2 ? SEG[i + 1] : SEG_END;
+    setHs((h) => (h === i ? h : i)); setHp(Math.min(1, Math.max(0, (s - SEG[i]) / (end - SEG[i]))));
+  };
+  const seekHero = (i: number) => { const v = heroV.current; setHs(i); setHp(0); if (v) { v.currentTime = SEG[i] + 0.05; v.play().catch(() => {}); } };
   const go = (id: string) => { const e = document.getElementById(id); if (e) window.scrollTo({ top: e.getBoundingClientRect().top + window.scrollY - 92, behavior: "smooth" }); };
   useEffect(() => {
     const on = () => {
@@ -157,27 +168,23 @@ export default function GanghwaSite() {
           </nav>
         </header>
 
-        {/* 첫 화면 — 번호 탭으로 넘기는 3장 (삼표식) */}
+        {/* 첫 화면 — 영상 3구간 + 번호 탭 (삼표식) */}
         <section className="relative h-[80dvh] min-h-[580px] overflow-hidden" style={{ background: "var(--gw-deep)" }}>
-          <AnimatePresence initial={false}>
-            <motion.div key={hs} className="absolute inset-0" initial={{ clipPath: "inset(0 0 0 100%)" }} animate={{ clipPath: "inset(0 0 0 0%)" }} exit={{ clipPath: "inset(0 0 0 0%)", zIndex: -1 }} transition={{ duration: 0.9, ease: EASE }}>
-              <motion.img src={IMG(HERO[hs].img)} alt={HERO[hs].alt} className="h-full w-full object-cover" style={{ objectPosition: HERO[hs].pos }} initial={{ scale: 1.14 }} animate={{ scale: 1 }} transition={{ duration: 7, ease: "easeOut" }} />
-            </motion.div>
-          </AnimatePresence>
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,64,.45) 0%, rgba(12,35,64,.1) 30%, rgba(12,35,64,.78) 66%, #0c2340 100%)" }} />
-          <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>{HERO[hs].cap}</span>
+          <video ref={heroV} src="/ganghwa/hero.mp4" poster="/ganghwa/hero-poster.webp" autoPlay muted loop playsInline preload="auto" onTimeUpdate={onHeroTime} aria-label="장석이 유리와 도자기, 방조제의 돌이 되는 과정 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,64,.45) 0%, rgba(12,35,64,.05) 28%, rgba(12,35,64,.72) 64%, #0c2340 100%)" }} />
+          <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
           <div className="absolute inset-x-0 bottom-[58px] px-6 pb-6 text-white">
-            <div className="gw-en text-[11px] font-semibold" style={{ color: "var(--gw-copper2)" }}>{HERO[hs].en}</div>
+            <div key={`e${hs}`} className="gw-en overflow-hidden text-[11px] font-semibold" style={{ color: "var(--gw-copper2)" }}><motion.span className="block" initial={{ y: "110%" }} animate={{ y: "0%" }} transition={{ duration: 0.7, ease: EASE }}>{HERO[hs].en}</motion.span></div>
             <h1 key={hs} className="mt-3 text-[31px] font-bold leading-[1.3] tracking-tight">
-              {HERO[hs].t.map((x, i) => <span key={x} className="block overflow-hidden"><motion.span className="block" initial={{ y: "108%" }} animate={{ y: "0%" }} transition={{ duration: 0.9, delay: 0.15 + i * 0.13, ease: EASE }} style={{ color: i === HERO[hs].t.length - 1 ? "var(--gw-copper2)" : undefined }}>{x}</motion.span></span>)}
+              {HERO[hs].t.map((x, i) => <span key={x} className="block overflow-hidden"><motion.span className="block" initial={{ y: "108%" }} animate={{ y: "0%" }} transition={{ duration: 0.9, delay: 0.1 + i * 0.13, ease: EASE }} style={{ color: i === HERO[hs].t.length - 1 ? "var(--gw-copper2)" : undefined }}>{x}</motion.span></span>)}
             </h1>
-            <motion.p key={`p${hs}`} className="mt-3 text-[14px] leading-[1.75] text-white/80" initial={{ y: 20 }} animate={{ y: 0 }} transition={{ duration: 0.8, delay: 0.5, ease: EASE }}>{HERO[hs].d}</motion.p>
+            <motion.p key={`p${hs}`} className="mt-3 text-[14px] leading-[1.75] text-white/80" initial={{ y: 20 }} animate={{ y: 0 }} transition={{ duration: 0.8, delay: 0.45, ease: EASE }}>{HERO[hs].d}</motion.p>
           </div>
           <div className="absolute inset-x-0 bottom-0 grid grid-cols-3">
             {HERO.map((x, i) => (
-              <button key={x.img} onClick={() => setHs(i)} className="relative h-[58px] text-[13px] font-bold" style={{ background: hs === i ? "#fff" : "rgba(8,26,48,.86)", color: hs === i ? "var(--gw-copper)" : "#fff" }} aria-label={`${i + 1}번째 화면`}>
+              <button key={x.en} onClick={() => seekHero(i)} className="relative h-[58px] text-[13px] font-bold" style={{ background: hs === i ? "#fff" : "rgba(8,26,48,.86)", color: hs === i ? "var(--gw-copper)" : "#fff" }} aria-label={`${i + 1}번째 장면`}>
                 0{i + 1}
-                {hs === i && <motion.span key={`b${hs}`} className="absolute inset-x-0 top-0 h-[3px] origin-left" style={{ background: "var(--gw-copper)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 6, ease: "linear" }} />}
+                {hs === i && <span className="absolute inset-x-0 top-0 h-[3px] origin-left" style={{ background: "var(--gw-copper)", transform: `scaleX(${hp})` }} />}
               </button>
             ))}
           </div>
@@ -395,7 +402,7 @@ export default function GanghwaSite() {
 
         <footer className="px-6 pt-8 pb-12" style={{ background: "#081a30", color: "#8fa0b0" }}>
           <div className="text-[18px] font-black text-white">강화 제1광산</div>
-          <p className="mt-3 text-[11.5px] leading-[1.75]">사업 준비 단계에서 내용을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면과 방조제 사진은 AI로 만든 참고 이미지이고, 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 대표 사진은 실제 사진을 바탕으로 배경을 연출했습니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
+          <p className="mt-3 text-[11.5px] leading-[1.75]">사업 준비 단계에서 내용을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면 영상과 방조제 사진은 AI로 만든 예시이며, 영상 속 인물은 사업 관계자를 모델로 연출한 장면입니다. 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 대표 사진은 실제 사진을 바탕으로 배경을 연출했습니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
           <p className="gw-en mt-5 text-[10px]">© 2026 Ganghwa Mine No.1</p>
         </footer>
 
