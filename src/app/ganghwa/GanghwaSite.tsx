@@ -91,7 +91,7 @@ function MapArt() {
 
 /* 첫 화면 영상 「돌 하나의 여정」 3구간 — 구간마다 문구가 바뀌고, 번호 탭을 누르면 그 구간으로 이동 */
 const SEG = [0, 9.7, 19.1];
-const SEG_END = 28.8;
+const SEG_END = 28.75;
 const HERO = [
   { en: "Ganghwa Mine No.1", t: ["강화의 산이", "오랜 시간 품어 온 돌,", "장석"], d: "인천 강화 온수리. 수도권에서 가장 가까운 장석 광산입니다." },
   { en: "Feldspar · Glass · Ceramics", t: ["그 돌은", "유리와 도자기가", "되고"], d: "장석은 유리와 세라믹의 원료입니다. 사업은 원물 생산에서 시작합니다." },
@@ -255,7 +255,7 @@ export default function GanghwaSite() {
 
         {/* 첫 화면 — 영상 3구간 + 번호 탭 (삼표식) */}
         <section className="relative h-[80dvh] min-h-[580px] overflow-hidden" style={{ background: "var(--gw-deep)" }}>
-          <video ref={heroV} src="/ganghwa/hero.mp4" poster="/ganghwa/hero-poster.webp" autoPlay muted loop playsInline preload="auto" onTimeUpdate={onHeroTime} aria-label="장석이 유리와 도자기, 방조제의 돌이 되는 과정 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} />
+          <video ref={heroV} src="/ganghwa/hero2.mp4" poster="/ganghwa/hero-poster.webp" autoPlay muted loop playsInline preload="auto" onTimeUpdate={onHeroTime} aria-label="장석이 유리와 도자기, 방조제의 돌이 되는 과정 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,64,.45) 0%, rgba(12,35,64,.05) 28%, rgba(12,35,64,.72) 64%, #0c2340 100%)" }} />
           <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
           <div className="absolute inset-x-0 bottom-[58px] px-6 pb-6 text-white">
