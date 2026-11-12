@@ -12,7 +12,7 @@ import { motion, AnimatePresence, animate, useInView } from "framer-motion";
  */
 const IMG = (f: string) => `/ganghwa/${f}.webp`;
 const EASE = [0.16, 1, 0.3, 1] as const;
-const NAV: [string, string][] = [["about", "광산 소개"], ["mineral", "광물"], ["location", "입지"], ["demand", "수요"], ["business", "사업 모델"], ["eco", "친환경 채굴"], ["roadmap", "로드맵"], ["contact", "문의"]];
+const NAV: [string, string][] = [["about", "광산 소개"], ["mineral", "광물"], ["location", "입지"], ["demand", "수요"], ["business", "사업 모델"], ["eco", "친환경 채굴"], ["roadmap", "로드맵"], ["docs", "자료"], ["contact", "문의"]];
 
 function Rise({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   return <motion.div className={className} initial={{ y: 28 }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.8, delay, ease: EASE }}>{children}</motion.div>;
@@ -285,6 +285,12 @@ export default function GanghwaSite() {
           ))}
         </section>
 
+        {/* 자료 바로보기 */}
+        <section className="grid grid-cols-2 gap-px" style={{ background: "#0c2340" }}>
+          <a href="/gwprofile" className="flex items-center justify-between bg-white px-4 py-4 text-[13.5px] font-bold" style={{ color: "var(--gw-ink)" }}><span className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" /></svg>회사소개서</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></a>
+          <a href="/gwplan" className="flex items-center justify-between px-4 py-4 text-[13.5px] font-bold" style={{ background: "#10263f", color: "#e3cf9f" }}><span className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M4 19V9 M10 19V5 M16 19v-7 M22 19H2" /></svg>IR 자료</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></a>
+        </section>
+
         {/* 인사말 */}
         <section className="pt-12 pb-14" style={{ background: "var(--gw-deep)" }}>
           <div className="relative mx-6"><Photo src={IMG("chairman-office")} alt="오세흠 회장" className="h-[440px]" pos="50% 26%" /><div className="pointer-events-none absolute inset-x-0 bottom-0 h-36" style={{ background: "linear-gradient(180deg,transparent,rgba(12,35,64,.9))" }} /><div className="absolute bottom-4 left-5 text-white"><div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Chairman</div><div className="mt-1 text-[12px]" style={{ color: "#c9d6e4" }}>(주)에이치엔엘파트너스 회장</div><div className="mt-0.5 text-[22px] font-bold tracking-[0.2em]">오세흠<span className="ml-1 text-[12px] tracking-normal" style={{ color: "#c9d6e4" }}>(종국)</span></div></div><span className="absolute right-2 top-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 연출 · 본인 사진 기반</span></div>
@@ -483,12 +489,30 @@ export default function GanghwaSite() {
           <Rise><p className="mt-2 border-l-2 py-1 pl-4 text-[16px] font-bold leading-[1.6]" style={{ borderColor: "var(--gw-copper)" }}>자원의 본질을 혁신하여,<br />지속 가능한 인프라의 미래를 짓습니다.</p></Rise>
         </section>
 
+        {/* 자료실 */}
+        <section id="docs" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-paper)" }}>
+          <Head no="08" wm="DOCS" en="Documents" sub="휴대폰에서 좌우로 넘겨 보거나, 가로로 돌려 크게 볼 수 있습니다.">회사소개서와 IR 자료</Head>
+          <a href="/gwprofile" className="block overflow-hidden border bg-white" style={{ borderColor: "var(--gw-line)" }}>
+            <img src="/ganghwa/profile-cover.webp" alt="회사소개서 표지" className="aspect-video w-full object-cover" />
+            <div className="flex items-center justify-between px-4 py-3"><span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper)" }}>Company Profile</span><span className="block text-[16px] font-bold">(주)에이치엔엘파트너스 회사소개서</span></span><span className="text-[12px] font-bold" style={{ color: "var(--gw-sub)" }}>15장</span></div>
+          </a>
+          <div className="mt-2.5 grid grid-cols-2 gap-2.5">
+            <a href="/gwprofile" className="flex items-center justify-center gap-1.5 py-3.5 text-[14px] font-bold text-white" style={{ background: "var(--gw-copper)" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" /></svg>바로보기</a>
+            <a href="/gwprofile/HnL_company_profile.pdf" download="에이치엔엘파트너스_회사소개서.pdf" className="flex items-center justify-center gap-1.5 border bg-white py-3.5 text-[14px] font-bold" style={{ borderColor: "var(--gw-line)", color: "var(--gw-ink)" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M12 4v11 M7 10l5 5 5-5 M5 20h14" /></svg>PDF 내려받기</a>
+          </div>
+          <a href="/gwplan" className="mt-6 flex items-center gap-4 p-4 text-white" style={{ background: "#10263f", boxShadow: "inset 0 0 0 1px rgba(201,169,110,.55)" }}>
+            <img src="/ganghwa/plan-cover.webp" alt="" className="h-[72px] w-[128px] shrink-0 object-cover" />
+            <span className="min-w-0 flex-1"><span className="gw-en block text-[10px] font-bold" style={{ color: "#e3cf9f" }}>Investment Memorandum</span><span className="mt-0.5 block text-[16px] font-bold">IR 자료 바로보기</span><span className="block text-[11.5px] text-white/60">사업 기획(안) 45장 · 수치와 금융 구조는 가정</span></span>
+            <span style={{ color: "#e3cf9f" }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></span>
+          </a>
+        </section>
+
         {/* 맺음 — 처음 첫 화면 3장 */}
         <Closing />
 
         {/* 08 문의 */}
         <section id="contact" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-deep)" }}>
-          <Head no="08" wm="CONTACT" en="Contact" dark sub="사업 제휴와 투자 검토 문의를 받습니다.">문의</Head>
+          <Head no="09" wm="CONTACT" en="Contact" dark sub="사업 제휴와 투자 검토 문의를 받습니다.">문의</Head>
           <dl className="grid gap-px text-[13.5px]" style={{ background: "rgba(255,255,255,.12)" }}>
             {[["회사", "(주)에이치엔엘파트너스 · H&L Partners"], ["회장", "오세흠(종국)"], ["문의 담당", "이봉수"], ["전화", "010-7213-0060"], ["이메일", "ybssby8@gmail.com"], ["웹사이트", "www.handl.top"], ["주소", "서울시 강남구 논현로79길 56, 3층 (역삼동 741-41)"], ["광산 소재지", "인천광역시 강화군 화도면 온수리 일대"]].map(([k, v]) => (
               <div key={k} className="grid grid-cols-[88px_1fr] gap-3 px-4 py-3 text-white" style={{ background: "var(--gw-deep)" }}><dt className="font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</dt><dd className="leading-[1.6]">{v}</dd></div>
@@ -496,8 +520,8 @@ export default function GanghwaSite() {
           </dl>
           <a href="tel:01072130060" className="mt-5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "#fff", color: "var(--gw-ink)" }}>전화로 문의하기</a>
           <a href="mailto:ybssby8@gmail.com?subject=%EA%B0%95%ED%99%94%20%EC%A0%9C1%EA%B4%91%EC%82%B0%20%EC%82%AC%EC%97%85%20%EB%AC%B8%EC%9D%98" className="mt-2.5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "var(--gw-copper)", color: "#fff" }}>이메일로 문의하기</a>
-          <a href="/m3k8fz1" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
-            <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Investment Memorandum</span><span className="mt-0.5 block text-[15px] font-bold">투자 검토 자료 보기</span><span className="block text-[11.5px] text-white/60">45장 · 옆으로 넘겨 보는 문서 (수치와 금융 구조는 가정)</span></span>
+          <a href="/gwplan" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
+            <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Investment Memorandum</span><span className="mt-0.5 block text-[15px] font-bold">IR 자료 보기</span><span className="block text-[11.5px] text-white/60">사업 기획(안) 45장 (수치와 금융 구조는 가정)</span></span>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8fc4f5" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg>
           </a>
         </section>
