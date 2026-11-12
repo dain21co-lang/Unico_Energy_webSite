@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     return [
       { source: "/sim/dy-cb", destination: "/sim/dy-cb.html" },
       { source: "/sim/seobu", destination: "/sim/seobu.html" },
+      { source: "/gwplan", destination: "/gwplan/index.html" },
     ];
   },
 };
