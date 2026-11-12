@@ -287,7 +287,7 @@ export default function GanghwaSite() {
 
         {/* 인사말 */}
         <section className="pt-12 pb-14" style={{ background: "var(--gw-deep)" }}>
-          <div className="mx-6 flex items-end gap-4"><Photo src={IMG("chairman-oh")} alt="오세흠 회장" className="h-[218px] w-[168px] shrink-0" pos="50% 30%" /><div className="pb-1 text-white"><div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Chairman</div><div className="mt-1 text-[12px]" style={{ color: "#9fb3c8" }}>(주)에이치엔엘파트너스 회장</div><div className="mt-0.5 text-[22px] font-bold tracking-[0.2em]">오세흠</div><div className="text-[12px]" style={{ color: "#9fb3c8" }}>(종국)</div></div></div>
+          <div className="relative mx-6"><Photo src={IMG("chairman-office")} alt="오세흠 회장" className="h-[440px]" pos="50% 26%" /><div className="pointer-events-none absolute inset-x-0 bottom-0 h-36" style={{ background: "linear-gradient(180deg,transparent,rgba(12,35,64,.9))" }} /><div className="absolute bottom-4 left-5 text-white"><div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Chairman</div><div className="mt-1 text-[12px]" style={{ color: "#c9d6e4" }}>(주)에이치엔엘파트너스 회장</div><div className="mt-0.5 text-[22px] font-bold tracking-[0.2em]">오세흠<span className="ml-1 text-[12px] tracking-normal" style={{ color: "#c9d6e4" }}>(종국)</span></div></div><span className="absolute right-2 top-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 연출 · 본인 사진 기반</span></div>
           <div className="px-6 pt-7 text-white">
             <div className="gw-en text-[11px] font-bold" style={{ color: "var(--gw-copper2)" }}>Greeting · 인사말</div>
             <h2 className="mt-2.5 text-[25px] font-bold leading-[1.4] tracking-tight"><Lift>땅이 품은 것을,</Lift><Lift delay={0.12}><span style={{ color: "var(--gw-copper2)" }}>다음 세대의 기반으로</span></Lift></h2>
@@ -504,7 +504,7 @@ export default function GanghwaSite() {
 
         <footer className="px-6 pt-8 pb-12" style={{ background: "#081a30", color: "#8fa0b0" }}>
           <div className="text-[18px] font-black text-white">강화 제1광산</div>
-          <p className="mt-3 text-[11.5px] leading-[1.75]">본 홈페이지는 사업의 실제 현황이 아닌 기획(안)을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면 영상과 방조제 사진은 AI로 만든 예시이며, 영상 속 인물은 사업 관계자를 모델로 연출한 장면입니다. 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 회장 사진은 본인이 제공한 사진입니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
+          <p className="mt-3 text-[11.5px] leading-[1.75]">본 홈페이지는 사업의 실제 현황이 아닌 기획(안)을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면 영상과 방조제 사진은 AI로 만든 예시이며, 영상 속 인물은 사업 관계자를 모델로 연출한 장면입니다. 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 회장 사진은 본인이 제공한 사진을 바탕으로 사무실 장면을 AI로 연출했습니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
           <p className="gw-en mt-5 text-[10px]">© 2026 Ganghwa Mine No.1</p>
         </footer>
 
