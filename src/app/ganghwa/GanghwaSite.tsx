@@ -295,10 +295,7 @@ export default function GanghwaSite() {
         <section className="pt-12 pb-14" style={{ background: "var(--gw-deep)" }}>
           <div className="relative mx-6"><Photo src={IMG("chairman-office")} alt="오세흠 회장" className="h-[440px]" pos="50% 26%" /><div className="pointer-events-none absolute inset-x-0 bottom-0 h-44" style={{ background: "linear-gradient(180deg,transparent,rgba(12,35,64,.92))" }} /><div className="absolute bottom-5 left-5 right-5 text-white"><div className="gw-en text-[11px] font-bold" style={{ color: "var(--gw-copper2)" }}>Greeting · 인사말</div><h2 className="mt-2 text-[25px] font-bold leading-[1.4] tracking-tight"><Lift>땅이 품은 것을,</Lift><Lift delay={0.12}><span style={{ color: "var(--gw-copper2)" }}>다음 세대의 기반으로</span></Lift></h2></div><span className="absolute right-2 top-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 연출 · 본인 사진 기반</span></div>
           <div className="px-6 pt-7 text-white">
-            <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Chairman</div>
-            <div className="mt-1 text-[12px]" style={{ color: "#c9d6e4" }}>(주)에이치엔엘파트너스 회장</div>
-            <div className="mt-0.5 text-[22px] font-bold tracking-[0.2em]">오세흠<span className="ml-1 text-[12px] tracking-normal" style={{ color: "#c9d6e4" }}>(종국)</span></div>
-            <div className="mt-5 grid gap-4">
+            <div className="grid gap-4">
               {GREETING.map((x, i) => <Rise key={i} delay={i * 0.06}><p className="text-[14.5px] leading-[1.95]" style={{ color: "#c9d6e4" }}>{x}</p></Rise>)}
             </div>
             <Rise>
