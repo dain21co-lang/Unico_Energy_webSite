@@ -1,0 +1,28 @@
+/* 신촌 세메스터하우스 — 크림 · 아이보리 · 올리브 · 웜 우드 */
+.sh {
+  --sh-cream: #f6f1e7;
+  --sh-ivory: #fbf8f2;
+  --sh-ink: #2b2720;
+  --sh-char: #4a443a;
+  --sh-sub: #7d7466;
+  --sh-line: #e6dfd0;
+  --sh-olive: #5c6838;
+  --sh-olive2: #3e4826;
+  --sh-wood: #c9a678;
+  --sh-glow: #e8c389;
+  background: var(--sh-ivory);
+  color: var(--sh-ink);
+  min-height: 100vh;
+  width: 100%;
+  word-break: keep-all;
+  overflow-x: hidden;
+}
+.sh .sh-serif { font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; }
+.sh .sh-en { letter-spacing: 0.2em; }
+.sh .sh-noscroll { scrollbar-width: none; }
+.sh .sh-noscroll::-webkit-scrollbar { display: none; }
+@keyframes sh-cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+.sh .sh-cue { animation: sh-cue 1.8s ease-in-out infinite; }
+@keyframes sh-type { 0%, 100% { transform: scale(0.6); } 50% { transform: scale(1); } }
+.sh .sh-dot { animation: sh-type 1s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .sh .sh-cue, .sh .sh-dot { animation: none; } }
