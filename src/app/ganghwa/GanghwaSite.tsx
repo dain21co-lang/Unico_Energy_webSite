@@ -325,6 +325,15 @@ export default function GanghwaSite() {
         {/* 02 광물 */}
         <section id="mineral" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-paper)" }}>
           <Head no="02" wm="MINERALS" en="Minerals" sub="하나의 광산에서 세 가지 사업을 구상합니다.">장석, 골재,<br />그리고 첨단 소재</Head>
+          <div className="relative -mx-6 mb-6 h-[560px] overflow-hidden bg-black">
+            <video src="/ganghwa/field.mp4" poster="/ganghwa/field-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="광산 현장에서 장석 원석을 돋보기로 살펴보는 장면 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-x-0 bottom-0 h-48" style={{ background: "linear-gradient(180deg,transparent,rgba(8,26,48,.6) 40%,rgba(8,26,48,.92))" }} />
+            <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
+            <div className="absolute inset-x-0 bottom-5 px-6 text-white">
+              <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>On Site · 현장의 눈</div>
+              <p className="mt-1.5 text-[17px] font-bold leading-[1.5]">돌 하나도 직접 들여다봅니다.<br />가치는 현장에서 확인합니다.</p>
+            </div>
+          </div>
           <div className="gw-snap gw-noscroll -mx-6 flex gap-3 overflow-x-auto px-6 pb-1">
             {MINERALS.map((x, i) => (
               <div key={x.k} className="relative h-[400px] w-[78%] shrink-0 overflow-hidden text-white" style={{ background: "var(--gw-deep)" }}>
