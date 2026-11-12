@@ -503,6 +503,11 @@ export default function GanghwaSite() {
             <span className="min-w-0 flex-1"><span className="gw-en block text-[10px] font-bold" style={{ color: "#e3cf9f" }}>Investment Memorandum</span><span className="mt-0.5 block text-[16px] font-bold">IR 자료 바로보기</span><span className="block text-[11.5px] text-white/60">사업 기획(안) 45장 · 수치와 금융 구조는 가정</span></span>
             <span style={{ color: "#e3cf9f" }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></span>
           </a>
+          <a href="/m3k8fz1" className="mt-2.5 flex items-center gap-4 p-4 text-white" style={{ background: "#0c1622", boxShadow: "inset 0 0 0 1px rgba(201,169,110,.35)" }}>
+            <img src="/m3k8fz1/og.jpg" alt="" className="h-[72px] w-[128px] shrink-0 object-cover" />
+            <span className="min-w-0 flex-1"><span className="gw-en block text-[10px] font-bold" style={{ color: "#e3cf9f" }}>Motion Presentation</span><span className="mt-0.5 block text-[16px] font-bold">IR 모션 프레젠테이션</span><span className="block text-[11.5px] text-white/60">세로형 45장 · 모션그래픽으로 넘겨 보는 웹 버전</span></span>
+            <span style={{ color: "#e3cf9f" }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></span>
+          </a>
         </section>
 
         {/* 맺음 — 처음 첫 화면 3장 */}
@@ -520,6 +525,10 @@ export default function GanghwaSite() {
           <a href="mailto:ybssby8@gmail.com?subject=%EA%B0%95%ED%99%94%20%EC%A0%9C1%EA%B4%91%EC%82%B0%20%EC%82%AC%EC%97%85%20%EB%AC%B8%EC%9D%98" className="mt-2.5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "var(--gw-copper)", color: "#fff" }}>이메일로 문의하기</a>
           <a href="/gwplan" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
             <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Investment Memorandum</span><span className="mt-0.5 block text-[15px] font-bold">IR 자료 보기</span><span className="block text-[11.5px] text-white/60">사업 기획(안) 45장 (수치와 금융 구조는 가정)</span></span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8fc4f5" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg>
+          </a>
+          <a href="/m3k8fz1" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
+            <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Motion Presentation</span><span className="mt-0.5 block text-[15px] font-bold">IR 모션 프레젠테이션 보기</span><span className="block text-[11.5px] text-white/60">세로형 45장 · 모션그래픽 웹 버전</span></span>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8fc4f5" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg>
           </a>
         </section>
