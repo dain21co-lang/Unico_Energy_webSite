@@ -233,7 +233,7 @@ export default function GanghwaSite() {
   return (
     <div className="gw" style={{ overflowX: "clip" }}>
       <div className="relative mx-auto w-full max-w-[480px]">
-        <div className="px-4 py-1.5 text-center text-[11px]" style={{ background: "var(--gw-deep)", color: "#aebac6" }}>사업 준비 단계의 임시 홈페이지 · 수치와 일정은 확정 전 가정입니다</div>
+        <div className="px-4 py-1.5 text-center text-[11px]" style={{ background: "var(--gw-deep)", color: "#aebac6" }}>본 홈페이지는 사업의 실제 현황이 아닌 기획(안)을 소개합니다 · 수치와 일정은 가정입니다</div>
 
         {/* 상단 바 */}
         <header className="sticky top-0 z-40 border-b" style={{ background: "rgba(255,255,255,.96)", borderColor: "var(--gw-line)", backdropFilter: "blur(10px)" }}>
@@ -287,7 +287,7 @@ export default function GanghwaSite() {
 
         {/* 인사말 */}
         <section className="pt-12 pb-14" style={{ background: "var(--gw-deep)" }}>
-          <Photo src={IMG("chairman")} alt="이봉수 회장" className="mx-6 h-[250px]" pos="62% 30%" />
+          <div className="mx-6 flex items-end gap-4"><Photo src={IMG("chairman-oh")} alt="오세흠 회장" className="h-[218px] w-[168px] shrink-0" pos="50% 30%" /><div className="pb-1 text-white"><div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Chairman</div><div className="mt-1 text-[12px]" style={{ color: "#9fb3c8" }}>(주)에이치엔엘파트너스 회장</div><div className="mt-0.5 text-[22px] font-bold tracking-[0.2em]">오세흠</div><div className="text-[12px]" style={{ color: "#9fb3c8" }}>(종국)</div></div></div>
           <div className="px-6 pt-7 text-white">
             <div className="gw-en text-[11px] font-bold" style={{ color: "var(--gw-copper2)" }}>Greeting · 인사말</div>
             <h2 className="mt-2.5 text-[25px] font-bold leading-[1.4] tracking-tight"><Lift>땅이 품은 것을,</Lift><Lift delay={0.12}><span style={{ color: "var(--gw-copper2)" }}>다음 세대의 기반으로</span></Lift></h2>
@@ -297,7 +297,7 @@ export default function GanghwaSite() {
             <Rise>
               <p className="mt-7 text-[17px] font-bold leading-[1.7]">한 걸음씩, 바르게 가겠습니다.<br />지켜봐 주시고 함께해 주십시오.</p>
               <div className="mt-6 flex items-end justify-between border-t pt-4" style={{ borderColor: "rgba(255,255,255,.18)" }}>
-                <div><div className="text-[11.5px]" style={{ color: "#9fb3c8" }}>(주)에이치엔엘파트너스 대표이사</div><div className="mt-0.5 text-[24px] font-bold tracking-[0.3em]">이봉수</div></div>
+                <div><div className="text-[11.5px]" style={{ color: "#9fb3c8" }}>(주)에이치엔엘파트너스 회장</div><div className="mt-0.5 text-[24px] font-bold tracking-[0.3em]">오세흠<span className="ml-1 text-[13px] tracking-normal" style={{ color: "#9fb3c8" }}>(종국)</span></div></div>
                 <span className="gw-en text-[10px] font-bold text-white/50">H&amp;L Partners</span>
               </div>
             </Rise>
@@ -309,7 +309,7 @@ export default function GanghwaSite() {
           <Head no="01" wm="MINE" en="The Mine" sub="강화 제1광산은 인천 강화군 화도면 온수리 일대에 위치한 장석 광산입니다. 2013년 광업권이 설정되었고, 친환경 터널식 채굴 방식의 개발을 구상하고 있습니다.">강화 제1광산 개요</Head>
           <SiteScope />
           <dl className="mt-5 border-t" style={{ borderColor: "var(--gw-line)" }}>
-            {[["자산명", "강화 제1광산"], ["법적 권리", "광업권 등록번호 79560호, 79562호 (2013년 4월 설정)"], ["위치", "인천광역시 강화군 화도면 온수리 일대"], ["개발권자", "진수웅 기술사 (한자엔지니어링)"], ["광종", "장석 (이오라이트 및 엑시톤 함유 — 원자료 기재)"], ["총 매장량", "178,185,150톤 (65,994,500㎥)"]].map(([k, v], i) => (
+            {[["자산명", "강화 제1광산"], ["법적 권리", "광업권 등록번호 79560호, 79562호 (2013년 4월 설정)"], ["위치", "인천광역시 강화군 화도면 온수리 일대"], ["개발권자", "오종국"], ["광종", "장석 (이오라이트 및 엑시톤 함유 — 원자료 기재)"], ["총 매장량", "178,185,150톤 (65,994,500㎥)"]].map(([k, v], i) => (
               <motion.div key={k} className="grid grid-cols-[84px_1fr] gap-3 border-b py-3 text-[13.5px] leading-[1.6]" style={{ borderColor: "var(--gw-line)" }} initial={{ x: -18 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}>
                 <dt className="font-bold" style={{ color: "var(--gw-copper)" }}>{k}</dt><dd>{v}</dd>
               </motion.div>
@@ -490,7 +490,7 @@ export default function GanghwaSite() {
         <section id="contact" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-deep)" }}>
           <Head no="08" wm="CONTACT" en="Contact" dark sub="사업 제휴와 투자 검토 문의를 받습니다.">문의</Head>
           <dl className="grid gap-px text-[13.5px]" style={{ background: "rgba(255,255,255,.12)" }}>
-            {[["회사", "(주)에이치엔엘파트너스 · H&L Partners"], ["대표이사", "이봉수"], ["전화", "010-7213-0060"], ["이메일", "ybssby8@gmail.com"], ["웹사이트", "www.handl.top"], ["주소", "서울시 강남구 논현로79길 56, 3층 (역삼동 741-41)"], ["광산 소재지", "인천광역시 강화군 화도면 온수리 일대"]].map(([k, v]) => (
+            {[["회사", "(주)에이치엔엘파트너스 · H&L Partners"], ["회장", "오세흠(종국)"], ["문의 담당", "이봉수"], ["전화", "010-7213-0060"], ["이메일", "ybssby8@gmail.com"], ["웹사이트", "www.handl.top"], ["주소", "서울시 강남구 논현로79길 56, 3층 (역삼동 741-41)"], ["광산 소재지", "인천광역시 강화군 화도면 온수리 일대"]].map(([k, v]) => (
               <div key={k} className="grid grid-cols-[88px_1fr] gap-3 px-4 py-3 text-white" style={{ background: "var(--gw-deep)" }}><dt className="font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</dt><dd className="leading-[1.6]">{v}</dd></div>
             ))}
           </dl>
@@ -504,7 +504,7 @@ export default function GanghwaSite() {
 
         <footer className="px-6 pt-8 pb-12" style={{ background: "#081a30", color: "#8fa0b0" }}>
           <div className="text-[18px] font-black text-white">강화 제1광산</div>
-          <p className="mt-3 text-[11.5px] leading-[1.75]">사업 준비 단계에서 내용을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면 영상과 방조제 사진은 AI로 만든 예시이며, 영상 속 인물은 사업 관계자를 모델로 연출한 장면입니다. 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 대표 사진은 실제 사진을 바탕으로 배경을 연출했습니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
+          <p className="mt-3 text-[11.5px] leading-[1.75]">본 홈페이지는 사업의 실제 현황이 아닌 기획(안)을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면 영상과 방조제 사진은 AI로 만든 예시이며, 영상 속 인물은 사업 관계자를 모델로 연출한 장면입니다. 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 회장 사진은 본인이 제공한 사진입니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
           <p className="gw-en mt-5 text-[10px]">© 2026 Ganghwa Mine No.1</p>
         </footer>
 

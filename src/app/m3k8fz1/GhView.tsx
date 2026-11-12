@@ -264,6 +264,7 @@ const SLIDES: Slide[] = [
         </h1>
         <It><p className="mt-4 text-[12.5px] leading-[1.8]" style={{ color: SUB }}>PART 1 프로젝트 본질 · PART 2 금융 구조(가정)<br />PART 3 ESG · 공공성</p></It>
         <It><p className="mt-5 border-t pt-3 text-[11.5px]" style={{ borderColor: "var(--k-line)", color: SUB }}>(주)에이치엔엘파트너스 · H&amp;L PARTNERS</p></It>
+        <It><p className="mt-3 text-[11.5px] font-bold" style={{ color: "#f0d9a8" }}>본 자료는 사업의 실제 현황이 아닌 사업 기획(안)입니다.</p></It>
         <It><p className="hint mt-3 text-[12px] font-bold" style={{ color: "var(--k-champ)" }}>옆으로 밀어 넘겨 보세요 →</p></It>
       </S>
     </Body>
@@ -272,7 +273,8 @@ const SLIDES: Slide[] = [
     <Body center>
       <S>
         <Head ey="Before You Read" t={<>이 문서를 읽기 전에</>} />
-        <div className="mt-6 grid gap-2.5">
+        <It className="mt-5 rounded-xl border p-3.5" style={{ borderColor: GOLD, background: "rgba(201,169,110,.12)" }}><p className="text-[14.5px] font-bold leading-[1.55]" style={{ color: "#f0d9a8" }}>본 자료는 사업의 실제 현황이 아닌<br />사업 기획(안)을 정리한 것입니다.</p></It>
+        <div className="mt-3 grid gap-2.5">
           <Card n="01" t="가정에 기반한 검토 자료입니다" d="매장량의 가치, 감정가, 수요, 매출·수익 전망, 금융 구조는 사업 주체가 제시한 가정입니다. '가정' 표시가 붙은 항목은 확정된 사실이 아닙니다." />
           <Card n="02" t="확인이 필요한 서류" d="광업권 등록원부, 감정평가서 원본, 성분 분석 성적서, 인허가 및 수요처 계약, 법률·회계 검토." />
           <Card n="03" t="투자 권유 문서가 아닙니다" d="이 자료는 원금이나 수익을 보장하지 않으며, 담보가 있더라도 회수 금액은 담보의 실제 처분 가치에 따라 달라집니다." />
@@ -304,7 +306,7 @@ const SLIDES: Slide[] = [
         <Head ey="Factsheet" t="강화 제1광산 개요" />
         <div className="mt-5"><Pic src={IMG("site")} alt="강화군 화도면 온수리 일대 전경" className="h-[150px] w-full" pos="50% 60%" cap="강화군 온수리 일대 전경" /></div>
         <div className="mt-3">
-          <KV rows={[["자산명", "강화 제1광산"], ["법적 권리", "광업권 등록번호 79560호, 79562호 (2013년 4월 설정)"], ["위치", "인천광역시 강화군 화도면 온수리 일대"], ["개발권자", "진수웅 기술사 (한자엔지니어링)"], ["광종", "장석 (이오라이트 및 엑시톤 함유)"], ["총 매장량", <b key="v" style={{ color: "var(--k-champ)" }}>178,185,150톤 (65,994,500㎥)</b>]]} />
+          <KV rows={[["자산명", "강화 제1광산"], ["법적 권리", "광업권 등록번호 79560호, 79562호 (2013년 4월 설정)"], ["위치", "인천광역시 강화군 화도면 온수리 일대"], ["개발권자", "오종국"], ["광종", "장석 (이오라이트 및 엑시톤 함유)"], ["총 매장량", <b key="v" style={{ color: "var(--k-champ)" }}>178,185,150톤 (65,994,500㎥)</b>]]} />
         </div>
         <Src>광업권 등록 사항과 매장량은 등록원부·매장량 산정 보고서로 확인이 필요합니다.</Src>
       </S>
@@ -335,13 +337,13 @@ const SLIDES: Slide[] = [
   { id: "macro", ch: 2, render: () => (
     <Body>
       <S>
-        <Head ey="Macro Trend" t={<>에너지 전환이 만드는<br />폭발적인 인프라 소재 수요</>} />
+        <Head ey="Macro Trend" t={<>에너지 전환이 만드는<br />폭발적인 인프라 소재 수요 기회</>} />
         <div className="mt-6">
           <Steps items={[
             { k: "Global", t: "글로벌 탄소중립 및 에너지 전환", d: "재생에너지 비중 확대 패러다임." },
-            { k: "National", t: "국가 대형 신재생 인프라 확충", d: "대규모 조력발전 및 친환경 매립 프로젝트의 국책화." },
-            { k: "Incheon", t: "인천만 조력발전 및 송도 인프라", d: "대규모 해상 토목 공사 본격화." },
-            { k: "Demand", t: "폭발적인 인프라 소재 수요", d: "친환경 인프라 구축용 골재 및 소재 수요 발생 (국내 자급 필요성 대두)." },
+            { k: "National", t: "국가 대형 신재생 인프라 확충 Needs", d: "대규모 조력발전 및 친환경 매립 프로젝트의 국책화." },
+            { k: "Incheon", t: "인천만 조력발전 프로젝트 재개 시 및 송도 인프라 참여 기회 포착", d: "대규모 해상 토목 공사 본격화 시 참여 기회." },
+            { k: "Demand", t: "폭발적인 인프라 소재 수요 기회", d: "친환경 인프라 구축용 골재 및 소재 수요 발생 (국내 자급 필요성 대두)." },
           ]} />
         </div>
       </S>
@@ -404,8 +406,8 @@ const SLIDES: Slide[] = [
   { id: "demand", ch: 2, render: () => (
     <Body>
       <S>
-        <Head ey="Aggregate Demand" t="방조제 및 토목 골재 수요" />
-        <div className="mt-5"><Big label="2025~2030년 확정적/잠재적 골재 수요" pre="총" to={1370} unit="만㎥ 이상" asm /></div>
+        <Head ey="Aggregate Demand" t="방조제 및 토목 골재 수요 추정" />
+        <div className="mt-5"><Big label="2025~2030년 골재 수요 추정 (잠재 수요 포함)" pre="총" to={1370} unit="만㎥ 이상" asm /></div>
         <div className="mt-5 grid gap-3.5">
           <HBar l="송도 11공구 매립 (~2030년)" v={650} max={650} txt="약 650만㎥" />
           <HBar l="인천만 조력발전 방조제" v={500} max={650} txt="약 500만㎥" c="#7fa3cf" delay={0.15} />
@@ -619,8 +621,8 @@ const SLIDES: Slide[] = [
   { id: "fin-bridge", ch: 5, render: () => (
     <Body>
       <S>
-        <Head ey="Bridge Funding" t={<>10억 원 브릿지<br />투자 유치 구조<Asm /></>} sub="상장사 담보부 CB(400억 원) 발행을 완벽하게 준비하기 위한 필수 초기 인프라 구축" />
-        <div className="mt-5"><Big label="초기 브릿지 펀딩 조달 → SPC 마중물 자본" to={10} unit="억 원" /></div>
+        <Head ey="Bridge Funding" t={<>20억 원 브릿지<br />투자 유치 구조<Asm /></>} sub="상장사 담보부 CB(400억 원) 발행을 완벽하게 준비하기 위한 필수 초기 인프라 구축" />
+        <div className="mt-5"><Big label="초기 브릿지 펀딩 조달 → SPC 마중물 자본" to={20} unit="억 원" /></div>
         <div className="mt-5 grid gap-2.5">
           <Card n="01" t="SPC 법인 설립 및 구조화 비용" d="완벽한 금융 및 지배구조 설계를 위한 초기 자본" />
           <Card n="02" t="공식 감정평가 수수료" d="400억 원 규모 광업권 현물출자를 위한 공인 평가 집행" />
@@ -812,7 +814,7 @@ const SLIDES: Slide[] = [
   { id: "esg-baseload", ch: 6, render: () => (
     <Body>
       <S>
-        <Head ey="Base-load Power" t={<>태양광과 풍력의 한계를 넘어선<br />압도적 기저 전력, <span className="goldtext">조력발전</span></>} />
+        <Head ey="Base-load Power" t={<>태양광과 풍력의 한계를 넘어선<br />압도적 기저 전력, <span className="goldtext">조력발전</span><Asm /></>} />
         <It className="glass mt-4 rounded-xl p-2"><Waves /><p className="px-2 pb-1 text-[10.5px]" style={{ color: SUB }}><span className="mr-1 inline-block h-[2px] w-4 align-middle" style={{ background: "#8792a3" }} />기상 의존적 변동성(Volatile) <span className="ml-2 mr-1 inline-block h-[3px] w-4 align-middle" style={{ background: "#e3c78d" }} />100% 예측 가능한 강력한 기저 전력 · 도식</p></It>
         <div className="mt-3 grid gap-2.5">
           <Card t="날씨에 구애받지 않는 안정적 대규모 전력 생산" />
@@ -825,7 +827,7 @@ const SLIDES: Slide[] = [
   { id: "esg-supply", ch: 6, render: () => (
     <Body>
       <S>
-        <Head ey="Direct Supply Chain" t={<>조력발전 방조제의 핵심 뼈대,<br />친환경 엑시톤 골재 직접 공급망</>} sub="강화 제1광산(Ganghwa Mine No.1) → 방조제" />
+        <Head ey="Direct Supply Chain" t={<>조력발전 방조제의 핵심 뼈대,<br />친환경 엑시톤 골재 직접 공급망<Asm /></>} sub="강화 제1광산(Ganghwa Mine No.1) → 방조제" />
         <div className="mt-5 grid gap-2.5">
           <Card n="1" t="고품질 골재 및 엑시톤 소재 직공급" d="해상 인프라의 내구성을 결정하는 소재." />
           <Card n="2" t="기초 소재의 안정적 확보" d="초대형 방조제 건설에 필수적인 막대한 기초 소재." />
@@ -848,7 +850,7 @@ const SLIDES: Slide[] = [
         <It><p className="mt-2.5 text-[12.5px] font-bold" style={{ color: "var(--k-champ)" }}>외부 경관 및 산림 훼손 원천 차단 (Zero Surface Damage)</p></It>
         <div className="mt-3 grid gap-2.5">
           <Card n="1" t="소음/분진 완벽 통제" d="외부로 유출되는 환경 공해를 100% 차단하는 밀폐형 시스템." />
-          <Card n="2" t="친환경 엑시톤 채굴" d="환경 영향을 최소화한 첨단 소재 추출 프로세스." />
+          <Card n="2" t={<>친환경 채굴 후 엑시톤 추출 R&amp;D<Asm t="예정" /></>} d="환경 영향을 최소화해 채굴한 뒤, 엑시톤 소재 추출을 위한 연구개발을 진행합니다." />
           <Card n="3" t="안전성 확보" d="붕괴 위험을 방지하는 견고한 터널식 프레임워크 적용." />
         </div>
       </S>
