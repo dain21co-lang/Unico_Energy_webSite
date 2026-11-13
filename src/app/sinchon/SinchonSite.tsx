@@ -248,6 +248,21 @@ const TERMS = [
   { id: "short", ko: "여름·겨울 단기", en: "Summer / Winter", periodKo: "1 – 2개월 어학연수", periodEn: "1 – 2 month language programs" },
 ];
 
+const FLOORS = [
+  { fl: "9F", ko: "스카이 라운지 · 스터디", en: "Sky lounge & study", tagKo: "하루를 마무리하는 꼭대기", tagEn: "The top floor to end the day",
+    dKo: "조용히 공부하고, 해 질 녘 신촌을 내려다보며 쉬는 공용 공간 (구상).", dEn: "A quiet study and rest space overlooking Sinchon at dusk (concept)." },
+  { fl: "3–8F", ko: "객실", en: "Rooms", tagKo: "1인실 · 2인실 · 3인실, 개인 욕실", tagEn: "Single, twin, triple — private bath",
+    dKo: "가구를 갖춘 객실층입니다. 층별 객실 수는 도면 확정 뒤 정합니다.", dEn: "Furnished room floors. Room counts per floor will be set once drawings are final." },
+  { fl: "2F", ko: "런드리 카페", en: "Laundry café", tagKo: "세탁하는 동안 커피 한 잔", tagEn: "Coffee while the wash runs",
+    dKo: "세탁과 무인 카페를 한곳에 묶어, 기다리는 시간이 쉬는 시간이 되게 합니다 (구상).", dEn: "Laundry and a self-serve café in one place, so waiting becomes rest (concept)." },
+  { fl: "1F", ko: "카페 라운지 · 프런트", en: "Café lounge & front desk", tagKo: "처음 만나는 얼굴들", tagEn: "Where you first meet",
+    dKo: "체크인과 카페 라운지, 공용 주방에서 투숙객이 처음 만나는 층입니다.", dEn: "Check-in, café lounge and shared kitchen — where guests first meet." },
+  { fl: "B1", ko: "피트니스 · 프로 당구 라운지", en: "Fitness & pro billiards", tagKo: "운동과 포켓볼, 퍼스널 트레이닝", tagEn: "Gym, pool and personal training",
+    dKo: "피트니스와 퍼스널 트레이닝, 프로 선수 레슨·시범경기를 열 수 있는 당구 라운지를 구상합니다 (구상).", dEn: "A gym with personal training and a billiards lounge for pro lessons and exhibition matches (concept)." },
+  { fl: "B2", ko: "개인물품 보관창고", en: "Personal storage", tagKo: "계절 짐, 캐리어 보관", tagEn: "Seasonal items and luggage",
+    dKo: "계절 옷과 캐리어, 학기 사이 짐을 맡기는 보관함 (구상).", dEn: "Lockers for seasonal clothes, suitcases and between-term luggage (concept)." },
+] as const;
+
 export default function SinchonSite() {
   const [lang, setLang] = useState<Lang>("ko");
   const t = (ko: ReactNode, en: ReactNode) => (lang === "ko" ? ko : en);
@@ -257,6 +272,7 @@ export default function SinchonSite() {
   const [term, setTerm] = useState(1);
   const [after, setAfter] = useState(true);
   const [faq, setFaq] = useState<number | null>(0);
+  const [floor, setFloor] = useState<number | null>(4);
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 120);
@@ -268,7 +284,7 @@ export default function SinchonSite() {
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const NAV: [string, string, string][] = [
-    ["story", "여행", "Tour"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"], ["basement", "지하", "B1"],
+    ["story", "여행", "Tour"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"], ["basement", "층별", "Floors"],
     ["apply", "신청", "Apply"], ["care", "생활지원", "Care"], ["parents", "안심", "Safety"], ["contact", "문의", "Contact"],
   ];
 
@@ -483,25 +499,29 @@ export default function SinchonSite() {
           <p className="mt-3 text-[11.5px]" style={{ color: "var(--sh-sub)" }}>{t("이동 시간은 지도 기준 예상치이며, 실제 측정 후 갱신합니다.", "Times are map-based estimates and will be updated after on-site checks.")}</p>
         </section>
 
-        {/* B1 지하 (구상안) */}
+        {/* 층별 안내 (구상안) */}
         <section id="basement" className="scroll-mt-24 px-6 py-16">
-          <Head no="B1" en="BASEMENT" sub={t("지하는 운동하고, 공 치고, 짐을 맡기는 공간으로 구상하고 있습니다. 확정 전 구상안입니다.", "We are planning the basement for workouts, pool and storage. Concept only, not yet confirmed.")}>
-            {t(<>방 밖에서도,<br />머무는 재미</>, <>Beyond the room,<br />more to enjoy</>)}
+          <Head no="FL" en="FLOOR GUIDE" sub={t("지하 2층부터 지상 9층까지, 층마다 쓰임을 나눈 구상안입니다. 층을 눌러 보세요. 확정 전 구상안입니다.", "B2 to 9F, each floor with its own purpose. Tap a floor. Concept only, not yet confirmed.")}>
+            {t(<>한 건물,<br />층마다 다른 하루</>, <>One building,<br />a different day on every floor</>)}
           </Head>
-          <div className="space-y-2.5">
-            {[
-              [I.user, t("피트니스 · 퍼스널 트레이닝", "Fitness & personal training"), t("가까운 곳에서 운동하고, 트레이닝 수요도 함께 받는 공간 (구상)", "A gym close to home, with personal training on site (concept)")],
-              [I.pin, t("프로 당구 라운지 · 포켓볼", "Pro billiards lounge"), t("프로 선수 상주·레슨·시범경기, 외국인 선수 특별 레슨을 구상합니다. 프로당구협회(PBA) 협업은 협의 전입니다.", "Pro players in residence, lessons and exhibition matches are being considered. A tie-up with the pro billiards association is not yet discussed.")],
-              [I.key, t("개인물품 보관창고", "Personal storage"), t("계절 옷, 캐리어, 학기 사이 짐을 맡기는 보관함 (구상)", "Lockers for seasonal clothes, suitcases and between-term luggage (concept)")],
-            ].map(([ic, h, d], i) => (
-              <Rise key={i} delay={i * 0.08}>
-                <div className="flex items-start gap-3.5 rounded-2xl p-4" style={{ background: "var(--sh-cream)" }}>
-                  <span className="mt-0.5 shrink-0" style={{ color: "var(--sh-olive)" }}><Icon d={ic as string} /></span>
-                  <div><div className="text-[14.5px] font-bold">{h}</div><p className="mt-0.5 text-[12.5px] leading-[1.65]" style={{ color: "var(--sh-sub)" }}>{d}</p></div>
-                </div>
-              </Rise>
+          <div className="divide-y rounded-2xl" style={{ border: "1px solid var(--sh-line)", borderColor: "var(--sh-line)" }}>
+            {FLOORS.map((f, i) => (
+              <div key={f.fl} style={{ borderColor: "var(--sh-line)" }}>
+                <button onClick={() => setFloor(floor === i ? null : i)} className="flex w-full items-center gap-3.5 px-4 py-3.5 text-left">
+                  <span className="sh-serif w-[46px] shrink-0 text-[20px] font-semibold" style={{ color: "var(--sh-olive)" }}>{f.fl}</span>
+                  <span className="flex-1">
+                    <span className="block text-[14.5px] font-bold">{t(f.ko, f.en)}</span>
+                    <span className="block text-[12px]" style={{ color: "var(--sh-sub)" }}>{t(f.tagKo, f.tagEn)}</span>
+                  </span>
+                  <motion.span animate={{ rotate: floor === i ? 45 : 0 }} style={{ color: "var(--sh-olive)" }}><Icon d="M12 5v14 M5 12h14" size={18} /></motion.span>
+                </button>
+                <motion.div initial={false} animate={{ height: floor === i ? "auto" : 0 }} className="overflow-hidden" transition={{ duration: 0.4, ease: EASE }}>
+                  <p className="px-4 pb-4 pl-[76px] text-[13px] leading-[1.75]" style={{ color: "var(--sh-sub)" }}>{t(f.dKo, f.dEn)}</p>
+                </motion.div>
+              </div>
             ))}
           </div>
+          <p className="mt-3 text-[11.5px] leading-[1.7]" style={{ color: "var(--sh-sub)" }}>{t("층별 구성은 설계와 인허가, 운영 조건에 따라 달라질 수 있습니다. 프로당구협회(PBA) 협업은 협의 전입니다.", "Floor use may change with design, permits and operations. A tie-up with the pro billiards association has not been discussed yet.")}</p>
         </section>
 
         {/* 06 신청 */}
