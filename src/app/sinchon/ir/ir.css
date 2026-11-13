@@ -1,33 +1,47 @@
-/* 신촌 스마트호스텔 IR 뷰어 전용 — 옐로 · 블랙 · 화이트 (Unite Students 벤치마킹), 모핑 블롭 */
-.sir {
-  --y: #ffe11a;
-  --y2: #fff27a;
-  --k: #111111;
-  --paper: #ffffff;
-  --cream: #f5f4ef;
-  --sub: #66655f;
-  --mute: #9a988f;
-  --line: rgba(17, 17, 17, 0.12);
-  --mint: #a6e3d4;
+/* THE K 스마트호스텔 IR 뷰어 전용 — 미드나잇 네이비 · 샴페인 골드, 모핑 블롭 */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap");
+
+.kir {
+  --k-night: #0a1322;
+  --k-navy: #111e35;
+  --k-navy2: #182a48;
+  --k-gold: #c9a96e;
+  --k-champ: #ecdcb6;
+  --k-ivory: #f4efe5;
+  --k-sub: #9eabbf;
+  --k-mute: #6f7d93;
+  --k-line: rgba(201, 169, 110, 0.28);
+  --k-coral: #e2734a;
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: var(--paper);
-  color: var(--k);
+  background: var(--k-night);
+  color: var(--k-ivory);
   word-break: keep-all;
   overflow: hidden;
   -webkit-tap-highlight-color: transparent;
 }
-.sir .stage { touch-action: pan-y; }
-.sir .scroll { overflow-y: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-.sir .scroll::-webkit-scrollbar { display: none; }
-.sir .card { background: var(--cream); border-radius: 20px; }
-@keyframes sir-shine { 0% { transform: translateX(-120%) skewX(-20deg); } 100% { transform: translateX(320%) skewX(-20deg); } }
-.sir .shine { animation: sir-shine 3.8s ease-in-out infinite; }
-@keyframes sir-hint { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-10px); } }
-.sir .hint { animation: sir-hint 1.6s ease-in-out infinite; }
-@keyframes sir-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.6); } }
-.sir .pulse { animation: sir-pulse 1.8s ease-in-out infinite; }
+.kir .serif { font-family: "Noto Serif KR", "Nanum Myeongjo", Georgia, serif; }
+.kir .corm { font-family: "Cormorant Garamond", Georgia, serif; }
+.kir .stage { touch-action: pan-y; }
+.kir .scroll { overflow-y: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.kir .scroll::-webkit-scrollbar { display: none; }
+.kir .glass { background: rgba(17, 30, 53, 0.72); border: 1px solid var(--k-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.kir .goldtext { background: linear-gradient(100deg, #b8925a 0%, #f3e3bd 45%, #c9a96e 70%, #8f6f3e 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+@keyframes kir-shine { 0% { transform: translateX(-120%) skewX(-20deg); } 100% { transform: translateX(320%) skewX(-20deg); } }
+.kir .shine { animation: kir-shine 3.8s ease-in-out infinite; }
+@keyframes kir-hint { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-10px); } }
+.kir .hint { animation: kir-hint 1.6s ease-in-out infinite; }
+@keyframes kir-drift { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+.kir .drift { animation: kir-drift 40s linear infinite; }
+@keyframes kir-liquid {
+  0%, 100% { border-radius: 58% 42% 38% 62% / 52% 44% 56% 48%; }
+  33% { border-radius: 40% 60% 62% 38% / 44% 58% 42% 56%; }
+  66% { border-radius: 50% 50% 34% 66% / 60% 40% 60% 40%; }
+}
+.kir .liquid { animation: kir-liquid 10s ease-in-out infinite; }
+@keyframes kir-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.6); } }
+.kir .pulse { animation: kir-pulse 1.8s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .sir .shine, .sir .hint, .sir .pulse { animation: none; }
+  .kir .shine, .kir .hint, .kir .drift, .kir .liquid, .kir .pulse { animation: none; }
 }
