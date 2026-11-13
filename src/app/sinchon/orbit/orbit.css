@@ -38,4 +38,18 @@
 .orb .scan { animation: orb-scan 2.6s ease-in-out infinite; }
 @keyframes orb-nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 .orb .nudge { animation: orb-nudge 1.8s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) { .orb .scan, .orb .nudge { animation: none; } }
+@keyframes orb-liquid {
+  0%, 100% { border-radius: 58% 42% 38% 62% / 52% 44% 56% 48%; transform: rotate(0deg) scale(1); }
+  33% { border-radius: 40% 60% 62% 38% / 44% 58% 42% 56%; transform: rotate(40deg) scale(1.08); }
+  66% { border-radius: 50% 50% 34% 66% / 60% 40% 60% 40%; transform: rotate(-30deg) scale(0.94); }
+}
+.orb .liquid { animation: orb-liquid 11s ease-in-out infinite; }
+.orb .liquid2 { animation: orb-liquid 14s ease-in-out infinite reverse; }
+@keyframes orb-drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.orb .drift { animation: orb-drift 38s linear infinite; }
+.orb .drift-r { animation: orb-drift 46s linear infinite reverse; }
+@keyframes orb-ping { 0% { transform: scale(0.6); } 100% { transform: scale(2.4); stroke-width: 0; } }
+.orb .ping { animation: orb-ping 1.8s ease-out infinite; }
+@keyframes orb-spin24 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.orb .spin24 { animation: orb-spin24 6s linear infinite; transform-origin: 0 0; }
+@media (prefers-reduced-motion: reduce) { .orb .scan, .orb .nudge, .orb .liquid, .orb .liquid2, .orb .drift, .orb .drift-r, .orb .ping, .orb .spin24 { animation: none; } }

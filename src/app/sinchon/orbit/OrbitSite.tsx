@@ -57,25 +57,6 @@ function Badge({ children, light = false }: { children: ReactNode; light?: boole
     </span>
   );
 }
-function Counter({ to, suffix = "", dur = 1.4 }: { to: number; suffix?: string; dur?: number }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const on = useInView(ref, { once: true });
-  const [v, setV] = useState(0);
-  useEffect(() => {
-    if (!on) return;
-    let raf = 0;
-    const t0 = performance.now();
-    const f = (t: number) => {
-      const k = Math.min(1, (t - t0) / (dur * 1000));
-      setV(Math.round(to * (1 - Math.pow(1 - k, 3))));
-      if (k < 1) raf = requestAnimationFrame(f);
-    };
-    raf = requestAnimationFrame(f);
-    return () => cancelAnimationFrame(raf);
-  }, [on, to, dur]);
-  return <span ref={ref}>{v}{suffix}</span>;
-}
-
 /* ───────── 1. 3D 여정 (스크롤 고정) ───────── */
 const CHAPTERS = [
   { n: "01", en: "THE ARRIVAL", kick: "01 / IMAGINE A NEW CHAPTER", a: "Form.", b: "In motion.", sub: "선이 펼쳐지고, 층이 올라가고.\n새로운 신촌이 모습을 갖춥니다." },
@@ -430,20 +411,156 @@ function Exterior() {
 }
 
 /* ───────── 6. 숫자 ───────── */
-function Numbers() {
-  const items: [number, string, string][] = [[TOTAL, "실", "객실"], [BEDS, "베드", "침대"], [4, "곳", "대학 생활권"], [24, "시간", "무인 체크인 · AI 안내"]];
+/* 슬롯머신처럼 굴러가는 숫자 */
+function Roll({ value, on, delay = 0 }: { value: number; on: boolean; delay?: number }) {
+  const digits = String(value).split("").map(Number);
   return (
-    <section className="relative overflow-hidden px-6 py-20" style={{ background: "var(--o-gold)", color: "#1d2630" }}>
-      <p className="kick text-[#5f5236]">09 / IN NUMBERS</p>
-      <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-8">
-        {items.map(([n, u, l]) => (
-          <div key={l} className="border-t border-[#1d2630]/25 pt-3">
-            <p className="serif text-[64px] italic leading-none"><Counter to={n} /><span className="ml-1 text-[18px] not-italic font-black">{u}</span></p>
-            <p className="mt-1 text-[13px] font-bold">{l}</p>
-          </div>
-        ))}
+    <span className="inline-flex overflow-hidden" style={{ height: "1em", lineHeight: 1 }}>
+      {digits.map((d, i) => (
+        <span key={i} className="relative inline-block" style={{ height: "1em" }}>
+          <motion.span className="flex flex-col" initial={{ y: "0em" }} animate={on ? { y: `${-(d + 10)}em` } : {}} transition={{ duration: 1.6 + i * 0.25, delay: delay + i * 0.12, ease: [0.2, 0.9, 0.25, 1] }}>
+            {Array.from({ length: 20 }, (_, k) => (
+              <span key={k} style={{ height: "1em", lineHeight: 1 }}>{k % 10}</span>
+            ))}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/* 54실 — 객실 하나가 눈금 하나 */
+function RingRooms({ on }: { on: boolean }) {
+  const list = [...Array(C.s).fill("s"), ...Array(C.t).fill("t"), ...Array(C.sh).fill("sh")] as ("s" | "t" | "sh")[];
+  const col = { s: "#fbf8f0", t: "#1d2630", sh: "#2f8f86" };
+  return (
+    <svg viewBox="-60 -60 120 120" className="h-full w-full">
+      <motion.circle r={34} fill="none" stroke="#1d2630" strokeOpacity={0.25} strokeWidth={0.8} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.2, ease: EASE }} />
+      {list.map((t, i) => {
+        const a = (i / list.length) * Math.PI * 2 - Math.PI / 2;
+        const r0 = 39, r1 = t === "t" ? 54 : t === "sh" ? 51 : 48;
+        return <motion.line key={i} x1={Math.cos(a) * r0} y1={Math.sin(a) * r0} x2={Math.cos(a) * r1} y2={Math.sin(a) * r1} stroke={col[t]} strokeWidth={2.6} strokeLinecap="round" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 0.35, delay: 0.3 + i * 0.03, ease: EASE }} />;
+      })}
+      <motion.g initial={{ scale: 0 }} animate={on ? { scale: 1 } : {}} transition={{ duration: 0.8, delay: 1.6, ease: EASE }}>
+        <text y={-4} textAnchor="middle" fontSize={8} fontWeight={800} fill="#1d2630">9개 층</text>
+        <text y={8} textAnchor="middle" fontSize={6.5} fontWeight={700} fill="#5f5236">2F – 9F</text>
+      </motion.g>
+    </svg>
+  );
+}
+
+/* 85베드 — 점 하나가 침대 하나 */
+function DotsBeds({ on }: { on: boolean }) {
+  const list = [...Array(C.s).fill("s"), ...Array(C.t * 2).fill("t"), ...Array(C.sh * 3).fill("sh")] as ("s" | "t" | "sh")[];
+  const col = { s: "#fbf8f0", t: "#1d2630", sh: "#2f8f86" };
+  return (
+    <svg viewBox="0 0 100 92" className="h-full w-full">
+      {list.map((t, i) => {
+        const cx = 6 + (i % 10) * 9.8, cy = 6 + Math.floor(i / 10) * 9.8;
+        return <motion.circle key={i} cx={cx} cy={cy} r={3.4} fill={col[t]} style={{ transformBox: "fill-box", transformOrigin: "center" }} initial={{ scale: 0 }} animate={on ? { scale: [0, 1.5, 1] } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.018, ease: EASE }} />;
+      })}
+    </svg>
+  );
+}
+
+/* 4개 대학 — 2호선과 신촌역 */
+function MapUnis({ on }: { on: boolean }) {
+  const pins: [number, number, string][] = [[56, 22, "연세"], [94, 38, "이화"], [22, 60, "서강"], [10, 92, "홍익"]];
+  return (
+    <svg viewBox="0 0 120 112" className="h-full w-full">
+      <motion.path d="M-4 96 C 20 90, 34 76, 58 74 S 100 70, 124 52" fill="none" stroke="#2f8f86" strokeWidth={4} strokeLinecap="round" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, ease: EASE }} />
+      <text x={100} y={74} fontSize={6} fontWeight={800} fill="#2f8f86">2호선</text>
+      {pins.map(([x, y, n], i) => (
+        <g key={n}>
+          <motion.line x1={58} y1={74} x2={x} y2={y} stroke="#1d2630" strokeWidth={0.8} strokeDasharray="2 2" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 0.6, delay: 1 + i * 0.2 }} />
+          <motion.g style={{ transformBox: "fill-box", transformOrigin: "50% 100%" }} initial={{ scale: 0, y: -10 }} animate={on ? { scale: 1, y: 0 } : {}} transition={{ type: "spring", stiffness: 260, damping: 14, delay: 1.2 + i * 0.2 }}>
+            <path d={`M${x} ${y} l-4.5 -7 a5.4 5.4 0 1 1 9 0 z`} fill="#1d2630" />
+            <circle cx={x} cy={y - 9.4} r={2} fill="#dcc29b" />
+            <text x={x} y={y + 8} textAnchor="middle" fontSize={7} fontWeight={800} fill="#1d2630">{n}</text>
+          </motion.g>
+        </g>
+      ))}
+      <circle cx={58} cy={74} r={10} fill="none" stroke="#fbf8f0" strokeWidth={1.2} className="ping" style={{ transformBox: "fill-box", transformOrigin: "center" }} />
+      <circle cx={58} cy={74} r={5} fill="#fbf8f0" stroke="#1d2630" strokeWidth={1.6} />
+      <text x={58} y={90} textAnchor="middle" fontSize={6.5} fontWeight={800} fill="#1d2630">신촌역</text>
+    </svg>
+  );
+}
+
+/* 24시간 — 하루를 도는 시계 */
+function Clock24({ on }: { on: boolean }) {
+  return (
+    <svg viewBox="-60 -60 120 120" className="h-full w-full">
+      <motion.circle r={46} fill="none" stroke="#1d2630" strokeWidth={1.4} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.2, ease: EASE }} />
+      <motion.path d="M0 -40 A40 40 0 0 1 0 40" fill="none" stroke="#fbf8f0" strokeWidth={7} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, delay: 0.3, ease: EASE }} />
+      <motion.path d="M0 40 A40 40 0 0 1 0 -40" fill="none" stroke="#1d2630" strokeWidth={7} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, delay: 1.2, ease: EASE }} />
+      {Array.from({ length: 24 }, (_, i) => {
+        const a = (i / 24) * Math.PI * 2;
+        return <line key={i} x1={Math.sin(a) * 48} y1={-Math.cos(a) * 48} x2={Math.sin(a) * (i % 6 ? 51 : 55)} y2={-Math.cos(a) * (i % 6 ? 51 : 55)} stroke="#1d2630" strokeWidth={i % 6 ? 1 : 2} />;
+      })}
+      <text y={-22} textAnchor="middle" fontSize={8} fill="#5f5236">☀</text>
+      <text y={28} textAnchor="middle" fontSize={8} fill="#fbf8f0">☾</text>
+      <g className={on ? "spin24" : ""}>
+        <line x1={0} y1={6} x2={0} y2={-36} stroke="#1d2630" strokeWidth={2.6} strokeLinecap="round" />
+        <circle r={3.6} fill="#1d2630" />
+      </g>
+    </svg>
+  );
+}
+
+const STATS = [
+  { n: TOTAL, u: "실", l: "객실", d: "1인실 33 · 2인실 11 · 셰어룸 10 — 눈금 하나가 방 하나", Art: RingRooms },
+  { n: BEDS, u: "베드", l: "침대", d: "1인 33 · 2인 22 · 3인 30 — 점 하나가 침대 하나", Art: DotsBeds },
+  { n: 4, u: "곳", l: "대학 생활권", d: "연세 · 이화 · 서강 · 홍익, 신촌역 도보권", Art: MapUnis },
+  { n: 24, u: "시간", l: "무인 체크인 · AI 안내", d: "낮에도 밤에도, 줄 서지 않는 입실", Art: Clock24 },
+];
+function StatRow({ s, i }: { s: (typeof STATS)[number]; i: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const on = useInView(ref, { once: true, margin: "-18% 0px" });
+  const Art = s.Art;
+  return (
+    <div ref={ref} className={`relative flex items-center gap-4 border-t border-[#1d2630]/20 py-6 ${i % 2 ? "flex-row-reverse text-right" : ""}`}>
+      <motion.div className="h-[124px] w-[124px] shrink-0" initial={{ rotate: i % 2 ? 20 : -20, scale: 0.6 }} animate={on ? { rotate: 0, scale: 1 } : {}} transition={{ duration: 1.1, ease: EASE }}>
+        <Art on={on} />
+      </motion.div>
+      <div className="min-w-0 flex-1">
+        <p className="serif text-[66px] italic leading-none"><Roll value={s.n} on={on} delay={0.2} /><span className="ml-1 align-baseline text-[18px] font-black not-italic">{s.u}</span></p>
+        <motion.p className="mt-2 text-[15px] font-black" initial={{ clipPath: "inset(0% 100% 0% 0%)" }} animate={on ? { clipPath: "inset(0% 0% 0% 0%)" } : {}} transition={{ duration: 0.8, delay: 0.6, ease: EASE }}>{s.l}</motion.p>
+        <motion.p className="mt-1 text-[12.5px] font-medium leading-snug text-[#4b4232]" initial={{ clipPath: "inset(0% 100% 0% 0%)" }} animate={on ? { clipPath: "inset(0% 0% 0% 0%)" } : {}} transition={{ duration: 0.9, delay: 0.8, ease: EASE }}>{s.d}</motion.p>
       </div>
-      <p className="mt-8 text-[14px] font-bold leading-relaxed">연세 · 이화 · 서강 · 홍익 — 신촌역 도보권<br />하루 숙박부터 한 학기 체류까지</p>
+    </div>
+  );
+}
+function Numbers() {
+  return (
+    <section className="relative overflow-hidden pb-16 pt-20" style={{ background: "var(--o-gold)", color: "#1d2630" }}>
+      {/* 모핑 덩어리 */}
+      <div className="liquid pointer-events-none absolute -right-24 top-10 h-[340px] w-[340px]" style={{ background: "radial-gradient(circle at 35% 35%, #f6e7c6, #e9d2a6 60%, transparent 72%)" }} />
+      <div className="liquid2 pointer-events-none absolute -left-28 bottom-24 h-[300px] w-[300px]" style={{ background: "radial-gradient(circle at 60% 40%, #a9e2d9, #8edbd3 55%, transparent 72%)" }} />
+      {/* 흐르는 글씨 */}
+      <div className="pointer-events-none relative overflow-hidden whitespace-nowrap">
+        <div className="drift serif inline-block text-[64px] italic leading-none" style={{ color: "transparent", WebkitTextStroke: "1px rgba(29,38,48,0.35)" }}>
+          {"54 rooms · 85 beds · 4 universities · 24/7 · ".repeat(4)}
+        </div>
+      </div>
+      <div className="relative px-6">
+        <p className="kick mt-8 text-[#5f5236]">09 / IN NUMBERS</p>
+        <h2 className="serif mt-3 text-[42px] leading-[0.98]">Small numbers.<br /><em>Big welcome.</em></h2>
+        <div className="mt-8">
+          {STATS.map((s, i) => <StatRow key={s.l} s={s} i={i} />)}
+        </div>
+        <div className="mt-4 overflow-hidden rounded-[22px] bg-[#1d2630] px-5 py-5 text-[#f3f0e8]">
+          <div className="flex items-center gap-1.5">
+            {(["s", "t", "sh"] as const).map((k) => <span key={k} className="h-2.5 flex-1 origin-left rounded-full" style={{ background: k === "s" ? "#fbf8f0" : k === "t" ? "#dcc29b" : "#8edbd3", flexGrow: C[k] }} />)}
+          </div>
+          <p className="mt-3 text-[14px] font-bold leading-relaxed">하루 숙박부터 한 학기 체류까지,<br />신촌의 첫 서울집.</p>
+        </div>
+      </div>
+      <div className="pointer-events-none relative mt-12 overflow-hidden whitespace-nowrap">
+        <div className="drift-r serif inline-block text-[44px] italic leading-none text-[#1d2630]/80">
+          {"SEMESTER HOUSE · SINCHON · ".repeat(6)}
+        </div>
+      </div>
     </section>
   );
 }
@@ -537,7 +654,7 @@ export default function OrbitSite() {
   const [info, setInfo] = useState(false);
   const toggle = () => { paused.current = !paused.current; setPaused(paused.current); };
   return (
-    <main className="orb mx-auto min-h-screen max-w-[480px]">
+    <main className="orb mx-auto min-h-screen w-full max-w-[480px]">
       <header className="fixed inset-x-0 top-0 z-40 mx-auto flex max-w-[480px] items-center justify-between gap-3 px-5 pt-4" style={{ background: "linear-gradient(180deg,rgba(18,26,34,0.85),rgba(18,26,34,0))", paddingBottom: 18 }}>
         <p className="min-w-0 truncate whitespace-nowrap text-[13px] font-black tracking-[0.22em]">SEMESTER HOUSE</p>
         <button onClick={() => setInfo(true)} className="pill glass shrink-0 whitespace-nowrap px-3.5 py-2 text-[12px] font-bold">안내</button>
