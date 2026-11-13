@@ -567,6 +567,7 @@ function Numbers() {
 
 /* ───────── 7. 영상 ───────── */
 const FILMS = [
+  { k: "full", t: "전체 이야기 2:41", src: "/sinchon/fullstory.mp4", poster: "fullstory-poster" },
   { k: "exterior", t: "외관", src: "/sinchon/exterior.mp4", poster: "exterior-poster" },
   { k: "hero", t: "첫 장면", src: "/sinchon/hero.mp4", poster: "hero-poster" },
   { k: "lounge", t: "라운지", src: "/sinchon/lounge.mp4", poster: "lounge-poster" },
@@ -577,11 +578,11 @@ function Film() {
   const v = useRef<HTMLVideoElement>(null);
   const f = FILMS[i];
   useEffect(() => { setPlay(false); }, [i]);
-  const start = () => { const el = v.current; if (!el) return; el.play().then(() => setPlay(true)).catch(() => setPlay(false)); };
+  const start = () => { const el = v.current; if (!el) return; el.muted = f.k !== "full"; el.play().then(() => setPlay(true)).catch(() => setPlay(false)); };
   return (
     <section id="film" className="relative px-6 pb-20 pt-24" style={{ background: "#121a22" }}>
-      <Head kick="10 / THE FILM" a="The whole story." b="In motion." sub="건물에서 일상으로, 그리고 다시 도시로." />
-      <div className="mt-7 flex gap-2">
+      <Head kick="10 / THE FILM" a="The whole story." b="In motion." sub={<>건물에서 일상으로, 그리고 다시 도시로.<br />함께 만든 2분 41초를 자르지 않고 그대로 담았습니다.</>} />
+      <div className="mt-7 flex flex-wrap gap-2">
         {FILMS.map((x, k) => (
           <button key={x.k} onClick={() => setI(k)} className="relative rounded-full px-4 py-2.5 text-[13.5px] font-bold" style={{ color: k === i ? "#121a22" : "#dfe7ee" }}>
             {k === i && <motion.span layoutId="ftab" className="absolute inset-0 rounded-full" style={{ background: "var(--o-mint)" }} />}
@@ -591,13 +592,14 @@ function Film() {
         ))}
       </div>
       <div className="relative mx-auto mt-4 aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[26px] bg-black">
-        <video key={f.k} ref={v} src={f.src} poster={IMG(f.poster)} playsInline muted loop preload="none" controls={play} className="h-full w-full object-cover" onPause={() => setPlay(false)} onPlay={() => setPlay(true)} />
+        <video key={f.k} ref={v} src={f.src} poster={IMG(f.poster)} playsInline muted loop={f.k !== "full"} preload="none" controls={play} className="h-full w-full object-cover" onPause={() => setPlay(false)} onPlay={() => setPlay(true)} />
         {!play && (
           <button onClick={start} className="absolute inset-0 flex items-center justify-center" aria-label="영상 재생">
             <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/90 text-[26px] text-[#121a22] shadow-xl">▶</span>
           </button>
         )}
         <div className="pointer-events-none absolute left-3 top-3"><Badge>AI 영상 · 예시</Badge></div>
+        {!play && f.k === "full" && <p className="pointer-events-none absolute inset-x-0 bottom-6 text-center text-[13px] font-bold text-white">누르면 소리와 함께 재생됩니다</p>}
       </div>
     </section>
   );
