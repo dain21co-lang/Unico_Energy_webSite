@@ -92,7 +92,7 @@ type TFn = (ko: ReactNode, en: ReactNode) => ReactNode;
 const SCENES = [
   { kind: "video", src: "exterior.mp4", poster: "exterior-poster.webp", no: "01", en: "EXTERIOR", badgeKo: "AI 영상 · 예시", badgeEn: "AI video · concept",
     ko: <>해가 지면,<br />창마다 불이 켜지는 집</>, enT: <>At dusk,<br />every window comes alive</>,
-    dKo: "신촌역 가까운 모퉁이, 오래된 상가가 학생의 집이 됩니다.", dEn: "A corner near Sinchon Station — an old commercial tower becomes a student home." },
+    dKo: "신촌역 가까운 모퉁이, 오래된 상가가 유학생과 여행자의 스마트 호스텔이 됩니다.", dEn: "A corner near Sinchon Station — an old commercial tower becomes a smart hostel for students and travellers." },
   { kind: "video", src: "lounge.mp4", poster: "lounge-poster.webp", no: "02", en: "SHARED LOUNGE", badgeKo: "AI 영상 · 예시", badgeEn: "AI video · concept",
     ko: <>혼자 와도,<br />혼자가 아닌 저녁</>, enT: <>Arrive alone,<br />never dine alone</>,
     dKo: "1층 카페 라운지와 공용 주방에서 처음 만난 친구들과 저녁을.", dEn: "Dinner with new friends in the ground-floor café lounge and shared kitchen." },
@@ -198,7 +198,7 @@ function Journey({ t }: { t: TFn }) {
         {/* 밀어 보라는 안내: 조금 내려가면 사라진다 */}
         <div className="absolute inset-x-0 bottom-7 z-30 flex justify-center overflow-hidden">
           <motion.div className="flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-semibold" style={{ y: hintY, background: "rgba(251,245,234,.92)", color: "var(--sh-ink)" }}>
-            {t("아래로 밀어 입주해 보세요", "Scroll down to move in")}
+            {t("아래로 밀어 체크인해 보세요", "Scroll down to check in")}
             <span className="sh-cue"><Icon d="M6 9l6 6 6-6" size={16} /></span>
           </motion.div>
         </div>
@@ -211,7 +211,7 @@ function Journey({ t }: { t: TFn }) {
 const ROOMS = [
   {
     id: "single", ko: "1인실", en: "Single", img: "room-single.webp", area: "약 14㎡", cap: 1,
-    priceKo: "월 90만 원대~", priceEn: "from ₩0.9M / month",
+    priceKo: "요금 협의 중", priceEn: "Rates being set",
     tagKo: "나만의 방, 나만의 욕실", tagEn: "Your own room, your own bathroom",
     featKo: ["싱글 침대·침구", "창가 원목 책상·조명", "붙박이장·전신 거울", "개인 욕실"],
     featEn: ["Single bed & linen", "Window-side oak desk & lamp", "Built-in wardrobe & mirror", "Private bathroom"],
@@ -219,7 +219,7 @@ const ROOMS = [
   },
   {
     id: "twin", ko: "2인실", en: "Twin", img: "room-twin.webp", area: "약 20㎡", cap: 2,
-    priceKo: "1인 월 70만 원대~", priceEn: "from ₩0.7M / person",
+    priceKo: "요금 협의 중", priceEn: "Rates being set",
     tagKo: "친구와 함께, 각자의 자리", tagEn: "Share with a friend, keep your corner",
     featKo: ["싱글 침대 2", "창가 공용 책상·의자 2", "옷장 2·칸막이 선반", "개인 욕실"],
     featEn: ["2 single beds", "Shared window desk, 2 chairs", "2 wardrobes & divider shelf", "Private bathroom"],
@@ -227,7 +227,7 @@ const ROOMS = [
   },
   {
     id: "triple", ko: "3인실", en: "Triple", img: "room-triple.webp", area: "약 26㎡", cap: 3,
-    priceKo: "1인 월 60만 원대~", priceEn: "from ₩0.6M / person",
+    priceKo: "요금 협의 중", priceEn: "Rates being set",
     tagKo: "셋이 써도, 커튼 하나로 내 공간", tagEn: "Three of you — a curtain makes it yours",
     featKo: ["로프트 침대+책상 1, 싱글 침대 2", "침대별 커튼·독서등", "공용 책상·의자 3", "개인 욕실"],
     featEn: ["1 loft bed + desk, 2 single beds", "Curtain & reading light per bed", "Shared desk, 3 chairs", "Private bathroom"],
@@ -243,9 +243,9 @@ const SCHOOLS = [
 ];
 
 const TERMS = [
-  { id: "spring", ko: "봄학기", en: "Spring", periodKo: "3월 – 6월 (약 4개월)", periodEn: "Mar – Jun (≈4 months)" },
-  { id: "fall", ko: "가을학기", en: "Fall", periodKo: "9월 – 12월 (약 4개월)", periodEn: "Sep – Dec (≈4 months)" },
-  { id: "short", ko: "여름·겨울 단기", en: "Summer / Winter", periodKo: "1 – 2개월 어학연수", periodEn: "1 – 2 month language programs" },
+  { id: "short", ko: "단기 숙박", en: "Short stay", periodKo: "1박 – 6박", periodEn: "1 – 6 nights" },
+  { id: "month", ko: "한 달 살기", en: "Monthly stay", periodKo: "1주 – 3개월", periodEn: "1 week – 3 months" },
+  { id: "long", ko: "장기 체류", en: "Long stay", periodKo: "학기 단위 (약 4개월)", periodEn: "By semester (≈4 months)" },
 ];
 
 const FLOORS = [
@@ -269,7 +269,7 @@ export default function SinchonSite() {
   const [scrolled, setScrolled] = useState(false);
   const [room, setRoom] = useState(0);
   const [school, setSchool] = useState(0);
-  const [term, setTerm] = useState(1);
+  const [term, setTerm] = useState(0);
   const [after, setAfter] = useState(true);
   const [faq, setFaq] = useState<number | null>(0);
   const [floor, setFloor] = useState<number | null>(4);
@@ -299,7 +299,7 @@ export default function SinchonSite() {
         <header className="fixed left-0 right-0 top-0 z-40 transition-colors duration-300" style={{ background: scrolled ? "rgba(251,248,242,.96)" : "transparent", borderBottom: scrolled ? "1px solid var(--sh-line)" : "1px solid transparent" }}>
           <div className="mx-auto flex h-14 max-w-[480px] items-center justify-between px-5">
             <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-left" aria-label="top">
-              <div className="sh-serif text-[19px] font-semibold leading-none tracking-[0.06em]" style={{ color: scrolled ? "var(--sh-ink)" : "#fbf5ea" }}>SEMESTER HOUSE</div>
+              <div className="sh-serif text-[19px] font-semibold leading-none tracking-[0.06em]" style={{ color: scrolled ? "var(--sh-ink)" : "#fbf5ea" }}>SMART HOSTEL</div>
               <div className="sh-en mt-1 text-[9px]" style={{ color: scrolled ? "var(--sh-sub)" : "#e6dcc8" }}>SINCHON · {t("가칭", "WORKING NAME")}</div>
             </button>
             <div className="flex overflow-hidden rounded-full text-[11px] font-semibold" style={{ border: `1px solid ${scrolled ? "var(--sh-line)" : "rgba(255,255,255,.4)"}` }}>
@@ -327,20 +327,20 @@ export default function SinchonSite() {
           <div className="relative z-10 flex h-full flex-col px-6 pb-8 pt-24">
             <Rise><div className="sh-en text-[11px] font-semibold" style={{ color: "#efe3cb" }}>SINCHON · SMART HOSTEL</div></Rise>
             <h1 className="mt-4 text-[38px] font-bold leading-[1.22] tracking-tight text-white">
-              <Lift delay={0.1}>{t("한 학기,", "One semester.")}</Lift>
-              <Lift delay={0.25}>{t("서울에서 내 집처럼", "Your home in Seoul.")}</Lift>
+              <Lift delay={0.1}>{t("하룻밤부터 한 학기까지,", "From one night to a semester,")}</Lift>
+              <Lift delay={0.25}>{t("신촌에서 편안하게", "comfortably in Sinchon.")}</Lift>
             </h1>
             <Rise delay={0.45}><p className="mt-4 max-w-[320px] text-[14.5px] leading-[1.75]" style={{ color: "#f2e9d8" }}>{t("연세·이화·서강·홍익 생활권, 유학생과 여행자를 위한 가구 완비 스마트 호스텔", "A fully furnished smart hostel for students and travellers around Yonsei, Ewha, Sogang and Hongik.")}</p></Rise>
             <div className="mt-auto">
               <Rise delay={0.6}>
                 <div className="flex gap-2.5">
                   <button onClick={() => go("rooms")} className="flex-1 rounded-full py-3.5 text-[14px] font-semibold" style={{ background: "#fbf5ea", color: "var(--sh-ink)" }}>{t("방 보기", "See rooms")}</button>
-                  <button onClick={() => go("contact")} className="flex-1 rounded-full py-3.5 text-[14px] font-semibold text-white" style={{ background: "var(--sh-olive)" }}>{t("입주 문의", "Enquire")}</button>
+                  <button onClick={() => go("contact")} className="flex-1 rounded-full py-3.5 text-[14px] font-semibold text-white" style={{ background: "var(--sh-olive)" }}>{t("예약 문의", "Enquire")}</button>
                 </div>
               </Rise>
               <Rise delay={0.75}>
                 <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-                  {[[t("4개 대학", "4 universities"), t("생활권", "nearby")], [t("학기 단위", "By semester"), t("계약", "contracts")], [t("AI 다국어", "AI multilingual"), t("생활지원", "life support")]].map((s, i) => (
+                  {[[t("4개 대학", "4 universities"), t("생활권", "nearby")], [t("1박부터", "From 1 night"), t("장기 체류까지", "to long stays")], [t("AI 다국어", "AI multilingual"), t("생활지원", "life support")]].map((s, i) => (
                     <div key={i} className="rounded-xl px-1 py-2.5" style={{ background: "rgba(20,16,10,.38)", border: "1px solid rgba(255,255,255,.18)" }}>
                       <div className="text-[13px] font-bold text-white">{s[0]}</div>
                       <div className="text-[11px]" style={{ color: "#e8dcc4" }}>{s[1]}</div>
@@ -366,8 +366,8 @@ export default function SinchonSite() {
 
         {/* 03 건물 */}
         <section id="home" className="scroll-mt-24 px-6 py-16" style={{ background: "var(--sh-cream)" }}>
-          <Head no="02" en="THE BUILDING" sub={t("신촌역 가까운 지하 2층~지상 9층 건물을, 1층은 카페 라운지로 위층은 학생의 집으로 바꾸는 계획입니다.", "A B2–9F building near Sinchon Station — café lounge on the ground floor, student homes above.")}>
-            {t(<>오래된 상가를,<br />학생의 집으로</>, <>From an old commercial tower<br />to a student home</>)}
+          <Head no="02" en="THE BUILDING" sub={t("신촌역 가까운 지하 2층~지상 9층 건물을, 1층은 카페 라운지로 위층은 객실로 바꾸는 계획입니다.", "A B2–9F building near Sinchon Station — café lounge on the ground floor, guest rooms above.")}>
+            {t(<>오래된 상가를,<br />스마트 호스텔로</>, <>From an old commercial tower<br />to a smart hostel</>)}
           </Head>
           <Rise>
             <div className="mb-3 flex rounded-full p-1" style={{ background: "#ebe3d3" }}>
@@ -441,7 +441,7 @@ export default function SinchonSite() {
               ))}
               <div className="flex items-end justify-between pt-1">
                 <div>
-                  <div className="text-[11px]" style={{ color: "var(--sh-sub)" }}>{t("월 비용 (주변 시세 참고 예시)", "Monthly (illustrative, local market)")}</div>
+                  <div className="text-[11px]" style={{ color: "var(--sh-sub)" }}>{t("객실 요금", "Room rate")}</div>
                   <div className="mt-0.5 text-[20px] font-bold" style={{ color: "var(--sh-olive2)" }}>{t(R.priceKo, R.priceEn)}</div>
                 </div>
                 <span className="rounded border border-dashed px-1.5 py-0.5 text-[11px]" style={{ borderColor: "var(--sh-olive)", color: "var(--sh-olive)" }}>{t("확정 전", "TBC")}</span>
@@ -482,7 +482,7 @@ export default function SinchonSite() {
               <text x="198" y="169" textAnchor="middle" fontSize="8.5" fill="#6d6352">{lang === "ko" ? "신촌역" : "Sinchon"}</text>
               <motion.circle cx="160" cy="150" r="16" fill="#5c6838" fillOpacity="0.18" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2.4, repeat: Infinity }} style={{ transformOrigin: "160px 150px" }} />
               <circle cx="160" cy="150" r="8" fill="#3e4826" stroke="#fff" strokeWidth="2.5" />
-              <text x="148" y="178" textAnchor="end" fontSize="10" fontWeight="700" fill="#3e4826">SEMESTER HOUSE</text>
+              <text x="148" y="178" textAnchor="end" fontSize="10" fontWeight="700" fill="#3e4826">SMART HOSTEL</text>
               <text x="314" y="262" textAnchor="end" fontSize="8" fill="#a39880">{lang === "ko" ? "개략도 · 실제 축척 아님" : "Schematic · not to scale"}</text>
             </svg>
             <AnimatePresence mode="popLayout" initial={false}>
@@ -526,8 +526,8 @@ export default function SinchonSite() {
 
         {/* 06 신청 */}
         <section id="apply" className="scroll-mt-24 px-6 py-16">
-          <Head no="05" en="HOW TO APPLY" sub={t("학기에 맞춰 계약하고, 끝나면 가볍게 떠나세요.", "Sign for your semester, leave lightly when it ends.")}>
-            {t(<>한 학기 단위로,<br />네 단계면 입주</>, <>By the semester,<br />in four steps</>)}
+          <Head no="05" en="HOW TO STAY" sub={t("머무는 기간에 맞춰 고르고, 가볍게 체크인하세요.", "Pick your length of stay and check in with ease.")}>
+            {t(<>머무는 기간대로,<br />네 단계면 체크인</>, <>Stay as long as you like,<br />four steps to check in</>)}
           </Head>
           <div className="space-y-2">
             {TERMS.map((tm, i) => (
@@ -540,10 +540,10 @@ export default function SinchonSite() {
           <div className="relative mt-8 pl-8">
             <motion.div className="absolute left-[11px] top-2 w-px origin-top" style={{ background: "var(--sh-olive)", height: "calc(100% - 16px)" }} initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }} transition={{ duration: 1.4, ease: EASE }} />
             {[
-              [t("온라인 문의", "Enquire online"), t(<>{T.ko} 입주 희망 시기와 방 유형을 남겨 주세요. 한국어·영어로 답합니다.</>, <>Tell us your room type for the {T.en} term. We reply in English or Korean.</>)],
+              [t("온라인 문의", "Enquire online"), t(<>{T.ko} 체류 희망 시기와 방 유형을 남겨 주세요. 한국어·영어로 답합니다.</>, <>Tell us your dates and room type for a {T.en}. We reply in English or Korean.</>)],
               [t("영상 투어·견학", "Video tour or visit"), t("해외에 있어도 영상 통화로 방과 공용 공간을 둘러봅니다.", "Abroad? Walk through the rooms on a video call.")],
-              [t("다국어 계약", "Multilingual contract"), t("한·영 병기 계약서로 보증금·환불 규정을 미리 확인합니다.", "Bilingual contract with clear deposit and refund terms.")],
-              [t("입주", "Move in"), t("입주 전날 앱으로 비밀번호와 생활 안내를 받습니다.", "Get your door code and house guide in the app the day before.")],
+              [t("다국어 예약 안내", "Multilingual booking"), t("한·영 병기 약관으로 요금·환불 규정을 미리 확인합니다.", "Bilingual terms with clear rate and refund rules.")],
+              [t("체크인", "Check in"), t("도착 전날 앱으로 비밀번호와 이용 안내를 받습니다.", "Get your door code and guest guide in the app the day before.")],
             ].map(([h, d], i) => (
               <Rise key={i} delay={i * 0.08} className="relative pb-6 last:pb-0">
                 <span className="absolute -left-8 top-0 flex h-[23px] w-[23px] items-center justify-center rounded-full text-[11px] font-bold text-white" style={{ background: "var(--sh-olive)" }}>{i + 1}</span>
@@ -592,14 +592,14 @@ export default function SinchonSite() {
         {/* 08 부모님 안심 */}
         <section id="parents" className="scroll-mt-24 px-6 py-16">
           <Head no="07" en="FOR PARENTS" sub={t("멀리서 보내는 마음까지 생각했습니다.", "We think about the family back home, too.")}>
-            {t(<>부모님이 먼저<br />안심하는 집</>, <>A home parents<br />can trust first</>)}
+            {t(<>부모님이 먼저<br />안심하는 숙소</>, <>A stay parents<br />can trust first</>)}
           </Head>
           <div className="space-y-2">
             {[
               [I.key, t("출입 보안", "Secure access"), t("개인 비밀번호 출입, 외부인 출입 기록 관리 (예정)", "Personal door codes and visitor logs (planned)")],
               [I.fire, t("화재·안전 설비", "Fire & safety"), t("방마다 화재감지기, 소방·피난 기준에 맞춘 설계 (예정)", "Smoke detectors in every room, code-compliant design (planned)")],
               [I.user, t("운영 담당자", "On-site team"), t("생활 문제는 AI가, 판단이 필요한 일은 담당자가", "AI for routine, people for judgement")],
-              [I.doc, t("투명한 계약", "Clear contracts"), t("한·영 계약서, 보증금·환불 규정 사전 안내", "Bilingual contracts, deposit & refund terms upfront")],
+              [I.doc, t("투명한 약관", "Clear terms"), t("한·영 약관, 요금·환불 규정 사전 안내", "Bilingual terms, rate & refund rules upfront")],
             ].map(([ic, h, d], i) => (
               <Rise key={i} delay={i * 0.06}>
                 <div className="flex items-start gap-3.5 rounded-2xl p-4" style={{ background: "var(--sh-cream)" }}>
@@ -611,8 +611,8 @@ export default function SinchonSite() {
           </div>
           <div className="mt-8 divide-y rounded-2xl" style={{ border: "1px solid var(--sh-line)", borderColor: "var(--sh-line)" }}>
             {[
-              [t("한 학기보다 짧게 머물 수 있나요?", "Can I stay shorter than a semester?"), t("여름·겨울 어학연수용 1–2개월 단기 계약을 검토하고 있습니다.", "We are planning 1–2 month stays for summer and winter language programs.")],
-              [t("관리비와 공과금은 포함인가요?", "Are utilities included?"), t("포함 항목은 운영 조건이 정해진 뒤 확정해 안내합니다.", "Inclusions will be confirmed once operations are finalised.")],
+              [t("하루만 묵을 수도 있나요?", "Can I stay just one night?"), t("1박 단기 숙박부터 학기 단위 장기 체류까지 검토하고 있습니다.", "We are planning stays from one night up to a full semester.")],
+              [t("요금에 무엇이 포함되나요?", "What does the rate include?"), t("포함 항목은 운영 조건이 정해진 뒤 확정해 안내합니다.", "Inclusions will be confirmed once operations are finalised.")],
               [t("언제 문을 여나요?", "When do you open?"), t("리모델링 일정이 정해지면 가장 먼저 알려 드리겠습니다.", "We'll let you know first once the remodelling schedule is set.")],
             ].map(([q, a], i) => (
               <div key={i} style={{ borderColor: "var(--sh-line)" }}>
@@ -631,11 +631,11 @@ export default function SinchonSite() {
         {/* 09 문의 */}
         <section id="contact" className="scroll-mt-24 px-6 py-16" style={{ background: "var(--sh-cream)" }}>
           <Head no="08" en="CONTACT" sub={t("오픈 준비 중입니다. 문의 채널은 곧 열립니다.", "We're preparing to open. Enquiry channels are coming soon.")}>
-            {t(<>다음 학기,<br />신촌에서 만나요</>, <>See you in Sinchon<br />next semester</>)}
+            {t(<>다음 여행,<br />신촌에서 만나요</>, <>See you in Sinchon<br />on your next trip</>)}
           </Head>
           <div className="space-y-2.5">
             {[
-              [t("입주 문의", "Stay enquiry"), t("유학생·교환학생·어학연수생", "International, exchange & language students")],
+              [t("예약 문의", "Booking enquiry"), t("유학생·여행자·단기 체류자", "Students, travellers & short-stay guests")],
               [t("운영·제휴 문의", "Partnership enquiry"), t("대학 국제처·어학당·운영 파트너", "University offices, language schools, operators")],
             ].map(([h, d], i) => (
               <Rise key={i} delay={i * 0.08}>
@@ -649,7 +649,7 @@ export default function SinchonSite() {
         </section>
 
         <footer className="px-6 pb-12 pt-10" style={{ background: "var(--sh-ink)", color: "#b9b09f" }}>
-          <div className="sh-serif text-[22px] font-semibold tracking-[0.06em] text-[#f3ead8]">SEMESTER HOUSE</div>
+          <div className="sh-serif text-[22px] font-semibold tracking-[0.06em] text-[#f3ead8]">SMART HOSTEL</div>
           <div className="sh-en mt-1 text-[9.5px]">SINCHON · {t("가칭", "WORKING NAME")}</div>
           <p className="mt-6 text-[11.5px] leading-[1.8]">
             {t(
@@ -657,7 +657,7 @@ export default function SinchonSite() {
               "This page is a concept preview for business review. Photos and videos are AI-generated illustrations and may differ from the actual facility. Signs in the current photo are blurred. Room counts, sizes, prices and travel times are estimates, to be confirmed after design and operations are set."
             )}
           </p>
-          <div className="mt-6 text-[10.5px]" style={{ color: "#7d7466" }}>© 2026 SEMESTER HOUSE ({t("가칭", "working name")})</div>
+          <div className="mt-6 text-[10.5px]" style={{ color: "#7d7466" }}>© 2026 SMART HOSTEL ({t("가칭", "working name")})</div>
         </footer>
       </div>
 
