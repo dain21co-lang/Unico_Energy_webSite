@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "framer-motion";
 
 /* 원칙: 투명도는 움직이지 않는다 (갤럭시 빈 화면 방지) — 위치·크기·마스크만 움직인다 */
 const A = (f: string) => `/sinchon/${f}`;
@@ -48,20 +48,6 @@ function Photo({ src, alt, className, pos = "50% 50%", badge }: { src: string; a
   );
 }
 
-function Film({ src, poster, className, badge, children }: { src: string; poster: string; className?: string; badge?: ReactNode; children?: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const seen = useInView(ref, { once: true, margin: "-30px" });
-  return (
-    <div ref={ref} className={`relative overflow-hidden ${className ?? ""}`}>
-      <motion.div className="absolute inset-0" style={{ background: "#2b2720" }} initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }} transition={{ duration: 1.2, ease: EASE }}>
-        <video className="h-full w-full object-cover" src={src} poster={poster} autoPlay muted loop playsInline preload="metadata" />
-      </motion.div>
-      {badge && <div className="absolute right-2.5 top-2.5 z-10"><Badge dark>{badge}</Badge></div>}
-      {children}
-    </div>
-  );
-}
-
 function Head({ no, en, children, sub }: { no: string; en: string; children: ReactNode; sub?: ReactNode }) {
   return (
     <div className="mb-8">
@@ -98,6 +84,128 @@ const I: Record<string, string> = {
   train: "M7 3h10a2 2 0 0 1 2 2v9a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V5a2 2 0 0 1 2-2z M5 10h14 M8 20l-2 2 M16 20l2 2 M9 14h.01 M15 14h.01",
   bus: "M6 3h12a2 2 0 0 1 2 2v12H4V5a2 2 0 0 1 2-2z M4 11h16 M7 20v-3 M17 20v-3 M8 14h.01 M16 14h.01",
 };
+
+/* ───────── 스크롤 여행: 외관 → 라운지 → 1인실 (위로 밀면 장면이 바뀐다) ─────────
+   · 스크롤 진행도(0~1)로 장면을 마스크(clipPath)로 덮고, 글자는 y 이동으로 교체 — 투명도 사용 안 함
+   · 지금 보이는 장면의 영상만 재생, 화면을 벗어나면 모두 정지 */
+type TFn = (ko: ReactNode, en: ReactNode) => ReactNode;
+const SCENES = [
+  { kind: "video", src: "exterior.mp4", poster: "exterior-poster.webp", no: "01", en: "EXTERIOR", badgeKo: "AI 영상 · 예시", badgeEn: "AI video · concept",
+    ko: <>해가 지면,<br />창마다 불이 켜지는 집</>, enT: <>At dusk,<br />every window comes alive</>,
+    dKo: "신촌역 가까운 모퉁이, 오래된 상가가 학생의 집이 됩니다.", dEn: "A corner near Sinchon Station — an old commercial tower becomes a student home." },
+  { kind: "video", src: "lounge.mp4", poster: "lounge-poster.webp", no: "02", en: "SHARED LOUNGE", badgeKo: "AI 영상 · 예시", badgeEn: "AI video · concept",
+    ko: <>혼자 와도,<br />혼자가 아닌 저녁</>, enT: <>Arrive alone,<br />never dine alone</>,
+    dKo: "1층 카페 라운지와 공용 주방에서 처음 만난 친구들과 저녁을.", dEn: "Dinner with new friends in the ground-floor café lounge and shared kitchen." },
+  { kind: "image", src: "room-single.webp", poster: "", no: "03", en: "YOUR ROOM", badgeKo: "AI 이미지 · 예시", badgeEn: "AI image · concept",
+    ko: <>문을 열면,<br />내 방</>, enT: <>Open the door —<br />your own room</>,
+    dKo: "침구·책상·개인 욕실까지, 가방만 풀면 됩니다.", dEn: "Linen, desk, private bathroom — just unpack." },
+] as const;
+
+function Journey({ t }: { t: TFn }) {
+  const reduce = useReducedMotion();
+  const wrap = useRef<HTMLElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const vids = useRef<(HTMLVideoElement | null)[]>([]);
+  const [active, setActive] = useState(0);
+  const onScreen = useInView(stage, { margin: "0px" });
+  const { scrollYProgress: p } = useScroll({ target: wrap, offset: ["start start", "end end"] });
+
+  const REVEAL = ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"];
+  const clip2 = useTransform(p, [0.28, 0.4], REVEAL);
+  const clip3 = useTransform(p, [0.61, 0.73], REVEAL);
+  const zoom1 = useTransform(p, [0, 0.4], [1, 1.07]);
+  const zoom3 = useTransform(p, [0.61, 1], [1.16, 1]);
+  const cap1 = useTransform(p, [0, 0.27, 0.35], ["0%", "0%", "-130%"]);
+  const cap2 = useTransform(p, [0.3, 0.38, 0.6, 0.68], ["130%", "0%", "0%", "-130%"]);
+  const cap3 = useTransform(p, [0.63, 0.71, 1], ["130%", "0%", "0%"]);
+  const hintY = useTransform(p, [0, 0.05], ["0%", "-220%"]);
+  const bar = useTransform(p, [0, 1], [0, 1]);
+
+  useMotionValueEvent(p, "change", (v) => setActive(v < 0.34 ? 0 : v < 0.67 ? 1 : 2));
+
+  useEffect(() => {
+    vids.current.forEach((v, i) => {
+      if (!v) return;
+      if (onScreen && i === active) v.play().catch(() => {});
+      else v.pause();
+    });
+  }, [active, onScreen]);
+
+  if (reduce) {
+    return (
+      <section id="story" className="scroll-mt-24 space-y-8 px-6 py-16">
+        {SCENES.map((s) => (
+          <div key={s.no}>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl" style={{ background: "#2b2720" }}>
+              {s.kind === "video" ? <video className="h-full w-full object-cover" src={A(s.src)} poster={A(s.poster)} muted loop playsInline preload="metadata" /> : <img src={A(s.src)} alt="" className="h-full w-full object-cover" />}
+              <div className="absolute right-2.5 top-2.5"><Badge dark>{t(s.badgeKo, s.badgeEn)}</Badge></div>
+            </div>
+            <div className="sh-en mt-3 text-[11px] font-semibold" style={{ color: "var(--sh-olive)" }}>{s.no} · {s.en}</div>
+            <div className="mt-1 text-[20px] font-bold leading-[1.4]">{t(s.ko, s.enT)}</div>
+            <p className="mt-1 text-[13.5px] leading-[1.7]" style={{ color: "var(--sh-sub)" }}>{t(s.dKo, s.dEn)}</p>
+          </div>
+        ))}
+      </section>
+    );
+  }
+
+  const caps = [cap1, cap2, cap3];
+  const cur = SCENES[active];
+  return (
+    <section id="story" ref={wrap} className="relative" style={{ height: "400vh", userSelect: "none", WebkitUserSelect: "none", WebkitTouchCallout: "none" }}>
+      <div ref={stage} className="sticky top-0 h-[100dvh] w-full overflow-hidden" style={{ background: "#2b2720" }}>
+        {/* 장면 1 → 2 → 3, 아래에서 위로 마스크가 올라오며 덮는다 */}
+        <motion.div className="absolute inset-0" style={{ scale: zoom1 }}>
+          <video ref={(el) => { vids.current[0] = el; }} className="h-full w-full object-cover" src={A(SCENES[0].src)} poster={A(SCENES[0].poster)} muted loop playsInline preload="metadata" />
+        </motion.div>
+        <motion.div className="absolute inset-0" style={{ clipPath: clip2 }}>
+          <video ref={(el) => { vids.current[1] = el; }} className="h-full w-full object-cover" src={A(SCENES[1].src)} poster={A(SCENES[1].poster)} muted loop playsInline preload="metadata" />
+        </motion.div>
+        <motion.div className="absolute inset-0" style={{ clipPath: clip3 }}>
+          <motion.img src={A(SCENES[2].src)} alt="" className="h-full w-full object-cover" style={{ scale: zoom3, objectPosition: "50% 60%" }} />
+        </motion.div>
+
+        <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(20,16,10,.5) 0%, rgba(20,16,10,0) 24%, rgba(20,16,10,0) 48%, rgba(20,16,10,.78) 100%)" }} />
+
+        {/* 진행 표시 */}
+        <motion.div className="absolute left-0 top-0 z-30 h-[3px] w-full origin-left" style={{ background: "var(--sh-glow)", scaleX: bar }} />
+        <div className="absolute right-3 top-1/2 z-30 flex -translate-y-1/2 flex-col gap-2.5" aria-hidden="true">
+          {SCENES.map((s, i) => (
+            <span key={s.no} className="block w-[6px] rounded-full transition-all duration-500" style={{ height: active === i ? 26 : 6, background: active === i ? "var(--sh-glow)" : "rgba(255,255,255,.5)" }} />
+          ))}
+        </div>
+
+        {/* 장면 번호 · 배지 */}
+        <div className="absolute inset-x-0 top-[100px] z-30 flex items-center justify-between px-6">
+          <div className="sh-en text-[11px] font-semibold" style={{ color: "#f3ead8" }}>{cur.no} / 03 · {cur.en}</div>
+          <Badge dark>{t(cur.badgeKo, cur.badgeEn)}</Badge>
+        </div>
+
+        {/* 글자: 장면마다 아래에서 올라오고 위로 사라진다 */}
+        <div className="absolute inset-x-0 bottom-[88px] z-30 px-6">
+          <div className="relative">
+            {SCENES.map((s, i) => (
+              <div key={s.no} className={i === 0 ? "overflow-hidden" : "absolute inset-x-0 bottom-0 overflow-hidden"}>
+                <motion.div style={{ y: caps[i] }}>
+                  <div className="text-[30px] font-bold leading-[1.3] tracking-tight text-white">{t(s.ko, s.enT)}</div>
+                  <p className="mt-2.5 max-w-[320px] text-[14px] leading-[1.75]" style={{ color: "#f2e9d8" }}>{t(s.dKo, s.dEn)}</p>
+                </motion.div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* 밀어 보라는 안내: 조금 내려가면 사라진다 */}
+        <div className="absolute inset-x-0 bottom-7 z-30 flex justify-center overflow-hidden">
+          <motion.div className="flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-semibold" style={{ y: hintY, background: "rgba(251,245,234,.92)", color: "var(--sh-ink)" }}>
+            {t("아래로 밀어 입주해 보세요", "Scroll down to move in")}
+            <span className="sh-cue"><Icon d="M6 9l6 6 6-6" size={16} /></span>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* ───────── 콘텐츠 (예시·추정 값은 화면에 표시) ───────── */
 const ROOMS = [
@@ -160,7 +268,7 @@ export default function SinchonSite() {
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const NAV: [string, string, string][] = [
-    ["story", "첫날", "Day 1"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"],
+    ["story", "여행", "Tour"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"],
     ["apply", "신청", "Apply"], ["care", "생활지원", "Care"], ["parents", "안심", "Safety"], ["contact", "문의", "Contact"],
   ];
 
@@ -237,38 +345,8 @@ export default function SinchonSite() {
           {t("콘셉트 시안 · 오픈 준비 중 — 객실 수·요금·이동시간은 예시이며 확정 전입니다.", "Concept preview · opening in preparation — room counts, prices and travel times are illustrative.")}
         </div>
 
-        {/* 02 첫날 이야기 */}
-        <section id="story" className="scroll-mt-24 px-6 pb-6 pt-16">
-          <Head no="01" en="YOUR FIRST DAY" sub={t("공항에서 짐을 끌고 오는 그 순간부터, 한 학기를 마치고 떠나는 날까지. 낯선 도시의 첫날이 덜 낯설도록 설계했습니다.", "From the moment you roll your suitcase in from the airport to the day you leave. Designed so your first day in a new city feels less new.")}>
-            {t(<>서울의 첫날이<br />어렵지 않게</>, <>Your first day in Seoul,<br />made easy</>)}
-          </Head>
-        </section>
-        <div className="sh-noscroll flex snap-x snap-mandatory scroll-pl-6 gap-3 overflow-x-auto px-6 pb-4">
-          {[
-            { img: "hero-poster.webp", pos: "50% 70%", n: "08:40", ko: "도착", en: "Arrive", dKo: "앱으로 받은 비밀번호로 바로 입실. 체크인 줄이 없습니다.", dEn: "Walk in with the code sent to your phone. No check-in queue." },
-            { img: "room-single.webp", pos: "50% 60%", n: "09:10", ko: "내 방", en: "Your room", dKo: "침구·책상·개인 욕실까지, 가방만 풀면 됩니다.", dEn: "Linen, desk, private bathroom — just unpack." },
-            { img: "lounge.webp", pos: "50% 60%", n: "19:30", ko: "함께", en: "Together", dKo: "공용 주방에서 처음 만난 친구들과 저녁을.", dEn: "Dinner with new friends in the shared kitchen." },
-            { img: "room-triple.webp", pos: "50% 50%", n: "23:00", ko: "쉼", en: "Rest", dKo: "커튼을 닫으면, 셋이 써도 나만의 공간.", dEn: "Close the curtain — your own space, even in a triple." },
-          ].map((c, i) => (
-            <div key={i} className="w-[72%] shrink-0 snap-start">
-              <Photo src={A(c.img)} alt={c.ko} pos={c.pos} className="aspect-[4/5] rounded-2xl" badge={t("AI 이미지 · 예시", "AI image")} />
-              <div className="mt-3 flex items-baseline gap-2">
-                <span className="sh-serif text-[20px] font-semibold" style={{ color: "var(--sh-olive)" }}>{c.n}</span>
-                <span className="text-[15px] font-bold">{t(c.ko, c.en)}</span>
-              </div>
-              <p className="mt-1 text-[13px] leading-[1.7]" style={{ color: "var(--sh-sub)" }}>{t(c.dKo, c.dEn)}</p>
-            </div>
-          ))}
-          <div className="w-2 shrink-0" />
-        </div>
-        <div className="px-6 pb-16 pt-8">
-          <Film src={A("lounge.mp4")} poster={A("lounge-poster.webp")} className="aspect-[9/14] rounded-2xl" badge={t("AI 영상 · 예시", "AI video")}>
-            <div className="absolute inset-x-0 top-0 z-10 p-5">
-              <div className="sh-en text-[10.5px] font-semibold" style={{ color: "#5c4f39" }}>SHARED KITCHEN & LOUNGE</div>
-              <div className="mt-1.5 text-[20px] font-bold leading-[1.4]" style={{ color: "var(--sh-ink)" }}>{t(<>혼자 와도,<br />혼자가 아닌 저녁</>, <>Arrive alone,<br />never dine alone</>)}</div>
-            </div>
-          </Film>
-        </div>
+        {/* 02 스크롤 여행 */}
+        <Journey t={t} />
 
         {/* 03 건물 */}
         <section id="home" className="scroll-mt-24 px-6 py-16" style={{ background: "var(--sh-cream)" }}>
@@ -301,13 +379,6 @@ export default function SinchonSite() {
                 </div>
               </Rise>
             ))}
-          </div>
-          <div className="mt-8">
-            <Film src={A("exterior.mp4")} poster={A("exterior-poster.webp")} className="aspect-[9/16] rounded-2xl" badge={t("AI 영상 · 예시", "AI video")}>
-              <div className="absolute inset-x-0 bottom-0 z-10 p-5" style={{ background: "linear-gradient(0deg, rgba(20,16,10,.6), rgba(20,16,10,0))" }}>
-                <div className="text-[19px] font-bold leading-[1.45] text-white">{t(<>해가 지면,<br />창마다 불이 켜지는 집</>, <>At dusk,<br />every window comes alive</>)}</div>
-              </div>
-            </Film>
           </div>
         </section>
 

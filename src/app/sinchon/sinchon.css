@@ -15,7 +15,7 @@
   min-height: 100vh;
   width: 100%;
   word-break: keep-all;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 .sh .sh-serif { font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; }
 .sh .sh-en { letter-spacing: 0.2em; }
