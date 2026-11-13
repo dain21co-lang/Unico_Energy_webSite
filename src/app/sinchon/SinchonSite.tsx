@@ -386,7 +386,7 @@ export default function SinchonSite() {
           <div className="relative aspect-[2/3] overflow-hidden rounded-2xl" style={{ background: "#ddd5c4" }}>
             <img src={A("before-exterior.webp")} alt="before" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "45% 40%" }} />
             <motion.div className="absolute inset-0" initial={false} animate={{ clipPath: after ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 0% 100%)" }} transition={{ duration: 0.9, ease: EASE }}>
-              <img src={A("after-exterior.webp")} alt="after" className="h-full w-full object-cover" style={{ objectPosition: "50% 30%" }} />
+              <img src={A("after-exterior-day.webp")} alt="after" className="h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} />
             </motion.div>
             <div className="absolute left-2.5 top-2.5"><Badge dark>{after ? t("리모델링 후 예시 · AI 이미지", "Remodel concept · AI image") : t("현재 모습 · 간판 흐림 처리", "Today · signs blurred")}</Badge></div>
           </div>
