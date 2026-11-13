@@ -289,7 +289,7 @@ export default function SinchonSite() {
 
   const NAV: [string, string, string][] = [
     ["story", "여행", "Tour"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"], ["basement", "층별", "Floors"],
-    ["apply", "신청", "Apply"], ["care", "생활지원", "Care"], ["parents", "안심", "Safety"], ["contact", "문의", "Contact"],
+    ["apply", "신청", "Apply"], ["care", "생활지원", "Care"], ["parents", "안심", "Safety"], ["docs", "자료", "Docs"], ["contact", "문의", "Contact"],
   ];
 
   const R = ROOMS[room];
@@ -632,9 +632,32 @@ export default function SinchonSite() {
           </div>
         </section>
 
+        {/* 자료 */}
+        <section id="docs" className="scroll-mt-24 px-6 pb-4 pt-16">
+          <Head no="08" en="DOCUMENTS" sub={t("사업소개서와 IR 자료를 휴대폰에서 바로 넘겨 보실 수 있습니다.", "Swipe through the business profile and IR deck on your phone.")}>
+            {t("사업 자료 바로보기", "Business documents")}
+          </Head>
+          <div className="space-y-3">
+            {[
+              ["/scprofile", "/scprofile/s01.webp", t("사업소개서", "Business profile"), t("12장 · 콘셉트·객실·운영", "12 slides · concept, rooms, operations")],
+              ["/scplan", "/scplan/s01.webp", t("IR 자료", "IR deck"), t("16장 · 시장·매출·투자 계획(추정)", "16 slides · market, revenue, investment (est.)")],
+            ].map(([href, img, h, d], i) => (
+              <Rise key={i} delay={i * 0.08}>
+                <a href={href as string} className="block overflow-hidden rounded-2xl bg-white" style={{ border: "1px solid var(--sh-line)" }}>
+                  <img src={img as string} alt="" className="aspect-[16/9] w-full object-cover" />
+                  <div className="flex items-center justify-between p-4">
+                    <div><div className="text-[15px] font-bold">{h}</div><div className="mt-0.5 text-[12px]" style={{ color: "var(--sh-sub)" }}>{d}</div></div>
+                    <span className="rounded-full px-3.5 py-1.5 text-[12px] font-semibold text-white" style={{ background: "var(--sh-olive)" }}>{t("바로보기", "View")}</span>
+                  </div>
+                </a>
+              </Rise>
+            ))}
+          </div>
+        </section>
+
         {/* 09 문의 */}
         <section id="contact" className="scroll-mt-24 px-6 py-16" style={{ background: "var(--sh-cream)" }}>
-          <Head no="08" en="CONTACT" sub={t("오픈 준비 중입니다. 문의 채널은 곧 열립니다.", "We're preparing to open. Enquiry channels are coming soon.")}>
+          <Head no="09" en="CONTACT" sub={t("오픈 준비 중입니다. 문의 채널은 곧 열립니다.", "We're preparing to open. Enquiry channels are coming soon.")}>
             {t(<>다음 여행,<br />신촌에서 만나요</>, <>See you in Sinchon<br />on your next trip</>)}
           </Head>
           <div className="space-y-2.5">
