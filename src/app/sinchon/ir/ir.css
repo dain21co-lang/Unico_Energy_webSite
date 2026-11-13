@@ -1,0 +1,33 @@
+/* 신촌 스마트호스텔 IR 뷰어 전용 — 옐로 · 블랙 · 화이트 (Unite Students 벤치마킹), 모핑 블롭 */
+.sir {
+  --y: #ffe11a;
+  --y2: #fff27a;
+  --k: #111111;
+  --paper: #ffffff;
+  --cream: #f5f4ef;
+  --sub: #66655f;
+  --mute: #9a988f;
+  --line: rgba(17, 17, 17, 0.12);
+  --mint: #a6e3d4;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--paper);
+  color: var(--k);
+  word-break: keep-all;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.sir .stage { touch-action: pan-y; }
+.sir .scroll { overflow-y: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.sir .scroll::-webkit-scrollbar { display: none; }
+.sir .card { background: var(--cream); border-radius: 20px; }
+@keyframes sir-shine { 0% { transform: translateX(-120%) skewX(-20deg); } 100% { transform: translateX(320%) skewX(-20deg); } }
+.sir .shine { animation: sir-shine 3.8s ease-in-out infinite; }
+@keyframes sir-hint { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-10px); } }
+.sir .hint { animation: sir-hint 1.6s ease-in-out infinite; }
+@keyframes sir-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.6); } }
+.sir .pulse { animation: sir-pulse 1.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .sir .shine, .sir .hint, .sir .pulse { animation: none; }
+}

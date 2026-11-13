@@ -640,6 +640,7 @@ export default function SinchonSite() {
           <div className="space-y-3">
             {[
               ["/scprofile", "/scprofile/s01.webp", t("사업소개서", "Business profile"), t("12장 · 콘셉트·객실·운영", "12 slides · concept, rooms, operations")],
+              ["/sinchon/ir", "/sinchon/hero-poster.webp", t("IR 모션 프레젠테이션", "IR motion presentation"), t("23장 · 휴대폰에서 밀어 넘기는 사업계획서", "23 slides · swipe-through business plan")],
               ["/scplan", "/scplan/s01.webp", t("IR 자료", "IR deck"), t("16장 · 시장·매출·투자 계획(추정)", "16 slides · market, revenue, investment (est.)")],
             ].map(([href, img, h, d], i) => (
               <Rise key={i} delay={i * 0.08}>
