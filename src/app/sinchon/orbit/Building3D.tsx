@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeometry.js";
 import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
-import { PLATE, WING, CORE, EV, ESTAIR_TYP, ESTAIR_LOW, floorY, floorH, ROOF_Y, ROOMS, COLORS, kindOf } from "./model";
+import { PLATE, WING, CORE, EV, ESTAIR_TYP, ESTAIR_LOW, floorY, floorH, ROOF_Y, ROOMS, COLORS, kindOf, TOP } from "./model";
 import type { Rect } from "./model";
 
 /*
@@ -96,7 +96,7 @@ export default function Building3D({ progress, paused, className }: { progress: 
 
     type FloorObj = { g: THREE.Group; k: number; rooms: THREE.Mesh[]; roomLines: LineSegments2 | null };
     const floors: FloorObj[] = [];
-    for (let k = 1; k <= 9; k++) {
+    for (let k = 1; k <= TOP; k++) {
       const g = new THREE.Group();
       g.position.y = floorY(k);
       const segs = floorSegs(k);
@@ -182,7 +182,7 @@ export default function Building3D({ progress, paused, className }: { progress: 
       const ex = smooth(0.5, 0.68, p); // 펼침
       const fill = smooth(0.56, 0.72, p);
       floors.forEach(({ g, k, rooms, roomLines }) => {
-        const t = Math.min(1, Math.max(0, 0.35 + build * 9.6 - (k - 1)));
+        const t = Math.min(1, Math.max(0, 0.35 + build * (TOP + 0.6) - (k - 1)));
         const e = t * t * (3 - 2 * t);
         g.scale.y = Math.max(0.0001, e);
         g.position.y = floorY(k) + (1 - e) * -1.2 + ex * (k - 1) * 2.1;
@@ -190,10 +190,10 @@ export default function Building3D({ progress, paused, className }: { progress: 
         for (const m of rooms) (m.material as THREE.MeshBasicMaterial).opacity = fill * 0.62;
         if (roomLines) (roomLines.material as LineMaterial).opacity = fill * 0.9;
       });
-      const rt = Math.min(1, Math.max(0, 0.35 + build * 9.6 - 9));
+      const rt = Math.min(1, Math.max(0, 0.35 + build * (TOP + 0.6) - TOP));
       roof.visible = rt > 0.001;
       roof.scale.y = Math.max(0.0001, rt);
-      roof.position.y = ROOF_Y + ex * 9 * 2.1;
+      roof.position.y = ROOF_Y + ex * TOP * 2.1;
 
       // 2) 색
       if (p < 0.36) tmp.copy(cBlue).lerp(cMint, smooth(0.22, 0.36, p));
@@ -212,7 +212,7 @@ export default function Building3D({ progress, paused, className }: { progress: 
       root.position.x = -side * 6.5;
 
       // 4) 카메라
-      const span = ROOF_Y + ex * 9 * 2.1;
+      const span = ROOF_Y + ex * TOP * 2.1;
       const narrow = camera.aspect < 0.75;
       const dist = (narrow ? 128 : 92) + ex * (narrow ? 84 : 56);
       const ty = Math.max(8, span * 0.5 * (0.35 + 0.65 * build)) + (narrow ? span * 0.05 : 0);

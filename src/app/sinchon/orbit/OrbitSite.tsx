@@ -61,14 +61,36 @@ function Badge({ children, light = false }: { children: ReactNode; light?: boole
     </span>
   );
 }
+/* 화면에 들어오면 무음 자동 반복되는 영상 카드 */
+function Clip({ src, poster, kick, title, light = false }: { src: string; poster: string; kick: string; title: string; light?: boolean }) {
+  const box = useRef<HTMLDivElement>(null);
+  const v = useRef<HTMLVideoElement>(null);
+  const seen = useInView(box, { margin: "0px 0px -15% 0px" });
+  const on = useInView(box, { once: true, margin: "-10% 0px" });
+  const en = useEN();
+  useEffect(() => { const el = v.current; if (!el) return; if (seen) el.play().catch(() => {}); else el.pause(); }, [seen]);
+  return (
+    <div ref={box}>
+      <motion.div className="relative mx-auto aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[26px] bg-black" initial={{ clipPath: "inset(8% 8% 8% 8% round 40px)", scale: 0.96 }} animate={on ? { clipPath: "inset(0% 0% 0% 0% round 26px)", scale: 1 } : {}} transition={{ duration: 1.1, ease: EASE }}>
+        <video ref={v} src={src} poster={IMG(poster)} playsInline muted loop autoPlay preload="metadata" className="h-full w-full object-cover" />
+        <div className="pointer-events-none absolute left-3 top-3"><Badge light={light}>{en ? "AI video · sample" : "AI 영상 · 예시"}</Badge></div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 px-5 pb-5 pt-16" style={{ background: "linear-gradient(180deg,transparent,rgba(18,26,34,0.82))" }}>
+          <p className="kick text-[10px] text-[#dfe7ee]">{kick}</p>
+          <p className="mt-1 text-[17px] font-black text-white">{title}</p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 /* ───────── 1. 3D 여정 (스크롤 고정) ───────── */
 const CHAPTERS = [
   { n: "01", en: "THE ARRIVAL", kick: "01 / IMAGINE A NEW CHAPTER", a: "Form.", b: "In motion.", sub: "선이 펼쳐지고, 층이 올라가고.\n새로운 신촌이 모습을 갖춥니다.", subE: "Lines unfold, floors rise.\nA new Sinchon takes shape." },
-  { n: "02", en: "THE REVEAL", kick: "02 / A DIFFERENT PERSPECTIVE", a: "See it", b: "differently.", sub: "2004년 원도면 치수 그대로.\n9개 층, 하나의 건물을 다른 시선으로.", subE: "True to the original 2004 drawings.\nNine floors, one building, a new view." },
-  { n: "03", en: "THE LAYERS", kick: "03 / OPEN UP THE POSSIBILITIES", a: "Room for", b: "new stories.", sub: "층을 펼치면 객실이 보입니다.\n2층부터 9층까지 54개의 방.", subE: "Open the floors and the rooms appear.\n54 rooms from the 2nd to the 9th floor." },
+  { n: "02", en: "THE REVEAL", kick: "02 / A DIFFERENT PERSPECTIVE", a: "See it", b: "differently.", sub: "원도면 치수 그대로.\n지하 2층 · 지상 10층, 하나의 건물을 다른 시선으로.", subE: "True to the original drawings.\nTen floors above ground, one building, a new view." },
+  { n: "03", en: "THE LAYERS", kick: "03 / OPEN UP THE POSSIBILITIES", a: "Room for", b: "new stories.", sub: "층을 펼치면 객실이 보입니다.\n2층부터 10층까지 66개의 방.", subE: "Open the floors and the rooms appear.\n66 rooms from the 2nd to the 10th floor." },
   { n: "04", en: "THE HORIZON", kick: "04 / ONE BUILDING", a: "One city.", b: "New life.", sub: "하루 숙박부터 한 학기까지,\n신촌의 첫 서울집.", subE: "From one night to a full semester —\nyour first home in Seoul." },
 ];
-const FLOOR_LIST: [string, string, string][] = [["9F", "1인실 4", "Single 4"], ["8F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["7F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["6F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["5F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["4F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["3F", "셰어 5 · 2인실 3 · 1인실 2", "Share 5 · Twin 3 · Single 2"], ["2F", "셰어 5 · 2인실 3 · 1인실 2", "Share 5 · Twin 3 · Single 2"], ["1F", "리셉션 · 카페 라운지", "Reception · Café lounge"]];
+const FLOOR_LIST: [string, string, string][] = [["10F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["9F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["8F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["7F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["6F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["5F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["4F", "1인실 5 · 2인실 1 · 옥상정원", "Single 5 · Twin 1 · Roof garden"], ["3F", "셰어 6 · 2인실 3 · 1인실 3", "Share 6 · Twin 3 · Single 3"], ["2F", "셰어 6 · 2인실 3 · 1인실 3", "Share 6 · Twin 3 · Single 3"], ["1F", "리셉션 · 카페 라운지", "Reception · Café lounge"]];
 
 function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -119,7 +141,7 @@ function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
           <div className="glass rounded-2xl px-3 py-2.5">
             {FLOOR_LIST.map(([f, d, de]) => (
               <div key={f} className="flex items-baseline gap-2 py-[3px]">
-                <span className="serif w-6 text-[15px] italic" style={{ color: "var(--o-gold)" }}>{f}</span>
+                <span className="serif w-7 text-[15px] italic" style={{ color: "var(--o-gold)" }}>{f}</span>
                 <span className="text-[10.5px] font-medium leading-tight text-[#dfe7ee]">{en ? de : d}</span>
               </div>
             ))}
@@ -155,18 +177,18 @@ function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
 
 /* ───────── 2. 원도면 · 객실 배치 ───────── */
 const PLAN_TABS: { k: FloorKind; label: string; labelE: string; cad: string; sum: string; sumE: string; note: string; noteE: string }[] = [
-  { k: "f23", label: "2·3층", labelE: "2F · 3F", cad: "orbit-cad-2f", sum: "층당 10실 · 셰어룸 5 + 2인실 3 + 1인실 2", sumE: "10 rooms per floor · 5 share + 3 twin + 2 single", note: "동측 날개까지 넓은 층 — 그룹·어학연수생", noteE: "The widest floors, with the east wing — for groups and language students" },
-  { k: "typ", label: "4~8층", labelE: "4F – 8F", cad: "orbit-cad-typ", sum: "층당 6실 · 1인실 5 + 2인실 1", sumE: "6 rooms per floor · 5 single + 1 twin", note: "기준층 — 모든 객실 개별 욕실, 기존 화장실 자리는 린넨·세탁", noteE: "Typical floor — private bathroom in every room; the old washrooms become linen & laundry" },
-  { k: "f9", label: "9층", labelE: "9F", cad: "orbit-cad-9f", sum: "4실 · 1인실 4 + 지붕발코니", sumE: "4 rooms · 4 single + roof balcony", note: "가장 조용한 꼭대기 층", noteE: "The quietest floor, at the very top" },
+  { k: "f23", label: "2·3층", labelE: "2F · 3F", cad: "orbit-cad-2f", sum: "층당 12실 · 셰어룸 6 + 2인실 3 + 1인실 3", sumE: "12 rooms per floor · 6 share + 3 twin + 3 single", note: "층당 337.89㎡의 가장 넓은 층 — 그룹·어학연수생 중심", noteE: "The widest floors (337.89㎡ each) — for groups and language students" },
+  { k: "f4", label: "4층", labelE: "4F", cad: "orbit-cad-4f", sum: "6실 · 1인실 5 + 2인실 1 + 옥상정원", sumE: "6 rooms · 5 single + 1 twin + roof garden", note: "2·3층 지붕을 옥상정원으로 — 입주자 모두의 마당", noteE: "The roof over 2F–3F becomes a garden for every resident" },
+  { k: "typ", label: "5~10층", labelE: "5F – 10F", cad: "orbit-cad-typ", sum: "층당 6실 · 1인실 5 + 2인실 1", sumE: "6 rooms per floor · 5 single + 1 twin", note: "기준층 — 모든 객실 개별 욕실, 린넨·세탁실 층마다", noteE: "Typical floor — private bathroom in every room, linen & laundry on each floor" },
 ];
-const SVC_E: Record<string, string> = { 린넨: "Linen", 지붕발코니: "Roof balcony", 복도: "Corridor" };
+const SVC_E: Record<string, string> = { 린넨: "Linen", 복도: "Corridor", 옥상정원: "Roof garden" };
 
 function PlanSvg({ k }: { k: FloorKind }) {
   const en = useEN();
-  const wide = k === "f23";
+  const wide = k === "f23" || k === "f4";
   const minX = -0.8, maxX = wide ? 27.3 : 16.2, minZ = wide ? -5.2 : -0.8, maxZ = 18.4;
   const W = maxX - minX, H = maxZ - minZ;
-  const blocks: Rect[] = [PLATE, CORE, EV, ...(wide ? [WING, ESTAIR_LOW] : [ESTAIR_TYP])];
+  const blocks: Rect[] = [PLATE, CORE, EV, ...(k === "f23" ? [WING, ESTAIR_LOW] : k === "f4" ? [WING, ESTAIR_TYP] : [ESTAIR_TYP])];
   const rect = ([x0, z0, x1, z1]: Rect) => ({ x: x0, y: z0, width: x1 - x0, height: z1 - z0 });
   return (
     <svg viewBox={`${minX} ${minZ} ${W} ${H}`} className="h-full w-full">
@@ -199,13 +221,13 @@ function PlanSvg({ k }: { k: FloorKind }) {
 }
 
 function Plans() {
-  const [tab, setTab] = useState(1);
+  const [tab, setTab] = useState(0);
   const [mode, setMode] = useState<"cad" | "rooms">("rooms");
   const en = useEN();
   const t = PLAN_TABS[tab];
   return (
     <section id="plans" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#121a22 0%,#1a2430 100%)" }}>
-      <Head kick="05 / THE ORIGINAL LINES" a="Every future." b="Begins with a line." sub={en ? <>Imagination, grounded in the original lines.<br />A draft room plan laid over the 2004 drawings.</> : <>상상에 근거를 더하는 원래의 선.<br />2004년 원도면 위에 객실 배치(안)를 올렸습니다.</>} />
+      <Head kick="05 / THE ORIGINAL LINES" a="Every future." b="Begins with a line." sub={en ? <>Imagination, grounded in the original lines.<br />A draft room plan laid over the original drawings.</> : <>상상에 근거를 더하는 원래의 선.<br />원도면 위에 객실 배치(안)를 올렸습니다.</>} />
       <div className="mt-8 flex gap-2">
         {PLAN_TABS.map((p, i) => (
           <button key={p.k} onClick={() => setTab(i)} className="relative flex-1 rounded-full py-3 text-[14px] font-bold" style={{ color: i === tab ? "#121a22" : "#dfe7ee" }}>
@@ -217,7 +239,7 @@ function Plans() {
       </div>
       <div className="glass relative mt-4 overflow-hidden rounded-[22px] p-3">
         <div className="mb-2 flex items-center justify-between px-1">
-          <p className="kick text-[9.5px]" style={{ color: "var(--o-sub)" }}>{mode === "cad" ? "ORIGINAL CAD · 2004" : (en ? "ROOM PLAN · DRAFT" : "ROOM PLAN · 배치(안)")}</p>
+          <p className="kick text-[9.5px]" style={{ color: "var(--o-sub)" }}>{mode === "cad" ? "ORIGINAL CAD · 2023" : (en ? "ROOM PLAN · DRAFT" : "ROOM PLAN · 배치(안)")}</p>
           <div className="relative flex rounded-full bg-black/25 p-0.5 text-[11.5px] font-bold">
             {(["rooms", "cad"] as const).map((m) => (
               <button key={m} onClick={() => setMode(m)} className="relative rounded-full px-3 py-1.5" style={{ color: mode === m ? "#121a22" : "#c9d4de" }}>
@@ -232,7 +254,7 @@ function Plans() {
             <motion.div key={`${t.k}-${mode}`} className="absolute inset-0 flex items-center justify-center p-2" initial={{ clipPath: "inset(0% 100% 0% 0%)" }} animate={{ clipPath: "inset(0% 0% 0% 0%)" }} exit={{ clipPath: "inset(0% 0% 0% 100%)" }} transition={{ duration: 0.8, ease: EASE }}>
               {mode === "cad" ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={IMG(t.cad)} alt={en ? `${t.labelE} original drawing (2004)` : `${t.label} 원도면(2004)`} className="h-full w-full object-contain" />
+                <img src={IMG(t.cad)} alt={en ? `${t.labelE} original drawing (2023)` : `${t.label} 원도면(2023)`} className="h-full w-full object-contain" />
               ) : (
                 <PlanSvg k={t.k} />
               )}
@@ -257,7 +279,7 @@ function Plans() {
           </div>
         ))}
       </div>
-      <p className="mt-5 text-[11.5px] leading-[1.7] text-[#8193a6]">{en ? "The originals are images of the 2004 drawings with the title block hidden. The room plan is a schematic draft based on their dimensions, to be finalised after structural, plumbing and permit review." : "원도면은 2004년 도면 이미지이며 표제란은 가렸습니다. 객실 배치는 원도면 치수를 기준으로 한 개략(안)이며, 구조·배관·인허가 검토 후 확정합니다."}</p>
+      <p className="mt-5 text-[11.5px] leading-[1.7] text-[#8193a6]">{en ? "The originals are images of the 2023 drawing set (B2 + 10 floors). The room plan is a schematic draft based on their dimensions, to be finalised after structural, plumbing and permit review." : "원도면은 2023년 도면(지하 2층 · 지상 10층) 이미지입니다. 객실 배치는 원도면 치수를 기준으로 한 개략(안)이며, 구조·배관·인허가 검토 후 확정합니다."}</p>
     </section>
   );
 }
@@ -329,6 +351,9 @@ function Life() {
           </Reveal>
         ))}
       </div>
+      <div className="mt-14">
+        <Clip src="/sinchon/community.mp4" poster="community-poster" kick={en ? "FROM ROOM TO LOUNGE · 40s" : "방에서 라운지로 · 40초"} title={en ? "Close the door, and friends are a few steps away" : "문을 나서면 몇 걸음 거리에 친구들"} />
+      </div>
     </section>
   );
 }
@@ -349,7 +374,7 @@ function Rooftop() {
         <h2 className="serif mt-3 text-[48px] leading-[0.96]">Above the city.<br /><em>Closer to life.</em></h2>
       </div>
       <div className="absolute inset-x-6 bottom-10">
-        <p className="text-[15px] font-medium leading-[1.75] text-[#e6ecf2]">{en ? <>A busy city and a quiet day of your own.<br />Find the balance on the 4F roof garden and the 9F roof balcony.</> : <>분주한 도시와 고요한 나의 하루.<br />4층 옥상정원과 9층 지붕발코니에서 그 사이의 균형을.</>}</p>
+        <p className="text-[15px] font-medium leading-[1.75] text-[#e6ecf2]">{en ? <>A busy city and a quiet day of your own.<br />Find the balance in the 4F roof garden, right above the city.</> : <>분주한 도시와 고요한 나의 하루.<br />4층 옥상정원에서, 도시 위 그 사이의 균형을.</>}</p>
         <div className="mt-3"><Badge>{en ? "Space concept · AI image" : "공간 연출 예시 · AI 이미지"}</Badge></div>
       </div>
     </section>
@@ -371,6 +396,9 @@ function Smart() {
   return (
     <section id="smart" className="relative px-6 pb-20 pt-24" style={{ background: "#1a2430" }}>
       <Head kick="07 / SMART STAY" a="Five steps." b="No front desk." sub={en ? "From booking to check-out, a smart hostel day that runs on your phone." : "예약부터 퇴실까지, 휴대폰 하나로 이어지는 스마트호스텔의 하루."} />
+      <div className="mt-8">
+        <Clip src="/sinchon/arrival.mp4" poster="arrival-poster" kick={en ? "ARRIVAL · 40s" : "도착에서 객실까지 · 40초"} title={en ? "From the street to your room, no front desk" : "거리에서 내 방까지, 프런트 없이"} />
+      </div>
       <div ref={ref} className="relative mt-10 pl-8">
         <motion.span className="absolute left-[7px] top-2 bottom-2 w-px origin-top" style={{ background: "linear-gradient(180deg,var(--o-mint),var(--o-gold))" }} initial={{ scaleY: 0 }} animate={on ? { scaleY: 1 } : {}} transition={{ duration: 1.6, ease: EASE }} />
         {STEPS.map((s, i) => (
@@ -383,7 +411,7 @@ function Smart() {
         ))}
       </div>
       <div className="mt-12 grid grid-cols-2 gap-2.5">
-        {(en ? [["1F", "Reception · Café lounge", "The neighbourhood living room"], ["B1", "Storage · Billiards lounge", "Keep your things between semesters"], ["B2", "Fitness · PT", "Residents + outside members"], ["4F·9F", "Roof garden · Roof balcony", "A breather above the city"]] : [["1F", "리셉션 · 카페 라운지", "누구나 들르는 동네 거실"], ["B1", "보관창고 · 당구 라운지", "학기 사이 짐 보관"], ["B2", "피트니스 · PT", "입주자 + 외부 회원"], ["4F·9F", "옥상정원 · 지붕발코니", "도시 위의 쉼"]]).map(([f, t, d]) => (
+        {(en ? [["1F", "Reception · Café lounge", "The neighbourhood living room"], ["B1", "Storage · Billiards lounge", "Keep your things between semesters"], ["B2", "Fitness · PT", "Residents + outside members"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "리셉션 · 카페 라운지", "누구나 들르는 동네 거실"], ["B1", "보관창고 · 당구 라운지", "학기 사이 짐 보관"], ["B2", "피트니스 · PT", "입주자 + 외부 회원"], ["4F", "옥상정원", "도시 위의 쉼"]]).map(([f, t, d]) => (
           <Reveal key={f}>
             <div className="h-full rounded-2xl border border-white/10 p-4">
               <p className="serif text-[26px] italic leading-none" style={{ color: "var(--o-gold)" }}>{f}</p>
@@ -442,7 +470,7 @@ function Roll({ value, on, delay = 0 }: { value: number; on: boolean; delay?: nu
   );
 }
 
-/* 54실 — 객실 하나가 눈금 하나 */
+/* 객실 — 눈금 하나가 방 하나 */
 function RingRooms({ on }: { on: boolean }) {
   const en = useEN();
   const list = [...Array(C.s).fill("s"), ...Array(C.t).fill("t"), ...Array(C.sh).fill("sh")] as ("s" | "t" | "sh")[];
@@ -457,18 +485,18 @@ function RingRooms({ on }: { on: boolean }) {
       })}
       <motion.g initial={{ scale: 0 }} animate={on ? { scale: 1 } : {}} transition={{ duration: 0.8, delay: 1.6, ease: EASE }}>
         <text y={-4} textAnchor="middle" fontSize={8} fontWeight={800} fill="#1d2630">{en ? "9 floors" : "9개 층"}</text>
-        <text y={8} textAnchor="middle" fontSize={6.5} fontWeight={700} fill="#5f5236">2F – 9F</text>
+        <text y={8} textAnchor="middle" fontSize={6.5} fontWeight={700} fill="#5f5236">2F – 10F</text>
       </motion.g>
     </svg>
   );
 }
 
-/* 85베드 — 점 하나가 침대 하나 */
+/* 베드 — 점 하나가 침대 하나 */
 function DotsBeds({ on }: { on: boolean }) {
   const list = [...Array(C.s).fill("s"), ...Array(C.t * 2).fill("t"), ...Array(C.sh * 3).fill("sh")] as ("s" | "t" | "sh")[];
   const col = { s: "#fbf8f0", t: "#1d2630", sh: "#2f8f86" };
   return (
-    <svg viewBox="0 0 100 92" className="h-full w-full">
+    <svg viewBox={`0 0 100 ${Math.ceil(list.length / 10) * 9.8 + 2.4}`} className="h-full w-full">
       {list.map((t, i) => {
         const cx = 6 + (i % 10) * 9.8, cy = 6 + Math.floor(i / 10) * 9.8;
         return <motion.circle key={i} cx={cx} cy={cy} r={3.4} fill={col[t]} style={{ transformBox: "fill-box", transformOrigin: "center" }} initial={{ scale: 0 }} animate={on ? { scale: [0, 1.5, 1] } : {}} transition={{ duration: 0.5, delay: 0.2 + i * 0.018, ease: EASE }} />;
@@ -524,8 +552,8 @@ function Clock24({ on }: { on: boolean }) {
 }
 
 const STATS = [
-  { n: TOTAL, u: "실", uE: "rooms", l: "객실", lE: "Rooms", d: "1인실 33 · 2인실 11 · 셰어룸 10 — 눈금 하나가 방 하나", dE: "33 single · 11 twin · 10 share — one tick, one room", Art: RingRooms },
-  { n: BEDS, u: "베드", uE: "beds", l: "침대", lE: "Beds", d: "1인 33 · 2인 22 · 3인 30 — 점 하나가 침대 하나", dE: "33 + 22 + 30 — one dot, one bed", Art: DotsBeds },
+  { n: TOTAL, u: "실", uE: "rooms", l: "객실", lE: "Rooms", d: `1인실 ${C.s} · 2인실 ${C.t} · 셰어룸 ${C.sh} — 눈금 하나가 방 하나`, dE: `${C.s} single · ${C.t} twin · ${C.sh} share — one tick, one room`, Art: RingRooms },
+  { n: BEDS, u: "베드", uE: "beds", l: "침대", lE: "Beds", d: `1인 ${C.s} · 2인 ${C.t * 2} · 3인 ${C.sh * 3} — 점 하나가 침대 하나`, dE: `${C.s} + ${C.t * 2} + ${C.sh * 3} — one dot, one bed`, Art: DotsBeds },
   { n: 4, u: "곳", uE: "", l: "대학 생활권", lE: "Universities nearby", d: "연세 · 이화 · 서강 · 홍익, 신촌역 도보권", dE: "Yonsei · Ewha · Sogang · Hongik, near Sinchon Station", Art: MapUnis },
   { n: 24, u: "시간", uE: "/7", l: "무인 체크인 · AI 안내", lE: "Self check-in · AI help", d: "낮에도 밤에도, 줄 서지 않는 입실", dE: "Day or night, no queue to get in", Art: Clock24 },
 ];
@@ -557,7 +585,7 @@ function Numbers() {
       {/* 흐르는 글씨 */}
       <div className="pointer-events-none relative overflow-hidden whitespace-nowrap">
         <div className="drift serif inline-block text-[64px] italic leading-none" style={{ color: "transparent", WebkitTextStroke: "1px rgba(29,38,48,0.35)" }}>
-          {"54 rooms · 85 beds · 4 universities · 24/7 · ".repeat(4)}
+          {`${TOTAL} rooms · ${BEDS} beds · 4 universities · 24/7 · `.repeat(4)}
         </div>
       </div>
       <div className="relative px-6">
@@ -585,6 +613,8 @@ function Numbers() {
 /* ───────── 7. 영상 ───────── */
 const FILMS = [
   { k: "full", t: "전체 이야기 2:41", tE: "Full story 2:41", src: "/sinchon/fullstory.mp4", poster: "fullstory-poster" },
+  { k: "arrival", t: "도착 → 객실", tE: "Arrival", src: "/sinchon/arrival.mp4", poster: "arrival-poster" },
+  { k: "community", t: "방 → 라운지", tE: "Room → Lounge", src: "/sinchon/community.mp4", poster: "community-poster" },
   { k: "exterior", t: "외관", tE: "Exterior", src: "/sinchon/exterior.mp4", poster: "exterior-poster" },
   { k: "hero", t: "첫 장면", tE: "Opening", src: "/sinchon/hero.mp4", poster: "hero-poster" },
   { k: "lounge", t: "라운지", tE: "Lounge", src: "/sinchon/lounge.mp4", poster: "lounge-poster" },
@@ -668,13 +698,13 @@ function Closing() {
         {en ? (
           <>
             <p>PRIVATE CONCEPT REVIEW</p>
-            <p>The 3D line model and room plan are schematic visualisations based on the 2004 drawings — not a survey, permit or final design.</p>
+            <p>The 3D line model and room plan are schematic visualisations based on the original drawings — not a survey, permit or final design.</p>
             <p>AI-generated images and videos are samples and may differ from reality. Use as lodging is subject to prior consultation with the authorities.</p>
           </>
         ) : (
           <>
             <p>PRIVATE CONCEPT REVIEW · 검토용 콘셉트 시안</p>
-            <p>3D 선 모델과 객실 배치는 2004년 원도면 치수를 참고한 개략 연출이며, 실측·인허가·확정 설계가 아닙니다.</p>
+            <p>3D 선 모델과 객실 배치는 원도면(2004·2023) 치수를 참고한 개략 연출이며, 실측·인허가·확정 설계가 아닙니다.</p>
             <p>사진·영상 중 AI로 만든 예시는 실제와 다를 수 있습니다. 숙박시설 용도 가능 여부는 관할 기관과 사전 협의가 필요합니다.</p>
           </>
         )}
@@ -726,13 +756,13 @@ export default function OrbitSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
           <div className="mt-4 space-y-3 text-[13.5px] leading-[1.75] text-[#c9d4de]">
             {en ? (
               <>
-                <p>The building on the first screen is not a photo or a video: it is a real-time 3D line model built from the 2004 drawings (12.2m × 10.4m typical floor, east wing on 2F–3F, south stair and lift core, east escape stair). Scroll down and the floors stack, open up and fill with 54 coloured rooms. Drag sideways to rotate it.</p>
+                <p>The building on the first screen is not a photo or a video: it is a real-time 3D line model built from the original drawings (B2 + 10 floors, 12.2m × 10.4m typical floor, east wing on 2F–3F, south stair and lift core, east escape stair). Scroll down and the floors stack, open up and fill with 66 coloured rooms. Drag sideways to rotate it.</p>
                 <p>Floor heights, window spacing and roof details are assumptions for visualisation, not a survey. The room plan is a schematic draft for review.</p>
                 <p>Palette: silver-blue lines on charcoal navy → mint → champagne gold, with warm ivory for the life section.</p>
               </>
             ) : (
               <>
-            <p>첫 화면의 건물은 사진이나 영상이 아니라, 2004년 원도면의 치수(기준층 12.2m × 10.4m, 2~3층 동측 날개, 남측 계단·승강기 코어, 동측 비상계단)로 세운 실시간 3D 선 모델입니다. 아래로 밀면 층이 쌓이고, 펼쳐지며, 54개 객실이 색으로 채워집니다. 손가락으로 좌우로 끌면 돌아갑니다.</p>
+            <p>첫 화면의 건물은 사진이나 영상이 아니라, 2004년 원도면과 2023년 도면(지하 2층 · 지상 10층)의 치수(기준층 12.2m × 10.4m, 2~3층 동측 날개, 남측 계단·승강기 코어, 동측 비상계단)로 세운 실시간 3D 선 모델입니다. 아래로 밀면 층이 쌓이고, 펼쳐지며, 66개 객실이 색으로 채워집니다. 손가락으로 좌우로 끌면 돌아갑니다.</p>
             <p>층고·창 간격·옥상 세부는 연출용 가정이며 실측 복원이 아닙니다. 객실 배치는 검토용 개략(안)입니다.</p>
             <p>색: 차콜 네이비 위에 실버 블루 선 → 민트 → 샴페인 골드, 그리고 생활 구간은 따뜻한 아이보리.</p>
               </>

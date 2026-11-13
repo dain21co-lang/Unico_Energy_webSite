@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 /*
  * 신촌 스마트호스텔(가칭) SEMESTER HOUSE IR — 모바일 전용 웹 프레젠테이션 (더케이 IR과 같은 구성)
  * 원칙: 투명도 애니메이션 없이 위치·크기·모양·마스크·색만 움직인다 (갤럭시 빈 화면 방지)
- * 근거: 건축물대장 · 감정평가서(2023.10) 면적 · 설계도면(2·5~8·9층, 2004) · 공개 시세(2026.5 보도)
+ * 근거: 건축물대장 · 감정평가서(2023.10) 면적 · 설계도면(2004) · 2023 도면(지하 2층·지상 10층, 층별 면적) · 공개 시세(2026.5 보도)
  * 객실 수와 재무 수치는 모두 설계·시장조사 전 가정(안)이며, 계산식은 아래 FIN에 그대로 남겨 둔다.
  */
 
@@ -17,8 +17,8 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 /* ───────── 재무 가정 (안) ───────── */
 const PRICE = { s: 95, t: 150, sh: 195 }; // 객실당 월 환산 요금(만 원): 1인실 · 2인실 · 3인 셰어룸
-const P1 = { s: 14, t: 8, sh: 10 }; // 1단계 2~5층
-const ALL = { s: 33, t: 11, sh: 10 }; // 2단계 2~9층 (기준층 1인실 5 + 2인실 1)
+const P1 = { s: 16, t: 8, sh: 12 }; // 1단계 2~5층 36실
+const ALL = { s: 41, t: 13, sh: 12 }; // 2단계 2~10층 66실 (2·3층 층당 12실, 4~10층 층당 6실)
 const n = (r: { s: number; t: number; sh: number }) => r.s + r.t + r.sh;
 const ROOMS1N = n(P1), ROOMS_ALL = n(ALL);
 const BEDS_ALL = ALL.s + ALL.t * 2 + ALL.sh * 3;
@@ -31,7 +31,7 @@ function sim(rooms: { s: number; t: number; sh: number }, longShare: number, fix
   const yEb = yRev - (fixedM * 12) / 10000 - LR * VAR_L - SR * VAR_S - ancOpex;
   return { yRev, yEb };
 }
-const FIXED1 = 2000, FIXED2 = 2800; // 만 원/월
+const FIXED1 = 2000, FIXED2 = 3000; // 만 원/월
 const SCEN = [
   { k: "학기 중심", d: "학기 80 · 단기 20", ...sim(P1, 0.8, FIXED1, 0.4, 0.1) },
   { k: "혼합 (기준)", d: "학기 60 · 단기 40", ...sim(P1, 0.6, FIXED1, 0.4, 0.1) },
@@ -45,26 +45,27 @@ const COST1 = [
   { t: "마케팅", v: 200, d: "대학·어학당 제휴, 예약 채널", c: "#5fb7a0" },
 ];
 const CAPEX1 = [
-  { t: "객실 리모델링 (2~5층 32실)", v: 7.4, d: "실당 약 2,300만 원 · 객실별 욕실 배관 포함" },
+  { t: "객실 리모델링 (2~5층 36실)", v: 8.3, d: "실당 약 2,300만 원 · 객실별 욕실 배관 포함" },
   { t: "외관 · 승강기 · 소방", v: 5.0, d: "외관 개선, 승강기 보강, 숙박 소방 기준" },
   { t: "1층 리셉션 · 카페 라운지", v: 1.0, d: "무인 체크인 키오스크, 라운지" },
   { t: "예비비", v: 0.4, d: "공사비 초과 대비" },
 ];
 const CAPEX1_SUM = CAPEX1.reduce((s, c) => s + c.v, 0);
-const CAPEX2_ADD = 11.2; // 6~9층 22실 5.1억 + 지하 시설 6.1억
+const CAPEX2_ADD = 13.0; // 6~10층 30실 6.9억 + 지하 시설 6.1억
 const S1 = SCEN[1];
 const PAY1 = CAPEX1_SUM / S1.yEb;
 const PAY2 = (CAPEX1_SUM + CAPEX2_ADD) / PHASE2.yEb;
 
 const FLOORS = [
-  { f: "9F", rooms: ["s", "s", "s", "s"] },
+  { f: "10F", rooms: ["s", "s", "s", "s", "s", "t"] },
+  { f: "9F", rooms: ["s", "s", "s", "s", "s", "t"] },
   { f: "8F", rooms: ["s", "s", "s", "s", "s", "t"] },
   { f: "7F", rooms: ["s", "s", "s", "s", "s", "t"] },
   { f: "6F", rooms: ["s", "s", "s", "s", "s", "t"] },
   { f: "5F", rooms: ["s", "s", "s", "s", "s", "t"] },
   { f: "4F", rooms: ["s", "s", "s", "s", "s", "t"] },
-  { f: "3F", rooms: ["sh", "sh", "sh", "sh", "sh", "t", "t", "t", "s", "s"] },
-  { f: "2F", rooms: ["sh", "sh", "sh", "sh", "sh", "t", "t", "t", "s", "s"] },
+  { f: "3F", rooms: ["sh", "sh", "sh", "sh", "sh", "sh", "t", "t", "t", "s", "s", "s"] },
+  { f: "2F", rooms: ["sh", "sh", "sh", "sh", "sh", "sh", "t", "t", "t", "s", "s", "s"] },
 ];
 const LOCATION = ["2호선 신촌역 도보권, 신촌 명물거리 상권 한가운데", "연세대 도보 약 10분 · 이화여대 도보·버스 약 15분", "서강대 도보 약 15분 · 홍익대 지하철 1정거장", "카페·식당·편의점이 모여 있어 생활이 편한 동네"];
 const JOURNEY = [
@@ -85,7 +86,7 @@ const ROADMAP = [
   { t: "인허가 사전 협의", d: "용도·소방·배관 검토 (1~2개월)" },
   { t: "설계 · 견적", d: "층별 객실 배치와 공사비 확정 (3~4개월)" },
   { t: "1단계 공사 · 오픈", d: `2~5층 ${ROOMS1N}실 + 1층 라운지` },
-  { t: "2단계 확장", d: `6~9층 ${ROOMS_ALL - ROOMS1N}실 + 지하 시설` },
+  { t: "2단계 확장", d: `6~10층 ${ROOMS_ALL - ROOMS1N}실 + 지하 시설` },
   { t: "정상 운영", d: "대학·어학당 제휴, 학기 단위 모집" },
 ];
 
@@ -337,9 +338,9 @@ const SLIDES: Slide[] = [
   { id: "summary", ch: 1, render: () => (
     <Body center>
       <S>
-        <Head ey="Executive Summary" t={<>머물고, 공부하고, 어울리는 —<br />신촌의 스마트호스텔</>} sub="신촌역 도보권 9층 건물의 2~9층을 프런트 없이 AI·IoT로 운영하는 호스텔로 바꿉니다." />
+        <Head ey="Executive Summary" t={<>머물고, 공부하고, 어울리는 —<br />신촌의 스마트호스텔</>} sub="신촌역 도보권 지상 10층 건물의 2~10층을 프런트 없이 AI·IoT로 운영하는 호스텔로 바꿉니다." />
         <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-2xl" style={{ background: "var(--k-line)" }}>
-          {[[ROOMS_ALL, "실", "전체 객실 (안)", `2~9층 · ${BEDS_ALL}베드`], [1649, "㎡", "객실 전환 면적", "2~9층 합계"], [ROOMS1N, "실", "1단계 오픈 (안)", "2~5층 먼저"], [24, "h", "무인 운영", "모바일 체크인 · 원격 관제"]].map(([v, u, l, s]) => (
+          {[[ROOMS_ALL, "실", "전체 객실 (안)", `2~10층 · ${BEDS_ALL}베드`], [1565, "㎡", "객실 전환 면적", "2~10층 합계 (2023 도면)"], [ROOMS1N, "실", "1단계 오픈 (안)", "2~5층 먼저"], [24, "h", "무인 운영", "모바일 체크인 · 원격 관제"]].map(([v, u, l, s]) => (
             <It key={l as string} className="bg-[#111e35] p-4">
               <p className="text-[11.5px]" style={{ color: "var(--k-sub)" }}>{l}</p>
               <p className="corm mt-1 text-[44px] font-semibold leading-none goldtext"><Count to={v as number} /><span className="ml-0.5 text-[20px]">{u}</span></p>
@@ -359,7 +360,7 @@ const SLIDES: Slide[] = [
       <S>
         <Head ey="Investment Highlights" t="핵심 투자 포인트" />
         <div className="mt-5 grid gap-2.5">
-          {[[IC.pin, "대학 4곳이 걸어서 닿는 입지", "연세·이화·서강·홍익, 2호선 신촌역 도보권"], [IC.home, "신축 대신 리모델링", "지상 9층·지하 2층 기존 건물을 살려 기간·비용 절감"], [IC.key, "인건비를 줄인 무인 운영", "모바일 체크인·원격 관제로 프런트 상주 인력 최소화"], [IC.chart, "학기 + 단기 혼합 운영", "학기 체류가 바닥을, 단기 숙박이 수익을"], [IC.layers, "지하 1,350㎡ 부대 수익", "당구 라운지·피트니스·보관창고"]].map(([ic, t, d], i) => (
+          {[[IC.pin, "대학 4곳이 걸어서 닿는 입지", "연세·이화·서강·홍익, 2호선 신촌역 도보권"], [IC.home, "신축 대신 리모델링", "지상 10층·지하 2층 기존 건물을 살려 기간·비용 절감"], [IC.key, "인건비를 줄인 무인 운영", "모바일 체크인·원격 관제로 프런트 상주 인력 최소화"], [IC.chart, "학기 + 단기 혼합 운영", "학기 체류가 바닥을, 단기 숙박이 수익을"], [IC.layers, "지하 1,350㎡ 부대 수익", "당구 라운지·피트니스·보관창고"]].map(([ic, t, d], i) => (
             <It key={t} className={`flex items-center gap-3.5 rounded-2xl p-3.5 ${i === 3 ? "border border-[#c9a96e]" : "glass"}`}>
               <Ico d={ic} />
               <span className="flex-1"><span className="serif block text-[15px] font-bold" style={{ color: i === 3 ? "var(--k-champ)" : undefined }}>{t}</span><span className="mt-0.5 block text-[12px] leading-snug" style={{ color: "var(--k-sub)" }}>{d}</span></span>
@@ -461,7 +462,7 @@ const SLIDES: Slide[] = [
           <It><Pic src={IMG("after-exterior-day")} alt="스마트호스텔 외관 예시" className="h-[150px] w-full" pos="50% 40%" cap="리모델링 후 예시 · AI" delay={0.3} /></It>
         </div>
         <It className="glass mt-4 rounded-2xl px-4 py-1">
-          {[["위치", "서울 서대문구 창천동 · 신촌역 도보권"], ["구조·규모", "철골철근콘크리트 · 지하 2층, 지상 9층"], ["연면적 / 대지", "3,367.05㎡ / 784.5㎡"], ["사용승인", "2005년 9월"], ["기준층", "약 12.2m × 10.4m 본체 + 코어 · 비상계단"], ["설비", "15인승 승강기 · 계단 2개소 · 기계식 주차 36대"], ["용도지역", "제3종일반주거 · 지구단위계획구역"]].map(([k, v]) => (
+          {[["위치", "서울 서대문구 창천동 · 신촌역 도보권"], ["구조·규모", "철골철근콘크리트 · 지하 2층, 지상 10층 (높이 39.5m)"], ["연면적 / 대지", "3,367.05㎡ / 784.5㎡"], ["사용승인", "2005년 9월"], ["기준층", "약 12.2m × 10.4m 본체 + 코어 · 비상계단"], ["설비", "15인승 승강기 · 계단 2개소 · 기계식 주차 36대"], ["용도지역", "제3종일반주거 · 지구단위계획구역"]].map(([k, v]) => (
             <div key={k} className="grid grid-cols-[86px_1fr] gap-2 border-b py-2.5 text-[12.5px] last:border-0" style={{ borderColor: "rgba(201,169,110,.15)" }}>
               <span style={{ color: "var(--k-gold)" }}>{k}</span><span>{v}</span>
             </div>
@@ -476,7 +477,7 @@ const SLIDES: Slide[] = [
   { id: "floors", ch: 3, render: () => (
     <Body center>
       <S>
-        <Head ey="Floor Stack" t={<>2~9층에 <span className="goldtext"><Count to={ROOMS_ALL} /></span>개 객실</>} sub={`2·3층은 넓은 면적에 셰어룸을, 기준층(4~8층)은 층당 6실, 9층은 지붕발코니 쪽 4실입니다. 1단계는 2~5층 ${ROOMS1N}실을 먼저 엽니다.`} />
+        <Head ey="Floor Stack" t={<>2~10층에 <span className="goldtext"><Count to={ROOMS_ALL} /></span>개 객실</>} sub={`2·3층은 층당 337.89㎡의 넓은 면적에 12실씩(셰어룸 중심), 4~10층은 층당 6실입니다. 4층에는 옥상정원이 붙습니다. 1단계는 2~5층 ${ROOMS1N}실을 먼저 엽니다.`} />
         <div className="mt-6 space-y-1.5">
           {FLOORS.map((f, fi) => (
             <It key={f.f} className="flex items-center gap-2">
@@ -512,7 +513,7 @@ const SLIDES: Slide[] = [
             <It key={l} className="glass rounded-xl py-2.5"><p className="corm text-[20px] font-bold goldtext">{v}</p><p className="text-[10.5px]" style={{ color: "var(--k-sub)" }}>{l}</p></It>
           ))}
         </div>
-        <Src>설계도면(2004) 5~8층 평면 치수 기준 개략도 · 실제 배치는 구조·배관 검토 후 확정</Src>
+        <Src>설계도면 기준층(4~10층) 평면 치수 기준 개략도 · 실제 배치는 구조·배관 검토 후 확정</Src>
       </S>
     </Body>
   ) },
@@ -522,7 +523,7 @@ const SLIDES: Slide[] = [
     <Body center>
       <S>
         <Head ey="Existing Plans" t="원 설계도면으로 본 공간" />
-        {[["plan-typ", "5~8층 기준층", "본체 약 127㎡ + 남측 코어 · 동측 비상계단", "기준층"], ["plan-2f", "2층 (3층 동일 면적)", "본체 + 동측 날개 · 셰어룸 중심 배치", "2·3층"]].map(([f, t, d, tag], i) => (
+        {[["plan-typ", "4~10층 기준층", "본체 약 127㎡ + 남측 코어 · 동측 비상계단", "기준층"], ["plan-2f", "2층 (3층 동일 면적)", "본체 + 동측 날개 · 셰어룸 중심 배치", "2·3층"]].map(([f, t, d, tag], i) => (
           <It key={f} className="glass mt-4 overflow-hidden rounded-2xl">
             <Pic src={IMG(f)} alt={`${t} 설계도면`} className="h-[150px] w-full" pos="50% 40%" delay={0.25 + i * 0.2} />
             <div className="flex items-end justify-between px-4 pb-3.5 pt-3">
@@ -530,7 +531,7 @@ const SLIDES: Slide[] = [
             </div>
           </It>
         ))}
-        <Src>출처: 오시리스타워 신축공사 설계도면(2004) A-304·A-307</Src>
+        <Src>출처: 설계도면(2004) · 2023 도면(지하 2층 · 지상 10층)</Src>
       </S>
     </Body>
   ) },
@@ -554,7 +555,7 @@ const SLIDES: Slide[] = [
             </It>
           ))}
         </div>
-        <Src>객실 크기·수는 설계 전 가정(안) · 2~9층 1,648.7㎡ 기준</Src>
+        <Src>객실 크기·수는 설계 전 가정(안) · 2~10층 1,564.6㎡ 기준 (2023 도면)</Src>
       </S>
     </Body>
   ) },
@@ -726,7 +727,7 @@ const SLIDES: Slide[] = [
         <Head ey="Phased Strategy" t={<>네 개 층으로 열고,<br />검증하며 넓힙니다</>} />
         <div className="relative mt-6">
           <motion.div className="absolute bottom-6 left-[22px] top-6 w-[2px] origin-top" style={{ background: "linear-gradient(var(--k-gold),var(--k-coral))" }} initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 1.6, delay: 0.4, ease: EASE }} />
-          {[["준비", "인허가 · 설계", "숙박 용도·소방·배관 사전 협의 · 층별 배치 설계", "구청·건축사 확인 후 착공"], ["1단계", `2~5층 ${ROOMS1N}실 오픈`, "셰어룸·트윈 중심 + 1층 라운지", `투자 약 ${CAPEX1_SUM.toFixed(1)}억 원 (안)`], ["2단계", `6~9층 · 총 ${ROOMS_ALL}실`, `${ROOMS_ALL - ROOMS1N}실 추가 + 지하 당구·피트니스·보관창고`, `추가 투자 약 ${CAPEX2_ADD.toFixed(1)}억 원 (안)`]].map(([k, t2, s2, d], i) => (
+          {[["준비", "인허가 · 설계", "숙박 용도·소방·배관 사전 협의 · 층별 배치 설계", "구청·건축사 확인 후 착공"], ["1단계", `2~5층 ${ROOMS1N}실 오픈`, "셰어룸·트윈 중심 + 1층 라운지", `투자 약 ${CAPEX1_SUM.toFixed(1)}억 원 (안)`], ["2단계", `6~10층 · 총 ${ROOMS_ALL}실`, `${ROOMS_ALL - ROOMS1N}실 추가 + 지하 당구·피트니스·보관창고`, `추가 투자 약 ${CAPEX2_ADD.toFixed(1)}억 원 (안)`]].map(([k, t2, s2, d], i) => (
             <It key={k} className="relative mb-3 flex gap-4 last:mb-0">
               <motion.span className="relative z-10 flex h-[46px] w-[46px] shrink-0 items-center justify-center rounded-full text-[12px] font-bold" style={{ background: i === 1 ? "var(--k-gold)" : "var(--k-navy2)", color: i === 1 ? "#0a1322" : "var(--k-champ)", border: "1px solid var(--k-line)" }}
                 initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.6 + i * 0.25 }}>{k}</motion.span>

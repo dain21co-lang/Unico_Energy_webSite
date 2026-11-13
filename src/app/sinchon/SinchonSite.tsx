@@ -253,12 +253,12 @@ const TERMS = [
 ];
 
 const FLOORS = [
-  { fl: "9F", ko: "스카이 라운지 · 스터디", en: "Sky lounge & study", tagKo: "하루를 마무리하는 꼭대기", tagEn: "The top floor to end the day",
-    dKo: "조용히 공부하고, 해 질 녘 신촌을 내려다보며 쉬는 공용 공간 (구상).", dEn: "A quiet study and rest space overlooking Sinchon at dusk (concept)." },
-  { fl: "3–8F", ko: "객실", en: "Rooms", tagKo: "1인실 · 2인실 · 3인실, 개인 욕실", tagEn: "Single, twin, triple — private bath",
-    dKo: "가구를 갖춘 객실층입니다. 층별 객실 수는 도면 확정 뒤 정합니다.", dEn: "Furnished room floors. Room counts per floor will be set once drawings are final." },
-  { fl: "2F", ko: "런드리 카페", en: "Laundry café", tagKo: "세탁하는 동안 커피 한 잔", tagEn: "Coffee while the wash runs",
-    dKo: "세탁과 무인 카페를 한곳에 묶어, 기다리는 시간이 쉬는 시간이 되게 합니다 (구상).", dEn: "Laundry and a self-serve café in one place, so waiting becomes rest (concept)." },
+  { fl: "5–10F", ko: "객실층", en: "Room floors", tagKo: "층당 6실 · 1인실 5 + 2인실 1", tagEn: "6 rooms per floor · 5 single + 1 twin",
+    dKo: "가구를 갖춘 1인실 위주의 조용한 층. 모든 객실에 개인 욕실, 층마다 린넨·세탁실 (배치안).", dEn: "Quiet floors of furnished singles, each with a private bath, and linen & laundry on every floor (draft plan)." },
+  { fl: "4F", ko: "객실 · 옥상정원", en: "Rooms & roof garden", tagKo: "6실 + 2·3층 지붕 위 마당", tagEn: "6 rooms + a garden on the roof",
+    dKo: "2·3층 지붕을 입주자 모두의 옥상정원으로 꾸밉니다. 해 질 녘 신촌을 내려다보는 쉼터 (구상).", dEn: "The roof over 2F–3F becomes a garden for every resident — a place to unwind above Sinchon (concept)." },
+  { fl: "2–3F", ko: "객실 · 셰어룸", en: "Rooms & share rooms", tagKo: "층당 12실 · 셰어룸 6 + 2인실 3 + 1인실 3", tagEn: "12 rooms per floor · 6 share + 3 twin + 3 single",
+    dKo: "층당 337.89㎡로 가장 넓은 층. 어학연수·교환학생 그룹을 위한 3인 셰어룸 중심 (배치안).", dEn: "The widest floors at 337.89㎡ each, centred on triple share rooms for language and exchange groups (draft plan)." },
   { fl: "1F", ko: "카페 라운지 · 프런트", en: "Café lounge & front desk", tagKo: "처음 만나는 얼굴들", tagEn: "Where you first meet",
     dKo: "체크인과 카페 라운지, 공용 주방에서 투숙객이 처음 만나는 층입니다.", dEn: "Check-in, café lounge and shared kitchen — where guests first meet." },
   { fl: "B1", ko: "피트니스 · 프로 당구 라운지", en: "Fitness & pro billiards", tagKo: "운동과 포켓볼, 퍼스널 트레이닝", tagEn: "Gym, pool and personal training",
@@ -370,7 +370,7 @@ export default function SinchonSite() {
 
         {/* 03 건물 */}
         <section id="home" className="scroll-mt-24 px-6 py-16" style={{ background: "var(--sh-cream)" }}>
-          <Head no="02" en="THE BUILDING" sub={t("신촌역 가까운 지하 2층~지상 9층 건물을, 1층은 카페 라운지로 위층은 객실로 바꾸는 계획입니다.", "A B2–9F building near Sinchon Station — café lounge on the ground floor, guest rooms above.")}>
+          <Head no="02" en="THE BUILDING" sub={t("신촌역 가까운 지하 2층~지상 10층 건물을, 1층은 카페 라운지로 위층은 객실로 바꾸는 계획입니다.", "A B2–9F building near Sinchon Station — café lounge on the ground floor, guest rooms above.")}>
             {t(<>오래된 상가를,<br />스마트 호스텔로</>, <>From an old commercial tower<br />to a smart hostel</>)}
           </Head>
           <Rise>
@@ -392,7 +392,7 @@ export default function SinchonSite() {
           </div>
           <p className="mt-3 text-[12px] leading-[1.7]" style={{ color: "var(--sh-sub)" }}>{t("외관 리모델링 방향(설계 시안 기준): 라이트 베이지 석재와 브론즈 유리, 또는 다크 그레이 메탈 패널 두 가지로 검토 중입니다.", "Facade direction (per design proposal): light beige stone with bronze glass, or dark-grey metal panels — both under review.")}</p>
           <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-            {[[t("지하 2~지상 9층", "B2 – 9F"), t("기존 건물 활용", "existing frame")], [t("1층", "Ground"), t("카페 라운지", "café lounge")], [t("도보 약 6분", "~6 min walk"), t("2호선 신촌역", "Line 2 Sinchon Stn")]].map((s, i) => (
+            {[[t("지하 2~지상 10층", "B2 – 10F"), t("기존 건물 활용", "existing frame")], [t("1층", "Ground"), t("카페 라운지", "café lounge")], [t("도보 약 6분", "~6 min walk"), t("2호선 신촌역", "Line 2 Sinchon Stn")]].map((s, i) => (
               <Rise key={i} delay={i * 0.08}>
                 <div className="rounded-xl bg-white px-1 py-3">
                   <div className="text-[14px] font-bold" style={{ color: "var(--sh-olive2)" }}>{s[0]}</div>
@@ -505,14 +505,14 @@ export default function SinchonSite() {
 
         {/* 층별 안내 (구상안) */}
         <section id="basement" className="scroll-mt-24 px-6 py-16">
-          <Head no="FL" en="FLOOR GUIDE" sub={t("지하 2층부터 지상 9층까지, 층마다 쓰임을 나눈 구상안입니다. 층을 눌러 보세요. 확정 전 구상안입니다.", "B2 to 9F, each floor with its own purpose. Tap a floor. Concept only, not yet confirmed.")}>
+          <Head no="FL" en="FLOOR GUIDE" sub={t("지하 2층부터 지상 10층까지, 층마다 쓰임을 나눈 구상안입니다. 층을 눌러 보세요. 확정 전 구상안입니다.", "B2 to 9F, each floor with its own purpose. Tap a floor. Concept only, not yet confirmed.")}>
             {t(<>한 건물,<br />층마다 다른 하루</>, <>One building,<br />a different day on every floor</>)}
           </Head>
           <div className="divide-y rounded-2xl" style={{ border: "1px solid var(--sh-line)", borderColor: "var(--sh-line)" }}>
             {FLOORS.map((f, i) => (
               <div key={f.fl} style={{ borderColor: "var(--sh-line)" }}>
                 <button onClick={() => setFloor(floor === i ? null : i)} className="flex w-full items-center gap-3.5 px-4 py-3.5 text-left">
-                  <span className="sh-serif w-[46px] shrink-0 text-[20px] font-semibold" style={{ color: "var(--sh-olive)" }}>{f.fl}</span>
+                  <span className="sh-serif w-[64px] shrink-0 whitespace-nowrap text-[19px] font-semibold" style={{ color: "var(--sh-olive)" }}>{f.fl}</span>
                   <span className="flex-1">
                     <span className="block text-[14.5px] font-bold">{t(f.ko, f.en)}</span>
                     <span className="block text-[12px]" style={{ color: "var(--sh-sub)" }}>{t(f.tagKo, f.tagEn)}</span>
