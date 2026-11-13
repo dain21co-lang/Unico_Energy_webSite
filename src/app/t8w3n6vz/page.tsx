@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "Investment Memorandum · 검토용 (수치와 금융 구조는 가정)",
     locale: "ko_KR",
     type: "website",
-    images: [{ url: "/m3k8fz1/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/t8w3n6vz/og.jpg", width: 1200, height: 630 }],
   },
 };
 

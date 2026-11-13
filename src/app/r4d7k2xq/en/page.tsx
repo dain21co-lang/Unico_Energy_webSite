@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "Feldspar · aggregate · infrastructure materials (business plan draft)",
     locale: "en_US",
     type: "website",
-    images: [{ url: "/ganghwa/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/r4d7k2xq/og.jpg", width: 1200, height: 630 }],
   },
 };
 

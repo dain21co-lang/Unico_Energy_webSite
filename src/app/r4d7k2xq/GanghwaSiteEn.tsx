@@ -5,14 +5,14 @@ import type { ReactNode } from "react";
 import { motion, AnimatePresence, animate, useInView } from "framer-motion";
 
 /*
- * 강화 제1광산 임시 홈페이지 — 모바일 전용
- * 내용 출처: H&L Partners 투자 검토 자료(46장)와 2025년 기획서. 수치·수요·일정은 원자료 기재 가정이며 '가정' 표시를 붙였다.
- * 금융 구조(SPC·CB)는 이 사이트에 싣지 않고 검토 자료(/m3k8fz1)에서만 다룬다.
- * 원칙: 투명도 애니메이션 없이 위치·크기·마스크만 움직인다.
+ * Ganghwa Mine No.1 — English temporary site (mobile only)
+ * Source: H&L Partners review deck and 2025 plan. Figures, demand and timing are assumptions from the source documents.
+ * Financial structure (SPC/CB) is not on this site.
+ * Rule: no opacity animation; move position, scale and masks only.
  */
-const IMG = (f: string) => `/ganghwa/${f}.webp`;
+const IMG = (f: string) => `/r4d7k2xq/${f}.webp`;
 const EASE = [0.16, 1, 0.3, 1] as const;
-const NAV: [string, string][] = [["about", "광산 소개"], ["mineral", "광물"], ["location", "입지"], ["demand", "수요"], ["business", "사업 모델"], ["eco", "친환경 채굴"], ["roadmap", "로드맵"], ["docs", "자료"], ["contact", "문의"]];
+const NAV: [string, string][] = [["about", "The Mine"], ["mineral", "Minerals"], ["location", "Location"], ["demand", "Demand"], ["business", "Business"], ["eco", "Eco Mining"], ["roadmap", "Roadmap"], ["docs", "Documents"], ["contact", "Contact"]];
 
 function Rise({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
   return <motion.div className={className} initial={{ y: 28 }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-30px" }} transition={{ duration: 0.8, delay, ease: EASE }}>{children}</motion.div>;
@@ -27,7 +27,7 @@ function Roll({ to, d = 0 }: { to: number; d?: number }) {
   const seen = useInView(ref, { once: true, margin: "-30px" });
   const [v, setV] = useState(0);
   useEffect(() => { if (!seen) return; const c = animate(0, to, { duration: 1.4, ease: EASE, onUpdate: setV }); return () => c.stop(); }, [seen, to]);
-  return <span ref={ref}>{v.toLocaleString("ko-KR", { minimumFractionDigits: d, maximumFractionDigits: d })}</span>;
+  return <span ref={ref}>{v.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d })}</span>;
 }
 function Photo({ src, alt, className = "", pos = "50% 50%", cap }: { src: string; alt: string; className?: string; pos?: string; cap?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -41,7 +41,7 @@ function Photo({ src, alt, className = "", pos = "50% 50%", cap }: { src: string
     </div>
   );
 }
-function Asm({ t = "가정" }: { t?: string }) {
+function Asm({ t = "Assumption" }: { t?: string }) {
   return <span className="ml-1.5 inline-block border px-1 py-px align-middle text-[9.5px] font-bold leading-[1.3]" style={{ borderColor: "var(--gw-copper)", color: "var(--gw-copper)" }}>{t}</span>;
 }
 function Head({ no, en, children, sub, dark, wm }: { no: string; en: string; children: ReactNode; sub?: ReactNode; dark?: boolean; wm?: string }) {
@@ -49,7 +49,7 @@ function Head({ no, en, children, sub, dark, wm }: { no: string; en: string; chi
     <div className="relative mb-6">
       {wm && <span className={`gw-wm ${dark ? "dark" : ""}`} aria-hidden="true">{wm}</span>}
       <div className="gw-en relative flex items-center gap-2 text-[11px] font-bold" style={{ color: dark ? "var(--gw-copper2)" : "var(--gw-copper)" }}><span>{no}</span><span className="h-px w-7" style={{ background: "currentColor" }} /><span>{en}</span></div>
-      <h2 className="relative mt-2.5 text-[26px] font-bold leading-[1.35] tracking-tight" style={{ color: dark ? "#fff" : "var(--gw-ink)" }}><Lift>{children}</Lift></h2>
+      <h2 className="relative mt-2.5 text-[25px] font-bold leading-[1.3] tracking-tight" style={{ color: dark ? "#fff" : "var(--gw-ink)" }}><Lift>{children}</Lift></h2>
       {sub && <Rise delay={0.15}><p className="mt-3 text-[14px] leading-[1.75]" style={{ color: dark ? "#b9c4cf" : "var(--gw-sub)" }}>{sub}</p></Rise>}
     </div>
   );
@@ -68,13 +68,13 @@ function Bar({ l, v, max, txt, c = "var(--gw-copper)" }: { l: string; v: number;
 function MapArt() {
   const ref = useRef<SVGSVGElement>(null);
   const seen = useInView(ref, { once: true, amount: 0.4 });
-  const pts: [number, number, string, string][] = [[118, 86, "강화 제1광산", "Ganghwa Mine"], [70, 168, "인천국제공항", "Incheon Int'l Airport"], [236, 196, "송도 11공구 · 대학 캠퍼스", "Songdo Zone 11"], [176, 250, "인천만 조력발전 예정지", "Tidal Power Site"]];
+  const pts: [number, number, string, string][] = [[118, 86, "Ganghwa Mine No.1", "Hwado-myeon, Ganghwa"], [70, 168, "Incheon Int'l Airport", "Yeongjong Island"], [236, 196, "Songdo Zone 11 · Campuses", "Songdo, Incheon"], [176, 250, "Incheon Bay Tidal Site", "Planned project"]];
   return (
-    <svg ref={ref} viewBox="-22 -50 362 345" className="w-full" role="img" aria-label="강화 제1광산과 인천국제공항, 송도 11공구, 인천만 조력발전 예정지의 위치 관계 도식">
+    <svg ref={ref} viewBox="-22 -50 362 345" className="w-full" role="img" aria-label="Diagram of Ganghwa Mine No.1 relative to Incheon Airport, Songdo Zone 11 and the Incheon Bay tidal power site">
       <path d="M40,40 C80,18 150,24 176,54 C196,78 186,112 160,126 C128,142 82,136 58,112 C34,90 22,60 40,40Z" fill="#e4edf6" stroke="#a9c2dc" />
       <path d="M210,60 C250,48 300,70 312,120 C320,170 300,240 262,270 L226,282 C214,240 222,200 206,160 C196,128 196,84 210,60Z" fill="#edf2f7" stroke="#c0cfdf" />
       <path d="M40,150 C62,140 100,150 104,172 C104,190 70,196 48,186 C34,178 30,160 40,150Z" fill="#e4edf6" stroke="#a9c2dc" />
-      <text x="96" y="52" fontSize="9" fill="#7a8794">강화도</text><text x="262" y="110" fontSize="9" fill="#7a8794">인천</text>
+      <text x="96" y="52" fontSize="9" fill="#7a8794">Ganghwa</text><text x="262" y="110" fontSize="9" fill="#7a8794">Incheon</text>
       <motion.circle cx="118" cy="86" r="128" fill="none" stroke="#1260b8" strokeWidth="1" strokeDasharray="4 5" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 2, delay: 0.2 }} />
       <text x="214" y="-10" fontSize="9" fill="#1260b8">15km Radius</text>
       {pts.slice(1).map(([x, y], i) => <motion.path key={i} d={`M118,86 L${x},${y}`} stroke="#0c2340" strokeWidth="1.8" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 1, delay: 0.7 + i * 0.25, ease: EASE }} />)}
@@ -93,29 +93,29 @@ function MapArt() {
 const SEG = [0, 9.7, 19.1];
 const SEG_END = 28.75;
 const HERO = [
-  { en: "Ganghwa Mine No.1", t: ["강화의 산이", "오랜 시간 품어 온 돌,", "장석"], d: "인천 강화 온수리. 수도권에서 가장 가까운 장석 광산입니다." },
-  { en: "Feldspar · Glass · Ceramics", t: ["그 돌은", "유리와 도자기가", "되고"], d: "장석은 유리와 세라믹의 원료입니다. 사업은 원물 생산에서 시작합니다." },
-  { en: "Infrastructure Materials", t: ["바다를 막는", "방조제의 돌이", "됩니다"], d: "조력발전·송도 매립 수요와 연계하는 인프라 소재 사업 구상입니다." },
+  { en: "Ganghwa Mine No.1", t: ["A stone the hills", "of Ganghwa have held", "for ages: feldspar"], d: "Ganghwa, Incheon — the feldspar mine closest to the Seoul metropolitan area." },
+  { en: "Feldspar · Glass · Ceramics", t: ["That stone", "becomes glass", "and ceramics"], d: "Feldspar is a raw material for glass and ceramics. The business starts with raw material production." },
+  { en: "Infrastructure Materials", t: ["and the stone", "of seawalls that", "hold back the sea"], d: "A planned infrastructure-materials business linked to tidal power and Songdo reclamation demand." },
 ];
 const GREETING = [
-  "강화의 산은 오랜 시간 그 자리에서 장석을 품어 왔습니다. 저희는 그 자원이 유리와 도자기가 되고, 바다를 막는 방조제의 돌이 되어, 우리 생활을 받치는 기반으로 쓰이기를 바랍니다.",
-  "자원 개발은 서두를수록 잃는 것이 많은 일입니다. 그래서 산의 겉모습은 지키고 땅속에서 조용히 일하는 터널식 채굴을 택하려 합니다. 지역 주민과 이익을 나누는 방법도 처음부터 함께 고민하겠습니다.",
-  "지금은 준비 단계입니다. 이 홈페이지에 적힌 숫자와 계획에는 확인이 더 필요한 가정이 많습니다. 확인된 것은 확인된 대로, 남은 과제는 과제대로 숨김없이 말씀드리겠습니다.",
+  "For ages, the hills of Ganghwa have held feldspar where they stand. We hope this resource will become glass and ceramics, and the stone of seawalls that hold back the sea — a foundation that supports everyday life.",
+  "In resource development, haste costs the most. That is why we intend to choose tunnel mining, which keeps the face of the mountain intact and works quietly underground. From the very beginning, we will also work out how to share the benefits with local residents.",
+  "We are at the preparation stage. Many of the figures and plans on this site are assumptions that still need verification. We will tell you plainly what has been confirmed and what remains to be done.",
 ];
 const MINERALS = [
-  { k: "장석", en: "FELDSPAR", img: "feldspar", pos: "50% 50%", cap: "장석 표본", t: "안정적 기반 사업", d: "A/B/C급 장석 및 폐장석 생산, 세라믹 및 유리 원료 공급.", n: <>연 매출 73.2억 원, 순이익률 33.3% 예상<Asm /></>, tag: "실적 증빙 미확인" },
-  { k: "골재", en: "AGGREGATE", img: "aggregate", pos: "50% 50%", cap: "골재 규격별 표본", t: "인프라 자재 사업", d: "건축용, 매립용, 기반시설용 골재(KS규격 준수 목표). 방조제 및 송도 인프라 공급 참여를 검토합니다.", n: <>일반 골재 매출 150억 원 예상<Asm /></>, tag: "공급계약 미확인" },
-  { k: "엑시톤", en: "ADVANCED MATERIAL", img: "feldspar", pos: "30% 40%", cap: "참고 이미지", t: "첨단 소재 구상", d: "원자료는 엑시톤 중성자 수치 200 이상 함유를 주장합니다. 탄소포집, 바이오, 의료 활용은 검증 전 사업 가정입니다.", n: <>성분·성능 시험성적서 확인 필요<Asm t="검증 필요" /></>, tag: "용어·단위·측정근거 미확인" },
+  { k: "Feldspar", en: "FELDSPAR", img: "feldspar", pos: "50% 50%", cap: "Feldspar sample", t: "Stable core business", d: "Production of grade A/B/C feldspar and waste feldspar; supply of ceramic and glass raw materials.", n: <>Projected annual revenue KRW 7.32 bn, 33.3% net margin<Asm /></>, tag: "Track record not yet verified" },
+  { k: "Aggregate", en: "AGGREGATE", img: "aggregate", pos: "50% 50%", cap: "Aggregate by size", t: "Infrastructure materials", d: "Aggregate for construction, reclamation and infrastructure (targeting KS standards). Supply to seawall and Songdo projects is under review.", n: <>Projected aggregate revenue KRW 15 bn<Asm /></>, tag: "Supply contracts not yet confirmed" },
+  { k: "Exciton", en: "ADVANCED MATERIAL", img: "feldspar", pos: "30% 40%", cap: "Reference image", t: "Advanced-material concept", d: "The source documents claim an \"exciton neutron\" value above 200. Carbon capture, bio and medical uses are unverified business assumptions.", n: <>Composition and performance test reports required<Asm t="Needs verification" /></>, tag: "Terms, units and measurement basis unverified" },
 ];
 const PHASES = [
-  { k: "Phase 1", en: "Raw Material", t: "원물 생산", l: ["A/B/C급 장석 및 폐장석 생산", "세라믹 및 유리 원료 공급 (안정적 캐시카우)"] },
-  { k: "Phase 2", en: "Infrastructure Materials", t: "인프라 자재", l: ["건축용, 매립용, 기반시설용 골재(KS규격 준수)", "방조제 및 송도 인프라 직공급"] },
-  { k: "Phase 3", en: "Advanced Materials", t: "첨단 소재", l: ["엑시톤 고부가 분말 가공", "탄소포집, 에너지 효율 향상, 의료/바이오 특수 용도 적용 (검증 필요)"] },
+  { k: "Phase 1", en: "Raw Material", t: "Raw material production", l: ["Grade A/B/C feldspar and waste feldspar", "Ceramic and glass raw materials (stable cash cow)"] },
+  { k: "Phase 2", en: "Infrastructure Materials", t: "Infrastructure materials", l: ["Aggregate for construction, reclamation and infrastructure (KS standards)", "Direct supply to seawall and Songdo projects"] },
+  { k: "Phase 3", en: "Advanced Materials", t: "Advanced materials", l: ["High-value exciton powder processing", "Carbon capture, energy efficiency, medical/bio uses (needs verification)"] },
 ];
 const ESG = [
-  { k: "E", n: "Environment", l: ["친환경 저탄소 채굴 공법 도입", "조력발전 및 재생에너지 인프라 핵심 소재 기여", "물류 탄소 발자국 최소화"] },
-  { k: "S", n: "Social", l: ["지역사회 양질의 일자리 창출", "산업 안전망 및 무재해 작업장 구축 목표", "주민 상생 및 인프라 개선 기여"] },
-  { k: "G", n: "Governance", l: ["투명한 자금 집행", "감사를 통한 리스크 통제 체계", "주주 및 투자자 가치 제고"] },
+  { k: "E", n: "Environment", l: ["Low-carbon, eco-friendly mining methods", "Key materials for tidal and renewable infrastructure", "Minimal logistics carbon footprint"] },
+  { k: "S", n: "Social", l: ["Quality local jobs", "Target: industrial safety and zero-accident sites", "Shared benefits and better local infrastructure"] },
+  { k: "G", n: "Governance", l: ["Transparent use of funds", "Risk control through audits", "Value for shareholders and investors"] },
 ];
 
 /* 01 개요 — 현장 사진을 측량·탐사 화면처럼 보여 주는 장면 (사진은 실제 현장 사진, 효과만 덧입힘) */
@@ -126,7 +126,7 @@ function SiteScope() {
   return (
     <div ref={ref} className="relative -mx-6 h-[400px] overflow-hidden" style={{ background: "var(--gw-deep)" }}>
       <motion.div className="absolute inset-0" initial={{ clipPath: "inset(0 0 100% 0)" }} animate={{ clipPath: seen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)" }} transition={{ duration: 1.2, ease: EASE }}>
-        <motion.img src={IMG("site")} alt="강화군 온수리 일대 현장 전경" className="h-full w-full object-cover" style={{ objectPosition: "100% 60%", filter: "grayscale(.45) contrast(1.18) brightness(.78)" }} initial={{ scale: 1.25 }} animate={{ scale: seen ? 1.06 : 1.25 }} transition={{ duration: 6, ease: "easeOut" }} />
+        <motion.img src={IMG("site")} alt="Site view, Ganghwa" className="h-full w-full object-cover" style={{ objectPosition: "100% 60%", filter: "grayscale(.45) contrast(1.18) brightness(.78)" }} initial={{ scale: 1.25 }} animate={{ scale: seen ? 1.06 : 1.25 }} transition={{ duration: 6, ease: "easeOut" }} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,64,.72) 0%, rgba(18,96,184,.18) 38%, rgba(12,35,64,.35) 62%, #0c2340 100%)" }} />
         <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(143,196,245,.13) 1px, transparent 1px), linear-gradient(90deg, rgba(143,196,245,.13) 1px, transparent 1px)", backgroundSize: "39px 39px" }} />
         <motion.div className="absolute inset-x-0 h-[70px]" style={{ background: "linear-gradient(180deg, transparent, rgba(143,196,245,.28) 92%, rgba(143,196,245,.9))", top: -70 }} animate={seen ? { y: [0, 470] } : {}} transition={{ duration: 3.6, ease: "linear", repeat: Infinity, repeatDelay: 1.4, delay: 1.2 }} />
@@ -136,17 +136,17 @@ function SiteScope() {
         <motion.span className="absolute -left-[22px] -top-[22px] h-11 w-11 rounded-full border" style={{ borderColor: "var(--gw-copper2)" }} animate={seen ? { scale: [0.5, 1.5, 0.5] } : { scale: 0 }} transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }} />
         <motion.span className="absolute -left-[5px] -top-[5px] h-2.5 w-2.5 rounded-full" style={{ background: "var(--gw-copper2)" }} initial={{ scale: 0 }} animate={{ scale: seen ? 1 : 0 }} transition={{ duration: 0.4, delay: 1.1 }} />
         <motion.div className="absolute right-4 top-[-38px] whitespace-nowrap border-r-2 pr-2 text-right text-white" style={{ borderColor: "var(--gw-copper2)" }} initial={{ x: 14 }} animate={{ x: seen ? 0 : 14 }} transition={{ duration: 0.6, delay: 1.3, ease: EASE }}>
-          <div className="gw-en text-[9px] font-bold" style={{ color: "var(--gw-copper2)" }}>Onsu-ri</div>
-          <div className="text-[12px] font-bold">온수리 일대</div>
+          <div className="gw-en text-[9px] font-bold" style={{ color: "var(--gw-copper2)" }}>Hwado-myeon</div>
+          <div className="text-[12px] font-bold">Mine area</div>
         </motion.div>
       </div>
       <div className="absolute left-8 top-8 text-white">
-        <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Site · Onsu-ri, Ganghwa</div>
-        <div className="mt-1.5 overflow-hidden text-[22px] font-black leading-tight tracking-tight"><motion.div initial={{ y: "110%" }} animate={{ y: seen ? "0%" : "110%" }} transition={{ duration: 0.9, delay: 0.6, ease: EASE }}>강화 온수리,</motion.div></div>
-        <div className="overflow-hidden text-[22px] font-black leading-tight tracking-tight" style={{ color: "var(--gw-copper2)" }}><motion.div initial={{ y: "110%" }} animate={{ y: seen ? "0%" : "110%" }} transition={{ duration: 0.9, delay: 0.75, ease: EASE }}>돌이 잠든 땅</motion.div></div>
+        <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Site · Hwado-myeon, Ganghwa</div>
+        <div className="mt-1.5 overflow-hidden text-[22px] font-black leading-tight tracking-tight"><motion.div initial={{ y: "110%" }} animate={{ y: seen ? "0%" : "110%" }} transition={{ duration: 0.9, delay: 0.6, ease: EASE }}>Ganghwa Island,</motion.div></div>
+        <div className="overflow-hidden text-[22px] font-black leading-tight tracking-tight" style={{ color: "var(--gw-copper2)" }}><motion.div initial={{ y: "110%" }} animate={{ y: seen ? "0%" : "110%" }} transition={{ duration: 0.9, delay: 0.75, ease: EASE }}>where the stone sleeps</motion.div></div>
       </div>
       <div className="absolute inset-x-8 bottom-8 grid grid-cols-3 gap-px" style={{ background: "rgba(143,196,245,.3)" }}>
-        {[["광업권", "2건", "79560 · 79562"], ["매장량", "1.78억t", "원자료 기재"], ["인천공항", "15km", "반경"]].map(([k, v, d], i) => (
+        {[["Mining rights", "2", "No. 79560 · 79562"], ["Reserves", "178M t", "Per source docs"], ["Airport", "15km", "Radius"]].map(([k, v, d], i) => (
           <motion.div key={k} className="px-2.5 py-2 text-white" style={{ background: "rgba(8,26,48,.82)" }} initial={{ y: 24 }} animate={{ y: seen ? 0 : 24 }} transition={{ duration: 0.6, delay: 1.2 + i * 0.12, ease: EASE }}>
             <div className="text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</div>
             <div className="text-[17px] font-black leading-tight">{v}</div>
@@ -154,16 +154,16 @@ function SiteScope() {
           </motion.div>
         ))}
       </div>
-      <span className="absolute right-8 top-8 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>현장 사진</span>
+      <span className="absolute right-8 top-8 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>Site photo</span>
     </div>
   );
 }
 
 /* 맺음 장면 — 처음 첫 화면이던 정지 이미지 3장과 번호 탭 구성을 그대로 살려 문안만 새로 쓴 섹션 */
 const CLOSE = [
-  { img: "hero", pos: "50% 55%", alt: "조력발전 방조제 참고 이미지 (AI)", cap: "조력발전 방조제 참고 이미지 · AI", en: "Why Ganghwa · Proximity", t: ["수도권에서", "가장 가까운 장석 광산,", "강화 제1광산"], d: "인천만 조력발전과 송도 매립처럼 서해안 인프라가 필요로 하는 돌, 그 가까이에서 공급하는 것을 목표로 합니다." },
-  { img: "site", pos: "50% 60%", alt: "강화군 화도면 온수리 일대 전경", cap: "강화군 온수리 일대 전경", en: "Why Ganghwa · Origin", t: ["2013년 광업권,", "온수리에서", "다시 시작합니다"], d: "인천국제공항과 송도가 가까운 강화군 화도면 온수리. 장석 생산에서 골재·인프라 소재까지 단계적으로 넓혀 가는 구상입니다." },
-  { img: "tunnel", pos: "50% 50%", alt: "터널식 채굴 갱구 참고 이미지 (AI)", cap: "터널식 채굴 참고 이미지 · AI", en: "Why Ganghwa · Method", t: ["산은 그대로 두고,", "가치는", "산 안에서 캡니다"], d: "노천 채굴 대신 갱도·터널식 채굴로 경관과 산림 훼손을 줄이는 방식을 목표로 합니다." },
+  { img: "hero", pos: "50% 55%", alt: "Tidal seawall reference image (AI)", cap: "Seawall reference · AI", en: "Why Ganghwa · Proximity", t: ["The feldspar mine", "closest to Seoul:", "Ganghwa Mine No.1"], d: "We aim to supply the stone that West Coast infrastructure needs — such as Incheon Bay tidal power and Songdo reclamation — from close by." },
+  { img: "site", pos: "50% 60%", alt: "Site view, Hwado-myeon, Ganghwa", cap: "Site view, Ganghwa", en: "Why Ganghwa · Origin", t: ["Mining rights since 2013,", "a new start", "on Ganghwa"], d: "Hwado-myeon, Ganghwa — near Incheon Airport and Songdo. The plan is to grow step by step from feldspar to aggregate and infrastructure materials." },
+  { img: "tunnel", pos: "50% 50%", alt: "Tunnel mining portal reference image (AI)", cap: "Tunnel mining reference · AI", en: "Why Ganghwa · Method", t: ["Leave the mountain,", "mine the value", "from within"], d: "Instead of open-pit mining, we aim to use adit and tunnel mining to reduce damage to the landscape and forest." },
 ];
 function Closing() {
   const ref = useRef<HTMLElement>(null);
@@ -181,19 +181,19 @@ function Closing() {
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,64,.55) 0%, rgba(12,35,64,.08) 28%, rgba(12,35,64,.78) 64%, #0c2340 100%)" }} />
       <div className="absolute left-6 top-6 text-white">
         <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Why Ganghwa</div>
-        <div className="mt-1 text-[14px] font-bold">왜 강화 제1광산인가</div>
+        <div className="mt-1 text-[14px] font-bold">Why Ganghwa Mine No.1</div>
       </div>
       <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>{c.cap}</span>
       <div className="absolute inset-x-0 bottom-[58px] px-6 pb-6 text-white">
         <div className="gw-en text-[11px] font-semibold" style={{ color: "var(--gw-copper2)" }}>{c.en}</div>
-        <h2 key={i} className="mt-3 text-[29px] font-bold leading-[1.3] tracking-tight">
+        <h2 key={i} className="mt-3 text-[26px] font-bold leading-[1.25] tracking-tight">
           {c.t.map((x, k) => <span key={x} className="block overflow-hidden"><motion.span className="block" initial={{ y: "108%" }} animate={{ y: seen ? "0%" : "108%" }} transition={{ duration: 0.9, delay: 0.15 + k * 0.13, ease: EASE }} style={{ color: k === c.t.length - 1 ? "var(--gw-copper2)" : undefined }}>{x}</motion.span></span>)}
         </h2>
         <motion.p key={`p${i}`} className="mt-3 text-[14px] leading-[1.75] text-white/80" initial={{ y: 20 }} animate={{ y: 0 }} transition={{ duration: 0.8, delay: 0.5, ease: EASE }}>{c.d}</motion.p>
       </div>
       <div className="absolute inset-x-0 bottom-0 grid grid-cols-3">
         {CLOSE.map((x, k) => (
-          <button key={x.img} onClick={() => setI(k)} className="relative h-[58px] text-[13px] font-bold" style={{ background: i === k ? "#fff" : "rgba(8,26,48,.86)", color: i === k ? "var(--gw-copper)" : "#fff" }} aria-label={`왜 강화 ${k + 1}번째 장면`}>
+          <button key={x.img} onClick={() => setI(k)} className="relative h-[58px] text-[13px] font-bold" style={{ background: i === k ? "#fff" : "rgba(8,26,48,.86)", color: i === k ? "var(--gw-copper)" : "#fff" }} aria-label={`Why Ganghwa scene ${k + 1}`}>
             0{k + 1}
             {i === k && <motion.span key={`b${i}${seen}`} className="absolute inset-x-0 top-0 h-[3px] origin-left" style={{ background: "var(--gw-copper)" }} initial={{ scaleX: 0 }} animate={{ scaleX: seen ? 1 : 0 }} transition={{ duration: 6.5, ease: "linear" }} />}
           </button>
@@ -203,7 +203,7 @@ function Closing() {
   );
 }
 
-export default function GanghwaSite() {
+export default function GanghwaSiteEn() {
   const [active, setActive] = useState("about");
   const [ph, setPh] = useState(0);
   const [esg, setEsg] = useState(0);
@@ -233,16 +233,16 @@ export default function GanghwaSite() {
   return (
     <div className="gw" style={{ overflowX: "clip" }}>
       <div className="relative mx-auto w-full max-w-[480px]">
-        <div className="px-4 py-1.5 text-center text-[11px]" style={{ background: "var(--gw-deep)", color: "#aebac6" }}>본 홈페이지는 사업의 실제 현황이 아닌 기획(안)을 소개합니다 · 수치와 일정은 가정입니다</div>
+        <div className="px-4 py-1.5 text-center text-[11px]" style={{ background: "var(--gw-deep)", color: "#aebac6" }}>This site presents a business plan (draft), not actual operations · Figures and timing are assumptions · <a href="/r4d7k2xq" style={{ color: "#e3cf9f", textDecoration: "underline" }}>한국어</a></div>
 
         {/* 상단 바 */}
         <header className="sticky top-0 z-40 border-b" style={{ background: "rgba(255,255,255,.96)", borderColor: "var(--gw-line)", backdropFilter: "blur(10px)" }}>
           <div className="flex h-[52px] items-center justify-between px-4">
             <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-left leading-none">
               <span className="gw-en block text-[9px] font-bold" style={{ color: "var(--gw-copper)" }}>Ganghwa Mine No.1</span>
-              <span className="mt-1 block text-[17px] font-black tracking-tight">강화 제1광산</span>
+              <span className="mt-1 block text-[16px] font-black tracking-tight">Ganghwa Mine</span>
             </button>
-            <button onClick={() => go("contact")} className="px-3.5 py-1.5 text-[12.5px] font-bold text-white" style={{ background: "var(--gw-copper)" }}>사업 문의</button>
+            <button onClick={() => go("contact")} className="px-3.5 py-1.5 text-[12.5px] font-bold text-white" style={{ background: "var(--gw-copper)" }}>Contact</button>
           </div>
           <nav className="gw-noscroll flex gap-4 overflow-x-auto px-4 text-[12px]">
             {NAV.map(([id, l]) => (
@@ -255,19 +255,19 @@ export default function GanghwaSite() {
 
         {/* 첫 화면 — 영상 3구간 + 번호 탭 (삼표식) */}
         <section className="relative h-[80dvh] min-h-[580px] overflow-hidden" style={{ background: "var(--gw-deep)" }}>
-          <video ref={heroV} src="/ganghwa/hero2.mp4" poster="/ganghwa/hero-poster.webp" autoPlay muted loop playsInline preload="auto" onTimeUpdate={onHeroTime} aria-label="장석이 유리와 도자기, 방조제의 돌이 되는 과정 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} />
+          <video ref={heroV} src="/r4d7k2xq/hero2.mp4" poster="/r4d7k2xq/hero-poster.webp" autoPlay muted loop playsInline preload="auto" onTimeUpdate={onHeroTime} aria-label="Feldspar becoming glass, ceramics and seawall stone (AI video example)" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(12,35,64,.45) 0%, rgba(12,35,64,.05) 28%, rgba(12,35,64,.72) 64%, #0c2340 100%)" }} />
-          <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
+          <span className="absolute right-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI video · example</span>
           <div className="absolute inset-x-0 bottom-[58px] px-6 pb-6 text-white">
             <div key={`e${hs}`} className="gw-en overflow-hidden text-[11px] font-semibold" style={{ color: "var(--gw-copper2)" }}><motion.span className="block" initial={{ y: "110%" }} animate={{ y: "0%" }} transition={{ duration: 0.7, ease: EASE }}>{HERO[hs].en}</motion.span></div>
-            <h1 key={hs} className="mt-3 text-[31px] font-bold leading-[1.3] tracking-tight">
+            <h1 key={hs} className="mt-3 text-[28px] font-bold leading-[1.25] tracking-tight">
               {HERO[hs].t.map((x, i) => <span key={x} className="block overflow-hidden"><motion.span className="block" initial={{ y: "108%" }} animate={{ y: "0%" }} transition={{ duration: 0.9, delay: 0.1 + i * 0.13, ease: EASE }} style={{ color: i === HERO[hs].t.length - 1 ? "var(--gw-copper2)" : undefined }}>{x}</motion.span></span>)}
             </h1>
             <motion.p key={`p${hs}`} className="mt-3 text-[14px] leading-[1.75] text-white/80" initial={{ y: 20 }} animate={{ y: 0 }} transition={{ duration: 0.8, delay: 0.45, ease: EASE }}>{HERO[hs].d}</motion.p>
           </div>
           <div className="absolute inset-x-0 bottom-0 grid grid-cols-3">
             {HERO.map((x, i) => (
-              <button key={x.en} onClick={() => seekHero(i)} className="relative h-[58px] text-[13px] font-bold" style={{ background: hs === i ? "#fff" : "rgba(8,26,48,.86)", color: hs === i ? "var(--gw-copper)" : "#fff" }} aria-label={`${i + 1}번째 장면`}>
+              <button key={x.en} onClick={() => seekHero(i)} className="relative h-[58px] text-[13px] font-bold" style={{ background: hs === i ? "#fff" : "rgba(8,26,48,.86)", color: hs === i ? "var(--gw-copper)" : "#fff" }} aria-label={`Scene ${i + 1}`}>
                 0{i + 1}
                 {hs === i && <span className="absolute inset-x-0 top-0 h-[3px] origin-left" style={{ background: "var(--gw-copper)", transform: `scaleX(${hp})` }} />}
               </button>
@@ -277,7 +277,7 @@ export default function GanghwaSite() {
 
         {/* 숫자 타일 (시벨코식) */}
         <section className="grid grid-cols-2">
-          {[["총 매장량 (원자료)", 1.78, 2, "억 톤", "#cfe2f6", "var(--gw-ink)"], ["광업권 설정", 2013, 0, "년", "#0c2340", "#fff"], ["인천공항 반경", 15, 0, "km", "#1260b8", "#fff"], ["골재 수요 (가정)", 1370, 0, "만㎥", "#e9eff6", "var(--gw-ink)"]].map(([l, v, d, u, bg, fg], i) => (
+          {[["Total reserves (source)", 178, 0, "M t", "#cfe2f6", "var(--gw-ink)"], ["Mining rights since", 2013, 0, "", "#0c2340", "#fff"], ["From Incheon Airport", 15, 0, "km", "#1260b8", "#fff"], ["Aggregate demand (assumed)", 13.7, 1, "M m³", "#e9eff6", "var(--gw-ink)"]].map(([l, v, d, u, bg, fg], i) => (
             <div key={l as string} className="flex h-[132px] flex-col justify-center px-6" style={{ background: bg as string, color: fg as string }}>
               <div className="text-[34px] font-black leading-none">{i === 1 ? "2013" : <Roll to={v as number} d={d as number} />}<span className="ml-1 text-[14px] font-bold">{u}</span></div>
               <div className="mt-2 text-[12px] font-bold" style={{ opacity: 1 }}>{l}</div>
@@ -287,21 +287,21 @@ export default function GanghwaSite() {
 
         {/* 자료 바로보기 */}
         <section className="grid grid-cols-2 gap-px" style={{ background: "#0c2340" }}>
-          <a href="/gwprofile" className="flex items-center justify-between bg-white px-4 py-4 text-[13.5px] font-bold" style={{ color: "var(--gw-ink)" }}><span className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" /></svg>회사소개서</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></a>
-          <a href="/gwplan" className="flex items-center justify-between px-4 py-4 text-[13.5px] font-bold" style={{ background: "#10263f", color: "#e3cf9f" }}><span className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M4 19V9 M10 19V5 M16 19v-7 M22 19H2" /></svg>IR 자료</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></a>
+          <a href="/f6b1y4ds" className="flex items-center justify-between bg-white px-4 py-4 text-[13.5px] font-bold" style={{ color: "var(--gw-ink)" }}><span className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" /></svg>Company Profile</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></a>
+          <a href="/p5c9h2mj" className="flex items-center justify-between px-4 py-4 text-[13.5px] font-bold" style={{ background: "#10263f", color: "#e3cf9f" }}><span className="flex items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M4 19V9 M10 19V5 M16 19v-7 M22 19H2" /></svg>IR Deck</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></a>
         </section>
 
         {/* 인사말 */}
         <section className="pt-12 pb-14" style={{ background: "var(--gw-deep)" }}>
-          <div className="relative mx-6"><Photo src={IMG("chairman-office")} alt="오세흠 회장" className="h-[440px]" pos="50% 26%" /><div className="pointer-events-none absolute inset-x-0 bottom-0 h-44" style={{ background: "linear-gradient(180deg,transparent,rgba(12,35,64,.92))" }} /><div className="absolute bottom-5 left-5 right-5 text-white"><div className="gw-en text-[11px] font-bold" style={{ color: "var(--gw-copper2)" }}>Greeting · 인사말</div><h2 className="mt-2 text-[25px] font-bold leading-[1.4] tracking-tight"><Lift>땅이 품은 것을,</Lift><Lift delay={0.12}><span style={{ color: "var(--gw-copper2)" }}>다음 세대의 기반으로</span></Lift></h2></div><span className="absolute right-2 top-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 연출 · 본인 사진 기반</span></div>
+          <div className="relative mx-6"><Photo src={IMG("chairman-office")} alt="Chairman Oh Se-heum" className="h-[440px]" pos="50% 26%" /><div className="pointer-events-none absolute inset-x-0 bottom-0 h-44" style={{ background: "linear-gradient(180deg,transparent,rgba(12,35,64,.92))" }} /><div className="absolute bottom-5 left-5 right-5 text-white"><div className="gw-en text-[11px] font-bold" style={{ color: "var(--gw-copper2)" }}>Greeting</div><h2 className="mt-2 text-[25px] font-bold leading-[1.4] tracking-tight"><Lift>What the land holds,</Lift><Lift delay={0.12}><span style={{ color: "var(--gw-copper2)" }}>a foundation for the next generation</span></Lift></h2></div><span className="absolute right-2 top-2 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI-staged · based on his photo</span></div>
           <div className="px-6 pt-7 text-white">
             <div className="grid gap-4">
               {GREETING.map((x, i) => <Rise key={i} delay={i * 0.06}><p className="text-[14.5px] leading-[1.95]" style={{ color: "#c9d6e4" }}>{x}</p></Rise>)}
             </div>
             <Rise>
-              <p className="mt-7 text-[17px] font-bold leading-[1.7]">한 걸음씩, 바르게 가겠습니다.<br />지켜봐 주시고 함께해 주십시오.</p>
+              <p className="mt-7 text-[17px] font-bold leading-[1.7]">We will move forward step by step, the right way.<br />We ask for your interest and partnership.</p>
               <div className="mt-6 flex items-end justify-between border-t pt-4" style={{ borderColor: "rgba(255,255,255,.18)" }}>
-                <div><div className="text-[11.5px]" style={{ color: "#9fb3c8" }}>(주)에이치엔엘파트너스 회장</div><div className="mt-0.5 text-[24px] font-bold tracking-[0.3em]">오세흠<span className="ml-1 text-[13px] tracking-normal" style={{ color: "#9fb3c8" }}>(종국)</span></div></div>
+                <div><div className="text-[11.5px]" style={{ color: "#9fb3c8" }}>Chairman, H&amp;L Partners Co., Ltd.</div><div className="mt-0.5 text-[22px] font-bold tracking-[0.06em]">Oh Se-heum<span className="ml-1 text-[12px] tracking-normal" style={{ color: "#9fb3c8" }}>(Jong-guk)</span></div></div>
                 <span className="gw-en text-[10px] font-bold text-white/50">H&amp;L Partners</span>
               </div>
             </Rise>
@@ -310,28 +310,28 @@ export default function GanghwaSite() {
 
         {/* 01 광산 소개 */}
         <section id="about" className="px-6 pt-16 pb-14">
-          <Head no="01" wm="MINE" en="The Mine" sub="강화 제1광산은 인천 강화군 화도면 온수리 일대에 위치한 장석 광산입니다. 2013년 광업권이 설정되었고, 친환경 터널식 채굴 방식의 개발을 구상하고 있습니다.">강화 제1광산 개요</Head>
+          <Head no="01" wm="MINE" en="The Mine" sub="Ganghwa Mine No.1 is a feldspar mine in Hwado-myeon, Ganghwa-gun, Incheon. Mining rights were registered in 2013, and development by eco-friendly tunnel mining is being planned.">About the Mine</Head>
           <SiteScope />
           <dl className="mt-5 border-t" style={{ borderColor: "var(--gw-line)" }}>
-            {[["자산명", "강화 제1광산"], ["법적 권리", "광업권 등록번호 79560호, 79562호 (2013년 4월 설정)"], ["위치", "인천광역시 강화군 화도면 온수리 일대"], ["개발권자", "오종국"], ["광종", "장석 (이오라이트 및 엑시톤 함유 — 원자료 기재)"], ["총 매장량", "178,185,150톤 (65,994,500㎥)"]].map(([k, v], i) => (
-              <motion.div key={k} className="grid grid-cols-[84px_1fr] gap-3 border-b py-3 text-[13.5px] leading-[1.6]" style={{ borderColor: "var(--gw-line)" }} initial={{ x: -18 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}>
+            {[["Asset", "Ganghwa Mine No.1"], ["Legal rights", "Mining right reg. No. 79560 and 79562 (registered April 2013)"], ["Location", "Onsu-ri area, Hwado-myeon, Ganghwa-gun, Incheon"], ["Developer", "Oh Jong-guk"], ["Mineral", "Feldspar (with eolite and exciton — per source docs)"], ["Total reserves", "178,185,150 t (65,994,500 m³)"]].map(([k, v], i) => (
+              <motion.div key={k} className="grid grid-cols-[104px_1fr] gap-3 border-b py-3 text-[13.5px] leading-[1.6]" style={{ borderColor: "var(--gw-line)" }} initial={{ x: -18 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.05, ease: EASE }}>
                 <dt className="font-bold" style={{ color: "var(--gw-copper)" }}>{k}</dt><dd>{v}</dd>
               </motion.div>
             ))}
           </dl>
-          <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>권리 사항과 매장량은 원자료 기재 내용입니다. 현재 권리자·존속 여부·매장량 산정 근거는 등록원부와 보고서로 확인이 필요합니다.</p>
+          <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>Rights and reserves are as stated in the source documents. The current holder, validity and the basis of the reserve estimate need to be confirmed with the official register and reports.</p>
         </section>
 
         {/* 02 광물 */}
         <section id="mineral" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-paper)" }}>
-          <Head no="02" wm="MINERALS" en="Minerals" sub="하나의 광산에서 세 가지 사업을 구상합니다.">장석, 골재,<br />그리고 첨단 소재</Head>
+          <Head no="02" wm="MINERALS" en="Minerals" sub="Three businesses planned from a single mine.">Feldspar, aggregate,<br />and advanced materials</Head>
           <div className="relative -mx-6 mb-6 h-[560px] overflow-hidden bg-black">
-            <video src="/ganghwa/field.mp4" poster="/ganghwa/field-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="광산 현장에서 장석 원석을 돋보기로 살펴보는 장면 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" />
+            <video src="/r4d7k2xq/field.mp4" poster="/r4d7k2xq/field-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="Examining a feldspar sample with a loupe at the mine site (AI video example)" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-x-0 bottom-0 h-48" style={{ background: "linear-gradient(180deg,transparent,rgba(8,26,48,.6) 40%,rgba(8,26,48,.92))" }} />
-            <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
+            <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI video · example</span>
             <div className="absolute inset-x-0 bottom-5 px-6 text-white">
-              <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>On Site · 현장의 눈</div>
-              <p className="mt-1.5 text-[17px] font-bold leading-[1.5]">돌 하나도 직접 들여다봅니다.<br />가치는 현장에서 확인합니다.</p>
+              <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>On Site</div>
+              <p className="mt-1.5 text-[17px] font-bold leading-[1.5]">We look at every stone ourselves.<br />Value is confirmed on site.</p>
             </div>
           </div>
           <div className="gw-snap gw-noscroll -mx-6 flex gap-3 overflow-x-auto px-6 pb-1">
@@ -351,50 +351,50 @@ export default function GanghwaSite() {
               </div>
             ))}
           </div>
-          <p className="mt-2 text-[11px]" style={{ color: "var(--gw-sub)" }}>옆으로 넘겨 보세요 →</p>
+          <p className="mt-2 text-[11px]" style={{ color: "var(--gw-sub)" }}>Swipe sideways →</p>
           <Rise className="mt-6">
-            <div className="text-[13px] font-bold" style={{ color: "var(--gw-copper)" }}>성분 구성 (원자료 기재)</div>
+            <div className="text-[13px] font-bold" style={{ color: "var(--gw-copper)" }}>Composition (per source docs)</div>
             <div className="mt-3 grid gap-3">
-              <Bar l="SiO₂ — 세라믹, 유리 원료" v={71.95} max={72} txt="71.95%" c="var(--gw-ink)" />
-              <Bar l="Al₂O₃ — 내화재, 세라믹" v={14.99} max={72} txt="14.99%" c="var(--gw-sea)" />
-              <Bar l="Na₂O — 유리, 세라믹 융제" v={6.1} max={72} txt="6.10%" />
-              <Bar l="K₂O — 유리, 도자기" v={3.25} max={72} txt="3.25%" c="var(--gw-copper2)" />
+              <Bar l="SiO₂ — ceramics, glass" v={71.95} max={72} txt="71.95%" c="var(--gw-ink)" />
+              <Bar l="Al₂O₃ — refractories, ceramics" v={14.99} max={72} txt="14.99%" c="var(--gw-sea)" />
+              <Bar l="Na₂O — glass, ceramic flux" v={6.1} max={72} txt="6.10%" />
+              <Bar l="K₂O — glass, porcelain" v={3.25} max={72} txt="3.25%" c="var(--gw-copper2)" />
             </div>
-            <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>성분비는 공인 시험기관 성적서로 확인이 필요합니다.</p>
+            <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>Composition needs to be confirmed by an accredited laboratory report.</p>
           </Rise>
         </section>
 
         {/* 03 입지 */}
         <section id="location" className="px-6 pt-16 pb-14">
-          <Head no="03" wm="LOCATION" en="Location & Logistics" sub="인천국제공항, 송도 11공구, 인천만 조력발전 예정지가 가까운 거리에 있습니다. 해상 운송으로 수요처에 직접 공급하는 방안을 검토합니다.">수도권에 가장 가까운<br />대규모 광산</Head>
+          <Head no="03" wm="LOCATION" en="Location & Logistics" sub="Incheon Airport, Songdo Zone 11 and the planned Incheon Bay tidal power site are all nearby. Direct supply to customers by sea is under review.">A large-scale mine<br />closest to Seoul</Head>
           <div className="relative -mx-6 mb-5 h-[540px] overflow-hidden bg-black">
-            <video src="/ganghwa/voyage.mp4" poster="/ganghwa/barge-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="새벽 물안개 속에 장석을 실은 바지선이 떠나 송도 앞 부두에서 돌을 내리는 장면 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" />
+            <video src="/r4d7k2xq/voyage.mp4" poster="/r4d7k2xq/barge-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="A barge loaded with feldspar leaves at dawn and unloads at a Songdo pier (AI video example)" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-x-0 bottom-0 h-52" style={{ background: "linear-gradient(180deg,transparent,rgba(8,26,48,.6) 40%,rgba(8,26,48,.92))" }} />
-            <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
+            <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI video · example</span>
             <div className="absolute inset-x-0 bottom-5 px-6 text-white">
               <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>By Sea · Ganghwa → Songdo</div>
-              <p className="mt-1.5 text-[17px] font-bold leading-[1.5]">새벽 물길을 따라,<br />강화의 돌이 수요처로 향합니다.</p>
+              <p className="mt-1.5 text-[17px] font-bold leading-[1.5]">Along the dawn sea route,<br />Ganghwa stone heads to its customers.</p>
             </div>
           </div>
-          <div className="border bg-white p-2" style={{ borderColor: "var(--gw-line)" }}><MapArt /><p className="px-2 pb-1 text-[10px]" style={{ color: "var(--gw-sub)" }}>위치 관계 도식 · 실제 축척과 다름</p></div>
+          <div className="border bg-white p-2" style={{ borderColor: "var(--gw-line)" }}><MapArt /><p className="px-2 pb-1 text-[10px]" style={{ color: "var(--gw-sub)" }}>Schematic · not to scale</p></div>
           <div className="mt-4 grid grid-cols-2 gap-2.5">
-            <Rise><div className="h-full p-4 text-white" style={{ background: "var(--gw-ink)" }}><div className="gw-en text-[9.5px] font-bold" style={{ color: "var(--gw-copper2)" }}>Main · 해상 운송</div><div className="mt-1.5 text-[15px] font-bold leading-[1.45]">2,000톤급 바지선 활용</div><p className="mt-1.5 text-[12px] leading-[1.6] text-white/70">강화 → 송도/조력발전 해상 직공급</p></div></Rise>
-            <Rise delay={0.1}><div className="h-full border bg-white p-4" style={{ borderColor: "var(--gw-line)" }}><div className="gw-en text-[9.5px] font-bold" style={{ color: "var(--gw-copper)" }}>Sub · 육상 운송</div><div className="mt-1.5 text-[15px] font-bold leading-[1.45]">강화대교 및 인천대로</div><p className="mt-1.5 text-[12px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>보조 경로로 활용</p></div></Rise>
+            <Rise><div className="h-full p-4 text-white" style={{ background: "var(--gw-ink)" }}><div className="gw-en text-[9.5px] font-bold" style={{ color: "var(--gw-copper2)" }}>Main · By sea</div><div className="mt-1.5 text-[15px] font-bold leading-[1.45]">2,000-ton barges</div><p className="mt-1.5 text-[12px] leading-[1.6] text-white/70">Direct sea supply: Ganghwa → Songdo / tidal site</p></div></Rise>
+            <Rise delay={0.1}><div className="h-full border bg-white p-4" style={{ borderColor: "var(--gw-line)" }}><div className="gw-en text-[9.5px] font-bold" style={{ color: "var(--gw-copper)" }}>Sub · By land</div><div className="mt-1.5 text-[15px] font-bold leading-[1.45]">Ganghwa Bridge &amp; Incheon-daero</div><p className="mt-1.5 text-[12px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>Used as a secondary route</p></div></Rise>
           </div>
-          <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>운송 계획안입니다. 바지선·장비 계약과 실제 물류비는 확인 전입니다.</p>
+          <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>Transport plan only. Barge and equipment contracts and actual logistics costs are not yet confirmed.</p>
         </section>
 
         {/* 04 수요 */}
         <section id="demand" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-deep)" }}>
-          <Head no="04" wm="DEMAND" en="Demand" dark sub="인천만 조력발전 방조제와 송도 매립, 대학 캠퍼스 확장에 필요한 골재 수요를 가정한 검토치입니다. 확정 수주가 아닙니다.">방조제와 매립이<br />만드는 골재 수요</Head>
+          <Head no="04" wm="DEMAND" en="Demand" dark sub="Estimated aggregate demand for the Incheon Bay tidal seawall, Songdo reclamation and university campus expansion. These are not confirmed orders.">Aggregate demand from<br />seawalls and reclamation</Head>
           <Rise>
             <div className="text-white">
-              <div className="text-[12px] font-bold text-white/60">2025~2030년 골재 수요<span className="ml-1.5 border px-1 py-px text-[9.5px]" style={{ borderColor: "var(--gw-copper2)", color: "var(--gw-copper2)" }}>가정</span></div>
-              <div className="mt-1.5 text-[46px] font-bold leading-none" style={{ color: "var(--gw-copper2)" }}><span className="text-[22px] text-white">총 </span><Roll to={1370} /><span className="ml-1 text-[17px] text-white">만㎥ 이상</span></div>
+              <div className="text-[12px] font-bold text-white/60">Aggregate demand, 2025–2030<span className="ml-1.5 border px-1 py-px text-[9.5px]" style={{ borderColor: "var(--gw-copper2)", color: "var(--gw-copper2)" }}>Assumption</span></div>
+              <div className="mt-1.5 text-[46px] font-bold leading-none" style={{ color: "var(--gw-copper2)" }}><span className="text-[22px] text-white">Over </span><Roll to={13.7} d={1} /><span className="ml-1 text-[17px] text-white">million m³</span></div>
             </div>
           </Rise>
           <div className="mt-6 grid gap-4 text-white">
-            {[["송도 11공구 매립 (~2030년)", 650, "약 650만㎥", "#8fc4f5"], ["인천만 조력발전 방조제", 500, "약 500만㎥", "#6fa9c4"], ["인천대·연세대·인하대 캠퍼스 확장", 220, "약 220만㎥", "#8b98a6"]].map(([l, v, t, c]) => (
+            {[["Songdo Zone 11 reclamation (to 2030)", 650, "approx. 6.5M m³", "#8fc4f5"], ["Incheon Bay tidal power seawall", 500, "approx. 5.0M m³", "#6fa9c4"], ["Incheon Nat'l, Yonsei, Inha campus expansion", 220, "approx. 2.2M m³", "#8b98a6"]].map(([l, v, t, c]) => (
               <Rise key={l as string}>
                 <div className="flex items-baseline justify-between text-[13px]"><span className="font-bold">{l}</span><span className="font-bold" style={{ color: "var(--gw-copper2)" }}>{t}</span></div>
                 <div className="mt-1.5 h-[10px] overflow-hidden" style={{ background: "rgba(255,255,255,.1)" }}><motion.div className="h-full origin-left" style={{ background: c as string, width: `${((v as number) / 650) * 100}%` }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: EASE }} /></div>
@@ -403,16 +403,16 @@ export default function GanghwaSite() {
           </div>
           <Rise className="mt-7">
             <div className="grid grid-cols-2 gap-2.5">
-              <div className="p-4" style={{ background: "rgba(255,255,255,.07)" }}><div className="text-[11px] text-white/60">방조제 총 연장 (원자료)</div><div className="mt-1 text-[28px] font-bold leading-none text-white"><Roll to={18.3} d={1} /><span className="ml-0.5 text-[13px]" style={{ color: "var(--gw-copper2)" }}>km</span></div><div className="mt-1.5 text-[10.5px] leading-[1.5] text-white/60">동측 5.8 + 서측 7.3 + 남측 5.2km</div></div>
-              <div className="p-4" style={{ background: "rgba(255,255,255,.07)" }}><div className="text-[11px] text-white/60">공급 단가 비교 (가정)</div><div className="mt-1 text-[15px] font-bold leading-[1.5] text-white">35,000원/㎥<span className="block text-[11.5px] font-normal text-white/60">수입산 40,000원/㎥ 대비</span></div></div>
+              <div className="p-4" style={{ background: "rgba(255,255,255,.07)" }}><div className="text-[11px] text-white/60">Total seawall length (source)</div><div className="mt-1 text-[28px] font-bold leading-none text-white"><Roll to={18.3} d={1} /><span className="ml-0.5 text-[13px]" style={{ color: "var(--gw-copper2)" }}>km</span></div><div className="mt-1.5 text-[10.5px] leading-[1.5] text-white/60">East 5.8 + West 7.3 + South 5.2 km</div></div>
+              <div className="p-4" style={{ background: "rgba(255,255,255,.07)" }}><div className="text-[11px] text-white/60">Supply price (assumed)</div><div className="mt-1 text-[15px] font-bold leading-[1.5] text-white">KRW 35,000/m³<span className="block text-[11.5px] font-normal text-white/60">vs. imported KRW 40,000/m³</span></div></div>
             </div>
           </Rise>
-          <p className="mt-4 text-[11px] leading-[1.6]" style={{ color: "#8fa0b0" }}>인천만 조력발전은 계획·검토 단계의 사업으로 추진 여부와 일정은 정부 정책에 따릅니다. 수요량·단가·수입 제한 여부는 최신 공식자료와 계약으로 확인이 필요합니다.</p>
+          <p className="mt-4 text-[11px] leading-[1.6]" style={{ color: "#8fa0b0" }}>Incheon Bay tidal power is at the planning and review stage; whether and when it proceeds depends on government policy. Demand, prices and import restrictions need to be confirmed with current official data and contracts.</p>
         </section>
 
         {/* 05 사업 모델 */}
         <section id="business" className="px-6 pt-16 pb-14">
-          <Head no="05" wm="BUSINESS" en="Business Model" sub="원물 생산에서 인프라 자재, 첨단 소재로 넓혀 가는 단계별 구상입니다.">밸류체인 확장</Head>
+          <Head no="05" wm="BUSINESS" en="Business Model" sub="A step-by-step plan from raw materials to infrastructure and advanced materials.">Expanding the value chain</Head>
           <div className="flex gap-2">
             {PHASES.map((x, i) => (
               <button key={x.k} onClick={() => setPh(i)} className="relative flex-1 border py-2.5 text-[13px] font-bold" style={{ borderColor: ph === i ? "var(--gw-copper)" : "var(--gw-line)", color: ph === i ? "#fff" : "var(--gw-sub)", background: "#fff" }}>
@@ -433,30 +433,30 @@ export default function GanghwaSite() {
           <Rise className="mt-6">
             <div className="border-l-2 py-1 pl-4" style={{ borderColor: "var(--gw-copper)" }}>
               <div className="gw-en text-[10px] font-bold" style={{ color: "var(--gw-copper)" }}>CAPEX-Light Strategy</div>
-              <p className="mt-1.5 text-[14px] font-bold leading-[1.65]">채굴 장비, 선별 시설, 운송 수단은 전문업체 지입 및 수수료(렌탈) 방식으로 도입해 초기 자본 부담을 줄이는 방안<Asm t="계획안" /></p>
+              <p className="mt-1.5 text-[14px] font-bold leading-[1.65]">Mining equipment, sorting facilities and transport are to be brought in through specialist contractors on a fee/rental basis to reduce upfront capital<Asm t="Plan" /></p>
             </div>
           </Rise>
         </section>
 
         {/* 06 친환경 채굴 */}
         <section id="eco" className="pt-14 pb-14" style={{ background: "var(--gw-paper)" }}>
-          <div className="px-6"><Head no="06" wm="ECO" en="Eco Mining & ESG" sub="노천 채굴이 아닌 갱도·터널식 채굴로 경관과 산림 훼손을 줄이는 것을 목표로 합니다.">땅 위를 지키는<br />터널식 채굴 구상</Head></div>
+          <div className="px-6"><Head no="06" wm="ECO" en="Eco Mining & ESG" sub="We aim to reduce damage to the landscape and forest by using adit and tunnel mining instead of open-pit mining.">Tunnel mining that<br />protects the surface</Head></div>
           <div className="relative h-[560px] overflow-hidden bg-black">
-            <video src="/ganghwa/tunnel.mp4" poster="/ganghwa/tunnel-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="숲 아래 갱구로 들어가 조명이 켜진 터널 안으로 이어지는 장면 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" />
+            <video src="/r4d7k2xq/tunnel.mp4" poster="/r4d7k2xq/tunnel-poster.webp" autoPlay muted loop playsInline preload="metadata" aria-label="Entering a portal under the forest into a lit tunnel (AI video example)" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-x-0 bottom-0 h-28" style={{ background: "linear-gradient(180deg,transparent,rgba(8,26,48,.75))" }} />
-            <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI 영상 · 예시</span>
-            <p className="absolute inset-x-0 bottom-4 px-6 text-[15px] font-bold leading-[1.5] text-white">숲은 그대로, 채굴은 산 안에서.</p>
+            <span className="absolute left-3 top-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--gw-ink)" }}>AI video · example</span>
+            <p className="absolute inset-x-0 bottom-4 px-6 text-[15px] font-bold leading-[1.5] text-white">The forest stays. Mining happens inside the mountain.</p>
           </div>
           <div className="px-6">
             <div className="mt-5 grid gap-2.5">
-              {[["표토층 보존", "지표를 유지하고 지하로 채굴하는 방식 (달성 여부 미검증)"], ["소음·분진 저감", "밀폐형 시스템 도입 구상 (성능 미검증)"], ["자연 배수구조 활용", "지형을 따르는 배수 계획"], ["해안 규제", "해안 50m 관련 규제 적합성 검토 필요"]].map(([a, b], i) => (
+              {[["Topsoil preserved", "Keep the surface and mine underground (not yet verified)"], ["Less noise and dust", "Planned enclosed systems (performance unverified)"], ["Natural drainage", "Drainage plan that follows the terrain"], ["Coastal rules", "Compliance with the 50 m coastal regulation needs review"]].map(([a, b], i) => (
                 <motion.div key={a} className="flex gap-3 border bg-white p-3.5" style={{ borderColor: "var(--gw-line)" }} initial={{ x: i % 2 ? 30 : -30 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.06, ease: EASE }}>
                   <span className="gw-en w-6 shrink-0 text-[13px] font-bold" style={{ color: "var(--gw-copper)" }}>0{i + 1}</span>
                   <div><div className="text-[14.5px] font-bold">{a}</div><div className="mt-0.5 text-[12.5px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>{b}</div></div>
                 </motion.div>
               ))}
             </div>
-            <div className="mt-7 text-[13px] font-bold" style={{ color: "var(--gw-copper)" }}>ESG 경영 추진안 — 눌러서 펼쳐 보세요</div>
+            <div className="mt-7 text-[13px] font-bold" style={{ color: "var(--gw-copper)" }}>ESG plan — tap to expand</div>
             <div className="mt-2.5 grid gap-2">
               {ESG.map((x, i) => (
                 <div key={x.k} className="border bg-white" style={{ borderColor: esg === i ? "var(--gw-ink)" : "var(--gw-line)" }}>
@@ -475,16 +475,16 @@ export default function GanghwaSite() {
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>환경관리와 ESG는 추진 계획입니다. 인허가, 환경영향평가, 인증 취득을 의미하지 않습니다.</p>
+            <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--gw-sub)" }}>Environmental management and ESG are plans. They do not mean permits, environmental impact assessments or certifications have been obtained.</p>
           </div>
         </section>
 
         {/* 07 로드맵 */}
         <section id="roadmap" className="px-6 pt-16 pb-14">
-          <Head no="07" wm="VISION" en="Vision & Roadmap" sub="시기와 성과가 확정되지 않은 단계별 추진 구상입니다. 기술 검증, 계약, 인허가가 먼저 이루어져야 합니다.">비전 및 로드맵</Head>
+          <Head no="07" wm="VISION" en="Vision & Roadmap" sub="A phased plan with no fixed timing or results. Technical validation, contracts and permits must come first.">Vision &amp; Roadmap</Head>
           <div className="relative pl-8">
             <motion.div className="absolute bottom-2 left-[7px] top-2 w-px origin-top" style={{ background: "var(--gw-copper)" }} initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }} transition={{ duration: 1.6, ease: EASE }} />
-            {[["Horizon 1 · 단기", "Mining Operation", "장석 안정적 생산 및 초기 인프라(터널) 구축. 수도권 핵심 골재 공급망 편입."], ["Horizon 2 · 중기", "Infrastructure Partner", "인천만 조력발전 및 송도 매립 프로젝트 핵심 벤더 도약. 채굴 후 지하 갱도를 활용한 부가가치 창출(친환경 저장고, 안전 대피소, 연구시설)."], ["Horizon 3 · 장기", "Advanced Material Platform", "엑시톤 기반 탄소포집 및 의료/바이오 소재 양산. 국가 에너지 인프라 소재 생태계의 중심축."]].map(([k, e, d], i) => (
+            {[["Horizon 1 · Short term", "Mining Operation", "Stable feldspar production and initial infrastructure (tunnel). Join the capital region's core aggregate supply chain."], ["Horizon 2 · Mid term", "Infrastructure Partner", "Become a key vendor for Incheon Bay tidal power and Songdo reclamation. Add value with post-mining tunnels (eco storage, shelters, research facilities)."], ["Horizon 3 · Long term", "Advanced Material Platform", "Exciton-based carbon capture and medical/bio materials. A hub of the national energy-infrastructure materials ecosystem."]].map(([k, e, d], i) => (
               <Rise key={k} delay={i * 0.1} className="relative mb-7">
                 <motion.span className="absolute -left-8 top-1 h-[15px] w-[15px] rounded-full border-2" style={{ borderColor: "var(--gw-copper)", background: i === 2 ? "var(--gw-copper)" : "var(--gw-stone)" }} initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 + i * 0.15 }} />
                 <div className="gw-en text-[11px] font-bold" style={{ color: "var(--gw-copper)" }}>{k}</div>
@@ -493,28 +493,28 @@ export default function GanghwaSite() {
               </Rise>
             ))}
           </div>
-          <Rise><p className="mt-2 border-l-2 py-1 pl-4 text-[16px] font-bold leading-[1.6]" style={{ borderColor: "var(--gw-copper)" }}>자원의 본질을 혁신하여,<br />지속 가능한 인프라의 미래를 짓습니다.</p></Rise>
+          <Rise><p className="mt-2 border-l-2 py-1 pl-4 text-[16px] font-bold leading-[1.6]" style={{ borderColor: "var(--gw-copper)" }}>Reinventing the essence of resources<br />to build a sustainable infrastructure future.</p></Rise>
         </section>
 
         {/* 자료실 */}
         <section id="docs" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-paper)" }}>
-          <Head no="08" wm="DOCS" en="Documents" sub="휴대폰에서 좌우로 넘겨 보거나, 가로로 돌려 크게 볼 수 있습니다.">회사소개서와 IR 자료</Head>
-          <a href="/gwprofile" className="block overflow-hidden border bg-white" style={{ borderColor: "var(--gw-line)" }}>
-            <img src="/ganghwa/profile-cover.webp" alt="회사소개서 표지" className="aspect-video w-full object-cover" />
-            <div className="flex items-center justify-between px-4 py-3"><span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper)" }}>Company Profile</span><span className="block text-[16px] font-bold">(주)에이치엔엘파트너스 회사소개서</span></span><span className="text-[12px] font-bold" style={{ color: "var(--gw-sub)" }}>15장</span></div>
+          <Head no="08" wm="DOCS" en="Documents" sub="Swipe through on your phone, or turn it sideways for a larger view. Documents are in Korean.">Company Profile &amp; IR</Head>
+          <a href="/f6b1y4ds" className="block overflow-hidden border bg-white" style={{ borderColor: "var(--gw-line)" }}>
+            <img src="/r4d7k2xq/profile-cover.webp" alt="Company profile cover" className="aspect-video w-full object-cover" />
+            <div className="flex items-center justify-between px-4 py-3"><span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper)" }}>Company Profile</span><span className="block text-[16px] font-bold">H&amp;L Partners Company Profile</span></span><span className="text-[12px] font-bold" style={{ color: "var(--gw-sub)" }}>15 pp · KR</span></div>
           </a>
           <div className="mt-2.5 grid grid-cols-2 gap-2.5">
-            <a href="/gwprofile" className="flex items-center justify-center gap-1.5 py-3.5 text-[14px] font-bold text-white" style={{ background: "var(--gw-copper)" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" /></svg>바로보기</a>
-            <a href="/gwprofile/HnL_company_profile.pdf" download="에이치엔엘파트너스_회사소개서.pdf" className="flex items-center justify-center gap-1.5 border bg-white py-3.5 text-[14px] font-bold" style={{ borderColor: "var(--gw-line)", color: "var(--gw-ink)" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M12 4v11 M7 10l5 5 5-5 M5 20h14" /></svg>PDF 내려받기</a>
+            <a href="/f6b1y4ds" className="flex items-center justify-center gap-1.5 py-3.5 text-[14px] font-bold text-white" style={{ background: "var(--gw-copper)" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" /></svg>View</a>
+            <a href="/f6b1y4ds/HnL_company_profile.pdf" download="HnL_Partners_Company_Profile_KR.pdf" className="flex items-center justify-center gap-1.5 border bg-white py-3.5 text-[14px] font-bold" style={{ borderColor: "var(--gw-line)", color: "var(--gw-ink)" }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M12 4v11 M7 10l5 5 5-5 M5 20h14" /></svg>Download PDF</a>
           </div>
-          <a href="/gwplan" className="mt-6 flex items-center gap-4 p-4 text-white" style={{ background: "#10263f", boxShadow: "inset 0 0 0 1px rgba(201,169,110,.55)" }}>
-            <img src="/ganghwa/plan-cover.webp" alt="" className="h-[72px] w-[128px] shrink-0 object-cover" />
-            <span className="min-w-0 flex-1"><span className="gw-en block text-[10px] font-bold" style={{ color: "#e3cf9f" }}>Investment Memorandum</span><span className="mt-0.5 block text-[16px] font-bold">IR 자료 바로보기</span><span className="block text-[11.5px] text-white/60">사업 기획(안) 45장 · 수치와 금융 구조는 가정</span></span>
+          <a href="/p5c9h2mj" className="mt-6 flex items-center gap-4 p-4 text-white" style={{ background: "#10263f", boxShadow: "inset 0 0 0 1px rgba(201,169,110,.55)" }}>
+            <img src="/r4d7k2xq/plan-cover.webp" alt="" className="h-[72px] w-[128px] shrink-0 object-cover" />
+            <span className="min-w-0 flex-1"><span className="gw-en block text-[10px] font-bold" style={{ color: "#e3cf9f" }}>Investment Memorandum</span><span className="mt-0.5 block text-[16px] font-bold">View IR Deck</span><span className="block text-[11.5px] text-white/60">Business plan (draft), 45 slides · Korean · figures are assumptions</span></span>
             <span style={{ color: "#e3cf9f" }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></span>
           </a>
-          <a href="/m3k8fz1" className="mt-2.5 flex items-center gap-4 p-4 text-white" style={{ background: "#0c1622", boxShadow: "inset 0 0 0 1px rgba(201,169,110,.35)" }}>
-            <img src="/m3k8fz1/og.jpg" alt="" className="h-[72px] w-[128px] shrink-0 object-cover" />
-            <span className="min-w-0 flex-1"><span className="gw-en block text-[10px] font-bold" style={{ color: "#e3cf9f" }}>Motion Presentation</span><span className="mt-0.5 block text-[16px] font-bold">IR 모션 프레젠테이션</span><span className="block text-[11.5px] text-white/60">세로형 45장 · 모션그래픽으로 넘겨 보는 웹 버전</span></span>
+          <a href="/t8w3n6vz" className="mt-2.5 flex items-center gap-4 p-4 text-white" style={{ background: "#0c1622", boxShadow: "inset 0 0 0 1px rgba(201,169,110,.35)" }}>
+            <img src="/t8w3n6vz/og.jpg" alt="" className="h-[72px] w-[128px] shrink-0 object-cover" />
+            <span className="min-w-0 flex-1"><span className="gw-en block text-[10px] font-bold" style={{ color: "#e3cf9f" }}>Motion Presentation</span><span className="mt-0.5 block text-[16px] font-bold">IR Motion Presentation</span><span className="block text-[11.5px] text-white/60">Vertical, 45 pages · Korean · motion-graphic web version</span></span>
             <span style={{ color: "#e3cf9f" }}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg></span>
           </a>
         </section>
@@ -524,33 +524,33 @@ export default function GanghwaSite() {
 
         {/* 08 문의 */}
         <section id="contact" className="px-6 pt-14 pb-14" style={{ background: "var(--gw-deep)" }}>
-          <Head no="09" wm="CONTACT" en="Contact" dark sub="사업 제휴와 투자 검토 문의를 받습니다.">문의</Head>
+          <Head no="09" wm="CONTACT" en="Contact" dark sub="We welcome inquiries about partnerships and investment review.">Contact</Head>
           <dl className="grid gap-px text-[13.5px]" style={{ background: "rgba(255,255,255,.12)" }}>
-            {[["회사", "(주)에이치엔엘파트너스 · H&L Partners"], ["회장", "오세흠(종국)"], ["문의 담당", "이봉수"], ["전화", "010-7213-0060"], ["이메일", "ybssby8@gmail.com"], ["웹사이트", "www.handl.top"], ["주소", "서울시 강남구 논현로79길 56, 3층 (역삼동 741-41)"], ["광산 소재지", "인천광역시 강화군 화도면 온수리 일대"]].map(([k, v]) => (
+            {[["Company", "H&L Partners Co., Ltd."], ["Chairman", "Oh Se-heum (Jong-guk)"], ["Contact", "Lee Bong-su"], ["Phone", "+82 10-7213-0060"], ["Email", "ybssby8@gmail.com"], ["Website", "www.handl.top"], ["Address", "3F, 56 Nonhyeon-ro 79-gil, Gangnam-gu, Seoul, Korea"], ["Mine site", "Hwado-myeon, Ganghwa-gun, Incheon, Korea"]].map(([k, v]) => (
               <div key={k} className="grid grid-cols-[88px_1fr] gap-3 px-4 py-3 text-white" style={{ background: "var(--gw-deep)" }}><dt className="font-bold" style={{ color: "var(--gw-copper2)" }}>{k}</dt><dd className="leading-[1.6]">{v}</dd></div>
             ))}
           </dl>
-          <a href="tel:01072130060" className="mt-5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "#fff", color: "var(--gw-ink)" }}>전화로 문의하기</a>
-          <a href="mailto:ybssby8@gmail.com?subject=%EA%B0%95%ED%99%94%20%EC%A0%9C1%EA%B4%91%EC%82%B0%20%EC%82%AC%EC%97%85%20%EB%AC%B8%EC%9D%98" className="mt-2.5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "var(--gw-copper)", color: "#fff" }}>이메일로 문의하기</a>
-          <a href="/gwplan" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
-            <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Investment Memorandum</span><span className="mt-0.5 block text-[15px] font-bold">IR 자료 보기</span><span className="block text-[11.5px] text-white/60">사업 기획(안) 45장 (수치와 금융 구조는 가정)</span></span>
+          <a href="tel:01072130060" className="mt-5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "#fff", color: "var(--gw-ink)" }}>Call</a>
+          <a href="mailto:ybssby8@gmail.com?subject=Ganghwa%20Mine%20No.1%20Inquiry" className="mt-2.5 block py-3.5 text-center text-[15px] font-bold" style={{ background: "var(--gw-copper)", color: "#fff" }}>Email</a>
+          <a href="/p5c9h2mj" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
+            <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Investment Memorandum</span><span className="mt-0.5 block text-[15px] font-bold">View IR Deck</span><span className="block text-[11.5px] text-white/60">Business plan (draft), 45 slides · Korean</span></span>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8fc4f5" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg>
           </a>
-          <a href="/m3k8fz1" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
-            <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Motion Presentation</span><span className="mt-0.5 block text-[15px] font-bold">IR 모션 프레젠테이션 보기</span><span className="block text-[11.5px] text-white/60">세로형 45장 · 모션그래픽 웹 버전</span></span>
+          <a href="/t8w3n6vz" className="mt-2.5 flex items-center justify-between border px-5 py-4 text-white" style={{ borderColor: "rgba(143,196,245,.5)" }}>
+            <span><span className="gw-en block text-[10px] font-bold" style={{ color: "var(--gw-copper2)" }}>Motion Presentation</span><span className="mt-0.5 block text-[15px] font-bold">View IR Motion Presentation</span><span className="block text-[11.5px] text-white/60">Vertical, 45 pages · Korean</span></span>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8fc4f5" strokeWidth="2" aria-hidden="true"><path d="M5 12h14 M13 6l6 6-6 6" /></svg>
           </a>
         </section>
 
         <footer className="px-6 pt-8 pb-12" style={{ background: "#081a30", color: "#8fa0b0" }}>
-          <div className="text-[18px] font-black text-white">강화 제1광산</div>
-          <p className="mt-3 text-[11.5px] leading-[1.75]">본 홈페이지는 사업의 실제 현황이 아닌 기획(안)을 소개하는 임시 홈페이지입니다. 매장량, 매출, 수요, 단가, 일정은 기획 자료에 적힌 가정이며 실측·실적·계약으로 확인된 수치가 아닙니다. 첫 화면 영상과 방조제 사진은 AI로 만든 예시이며, 영상 속 인물은 사업 관계자를 모델로 연출한 장면입니다. 터널 사진은 채굴 방식의 이해를 돕기 위한 참고 이미지입니다. 회장 사진은 본인이 제공한 사진을 바탕으로 사무실 장면을 AI로 연출했습니다. 이 페이지는 투자 권유나 원금·수익 보장을 위한 자료가 아닙니다.</p>
+          <div className="text-[18px] font-black text-white">Ganghwa Mine No.1</div>
+          <p className="mt-3 text-[11.5px] leading-[1.75]">This temporary site presents a business plan (draft), not actual operations. Reserves, revenue, demand, prices and timing are assumptions from the planning documents, not figures confirmed by measurement, results or contracts. The videos and seawall images are AI-made examples; people in the videos are staged scenes modeled on project members. Tunnel images are references to explain the mining method. The chairman's portrait is an AI-staged office scene based on a photo he provided. This page is not an investment solicitation and does not guarantee principal or returns. The Korean version prevails.</p>
           <p className="gw-en mt-5 text-[10px]">© 2026 Ganghwa Mine No.1</p>
         </footer>
 
         <AnimatePresence>
           {top && (
-            <motion.button key="t" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="맨 위로" className="fixed bottom-5 right-4 z-40 flex h-11 w-11 items-center justify-center text-white shadow-lg" style={{ background: "var(--gw-ink)" }} initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+            <motion.button key="t" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top" className="fixed bottom-5 right-4 z-40 flex h-11 w-11 items-center justify-center text-white shadow-lg" style={{ background: "var(--gw-ink)" }} initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8fc4f5" strokeWidth="2.2" aria-hidden="true"><path d="M12 19V5 M6 11l6-6 6 6" /></svg>
             </motion.button>
           )}

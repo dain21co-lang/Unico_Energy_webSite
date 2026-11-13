@@ -12,7 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
  * 원칙: 투명도 애니메이션 없이 위치·크기·모양·마스크·색만 움직인다.
  */
 
-const IMG = (f: string) => `/m3k8fz1/${f}.webp`;
+const IMG = (f: string) => `/t8w3n6vz/${f}.webp`;
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 type Ctx = { go: (n: number) => void; active: boolean };

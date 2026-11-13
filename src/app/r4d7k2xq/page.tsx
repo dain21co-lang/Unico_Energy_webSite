@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: "장석 · 골재 · 인프라 소재 사업 소개 (사업 준비 단계)",
     locale: "ko_KR",
     type: "website",
-    images: [{ url: "/ganghwa/og.jpg", width: 1200, height: 630 }],
+    images: [{ url: "/r4d7k2xq/og.jpg", width: 1200, height: 630 }],
   },
 };
 
