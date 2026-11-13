@@ -574,11 +574,19 @@ const FILMS = [
 ];
 function Film() {
   const [i, setI] = useState(0);
-  const [play, setPlay] = useState(false);
+  const [sound, setSound] = useState(false);
+  const box = useRef<HTMLDivElement>(null);
   const v = useRef<HTMLVideoElement>(null);
+  const seen = useInView(box, { margin: "0px 0px -20% 0px" });
   const f = FILMS[i];
-  useEffect(() => { setPlay(false); }, [i]);
-  const start = () => { const el = v.current; if (!el) return; el.muted = f.k !== "full"; el.play().then(() => setPlay(true)).catch(() => setPlay(false)); };
+  // 화면에 들어오면 무음으로 자동 반복, 벗어나면 멈춤
+  useEffect(() => {
+    const el = v.current;
+    if (!el) return;
+    if (seen) { el.muted = !sound; el.play().catch(() => { el.muted = true; setSound(false); el.play().catch(() => {}); }); }
+    else el.pause();
+  }, [seen, i, sound]);
+  const toggleSound = () => { const el = v.current; if (!el) return; const next = !sound; el.muted = !next; setSound(next); if (el.paused) el.play().catch(() => {}); };
   return (
     <section id="film" className="relative px-6 pb-20 pt-24" style={{ background: "#121a22" }}>
       <Head kick="10 / THE FILM" a="The whole story." b="In motion." sub={<>건물에서 일상으로, 그리고 다시 도시로.<br />함께 만든 2분 41초를 자르지 않고 그대로 담았습니다.</>} />
@@ -591,15 +599,12 @@ function Film() {
           </button>
         ))}
       </div>
-      <div className="relative mx-auto mt-4 aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[26px] bg-black">
-        <video key={f.k} ref={v} src={f.src} poster={IMG(f.poster)} playsInline muted loop={f.k !== "full"} preload="none" controls={play} className="h-full w-full object-cover" onPause={() => setPlay(false)} onPlay={() => setPlay(true)} />
-        {!play && (
-          <button onClick={start} className="absolute inset-0 flex items-center justify-center" aria-label="영상 재생">
-            <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/90 text-[26px] text-[#121a22] shadow-xl">▶</span>
-          </button>
-        )}
+      <div ref={box} className="relative mx-auto mt-4 aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[26px] bg-black">
+        <video key={f.k} ref={v} src={f.src} poster={IMG(f.poster)} playsInline muted loop autoPlay preload="metadata" className="h-full w-full object-cover" />
         <div className="pointer-events-none absolute left-3 top-3"><Badge>AI 영상 · 예시</Badge></div>
-        {!play && f.k === "full" && <p className="pointer-events-none absolute inset-x-0 bottom-6 text-center text-[13px] font-bold text-white">누르면 소리와 함께 재생됩니다</p>}
+        <button onClick={toggleSound} className="glass absolute bottom-4 left-4 rounded-full px-4 py-2.5 text-[13px] font-bold" aria-label={sound ? "소리 끄기" : "소리 켜기"}>
+          {sound ? "🔊 소리 끄기" : "🔇 소리 켜기"}
+        </button>
       </div>
     </section>
   );
