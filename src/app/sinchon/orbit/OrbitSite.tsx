@@ -111,7 +111,7 @@ function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
   }, []);
   const c = CHAPTERS[ch];
   return (
-    <section ref={wrap} id="top" style={{ height: "560vh" }} className="relative">
+    <section ref={wrap} id="top" style={{ height: "440vh" }} className="relative">
       <div className="stage grain sticky top-0 h-[100svh] overflow-hidden">
         <Building3D progress={progress} paused={paused} className="absolute inset-x-0 bottom-0 top-[25%]" />
         {/* 문구 */}
@@ -530,34 +530,18 @@ function Closing() {
 }
 
 /* ───────── 머리 · 떠 있는 버튼 · 안내 ───────── */
-const NAV: [string, string][] = [["top", "3D"], ["plans", "도면"], ["life", "객실"], ["smart", "운영"], ["exterior", "외관"], ["film", "영상"], ["docs", "자료"]];
 
 export default function OrbitSite() {
   const paused = useRef(false);
   const [isPaused, setPaused] = useState(false);
   const [info, setInfo] = useState(false);
-  const [menu, setMenu] = useState(false);
   const toggle = () => { paused.current = !paused.current; setPaused(paused.current); };
-  const go = (id: string) => { setMenu(false); document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); };
   return (
     <main className="orb mx-auto min-h-screen max-w-[480px]">
-      <header className="fixed inset-x-0 top-0 z-40 mx-auto flex max-w-[480px] items-center justify-between px-5 pt-4" style={{ background: "linear-gradient(180deg,rgba(18,26,34,0.85),rgba(18,26,34,0))", paddingBottom: 18 }}>
-        <button onClick={() => go("top")} className="text-left">
-          <p className="text-[13px] font-black tracking-[0.32em]">SEMESTER HOUSE</p>
-          <p className="mt-0.5 text-[9px] font-bold tracking-[0.26em] text-[#a9b8c6]">SINCHON · ARCHITECTURE / LIFE</p>
-        </button>
-        <div className="flex gap-2">
-          <button onClick={() => setInfo(true)} className="pill glass px-3.5 py-2 text-[12px] font-bold">작품 안내</button>
-          <button onClick={() => setMenu((m) => !m)} className="pill glass flex h-9 w-9 items-center justify-center text-[15px]" aria-label="메뉴">{menu ? "×" : "≡"}</button>
-        </div>
+      <header className="fixed inset-x-0 top-0 z-40 mx-auto flex max-w-[480px] items-center justify-between gap-3 px-5 pt-4" style={{ background: "linear-gradient(180deg,rgba(18,26,34,0.85),rgba(18,26,34,0))", paddingBottom: 18 }}>
+        <p className="min-w-0 truncate whitespace-nowrap text-[13px] font-black tracking-[0.22em]">SEMESTER HOUSE</p>
+        <button onClick={() => setInfo(true)} className="pill glass shrink-0 whitespace-nowrap px-3.5 py-2 text-[12px] font-bold">안내</button>
       </header>
-      <motion.nav className="fixed inset-x-0 top-[64px] z-40 mx-auto max-w-[480px] px-5" initial={false} animate={{ clipPath: menu ? "inset(0% 0% 0% 0% round 18px)" : "inset(0% 0% 100% 0% round 18px)", y: menu ? 0 : -8 }} transition={{ duration: 0.45, ease: EASE }}>
-        <div className="glass grid grid-cols-4 gap-1.5 rounded-[18px] p-2.5">
-          {NAV.map(([id, l]) => (
-            <button key={id} onClick={() => go(id)} className="rounded-xl py-2.5 text-[13px] font-bold active:bg-white/10">{l}</button>
-          ))}
-        </div>
-      </motion.nav>
 
       <Journey paused={paused} />
       <Plans />
