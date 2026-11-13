@@ -350,7 +350,7 @@ export default function SinchonSite() {
 
         {/* 03 건물 */}
         <section id="home" className="scroll-mt-24 px-6 py-16" style={{ background: "var(--sh-cream)" }}>
-          <Head no="02" en="THE BUILDING" sub={t("신촌역 가까운 모퉁이의 9층 건물을, 1층은 카페 라운지로 위층은 학생의 집으로 바꾸는 계획입니다.", "A 9-storey corner building near Sinchon Station — café lounge on the ground floor, student homes above.")}>
+          <Head no="02" en="THE BUILDING" sub={t("신촌역 가까운 지하 2층~지상 9층 건물을, 1층은 카페 라운지로 위층은 학생의 집으로 바꾸는 계획입니다.", "A B2–9F building near Sinchon Station — café lounge on the ground floor, student homes above.")}>
             {t(<>오래된 상가를,<br />학생의 집으로</>, <>From an old commercial tower<br />to a student home</>)}
           </Head>
           <Rise>
@@ -370,8 +370,9 @@ export default function SinchonSite() {
             </motion.div>
             <div className="absolute left-2.5 top-2.5"><Badge dark>{after ? t("리모델링 후 예시 · AI 이미지", "Remodel concept · AI image") : t("현재 모습 · 간판 흐림 처리", "Today · signs blurred")}</Badge></div>
           </div>
+          <p className="mt-3 text-[12px] leading-[1.7]" style={{ color: "var(--sh-sub)" }}>{t("외관 리모델링 방향(설계 시안 기준): 라이트 베이지 석재와 브론즈 유리, 또는 다크 그레이 메탈 패널 두 가지로 검토 중입니다.", "Facade direction (per design proposal): light beige stone with bronze glass, or dark-grey metal panels — both under review.")}</p>
           <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-            {[[t("지상 9층", "9 floors"), t("기존 건물 활용", "existing frame")], [t("1층", "Ground"), t("카페 라운지", "café lounge")], [t("신촌역", "Sinchon Stn"), t("도보권", "walkable")]].map((s, i) => (
+            {[[t("지하 2~지상 9층", "B2 – 9F"), t("기존 건물 활용", "existing frame")], [t("1층", "Ground"), t("카페 라운지", "café lounge")], [t("도보 약 6분", "~6 min walk"), t("2호선 신촌역", "Line 2 Sinchon Stn")]].map((s, i) => (
               <Rise key={i} delay={i * 0.08}>
                 <div className="rounded-xl bg-white px-1 py-3">
                   <div className="text-[14px] font-bold" style={{ color: "var(--sh-olive2)" }}>{s[0]}</div>
