@@ -268,7 +268,7 @@ export default function SinchonSite() {
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const NAV: [string, string, string][] = [
-    ["story", "여행", "Tour"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"],
+    ["story", "여행", "Tour"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"], ["basement", "지하", "B1"],
     ["apply", "신청", "Apply"], ["care", "생활지원", "Care"], ["parents", "안심", "Safety"], ["contact", "문의", "Contact"],
   ];
 
@@ -309,12 +309,12 @@ export default function SinchonSite() {
           <video className="absolute inset-0 h-full w-full object-cover" src={A("hero.mp4")} poster={A("hero-poster.webp")} autoPlay muted loop playsInline preload="auto" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(43,33,20,.55) 0%, rgba(43,33,20,.12) 38%, rgba(20,16,10,0) 55%, rgba(20,16,10,.55) 100%)" }} />
           <div className="relative z-10 flex h-full flex-col px-6 pb-8 pt-24">
-            <Rise><div className="sh-en text-[11px] font-semibold" style={{ color: "#efe3cb" }}>SINCHON · STUDENT RESIDENCE</div></Rise>
+            <Rise><div className="sh-en text-[11px] font-semibold" style={{ color: "#efe3cb" }}>SINCHON · SMART HOSTEL</div></Rise>
             <h1 className="mt-4 text-[38px] font-bold leading-[1.22] tracking-tight text-white">
               <Lift delay={0.1}>{t("한 학기,", "One semester.")}</Lift>
               <Lift delay={0.25}>{t("서울에서 내 집처럼", "Your home in Seoul.")}</Lift>
             </h1>
-            <Rise delay={0.45}><p className="mt-4 max-w-[320px] text-[14.5px] leading-[1.75]" style={{ color: "#f2e9d8" }}>{t("연세·이화·서강·홍익 생활권, 유학생을 위한 가구 완비 스마트 레지던스", "A fully furnished smart residence for international students around Yonsei, Ewha, Sogang and Hongik.")}</p></Rise>
+            <Rise delay={0.45}><p className="mt-4 max-w-[320px] text-[14.5px] leading-[1.75]" style={{ color: "#f2e9d8" }}>{t("연세·이화·서강·홍익 생활권, 유학생과 여행자를 위한 가구 완비 스마트 호스텔", "A fully furnished smart hostel for students and travellers around Yonsei, Ewha, Sogang and Hongik.")}</p></Rise>
             <div className="mt-auto">
               <Rise delay={0.6}>
                 <div className="flex gap-2.5">
@@ -482,6 +482,27 @@ export default function SinchonSite() {
           <p className="mt-3 text-[11.5px]" style={{ color: "var(--sh-sub)" }}>{t("이동 시간은 지도 기준 예상치이며, 실제 측정 후 갱신합니다.", "Times are map-based estimates and will be updated after on-site checks.")}</p>
         </section>
 
+        {/* B1 지하 (구상안) */}
+        <section id="basement" className="scroll-mt-24 px-6 py-16">
+          <Head no="B1" en="BASEMENT" sub={t("지하는 운동하고, 공 치고, 짐을 맡기는 공간으로 구상하고 있습니다. 확정 전 구상안입니다.", "We are planning the basement for workouts, pool and storage. Concept only, not yet confirmed.")}>
+            {t(<>방 밖에서도,<br />머무는 재미</>, <>Beyond the room,<br />more to enjoy</>)}
+          </Head>
+          <div className="space-y-2.5">
+            {[
+              [I.user, t("피트니스 · 퍼스널 트레이닝", "Fitness & personal training"), t("가까운 곳에서 운동하고, 트레이닝 수요도 함께 받는 공간 (구상)", "A gym close to home, with personal training on site (concept)")],
+              [I.pin, t("프로 당구 라운지 · 포켓볼", "Pro billiards lounge"), t("프로 선수 상주·레슨·시범경기, 외국인 선수 특별 레슨을 구상합니다. 프로당구협회(PBA) 협업은 협의 전입니다.", "Pro players in residence, lessons and exhibition matches are being considered. A tie-up with the pro billiards association is not yet discussed.")],
+              [I.key, t("개인물품 보관창고", "Personal storage"), t("계절 옷, 캐리어, 학기 사이 짐을 맡기는 보관함 (구상)", "Lockers for seasonal clothes, suitcases and between-term luggage (concept)")],
+            ].map(([ic, h, d], i) => (
+              <Rise key={i} delay={i * 0.08}>
+                <div className="flex items-start gap-3.5 rounded-2xl p-4" style={{ background: "var(--sh-cream)" }}>
+                  <span className="mt-0.5 shrink-0" style={{ color: "var(--sh-olive)" }}><Icon d={ic as string} /></span>
+                  <div><div className="text-[14.5px] font-bold">{h}</div><p className="mt-0.5 text-[12.5px] leading-[1.65]" style={{ color: "var(--sh-sub)" }}>{d}</p></div>
+                </div>
+              </Rise>
+            ))}
+          </div>
+        </section>
+
         {/* 06 신청 */}
         <section id="apply" className="scroll-mt-24 px-6 py-16">
           <Head no="05" en="HOW TO APPLY" sub={t("학기에 맞춰 계약하고, 끝나면 가볍게 떠나세요.", "Sign for your semester, leave lightly when it ends.")}>
@@ -593,7 +614,7 @@ export default function SinchonSite() {
           </Head>
           <div className="space-y-2.5">
             {[
-              [t("입주 문의", "Residence enquiry"), t("유학생·교환학생·어학연수생", "International, exchange & language students")],
+              [t("입주 문의", "Stay enquiry"), t("유학생·교환학생·어학연수생", "International, exchange & language students")],
               [t("운영·제휴 문의", "Partnership enquiry"), t("대학 국제처·어학당·운영 파트너", "University offices, language schools, operators")],
             ].map(([h, d], i) => (
               <Rise key={i} delay={i * 0.08}>
