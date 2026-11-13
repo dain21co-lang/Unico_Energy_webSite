@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { motion, AnimatePresence, useInView, useScroll, useTransform, useMotionValueEvent, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform, useMotionValue, useMotionValueEvent, useReducedMotion } from "framer-motion";
 
 /* 원칙: 투명도는 움직이지 않는다 (갤럭시 빈 화면 방지) — 위치·크기·마스크만 움직인다 */
 const A = (f: string) => `/sinchon/${f}`;
@@ -96,7 +96,7 @@ const SCENES = [
   { kind: "video", src: "lounge.mp4", poster: "lounge-poster.webp", no: "02", en: "SHARED LOUNGE", badgeKo: "AI 영상 · 예시", badgeEn: "AI video · concept",
     ko: <>혼자 와도,<br />혼자가 아닌 저녁</>, enT: <>Arrive alone,<br />never dine alone</>,
     dKo: "1층 카페 라운지와 공용 주방에서 처음 만난 친구들과 저녁을.", dEn: "Dinner with new friends in the ground-floor café lounge and shared kitchen." },
-  { kind: "image", src: "room-single.webp", poster: "", no: "03", en: "YOUR ROOM", badgeKo: "AI 이미지 · 예시", badgeEn: "AI image · concept",
+  { kind: "image", src: "room-arrival.webp", poster: "", no: "03", en: "YOUR ROOM", badgeKo: "AI 이미지 · 예시", badgeEn: "AI image · concept",
     ko: <>문을 열면,<br />내 방</>, enT: <>Open the door —<br />your own room</>,
     dKo: "침구·책상·개인 욕실까지, 가방만 풀면 됩니다.", dEn: "Linen, desk, private bathroom — just unpack." },
 ] as const;
@@ -108,7 +108,11 @@ function Journey({ t }: { t: TFn }) {
   const vids = useRef<(HTMLVideoElement | null)[]>([]);
   const [active, setActive] = useState(0);
   const onScreen = useInView(stage, { margin: "0px" });
-  const { scrollYProgress: p } = useScroll({ target: wrap, offset: ["start start", "end end"] });
+  const { scrollYProgress: raw } = useScroll({ target: wrap, offset: ["start start", "end end"] });
+  /* 브라우저 자체 스크롤 타임라인과 어긋나지 않도록, 진행도를 자바스크립트 값으로 한 번 옮겨 쓴다 */
+  const p = useMotionValue(0);
+  useMotionValueEvent(raw, "change", (v) => p.set(v));
+  useEffect(() => { p.set(raw.get()); }, [p, raw]);
 
   const REVEAL = ["inset(100% 0% 0% 0%)", "inset(0% 0% 0% 0%)"];
   const clip2 = useTransform(p, [0.28, 0.4], REVEAL);
@@ -162,10 +166,10 @@ function Journey({ t }: { t: TFn }) {
           <video ref={(el) => { vids.current[1] = el; }} className="h-full w-full object-cover" src={A(SCENES[1].src)} poster={A(SCENES[1].poster)} muted loop playsInline preload="metadata" />
         </motion.div>
         <motion.div className="absolute inset-0" style={{ clipPath: clip3 }}>
-          <motion.img src={A(SCENES[2].src)} alt="" className="h-full w-full object-cover" style={{ scale: zoom3, objectPosition: "50% 60%" }} />
+          <motion.img src={A(SCENES[2].src)} alt="" className="h-full w-full object-cover" style={{ scale: zoom3, objectPosition: "50% 45%" }} />
         </motion.div>
 
-        <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(20,16,10,.5) 0%, rgba(20,16,10,0) 24%, rgba(20,16,10,0) 48%, rgba(20,16,10,.78) 100%)" }} />
+        <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(20,16,10,.62) 0%, rgba(20,16,10,0) 30%, rgba(20,16,10,0) 48%, rgba(20,16,10,.78) 100%)" }} />
 
         {/* 진행 표시 */}
         <motion.div className="absolute left-0 top-0 z-30 h-[3px] w-full origin-left" style={{ background: "var(--sh-glow)", scaleX: bar }} />
