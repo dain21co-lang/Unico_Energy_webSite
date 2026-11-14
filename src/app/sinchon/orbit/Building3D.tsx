@@ -6,7 +6,7 @@ import * as THREE from "three";
 import { LineSegments2 } from "three/examples/jsm/lines/LineSegments2.js";
 import { LineSegmentsGeometry } from "three/examples/jsm/lines/LineSegmentsGeometry.js";
 import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
-import { PLATE, WING, CORE, EV, ESTAIR_TYP, ESTAIR_LOW, floorY, floorH, ROOF_Y, ROOMS, COLORS, kindOf, TOP } from "./model";
+import { PLATE, WING, CORE, EV, ESTAIR_TYP, ESTAIR_LOW, floorY, floorH, ROOF_Y, ROOMS, COLORS, kindOf, TOP, PLAN_TOP } from "./model";
 import type { Rect } from "./model";
 
 /*
@@ -85,10 +85,10 @@ export default function Building3D({ progress, paused, className }: { progress: 
 
     const res = new THREE.Vector2(1, 1);
     const mats: LineMaterial[] = [];
-    const mkLine = (segs: Seg, width: number, glow: boolean) => {
+    const mkLine = (segs: Seg, width: number, glow: boolean, plan = false) => {
       const g = new LineSegmentsGeometry();
       g.setPositions(segs.map((v, i) => (i % 3 === 0 ? v - CX : i % 3 === 2 ? v - CZ : v)));
-      const m = new LineMaterial({ color: 0x9cc2ff, linewidth: width, transparent: true, opacity: glow ? 0.16 : 0.95, depthWrite: false, blending: glow ? THREE.AdditiveBlending : THREE.NormalBlending });
+      const m = new LineMaterial({ color: 0x9cc2ff, linewidth: width, transparent: true, opacity: glow ? (plan ? 0.05 : 0.16) : plan ? 0.38 : 0.95, depthWrite: false, blending: glow ? THREE.AdditiveBlending : THREE.NormalBlending });
       m.resolution = res;
       mats.push(m);
       return new LineSegments2(g, m);
@@ -100,8 +100,9 @@ export default function Building3D({ progress, paused, className }: { progress: 
       const g = new THREE.Group();
       g.position.y = floorY(k);
       const segs = floorSegs(k);
-      g.add(mkLine(segs, 1.3, false));
-      g.add(mkLine(segs, 5.5, true));
+      const plan = PLAN_TOP && k === TOP; // 10층 증축 계획은 옅게
+      g.add(mkLine(segs, 1.3, false, plan));
+      g.add(mkLine(segs, 5.5, true, plan));
       const rooms: THREE.Mesh[] = [];
       const rs: Seg = [];
       for (const rm of ROOMS[kindOf(k)]) {

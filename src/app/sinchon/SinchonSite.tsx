@@ -259,12 +259,12 @@ const FLOORS = [
     dKo: "2·3층 지붕을 입주자 모두의 옥상정원으로 꾸밉니다. 해 질 녘 신촌을 내려다보는 쉼터 (구상).", dEn: "The roof over 2F–3F becomes a garden for every resident — a place to unwind above Sinchon (concept)." },
   { fl: "2–3F", ko: "객실 · 셰어룸", en: "Rooms & share rooms", tagKo: "층당 12실 · 셰어룸 6 + 2인실 3 + 1인실 3", tagEn: "12 rooms per floor · 6 share + 3 twin + 3 single",
     dKo: "층당 337.89㎡로 가장 넓은 층. 어학연수·교환학생 그룹을 위한 3인 셰어룸 중심 (배치안).", dEn: "The widest floors at 337.89㎡ each, centred on triple share rooms for language and exchange groups (draft plan)." },
-  { fl: "1F", ko: "카페 라운지 · 프런트", en: "Café lounge & front desk", tagKo: "처음 만나는 얼굴들", tagEn: "Where you first meet",
-    dKo: "체크인과 카페 라운지, 공용 주방에서 투숙객이 처음 만나는 층입니다.", dEn: "Check-in, café lounge and shared kitchen — where guests first meet." },
-  { fl: "B1", ko: "피트니스 · 프로 당구 라운지", en: "Fitness & pro billiards", tagKo: "운동과 포켓볼, 퍼스널 트레이닝", tagEn: "Gym, pool and personal training",
-    dKo: "피트니스와 퍼스널 트레이닝, 프로 선수 레슨·시범경기를 열 수 있는 당구 라운지를 구상합니다 (구상).", dEn: "A gym with personal training and a billiards lounge for pro lessons and exhibition matches (concept)." },
-  { fl: "B2", ko: "개인물품 보관창고", en: "Personal storage", tagKo: "계절 짐, 캐리어 보관", tagEn: "Seasonal items and luggage",
-    dKo: "계절 옷과 캐리어, 학기 사이 짐을 맡기는 보관함 (구상).", dEn: "Lockers for seasonal clothes, suitcases and between-term luggage (concept)." },
+  { fl: "1F", ko: "무인 체크인 · 1층 상가", en: "Self check-in & ground-floor shops", tagKo: "밤에도 줄 서지 않는 입실", tagEn: "No queue, day or night",
+    dKo: "기존 1층 상가는 그대로 두고, 무인 키오스크와 출입 시스템으로 체크인합니다 (구상).", dEn: "The existing ground-floor shops stay; check-in runs on kiosks and smart entry (concept)." },
+  { fl: "B1", ko: "K뷰티 · 생활용품 매장", en: "K-beauty & daily goods", tagKo: "입주자와 관광객이 함께", tagEn: "For residents and visitors alike",
+    dKo: "화장품과 생활용품을 한곳에서. 입주자 할인과 관광객 쇼핑을 함께 잡는 매장 (구상).", dEn: "Cosmetics and everyday goods in one shop, with resident discounts and visitor shopping (concept)." },
+  { fl: "B2", ko: "한식뷔페", en: "Korean buffet", tagKo: "집밥 같은 한 끼", tagEn: "Home-style Korean meals",
+    dKo: "입주자는 할인가로, 동네 손님도 함께 찾는 한식뷔페 (구상).", dEn: "A Korean buffet with resident pricing, open to the neighbourhood too (concept)." },
 ] as const;
 
 export default function SinchonSite() {
@@ -370,7 +370,7 @@ export default function SinchonSite() {
 
         {/* 03 건물 */}
         <section id="home" className="scroll-mt-24 px-6 py-16" style={{ background: "var(--sh-cream)" }}>
-          <Head no="02" en="THE BUILDING" sub={t("신촌역 가까운 지하 2층~지상 10층 건물을, 1층은 카페 라운지로 위층은 객실로 바꾸는 계획입니다.", "A B2–9F building near Sinchon Station — café lounge on the ground floor, guest rooms above.")}>
+          <Head no="02" en="THE BUILDING" sub={t("신촌역 가까운 지하 2층~지상 10층 건물을, 위층은 객실로, 지하는 K뷰티 매장과 한식뷔페로 바꾸는 계획입니다.", "A B2–10F building near Sinchon Station — guest rooms above, a K-beauty shop and Korean buffet below.")}>
             {t(<>오래된 상가를,<br />스마트 호스텔로</>, <>From an old commercial tower<br />to a smart hostel</>)}
           </Head>
           <Rise>
@@ -392,7 +392,7 @@ export default function SinchonSite() {
           </div>
           <p className="mt-3 text-[12px] leading-[1.7]" style={{ color: "var(--sh-sub)" }}>{t("외관 리모델링 방향(설계 시안 기준): 라이트 베이지 석재와 브론즈 유리, 또는 다크 그레이 메탈 패널 두 가지로 검토 중입니다.", "Facade direction (per design proposal): light beige stone with bronze glass, or dark-grey metal panels — both under review.")}</p>
           <div className="mt-4 grid grid-cols-3 gap-2 text-center">
-            {[[t("지하 2~지상 10층", "B2 – 10F"), t("기존 건물 활용", "existing frame")], [t("1층", "Ground"), t("카페 라운지", "café lounge")], [t("도보 약 6분", "~6 min walk"), t("2호선 신촌역", "Line 2 Sinchon Stn")]].map((s, i) => (
+            {[[t("지하 2~지상 10층", "B2 – 10F"), t("기존 건물 활용", "existing frame")], [t("지하", "Basement"), t("K뷰티 · 한식뷔페", "K-beauty · buffet")], [t("도보 약 6분", "~6 min walk"), t("2호선 신촌역", "Line 2 Sinchon Stn")]].map((s, i) => (
               <Rise key={i} delay={i * 0.08}>
                 <div className="rounded-xl bg-white px-1 py-3">
                   <div className="text-[14px] font-bold" style={{ color: "var(--sh-olive2)" }}>{s[0]}</div>
@@ -641,8 +641,8 @@ export default function SinchonSite() {
             {[
               ["/scprofile", "/scprofile/s01.webp", t("사업소개서", "Business profile"), t("12장 · 콘셉트·객실·운영", "12 slides · concept, rooms, operations")],
               ["/sinchon/orbit", "/sinchon/orbit-roof.webp", t("3D 공간 여정", "3D space journey"), t("원도면 치수로 세운 3D 선 건물 · 54실 배치", "3D line model from the original plans · 54 rooms")],
-              ["/sinchon/ir", "/sinchon/hero-poster.webp", t("IR 모션 프레젠테이션", "IR motion presentation"), t("32장 · 휴대폰에서 밀어 넘기는 사업계획서", "32 slides · swipe-through business plan")],
-              ["/scplan", "/scplan/s01.webp", t("IR 자료", "IR deck"), t("17장 · 시장·객실 배치·매출·투자 계획(추정)", "17 slides · market, revenue, investment (est.)")],
+              ["/sinchon/ir", "/sinchon/hero-poster.webp", t("IR 모션 프레젠테이션", "IR motion presentation"), t("33장 · 휴대폰에서 밀어 넘기는 사업계획서", "33 slides · swipe-through business plan")],
+              ["/scplan", "/scplan/s01.webp", t("IR 자료", "IR deck"), t("18장 · 시장·객실 배치·수입 구조·자금 조달(추정)", "18 slides · market, revenue, investment (est.)")],
             ].map(([href, img, h, d], i) => (
               <Rise key={i} delay={i * 0.08}>
                 <a href={href as string} className="block overflow-hidden rounded-2xl bg-white" style={{ border: "1px solid var(--sh-line)" }}>

@@ -3,11 +3,11 @@ import OrbitSite from "../OrbitSite";
 import "../orbit.css";
 
 export const metadata: Metadata = {
-  title: "SEMESTER HOUSE · Sinchon Smart Hostel — Form in motion",
-  description: "A smart hostel in Sinchon, Seoul — 54 rooms · 85 beds, from one night to a full semester (concept preview)",
+  title: "ORBIT HOUSE · Sinchon Smart Hostel — Form in motion",
+  description: "A smart hostel in Sinchon, Seoul — 66 rooms · 103 beds, from one night to a full semester (concept preview)",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "SEMESTER HOUSE · Sinchon Smart Hostel",
+    title: "ORBIT HOUSE · Sinchon Smart Hostel",
     description: "Lines unfold, floors rise — a new Sinchon takes shape.",
     locale: "en_US",
     type: "website",

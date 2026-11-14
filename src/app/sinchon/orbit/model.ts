@@ -61,8 +61,11 @@ export const SERVICE: Record<FloorKind, { label: string; r: Rect }[]> = {
 export const COLORS: Record<RoomType, string> = { s: "#f3efe4", t: "#dcc29b", sh: "#8edbd3" };
 export const LABEL: Record<RoomType, string> = { s: "1인실", t: "2인실", sh: "3인 셰어룸" };
 
-export const countRooms = () => {
+// 10층은 2023 도면상 증축 계획 — 기본안은 2~9층 60실, 10층 반영 시 66실
+export const PLAN_TOP = false; // 건물 측 확인: 지상 10층
+export const countRooms = (withTop = false) => {
   const c = { s: 0, t: 0, sh: 0 };
-  for (let k = 2; k <= TOP; k++) for (const r of ROOMS[kindOf(k)]) c[r.t]++;
-  return c; // s 41 · t 13 · sh 12 → 66실 · 103베드
+  const last = withTop || !PLAN_TOP ? TOP : TOP - 1;
+  for (let k = 2; k <= last; k++) for (const r of ROOMS[kindOf(k)]) c[r.t]++;
+  return c; // 기본 s 36 · t 12 · sh 12 → 60실 · 96베드 / 10층 포함 66실 · 103베드
 };

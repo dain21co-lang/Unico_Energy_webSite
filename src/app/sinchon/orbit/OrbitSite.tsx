@@ -8,7 +8,7 @@ import { ROOMS, SERVICE, COLORS, LABEL, PLATE, WING, CORE, EV, ESTAIR_TYP, ESTAI
 import type { FloorKind, Rect } from "./model";
 
 /*
- * SEMESTER HOUSE · 신촌 스마트호스텔(가칭) — ORBIT
+ * ORBIT HOUSE · 신촌 스마트호스텔(가칭) — ORBIT
  * dot 시안(Grand Journey Refined)을 뼈대로, Original Lines(도면이 그려지는 연출)·Blue Space(아치 카드)를 합친 완성본
  * 원칙: 투명도 애니메이션 없음 — 위치·크기·마스크(clip-path)·선 그리기만 사용
  */
@@ -90,7 +90,7 @@ const CHAPTERS = [
   { n: "03", en: "THE LAYERS", kick: "03 / OPEN UP THE POSSIBILITIES", a: "Room for", b: "new stories.", sub: "층을 펼치면 객실이 보입니다.\n2층부터 10층까지 66개의 방.", subE: "Open the floors and the rooms appear.\n66 rooms from the 2nd to the 10th floor." },
   { n: "04", en: "THE HORIZON", kick: "04 / ONE BUILDING", a: "One city.", b: "New life.", sub: "하루 숙박부터 한 학기까지,\n신촌의 첫 서울집.", subE: "From one night to a full semester —\nyour first home in Seoul." },
 ];
-const FLOOR_LIST: [string, string, string][] = [["10F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["9F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["8F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["7F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["6F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["5F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["4F", "1인실 5 · 2인실 1 · 옥상정원", "Single 5 · Twin 1 · Roof garden"], ["3F", "셰어 6 · 2인실 3 · 1인실 3", "Share 6 · Twin 3 · Single 3"], ["2F", "셰어 6 · 2인실 3 · 1인실 3", "Share 6 · Twin 3 · Single 3"], ["1F", "리셉션 · 카페 라운지", "Reception · Café lounge"]];
+const FLOOR_LIST: [string, string, string][] = [["10F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["9F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["8F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["7F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["6F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["5F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["4F", "1인실 5 · 2인실 1 · 옥상정원", "Single 5 · Twin 1 · Roof garden"], ["3F", "셰어 6 · 2인실 3 · 1인실 3", "Share 6 · Twin 3 · Single 3"], ["2F", "셰어 6 · 2인실 3 · 1인실 3", "Share 6 · Twin 3 · Single 3"], ["1F", "무인 체크인 · 기존 임차", "Self check-in · existing tenant"]];
 
 function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -179,7 +179,7 @@ function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
 const PLAN_TABS: { k: FloorKind; label: string; labelE: string; cad: string; sum: string; sumE: string; note: string; noteE: string }[] = [
   { k: "f23", label: "2·3층", labelE: "2F · 3F", cad: "orbit-cad-2f", sum: "층당 12실 · 셰어룸 6 + 2인실 3 + 1인실 3", sumE: "12 rooms per floor · 6 share + 3 twin + 3 single", note: "층당 337.89㎡의 가장 넓은 층 — 그룹·어학연수생 중심", noteE: "The widest floors (337.89㎡ each) — for groups and language students" },
   { k: "f4", label: "4층", labelE: "4F", cad: "orbit-cad-4f", sum: "6실 · 1인실 5 + 2인실 1 + 옥상정원", sumE: "6 rooms · 5 single + 1 twin + roof garden", note: "2·3층 지붕을 옥상정원으로 — 입주자 모두의 마당", noteE: "The roof over 2F–3F becomes a garden for every resident" },
-  { k: "typ", label: "5~10층", labelE: "5F – 10F", cad: "orbit-cad-typ", sum: "층당 6실 · 1인실 5 + 2인실 1", sumE: "6 rooms per floor · 5 single + 1 twin", note: "기준층 — 모든 객실 개별 욕실, 린넨·세탁실 층마다", noteE: "Typical floor — private bathroom in every room, linen & laundry on each floor" },
+  { k: "typ", label: "5~10층", labelE: "5F – 10F", cad: "orbit-cad-typ", sum: "층당 6실 · 1인실 5 + 2인실 1", sumE: "6 rooms per floor · 5 single + 1 twin", note: "기준층 — 모든 객실 개별 욕실, 린넨·세탁실 층마다", noteE: "Typical floor — private bathroom in every room, linen & laundry on each floor." },
 ];
 const SVC_E: Record<string, string> = { 린넨: "Linen", 복도: "Corridor", 옥상정원: "Roof garden" };
 
@@ -387,7 +387,7 @@ const STEPS = [
   { en: "ARRIVE", t: "줄 서지 않는 입실", tE: "No queue at check-in", d: "도착 전날 받은 비밀번호로 바로 객실까지", dE: "Go straight to your room with the code sent the day before" },
   { en: "LIVE", t: "AI 생활 안내", tE: "AI concierge", d: "한·영·중·일 24시간 안내, 수리 접수, 시설 예약", dE: "24/7 help in Korean, English, Chinese and Japanese — repairs, bookings" },
   { en: "EXTEND", t: "앱에서 바로 연장", tE: "Extend in the app", d: "단기 숙박을 학기 플랜으로 그대로 전환", dE: "Turn a short stay into a semester plan in a tap" },
-  { en: "LEAVE", t: "가벼운 퇴실", tE: "Leave light", d: "짐은 지하 보관창고에, 다음 학기 재예약", dE: "Keep your things in basement storage and rebook next semester" },
+  { en: "LEAVE", t: "가벼운 퇴실", tE: "Leave light", d: "짐 보관 서비스 연계, 다음 학기 재예약", dE: "Luggage storage on request, rebook next semester" },
 ];
 function Smart() {
   const ref = useRef<HTMLDivElement>(null);
@@ -411,7 +411,7 @@ function Smart() {
         ))}
       </div>
       <div className="mt-12 grid grid-cols-2 gap-2.5">
-        {(en ? [["1F", "Reception · Café lounge", "The neighbourhood living room"], ["B1", "Storage · Billiards lounge", "Keep your things between semesters"], ["B2", "Fitness · PT", "Residents + outside members"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "리셉션 · 카페 라운지", "누구나 들르는 동네 거실"], ["B1", "보관창고 · 당구 라운지", "학기 사이 짐 보관"], ["B2", "피트니스 · PT", "입주자 + 외부 회원"], ["4F", "옥상정원", "도시 위의 쉼"]]).map(([f, t, d]) => (
+        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "무인 체크인 데스크", "밤에도 줄 서지 않는 입실"], ["B1", "K뷰티 · 생활용품 매장", "입주자와 관광객이 함께"], ["B2", "한식뷔페", "집밥 같은 한 끼, 입주자 할인"], ["4F", "옥상정원", "도시 위의 쉼"]]).map(([f, t, d]) => (
           <Reveal key={f}>
             <div className="h-full rounded-2xl border border-white/10 p-4">
               <p className="serif text-[26px] italic leading-none" style={{ color: "var(--o-gold)" }}>{f}</p>
@@ -603,7 +603,7 @@ function Numbers() {
       </div>
       <div className="pointer-events-none relative mt-12 overflow-hidden whitespace-nowrap">
         <div className="drift-r serif inline-block text-[44px] italic leading-none text-[#1d2630]/80">
-          {"SEMESTER HOUSE · SINCHON · ".repeat(6)}
+          {"ORBIT HOUSE · SINCHON · ".repeat(6)}
         </div>
       </div>
     </section>
@@ -660,9 +660,9 @@ function Film() {
 
 /* ───────── 8. 자료 · 마무리 ───────── */
 const DOCS = [
-  { href: "/sinchon/ir", t: "IR 모션 프레젠테이션", tE: "IR motion presentation", d: "휴대폰에서 밀어 넘기는 32장", dE: "32 swipeable slides (Korean)" },
+  { href: "/sinchon/ir", t: "IR 모션 프레젠테이션", tE: "IR motion presentation", d: "휴대폰에서 밀어 넘기는 33장", dE: "33 swipeable slides (Korean)" },
   { href: "/scprofile", t: "사업소개서", tE: "Business profile", d: "콘셉트 · 객실 · 운영 12장", dE: "Concept · rooms · operations, 12 slides (Korean)" },
-  { href: "/scplan", t: "IR 자료", tE: "IR deck", d: "시장 · 객실 배치 · 투자 계획 17장", dE: "Market · room plan · investment, 17 slides (Korean)" },
+  { href: "/scplan", t: "IR 자료", tE: "IR deck", d: "시장 · 수입 구조 · 자금 조달 18장", dE: "Market · income stack · funding, 18 slides (Korean)" },
   { href: "/sinchon", t: "고객용 소개 사이트", tE: "Guest website", d: "객실 · 요금 · 동네 안내", dE: "Rooms · rates · neighbourhood" },
 ];
 function Docs() {
@@ -689,10 +689,10 @@ function Closing() {
   const en = useEN();
   return (
     <section className="stage relative overflow-hidden px-6 pb-14 pt-28 text-center">
-      <p className="kick" style={{ color: "var(--o-sub)" }}>SEMESTER HOUSE · SINCHON</p>
+      <p className="kick" style={{ color: "var(--o-sub)" }}>ORBIT HOUSE · SINCHON</p>
       <Reveal><h2 className="serif mt-5 text-[52px] leading-[0.96]">Space becomes<br /><em>possibility.</em></h2></Reveal>
       <p className="mt-6 text-[15px] font-bold">{en ? "Sinchon Smart Hostel (working title)" : "신촌 스마트호스텔(가칭)"}</p>
-      <p className="mt-1 text-[14px] text-[#c9d4de]">{en ? "One night to a semester — a first Seoul home for students from abroad" : "하루부터 한 학기까지, 유학생의 첫 서울집"}</p>
+      <p className="mt-1 text-[14px] text-[#c9d4de]">{en ? "One night to a semester — for students, travellers and hospital visitors" : "하루부터 한 학기까지 — 유학생 · 여행자 · 병원 보호자의 신촌 집"}</p>
       <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="pill mt-8 px-6 py-3 text-[14px] font-bold">{en ? "Back to top ↑" : "처음으로 ↑"}</button>
       <div className="mt-16 space-y-1.5 text-[11px] leading-[1.7] text-[#7f91a4]">
         {en ? (
@@ -725,7 +725,7 @@ export default function OrbitSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
     <LangCtx.Provider value={en}>
     <main className="orb mx-auto min-h-screen w-full max-w-[480px]" lang={en ? "en" : "ko"}>
       <header className="fixed inset-x-0 top-0 z-40 mx-auto flex max-w-[480px] items-center justify-between gap-3 px-5 pt-4" style={{ background: "linear-gradient(180deg,rgba(18,26,34,0.85),rgba(18,26,34,0))", paddingBottom: 18 }}>
-        <p className="min-w-0 truncate whitespace-nowrap text-[13px] font-black tracking-[0.22em]">SEMESTER HOUSE</p>
+        <p className="min-w-0 truncate whitespace-nowrap text-[13px] font-black tracking-[0.22em]">ORBIT HOUSE</p>
         <div className="flex shrink-0 items-center gap-2">
           <a href={en ? "/sinchon/orbit" : "/sinchon/orbit/en"} className="pill glass whitespace-nowrap px-3 py-2 text-[12px] font-bold">{en ? "한국어" : "EN"}</a>
           <button onClick={() => setInfo(true)} className="pill glass whitespace-nowrap px-3.5 py-2 text-[12px] font-bold">{en ? "About" : "안내"}</button>
