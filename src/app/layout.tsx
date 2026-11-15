@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/videos/hero-poster.jpg",
+        url: "/images/og-hero-v4.jpg",
         width: 1200,
         height: 630,
         alt: "유니코에너지그룹 | UNICO ENERGY GROUP",
