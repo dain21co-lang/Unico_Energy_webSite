@@ -51,11 +51,11 @@ export default function MetalCubeHero({ onTimeUpdate, onLoadedMetadata } = {}) {
           loop
           muted
           playsInline
-          poster="/videos/hero-web-v3-poster.jpg"
+          poster="/videos/hero-web-v4-poster.jpg"
           onTimeUpdate={onTimeUpdate}
           onLoadedMetadata={onLoadedMetadata}
         >
-          <source src="/videos/hero-web-v3.mp4" type="video/mp4" />
+          <source src="/videos/hero-web-v4.mp4" type="video/mp4" />
         </video>
       </div>
     </div>

@@ -53,7 +53,7 @@
     display: block;
     position: absolute;
     inset: -8%;
-    background: url("/videos/hero-web-v3-poster.jpg") center / cover no-repeat;
+    background: url("/videos/hero-web-v4-poster.jpg") center / cover no-repeat;
     filter: blur(38px) saturate(0.85) brightness(0.55);
     z-index: 0;
   }
