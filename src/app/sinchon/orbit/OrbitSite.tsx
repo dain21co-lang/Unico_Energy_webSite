@@ -715,6 +715,26 @@ function Closing() {
 
 /* ───────── 머리 · 떠 있는 버튼 · 안내 ───────── */
 
+/* ───────── 0. 첫 화면 영상 (옥상 라운지 드론 장면) ───────── */
+function HeroFilm() {
+  const en = useEN();
+  return (
+    <section id="intro" className="relative h-[100svh] min-h-[600px] overflow-hidden" style={{ background: "#121a22" }}>
+      <video className="absolute inset-0 h-full w-full object-cover" src="/sinchon/rooftop-hero.mp4" poster={IMG("rooftop-hero-poster")} autoPlay muted loop playsInline preload="auto" />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(18,26,34,0.55) 0%,rgba(18,26,34,0) 28%,rgba(18,26,34,0) 52%,rgba(18,26,34,0.92) 100%)" }} />
+      <span className="glass absolute left-5 top-20 rounded-full px-3 py-1.5 text-[11px] font-bold">{en ? "AI video · concept" : "AI 영상 · 예시"}</span>
+      <div className="absolute inset-x-0 bottom-0 px-6 pb-14">
+        <p className="kick text-[var(--o-mint)]">{en ? "SINCHON SMART HOSTEL" : "신촌 스마트호스텔(가칭)"}</p>
+        <h1 className="mt-3 text-[34px] font-black leading-[1.22] tracking-tight">
+          {en ? <>From one night<br />to a whole semester.</> : <>하루부터 한 학기까지,<br />신촌의 새로운 궤도.</>}
+        </h1>
+        <p className="serif mt-3 text-[20px] italic text-[var(--o-gold)]">ORBIT HOUSE</p>
+        <a href="#top" className="nudge mt-7 inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.2em] text-[var(--o-sub)]">{en ? "SCROLL" : "아래로"} ↓</a>
+      </div>
+    </section>
+  );
+}
+
 export default function OrbitSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
   const en = lang === "en";
   const paused = useRef(false);
@@ -732,6 +752,7 @@ export default function OrbitSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
         </div>
       </header>
 
+      <HeroFilm />
       <Journey paused={paused} />
       <Plans />
       <Life />
