@@ -38,6 +38,7 @@ export function Projects({ lang = "ko" }: { lang?: "ko" | "en" }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/40 to-transparent" />
                 <span className="absolute left-5 top-5 font-serif text-lg italic text-gold-300">{it.no}</span>
                 <div className="absolute inset-x-5 bottom-5">
+                  <span className="mb-3 inline-block rounded-full border border-gold-300/60 bg-navy-950/70 px-3 py-1 text-[11px] font-bold text-gold-300">{en ? "Virtual simulation" : "가상 시뮬레이션"}</span>
                   <p className="text-[10px] font-semibold tracking-[0.3em] text-gold-300">{it.sub}</p>
                   <h3 className="mt-2 text-2xl font-bold text-white">{it.name}</h3>
                   <p className="mt-2 break-keep text-[13px] leading-relaxed text-white/80">{it.desc}</p>
@@ -49,7 +50,7 @@ export function Projects({ lang = "ko" }: { lang?: "ko" | "en" }) {
             </Reveal>
           ))}
         </div>
-        <p className="mt-6 text-[11px] text-white/45">{en ? "Concept proposals. Images are AI-generated visualisations." : "검토 중인 구상안이며, 이미지는 AI로 만든 예시입니다."}</p>
+        <p className="mt-6 text-[11px] text-white/45">{en ? "All project content and images are virtual simulations." : "각 프로젝트의 내용과 이미지는 모두 가상 시뮬레이션입니다."}</p>
       </div>
     </section>
   );
