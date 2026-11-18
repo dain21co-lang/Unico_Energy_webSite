@@ -7,6 +7,7 @@ const LINKS = [
   { href: "#business", label: "Business" },
   { href: "#competitiveness", label: "Competitiveness" },
   { href: "#growth", label: "Growth Strategy" },
+  { href: "#projects", label: "Projects" },
   { href: "#esg", label: "ESG" },
 ];
 

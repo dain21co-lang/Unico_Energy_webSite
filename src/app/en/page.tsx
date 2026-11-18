@@ -10,6 +10,7 @@ import { EnGrowthStrategy } from "@/components/EnGrowthStrategy";
 import { EnESG } from "@/components/EnESG";
 import { EnContact } from "@/components/EnContact";
 import EnCTASection from "@/components/EnCTASection";
+import { Projects } from "@/components/Projects";
 export default function EnHome() {
   return (
     <>
@@ -25,6 +26,7 @@ export default function EnHome() {
 <EnCTASection />
      <EnESG />
      <EnGrowthStrategy />
+      <Projects lang="en" />
       </main>
       <EnFooter />
     </>

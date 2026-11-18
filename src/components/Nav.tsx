@@ -7,6 +7,7 @@ const LINKS = [
   { href: "#business", label: "사업분야" },
   { href: "#competitiveness", label: "핵심경쟁력" },
   { href: "#growth", label: "성장전략" },
+  { href: "#projects", label: "프로젝트" },
   { href: "#esg", label: "ESG" },
 { href: "#downloads", label: "자료실" },
 ];

@@ -13,6 +13,7 @@ import { Contact } from "@/components/Contact";
 import CTASection from "@/components/CTASection";
 import Downloads from "@/components/Downloads";
 import { Footer } from "@/components/Footer";
+import { Projects } from "@/components/Projects";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
 <BusinessVideo />
         <Competitiveness />
         <GrowthStrategy />
+        <Projects />
 <Downloads />
         <ESG />
         <Contact />
