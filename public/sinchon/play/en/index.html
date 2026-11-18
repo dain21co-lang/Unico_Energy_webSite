@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>ORBIT HOUSE · Sinchon — Virtual Scenario</title>
+<meta property="og:title" content="ORBIT HOUSE · Sinchon, the place you come home to after class">
+<meta property="og:description" content="A smart hostel for students in Sinchon, Seoul — virtual scenario sample">
+<meta property="og:image" content="/sinchon/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Serif+Display:ital@1&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--y:#ffd21f;--r:#e2252b;--b:#1d4ed8;--k:#121212;--w:#fff8ea;--g:#0e8a5f}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:#121212}
+body{max-width:480px;margin:0 auto;background:var(--y);color:var(--k);font-family:"Noto Sans KR",system-ui,sans-serif;word-break:keep-all;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+img,video{display:block;width:100%}
+.en{font-family:"Archivo Black","Noto Sans KR",sans-serif;letter-spacing:-.01em}
+.serif{font-family:"DM Serif Display",Georgia,serif;font-style:italic;font-weight:400}
+.kick{font-size:11px;font-weight:900;letter-spacing:.24em;text-transform:uppercase}
+.rv{transform:translateY(34px);transition:transform .9s cubic-bezier(.16,1,.3,1)}.rv.in{transform:none}
+.mask{overflow:hidden}.mask>span{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.16,1,.3,1)}.mask.in>span{transform:none}
+
+/* 입체파풍 장식 면 — 겹친 원색 다각형 + 굵은 윤곽 */
+.planes{position:absolute;pointer-events:none;z-index:0}
+.planes svg{display:block;width:100%;height:100%}
+section>*:not(.planes){position:relative;z-index:1}
+
+.bar{position:sticky;top:0;z-index:50;background:var(--y);border-bottom:3px solid var(--k)}
+.bar .row{display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+.bar .logo{font-size:15px;display:flex;align-items:center;gap:7px}
+.bar .logo i{display:inline-block;width:14px;height:14px;background:var(--r);border:2.5px solid var(--k);clip-path:polygon(0 30%,70% 0,100% 70%,25% 100%)}
+.bar a.cta{font-size:11px;font-weight:900;padding:7px 11px;border:2.5px solid var(--k);background:var(--b);color:#fff;text-decoration:none;clip-path:polygon(4% 0,100% 8%,96% 100%,0 92%)}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;font-size:12px;font-weight:800;color:var(--k);text-decoration:none;padding:6px 11px;border:2px solid var(--k);background:var(--w)}
+.chips a:nth-child(3n+1){background:var(--r);color:#fff}.chips a:nth-child(3n+2){background:var(--b);color:#fff}
+
+/* hero: 노란 바탕 위 비스듬한 액자 */
+.hero{position:relative;padding:16px 16px 30px;overflow:hidden;background:var(--y)}
+.vs{position:relative;z-index:3;background:var(--w);border:3px solid var(--k);box-shadow:6px 6px 0 var(--k);padding:12px 14px;text-align:center}
+.vs b{display:block;font-size:10.5px;letter-spacing:.3em;color:var(--r)}
+.vs span{display:block;margin-top:5px;font-size:21px;font-weight:900;line-height:1.3}
+.hero .canvas{position:relative;margin:26px 6px 0;aspect-ratio:3/4}
+.hero .canvas .back1{position:absolute;inset:-4% 8% 10% -6%;background:var(--b);border:3px solid var(--k);clip-path:polygon(8% 0,100% 6%,88% 100%,0 86%);transform:rotate(-4deg)}
+.hero .canvas .back2{position:absolute;inset:14% -6% -6% 30%;background:var(--r);border:3px solid var(--k);clip-path:polygon(0 12%,100% 0,90% 100%,12% 92%)}
+.hero .canvas .vid{position:absolute;inset:4% 4% 4% 4%;border:4px solid var(--k);overflow:hidden;clip-path:polygon(3% 2%,97% 0,100% 96%,0 100%);background:#000}
+.hero .canvas .vid video{height:100%;object-fit:cover}
+.hero .canvas .eye{position:absolute;right:-2%;top:-3%;width:70px;height:70px;border-radius:50%;background:var(--w);border:3px solid var(--k);display:grid;place-items:center;font-size:11px;font-weight:900;text-align:center;line-height:1.15;transform:rotate(10deg)}
+.hero .copy{margin-top:24px}
+.hero h1{font-size:42px;font-weight:900;line-height:1.1;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;background:var(--r);color:#fff;padding:0 6px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.hero p{margin-top:14px;font-size:14.5px;line-height:1.7}
+
+.marq{background:var(--r);color:var(--y);overflow:hidden;white-space:nowrap;border-block:3px solid var(--k)}
+.marq div{display:inline-block;padding:10px 0;font-size:15px;animation:mq 24s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+section{position:relative;overflow:hidden}
+.pad{padding:58px 18px}
+h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
+.lead{margin-top:14px;font-size:14.5px;line-height:1.75}
+
+/* 공통 액자: 기울어진 사각 + 뒤에 겹친 색면 */
+.frame{position:relative;margin-top:22px}
+.frame:before{content:"";position:absolute;inset:6% -4% -4% 10%;background:var(--plane,var(--r));border:3px solid var(--k);clip-path:polygon(0 8%,100% 0,94% 100%,6% 94%);z-index:0}
+.frame .in{position:relative;z-index:1;border:4px solid var(--k);overflow:hidden;background:#000;clip-path:polygon(2% 1%,98% 0,100% 98%,0 100%)}
+.frame .in video,.frame .in img{height:100%;object-fit:cover}
+.frame .tag{position:absolute;z-index:2;left:-6px;top:14px;background:var(--y);border:3px solid var(--k);font-size:11px;font-weight:900;padding:5px 9px;transform:rotate(-5deg)}
+
+.film{background:var(--b);color:#fff}
+.film .frame{--plane:var(--y)}
+.film .frame .in{aspect-ratio:9/16}
+.film .lead{color:#e4e9ff}
+.btn{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:12px 16px;border:3px solid var(--k);font-size:13px;font-weight:900;background:var(--y);color:var(--k);cursor:pointer;box-shadow:4px 4px 0 var(--k)}
+
+.day{background:var(--w)}
+.slot{position:relative;margin-top:40px}
+.slot .time{display:flex;align-items:baseline;gap:10px}
+.slot .time .en{font-size:48px;line-height:1}
+.slot .time .k{font-size:12px;font-weight:900;letter-spacing:.1em}
+.slot h3{margin-top:8px;font-size:21px;font-weight:900;line-height:1.3}
+.slot p{margin-top:6px;font-size:13.5px;line-height:1.7;color:#3b382f}
+.slot .frame .in{aspect-ratio:4/5}
+.slot .fl{position:absolute;z-index:2;right:-4px;bottom:14px;font-size:11px;font-weight:900;padding:5px 9px;border:3px solid var(--k);background:var(--w);transform:rotate(4deg)}
+.slot:nth-child(5n+1) .time .en{color:var(--b)}.slot:nth-child(5n+1) .frame{--plane:var(--y)}
+.slot:nth-child(5n+2) .time .en{color:var(--r)}.slot:nth-child(5n+2) .frame{--plane:var(--b)}
+.slot:nth-child(5n+3) .time .en{color:var(--g)}.slot:nth-child(5n+3) .frame{--plane:var(--r)}
+.slot:nth-child(5n+4) .time .en{color:var(--b)}.slot:nth-child(5n+4) .frame{--plane:var(--y)}
+.slot:nth-child(5n+5) .time .en{color:var(--r)}.slot:nth-child(5n+5) .frame{--plane:var(--g)}
+.slot:nth-child(even) .frame:before{inset:6% 10% -4% -4%}
+
+.rooms{background:var(--r);color:#fff}
+.rooms .lead{color:#ffe9e6}
+.snap{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:24px -18px 0;padding:6px 18px 10px;scrollbar-width:none}.snap::-webkit-scrollbar{display:none}
+.card{flex:0 0 76%;scroll-snap-align:center;background:var(--w);color:var(--k);border:3px solid var(--k);box-shadow:6px 6px 0 var(--k)}
+.card:nth-child(2){background:var(--y)}.card:nth-child(3){background:#dbe5ff}
+.card img{aspect-ratio:3/4;object-fit:cover;border-bottom:3px solid var(--k)}
+.card .t{padding:14px}
+.card .t b{font-size:18px;font-weight:900}
+.card .t span{display:block;margin-top:4px;font-size:12.5px;color:#45413a;line-height:1.6}
+.card .t i{font-style:normal;display:inline-block;margin-top:8px;font-size:11px;font-weight:900;padding:4px 8px;background:var(--b);color:#fff;border:2px solid var(--k)}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:12px}.dots i{width:9px;height:9px;background:#ffffff77;border:2px solid var(--k);transition:width .3s}.dots i.on{width:24px;background:var(--y)}
+.must{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.must div{border:3px solid var(--k);padding:12px;font-size:13px;font-weight:700;line-height:1.45;color:var(--k);background:var(--w)}
+.must div:nth-child(1){background:var(--y)}.must div:nth-child(4){background:var(--y)}
+.must div b{display:block;font-size:19px}
+
+.floors{background:var(--y)}
+.fl-list{margin-top:24px;border:3px solid var(--k);background:var(--w);box-shadow:7px 7px 0 var(--k)}
+.fl-row{display:flex;gap:12px;align-items:center;padding:13px 14px;border-top:3px solid var(--k);position:relative}
+.fl-row:first-child{border-top:0}
+.fl-row .n{flex:none;width:58px;font-size:15px}
+.fl-row b{display:block;font-size:15px;font-weight:900}
+.fl-row span{display:block;font-size:12px;margin-top:2px;opacity:1}
+.fl-row:nth-child(4n+1) span,.fl-row:nth-child(4n+2) span{color:#fff}
+.fl-row .bar2{position:absolute;inset:0;transform-origin:left;transform:scaleX(0);transition:transform .9s cubic-bezier(.16,1,.3,1);z-index:0}
+.fl-row>*{position:relative;z-index:1}
+.fl-row.in .bar2{transform:scaleX(1)}
+.fl-row:nth-child(4n+1) .bar2{background:var(--r)}.fl-row:nth-child(4n+1){color:#fff}
+.fl-row:nth-child(4n+2) .bar2{background:var(--b)}.fl-row:nth-child(4n+2){color:#fff}
+.fl-row:nth-child(4n+3) .bar2{background:var(--y)}
+.fl-row:nth-child(4n+4) .bar2{background:var(--w)}
+
+.campus{background:var(--k);color:#fff}
+.campus .lead{color:#d8d3c6}
+.uni{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.uni span{padding:9px 13px;border:3px solid #fff;font-size:14px;font-weight:800}
+.uni span:nth-child(3n+1){background:var(--r)}.uni span:nth-child(3n+2){background:var(--b)}.uni span:nth-child(3n){background:var(--y);color:var(--k)}
+.big{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.big div{border-top:5px solid var(--y);padding-top:10px}
+.big div:nth-child(2){border-color:var(--r)}.big div:nth-child(3){border-color:var(--b)}
+.big b{display:block;font-size:28px;color:var(--y)}
+.big span{font-size:11.5px;color:#d7d2c6}
+
+.roof{background:var(--b);color:#fff;padding:58px 18px}
+.roof .frame{--plane:var(--r)}
+.roof .frame .in{aspect-ratio:9/16}
+.roof .lead{color:#e4e9ff}
+
+.close{background:var(--y);border-top:3px solid var(--k)}
+.close h2{font-size:36px}
+.links{margin-top:24px;display:grid;gap:12px}
+.links a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;border:3px solid var(--k);background:var(--w);color:var(--k);text-decoration:none;font-weight:900;box-shadow:5px 5px 0 var(--k)}
+.links a:nth-child(2){background:var(--r);color:#fff}.links a:nth-child(2) small{color:#ffe0dc}
+.links a small{display:block;font-weight:500;font-size:12px;color:#55514a;margin-top:3px}
+.foot{padding:26px 18px 90px;background:var(--k);color:#bdb8ad;font-size:11.5px;line-height:1.8}
+.foot b{color:var(--y)}
+
+#ov{position:fixed;inset:0;z-index:100;background:#000;display:none}#ov.on{display:block}
+#ov video{width:100%;height:100%;object-fit:contain}
+#ov .x{position:absolute;top:14px;right:14px;z-index:2;border:3px solid var(--k);background:var(--y);color:var(--k);font-weight:900;padding:9px 14px}
+#ov .lb{position:absolute;top:22px;left:16px;z-index:2;color:var(--y);font-size:12px;font-weight:900;letter-spacing:.08em}
+.top-btn{position:fixed;right:max(16px,calc(50vw - 224px));bottom:18px;z-index:60;width:48px;height:48px;border:3px solid var(--k);background:var(--r);color:#fff;font-weight:900;font-size:18px;box-shadow:4px 4px 0 var(--k);clip-path:polygon(10% 0,100% 8%,90% 100%,0 90%);transform:translateY(90px);transition:transform .4s}
+.top-btn.show{transform:none}
+@media (prefers-reduced-motion:reduce){.rv,.mask>span,.fl-row .bar2{transition:none;transform:none}.marq div{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="row"><span class="logo en"><i></i>ORBIT HOUSE</span><a class="cta" href="#rooms">Pick a room</a></div>
+  <nav class="chips" aria-label="Sections">
+    <a href="#film">Makeover</a><a href="#day">A day</a><a href="#rooms">Rooms</a><a href="#floors">Floors</a><a href="#campus">Campus</a><a href="#roof">Rooftop</a><a href="#more">More</a><a href="/sinchon/play">한국어</a>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="planes" style="left:-40px;top:120px;width:200px;height:260px"><svg viewBox="0 0 200 260"><polygon points="20,10 180,40 150,250 0,200" fill="#1d4ed8" stroke="#121212" stroke-width="5"/><polygon points="60,60 200,20 190,160 90,190" fill="#fff8ea" stroke="#121212" stroke-width="5"/><circle cx="120" cy="105" r="22" fill="#121212"/></svg></div>
+  <div class="planes" style="right:-50px;top:380px;width:190px;height:240px"><svg viewBox="0 0 190 240"><polygon points="40,0 190,30 170,230 10,190" fill="#e2252b" stroke="#121212" stroke-width="5"/><polygon points="0,90 120,70 140,200 30,240" fill="#ffd21f" stroke="#121212" stroke-width="5"/></svg></div>
+  <div class="vs"><b>VIRTUAL SCENARIO</b><span>Everything on this site<br>is a virtual scenario</span></div>
+  <div class="canvas rv">
+    <div class="back1"></div><div class="back2"></div>
+    <div class="vid"><video src="/sinchon/play/a/popart.mp4" poster="/sinchon/play/a/popart.jpg" autoplay muted loop playsinline preload="auto"></video></div>
+    <div class="eye">SPRING<br>2027<br>SINCHON</div>
+  </div>
+  <div class="copy">
+    <p class="kick" style="color:var(--r)">SINCHON SMART HOSTEL · ORBIT HOUSE</p>
+    <h1 class="mask" style="margin-top:8px"><span>The place you</span></h1>
+    <h1 class="mask"><span><em>want to come home</em> to.</span></h1>
+    <p>Right in the heart of Sinchon, between Yonsei, Ewha, Sogang and Hongik.<br>From one night to a whole semester — your first home in Seoul wakes up like a painting.</p>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div class="en">STUDY · EAT · GLOW · DANCE · SLEEP · REPEAT · STUDY · EAT · GLOW · DANCE · SLEEP · REPEAT · </div></div>
+
+<section class="film pad" id="film">
+  <p class="kick" style="color:var(--r)">01 · BEFORE → AFTER</p>
+  <h2 class="mask"><span>66 seconds:</span></h2><h2 class="mask"><span>a building wakes up.</span></h2>
+  <p class="lead">An old Sinchon building nobody looked twice at. Lines are drawn, glass goes in, light wraps around it — and it becomes the hottest address in Sinchon.</p>
+  <div class="frame rv"><div class="in"><video data-auto src="/sinchon/play/a/transform.mp4" poster="/sinchon/play/a/transform-mid.jpg" muted loop playsinline preload="none"></video></div><span class="tag">Makeover · 66 s</span></div>
+  <button class="btn" data-play="/sinchon/play/a/transform.mp4" data-label="A building wakes up · 66 s">▶ Watch from the start, sound on</button>
+</section>
+
+<section class="day pad" id="day">
+  <div class="planes" style="right:-30px;top:40px;width:130px;height:150px"><svg viewBox="0 0 130 150"><polygon points="20,0 130,20 110,150 0,120" fill="#e2252b" stroke="#121212" stroke-width="5"/><polygon points="50,40 120,60 90,120 40,100" fill="#1d4ed8" stroke="#121212" stroke-width="5"/></svg></div>
+  <p class="kick" style="color:var(--b)">02 · 24 HOURS IN SINCHON</p>
+  <h2 class="mask"><span>Follow a student</span></h2><h2 class="mask"><span>through one day here.</span></h2>
+  <div>
+    <div class="slot rv"><div class="time"><span class="en">08:00</span><span class="k">MORNING · 5–10F</span></div><h3>Sinchon outside your window</h3><p>A desk, a bed, your own bathroom. Open the curtains and you can see your walk to campus.</p><div class="frame"><div class="in"><video data-auto src="/sinchon/hero.mp4" poster="/sinchon/hero-poster.webp" muted loop playsinline preload="none"></video></div><span class="fl">My room</span></div></div>
+    <div class="slot rv"><div class="time"><span class="en">12:30</span><span class="k">LUNCH · KOREAN DINING</span></div><h3>All-you-can-eat Korean lunch</h3><p>A Korean buffet you queue for with friends from everywhere. Picking today's side dishes is the most serious moment of the day.</p><div class="frame"><div class="in"><video data-auto src="/sinchon/play/a/dining.mp4" poster="/sinchon/play/a/dining.jpg" muted loop playsinline preload="none"></video></div><span class="fl">Korean dining</span></div></div>
+    <div class="slot rv"><div class="time"><span class="en">16:00</span><span class="k">GLOW UP · K-BEAUTY</span></div><h3>Personal-colour test between classes</h3><p>Try the newest ampoules and find the colours that suit your tone at the K-beauty studio. Even better with friends.</p><div class="frame"><div class="in"><video data-auto src="/sinchon/play/a/beauty.mp4" poster="/sinchon/play/a/beauty.jpg" muted loop playsinline preload="none"></video></div><span class="fl">K-beauty</span></div></div>
+    <div class="slot rv"><div class="time"><span class="en">20:00</span><span class="k">AFTER DARK · B2</span></div><h3>A cinema with whales, then dance</h3><p>A cinema where whales swim overhead. After the film, a dance challenge in the studio next door — and a quiet moment in the indoor rain garden.</p><div class="frame"><div class="in"><video data-auto src="/sinchon/play/a/cinema.mp4" poster="/sinchon/play/a/cinema.jpg" muted loop playsinline preload="none"></video></div><span class="fl">Life cinema</span></div></div>
+    <div class="slot rv"><div class="time"><span class="en">23:00</span><span class="k">LATE NIGHT · LOUNGE</span></div><h3>Friends right outside your door</h3><p>Homework together in the lounge, late-night snacks in the shared kitchen. Living alone, never lonely.</p><div class="frame"><div class="in"><video data-auto src="/sinchon/community.mp4" poster="/sinchon/community-poster.webp" muted loop playsinline preload="none"></video></div><span class="fl">Lounge</span></div></div>
+  </div>
+</section>
+
+<section class="rooms pad" id="rooms">
+  <p class="kick" style="color:var(--y)">03 · PICK YOUR ROOM</p>
+  <h2 class="mask"><span>Solo, duo or squad.</span></h2><h2 class="mask"><span>Your style.</span></h2>
+  <p class="lead">Every room has its own bathroom and comes furnished. Just bring a suitcase.</p>
+  <div class="snap" id="snap">
+    <div class="card"><img src="/sinchon/room-single.webp" alt="Single room" loading="lazy"><div class="t"><b>SOLO · Single</b><span>Your study room in exam season, your cinema at the weekend.</span><i>Night · month · semester</i></div></div>
+    <div class="card"><img src="/sinchon/room-twin.webp" alt="Twin room" loading="lazy"><div class="t"><b>DUO · Twin</b><span>With a classmate or an exchange-student roommate. More space for half the price.</span><i>Roommate matching</i></div></div>
+    <div class="card"><img src="/sinchon/room-triple.webp" alt="Triple share" loading="lazy"><div class="t"><b>SQUAD · Triple</b><span>Three friends moving to Seoul together. The best value.</span><i>Short trips welcome</i></div></div>
+    <div class="card"><img src="/sinchon/room-arrival.webp" alt="Arrival" loading="lazy"><div class="t"><b>Check in by phone</b><span>No front desk — the app opens your door. Landing at 3 a.m.? No problem.</span><i>Self check-in</i></div></div>
+  </div>
+  <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="must">
+    <div><b>Private bath</b>in every room</div>
+    <div><b>Smart lock</b>open with your phone</div>
+    <div><b>Shared kitchen</b>snacks together</div>
+    <div><b>Laundry lounge</b>chat while you wait</div>
+  </div>
+</section>
+
+<section class="floors pad" id="floors">
+  <div class="planes" style="right:-20px;top:30px;width:120px;height:120px"><svg viewBox="0 0 120 120"><polygon points="10,10 120,0 100,110 0,90" fill="#1d4ed8" stroke="#121212" stroke-width="5"/><circle cx="62" cy="55" r="20" fill="#fff8ea" stroke="#121212" stroke-width="5"/></svg></div>
+  <p class="kick" style="color:var(--r)">04 · FLOOR GUIDE</p>
+  <h2 class="mask"><span>All of Sinchon</span></h2><h2 class="mask"><span>in one building.</span></h2>
+  <div class="fl-list">
+    <div class="fl-row"><i class="bar2"></i><span class="n en">ROOF</span><div><b>Rooftop lounge</b><span>Sunset BBQ · weekend parties · night views</span></div></div>
+    <div class="fl-row"><i class="bar2"></i><span class="n en">5–10F</span><div><b>Smart rooms</b><span>Single · twin · triple share</span></div></div>
+    <div class="fl-row"><i class="bar2"></i><span class="n en">4F</span><div><b>Community lounge</b><span>Study · shared kitchen · laundry</span></div></div>
+    <div class="fl-row"><i class="bar2"></i><span class="n en">3F</span><div><b>Korean dining</b><span>Korean buffet · cooking class</span></div></div>
+    <div class="fl-row"><i class="bar2"></i><span class="n en">2F</span><div><b>K-beauty studio</b><span>Personal colour · make-up · pop-ups</span></div></div>
+    <div class="fl-row"><i class="bar2"></i><span class="n en">1F</span><div><b>Self check-in & café</b><span>Luggage storage · airport delivery</span></div></div>
+    <div class="fl-row"><i class="bar2"></i><span class="n en">B1</span><div><b>Rain garden</b><span>An indoor garden where it rains</span></div></div>
+    <div class="fl-row"><i class="bar2"></i><span class="n en">B2</span><div><b>Life cinema & dance room</b><span>Whale cinema · challenge studio</span></div></div>
+  </div>
+</section>
+
+<section class="campus pad" id="campus">
+  <p class="kick" style="color:var(--y)">05 · CAMPUS NEXT DOOR</p>
+  <h2 class="mask"><span>Campus is</span></h2><h2 class="mask"><span>next door.</span></h2>
+  <p class="lead">A walk or one stop away. Ten more minutes of sleep every morning.</p>
+  <div class="uni"><span>Yonsei</span><span>Ewha</span><span>Sogang</span><span>Hongik</span><span>Severance Hospital</span></div>
+  <div class="big"><div><b class="en">4</b><span>universities</span></div><div><b class="en">24h</b><span>self-service</span></div><div><b class="en">1 APP</b><span>booking to check-out</span></div></div>
+</section>
+
+<section class="roof" id="roof">
+  <div class="planes" style="right:-40px;top:30px;width:160px;height:200px"><svg viewBox="0 0 160 200"><polygon points="30,0 160,20 140,190 0,160" fill="#ffd21f" stroke="#121212" stroke-width="5"/><circle cx="80" cy="90" r="30" fill="#e2252b" stroke="#121212" stroke-width="5"/></svg></div>
+  <p class="kick" style="color:var(--y)">06 · ROOFTOP</p>
+  <h2 class="mask" style="margin-top:10px"><span>End the day</span></h2><h2 class="mask"><span>above Sinchon.</span></h2>
+  <p class="lead">End-of-term parties, birthdays, or just an ordinary Friday night — with the lights of Sinchon at your feet.</p>
+  <div class="frame rv"><div class="in"><video data-auto src="/sinchon/rooftop-hero.mp4" poster="/sinchon/rooftop-hero-poster.webp" muted loop playsinline preload="none"></video></div><span class="tag">ROOFTOP</span></div>
+</section>
+
+<section class="close pad" id="more">
+  <div class="planes" style="right:-30px;top:20px;width:150px;height:160px"><svg viewBox="0 0 150 160"><polygon points="0,20 130,0 150,140 20,160" fill="#e2252b" stroke="#121212" stroke-width="5"/><polygon points="40,50 110,40 100,120 50,110" fill="#1d4ed8" stroke="#121212" stroke-width="5"/></svg></div>
+  <p class="kick">ORBIT HOUSE · SINCHON</p>
+  <h2 class="mask"><span>Your first semester</span></h2><h2 class="mask"><span>in Seoul, here.</span></h2>
+  <div class="links">
+    <a href="/sinchon/orbit/en"><div>See the building in 3D<small>Built from the original drawings · room plan by floor</small></div><span>→</span></a>
+    <a href="#" data-play="/sinchon/play/a/popart.mp4" data-label="Sinchon in sunglasses · 17 s"><div>Watch the opening again<small>Sinchon reflected in sunglasses · 17 s</small></div><span>▶</span></a>
+  </div>
+</section>
+
+<footer class="foot"><b>VIRTUAL SCENARIO</b> · Everything on this site, including images and videos, is a virtual scenario and may differ from reality.<br>ORBIT HOUSE · SINCHON CONCEPT SAMPLE</footer>
+
+<div id="ov" aria-label="Video"><span class="lb" id="ovl"></span><button class="x" id="ovx" type="button">Close ✕</button><video id="ovv" playsinline controls></video></div>
+<button class="top-btn" id="topb" type="button" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+  // 등장: 위치·마스크만 (투명도 없음). 진입 감지는 바깥 요소에서.
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px'});
+  document.querySelectorAll('.rv,.mask,.fl-row').forEach(el=>io.observe(el));
+  // 화면에 들어온 영상만 재생
+  const vo=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}}),{threshold:.35});
+  document.querySelectorAll('video[data-auto]').forEach(v=>vo.observe(v));
+  // 객실 카드 점
+  const snap=document.getElementById('snap'),dots=[...document.querySelectorAll('#dots i')];
+  snap.addEventListener('scroll',()=>{const w=snap.firstElementChild.getBoundingClientRect().width+12;const i=Math.round(snap.scrollLeft/w);dots.forEach((d,k)=>d.classList.toggle('on',k===i));},{passive:true});
+  // 소리 있는 전체 영상
+  const ov=document.getElementById('ov'),ovv=document.getElementById('ovv'),ovl=document.getElementById('ovl');
+  document.querySelectorAll('[data-play]').forEach(b=>b.addEventListener('click',ev=>{ev.preventDefault();ovl.textContent=b.dataset.label||'';ovv.src=b.dataset.play;ov.classList.add('on');ovv.muted=false;ovv.play().catch(()=>{});}));
+  document.getElementById('ovx').addEventListener('click',()=>{ovv.pause();ov.classList.remove('on');});
+  ovv.addEventListener('ended',()=>ov.classList.remove('on'));
+  // 맨 위로
+  const tb=document.getElementById('topb');
+  addEventListener('scroll',()=>tb.classList.toggle('show',scrollY>900),{passive:true});
+  tb.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+})();
+</script>
+</body>
+</html>

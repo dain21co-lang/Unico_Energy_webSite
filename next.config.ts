@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
       { source: "/scprofile", destination: "/scprofile/index.html" },
       { source: "/scplan", destination: "/scplan/index.html" },
       { source: "/sinchon/play", destination: "/sinchon/play/index.html" },
+      { source: "/sinchon/play/en", destination: "/sinchon/play/en/index.html" },
     ];
   },
 };
