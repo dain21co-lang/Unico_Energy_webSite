@@ -154,6 +154,37 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
 .top-btn{position:fixed;right:max(16px,calc(50vw - 224px));bottom:18px;z-index:60;width:48px;height:48px;border:3px solid var(--k);background:var(--r);color:#fff;font-weight:900;font-size:18px;box-shadow:4px 4px 0 var(--k);clip-path:polygon(10% 0,100% 8%,90% 100%,0 90%);transform:translateY(90px);transition:transform .4s}
 .top-btn.show{transform:none}
 @media (prefers-reduced-motion:reduce){.rv,.mask>span,.fl-row .bar2{transition:none;transform:none}.marq div{animation:none}}
+
+/* ── 포스터 모션: 종이 위 원 + 솟아오르는 건물 (스크롤 연동) ── */
+.poster{position:relative;height:240vh;background:#efe6d2;overflow:visible!important}
+.poster .stk{position:sticky;top:92px;height:calc(100svh - 92px);overflow:hidden;background:#efe6d2}
+.poster .paper{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .3 0 0 0 0 .22 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.poster .sun{position:absolute;left:50%;top:38%;width:62vw;max-width:300px;aspect-ratio:1;margin:-31vw 0 0 -31vw;border-radius:50%;background:var(--r);box-shadow:inset -10px -14px 0 rgba(0,0,0,.12);will-change:transform}
+@media(min-width:484px){.poster .sun{margin:-150px 0 0 -150px}}
+.poster .sun i{position:absolute;border-radius:50%;background:#121212}
+.poster .ring{position:absolute;left:50%;top:38%;width:96vw;max-width:440px;aspect-ratio:1;transform:translate(-50%,-50%);will-change:transform}
+.poster .ring text{font-family:"Archivo Black",sans-serif;font-size:30px;fill:#121212;letter-spacing:4px}
+.poster .tower{position:absolute;left:12%;right:12%;bottom:0;height:72%;will-change:transform;clip-path:polygon(18% 6%,82% 0,100% 100%,0 100%);border-top:0}
+.poster .tower img{height:100%;object-fit:cover;object-position:center top;filter:contrast(1.08) saturate(.9)}
+.poster .tower:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(239,230,210,.0))}
+.poster .cap{position:absolute;left:16px;right:16px;bottom:16px;display:flex;justify-content:space-between;align-items:flex-end;z-index:3}
+.poster .cap b{font-family:"Archivo Black",sans-serif;font-size:13px;background:#121212;color:var(--y);padding:6px 9px}
+.poster .cap span{font-size:11px;font-weight:900;letter-spacing:.2em}
+/* ── 키네틱 타이포: 원색 블록 단어가 뒤집히고 굴러감 ── */
+.kin{background:#121212;color:#fff;padding:46px 14px 52px;overflow:hidden}
+.kin .kick{color:var(--y);padding:0 4px}
+.kgrid{margin-top:18px;display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:64px;gap:6px}
+.kb{position:relative;overflow:hidden;border:3px solid #fff;display:flex;align-items:center;justify-content:center}
+.kb .w{position:absolute;inset:0;display:flex;flex-direction:column;animation:kroll 9s cubic-bezier(.8,0,.2,1) infinite}
+.kb .w span{flex:0 0 100%;display:flex;align-items:center;justify-content:center;font-family:"Archivo Black","Noto Sans KR",sans-serif;font-size:30px;line-height:1;letter-spacing:-.02em}
+@keyframes kroll{0%,14%{transform:translateY(0)}20%,47%{transform:translateY(-100%)}53%,80%{transform:translateY(-200%)}86%,100%{transform:translateY(-300%)}}
+.kb.d1 .w{animation-delay:-.6s}.kb.d2 .w{animation-delay:-1.2s}.kb.d3 .w{animation-delay:-1.8s}.kb.d4 .w{animation-delay:-2.4s}
+.kcube{grid-column:span 2;grid-row:span 2;perspective:600px;border:0;overflow:visible}
+.kcube .c{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:kspin 8s cubic-bezier(.7,0,.3,1) infinite}
+.kcube .f{position:absolute;inset:0;border:3px solid #fff;display:flex;align-items:center;justify-content:center;font-family:"Archivo Black",sans-serif;font-size:24px;line-height:1;text-align:center;backface-visibility:hidden}
+@keyframes kspin{0%,20%{transform:translateZ(-70px) rotateX(0)}25%,45%{transform:translateZ(-70px) rotateX(90deg)}50%,70%{transform:translateZ(-70px) rotateX(180deg)}75%,95%{transform:translateZ(-70px) rotateX(270deg)}100%{transform:translateZ(-70px) rotateX(360deg)}}
+.kline{margin-top:16px;font-size:13px;color:#cfcabd;line-height:1.7;padding:0 4px}
+@media (prefers-reduced-motion:reduce){.kb .w,.kcube .c{animation:none}}
 </style>
 </head>
 <body>
@@ -182,7 +213,18 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
   </div>
 </section>
 
+<section class="poster" id="poster" aria-label="ORBIT HOUSE poster">
+  <div class="stk">
+    <div class="paper"></div>
+    <div class="sun" id="pSun"><i style="width:9%;height:9%;left:30%;top:28%"></i><i style="width:6%;height:6%;left:58%;top:22%"></i><i style="width:7%;height:7%;left:66%;top:48%"></i></div>
+    <svg class="ring" id="pRing" viewBox="0 0 400 400"><defs><path id="rp" d="M200,200 m-170,0 a170,170 0 1,1 340,0 a170,170 0 1,1 -340,0"/></defs><text><textPath href="#rp">ORBIT HOUSE · SINCHON · ORBIT HOUSE · SINCHON · </textPath></text></svg>
+    <div class="tower" id="pTower"><img src="/sinchon/after-exterior.webp" alt=""></div>
+    <div class="cap"><b>ORBIT HOUSE</b><span>신촌의 새 궤도</span></div>
+  </div>
+</section>
+
 <div class="marq" aria-hidden="true"><div class="en">STUDY · EAT · GLOW · DANCE · SLEEP · REPEAT · 공부하고 · 먹고 · 꾸미고 · 춤추고 · 쉬고 · STUDY · EAT · GLOW · DANCE · SLEEP · REPEAT · 공부하고 · 먹고 · 꾸미고 · 춤추고 · 쉬고 · </div></div>
+<section class="kin" aria-label="kinetic type"><p class="kick">EVERY DAY · 매일</p><div class="kgrid"><div class="kb " style="grid-column:span 4"><div class="w"><span style="background:#ffd21f;color:#121212">STUDY</span><span style="background:#e2252b;color:#fff">공부</span><span style="background:#1d4ed8;color:#fff">DANCE</span><span style="background:#ffd21f;color:#121212">STUDY</span></div></div><div class="kb kcube" ><div class="c"><div class="f" style="background:#e2252b;color:#fff;transform:translateZ(70px)">ORBIT</div><div class="f" style="background:#1d4ed8;color:#fff;transform:rotateX(-90deg) translateZ(70px)">HOUSE</div><div class="f" style="background:#ffd21f;color:#121212;transform:rotateX(-180deg) translateZ(70px)">SIN<br>CHON</div><div class="f" style="background:#fff8ea;color:#121212;transform:rotateX(-270deg) translateZ(70px)">2027</div></div></div><div class="kb d1" style="grid-column:span 4"><div class="w"><span style="background:#1d4ed8;color:#fff">EAT</span><span style="background:#ffd21f;color:#121212">먹고</span><span style="background:#e2252b;color:#fff">SLEEP</span><span style="background:#1d4ed8;color:#fff">EAT</span></div></div><div class="kb d2" style="grid-column:span 3"><div class="w"><span style="background:#e2252b;color:#fff">GLOW</span><span style="background:#fff8ea;color:#121212">꾸미고</span><span style="background:#ffd21f;color:#121212">REPEAT</span><span style="background:#e2252b;color:#fff">GLOW</span></div></div><div class="kb d3" style="grid-column:span 3"><div class="w"><span style="background:#ffd21f;color:#121212">DANCE</span><span style="background:#1d4ed8;color:#fff">춤추고</span><span style="background:#e2252b;color:#fff">STUDY</span><span style="background:#ffd21f;color:#121212">DANCE</span></div></div><div class="kb d4" style="grid-column:span 6"><div class="w"><span style="background:#fff8ea;color:#121212">REPEAT</span><span style="background:#e2252b;color:#fff">쉬고</span><span style="background:#1d4ed8;color:#fff">EAT</span><span style="background:#fff8ea;color:#121212">REPEAT</span></div></div></div><p class="kline">공부하고, 먹고, 꾸미고, 춤추고, 쉬고. 신촌의 하루가 한 건물 안에서 굴러갑니다.</p></section>
 
 <section class="film pad" id="film">
   <p class="kick" style="color:var(--r)">01 · BEFORE → AFTER</p>
@@ -287,6 +329,14 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
   document.querySelectorAll('[data-play]').forEach(b=>b.addEventListener('click',ev=>{ev.preventDefault();ovl.textContent=b.dataset.label||'';ovv.src=b.dataset.play;ov.classList.add('on');ovv.muted=false;ovv.play().catch(()=>{});}));
   document.getElementById('ovx').addEventListener('click',()=>{ovv.pause();ov.classList.remove('on');});
   ovv.addEventListener('ended',()=>ov.classList.remove('on'));
+
+  // 포스터: 원이 커졌다 작아지고, 건물이 솟아오르고, 글자 고리가 돈다
+  const ps=document.getElementById('poster'),sun=document.getElementById('pSun'),ring=document.getElementById('pRing'),tw=document.getElementById('pTower');
+  const pr=()=>{const r=ps.getBoundingClientRect(),t=ps.offsetHeight-innerHeight;let p=Math.min(1,Math.max(0,-r.top/Math.max(1,t)));
+    const grow=p<.35?1+p/.35*3.2:p<.65?4.2-(p-.35)/.3*3.2:1; sun.style.transform=`scale(${grow})`;
+    tw.style.transform=`translateY(${(1-Math.min(1,Math.max(0,(p-.4)/.4)))*105}%)`;
+    ring.style.transform=`translate(-50%,-50%) rotate(${p*220}deg) scale(${p<.6?.0001+Math.max(0,(p-.45)/.15):1})`;};
+  addEventListener('scroll',pr,{passive:true});addEventListener('resize',pr);pr();
   // 맨 위로
   const tb=document.getElementById('topb');
   addEventListener('scroll',()=>tb.classList.toggle('show',scrollY>900),{passive:true});
