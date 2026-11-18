@@ -2,16 +2,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@400;500;700;900&display=swap");
 
 .orb {
-  --o-ink: #121a22;
-  --o-night: #1a2430;
+  --o-ink: #0b1f6e;
+  --o-night: #1d4ed8;
   --o-slate: #24313f;
   --o-line: #d7e7ff;
-  --o-mint: #8edbd3;
-  --o-gold: #dcc29b;
-  --o-ivory: #f3f0e8;
-  --o-paper: #ebe6da;
-  --o-sub: #a9b8c6;
-  --o-mute: #74869a;
+  --o-mint: #ff5a4e;
+  --o-gold: #ffd21f;
+  --o-ivory: #ffd21f;
+  --o-paper: #ffd21f;
+  --o-sub: #dfe6ff;
+  --o-mute: #c7d2ff;
   background: var(--o-ink);
   color: #f3f3ec;
   font-family: "Noto Sans KR", system-ui, sans-serif;
@@ -21,16 +21,16 @@
 }
 .orb .serif { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; }
 .orb .kick { font-size: 11px; letter-spacing: 0.28em; font-weight: 700; text-transform: uppercase; }
-.orb .glass { background: rgba(26, 36, 48, 0.62); border: 1px solid rgba(215, 231, 255, 0.18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.orb .glass { background: rgba(11, 31, 110, 0.62); border: 1px solid rgba(215, 231, 255, 0.18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .orb .pill { border: 1px solid rgba(215, 231, 255, 0.35); border-radius: 999px; }
 .orb .snap { scroll-snap-type: x mandatory; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .orb .snap::-webkit-scrollbar { display: none; }
 .orb .snap > * { scroll-snap-align: center; }
 .orb .arch { border-radius: 999px 999px 22px 22px; overflow: hidden; }
-.orb .stage { background: radial-gradient(120% 70% at 50% 38%, #2a3a4c 0%, #1a2430 48%, #121a22 100%); }
+.orb .stage { background: radial-gradient(120% 70% at 50% 38%, #2b5cf0 0%, #1d4ed8 48%, #0b1f6e 100%); }
 .orb .stage canvas { display: block; }
 .orb .grain::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px); background-size: 3px 3px; }
-.orb .paper { background: var(--o-ivory); color: #1d2630; }
+.orb .paper { background: var(--o-ivory); color: #121212; }
 .orb input[type="range"].cmp { -webkit-appearance: none; appearance: none; background: transparent; width: 100%; height: 100%; margin: 0; }
 .orb input[type="range"].cmp::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 44px; border-radius: 50%; background: transparent; }
 .orb input[type="range"].cmp::-moz-range-thumb { width: 44px; height: 44px; border: 0; background: transparent; }
@@ -53,3 +53,8 @@
 @keyframes orb-spin24 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 .orb .spin24 { animation: orb-spin24 6s linear infinite; transform-origin: 0 0; }
 @media (prefers-reduced-motion: reduce) { .orb .scan, .orb .nudge, .orb .liquid, .orb .liquid2, .orb .drift, .orb .drift-r, .orb .ping, .orb .spin24 { animation: none; } }
+
+/* 원색 아트 톤: 노랑 생활 구간, 굵은 윤곽 */
+.orb .paper { background: #ffd21f; color: #121212; }
+.orb .arch { border: 3px solid #121212; }
+.orb .glass { border-width: 2px; }

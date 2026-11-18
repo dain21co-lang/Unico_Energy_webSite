@@ -56,7 +56,7 @@ function Head({ kick, a, b, sub, dark = true }: { kick: string; a: string; b: st
 }
 function Badge({ children, light = false }: { children: ReactNode; light?: boolean }) {
   return (
-    <span className="inline-block rounded-full px-2.5 py-1 text-[10px] font-bold tracking-[0.06em]" style={{ background: light ? "rgba(255,255,255,0.86)" : "rgba(18,26,34,0.72)", color: light ? "#1d2630" : "#e8eef4" }}>
+    <span className="inline-block rounded-full px-2.5 py-1 text-[10px] font-bold tracking-[0.06em]" style={{ background: light ? "rgba(255,255,255,0.86)" : "rgba(11,31,110,0.72)", color: light ? "#121212" : "#e8eef4" }}>
       {children}
     </span>
   );
@@ -73,8 +73,7 @@ function Clip({ src, poster, kick, title, light = false }: { src: string; poster
     <div ref={box}>
       <motion.div className="relative mx-auto aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[26px] bg-black" initial={{ clipPath: "inset(8% 8% 8% 8% round 40px)", scale: 0.96 }} animate={on ? { clipPath: "inset(0% 0% 0% 0% round 26px)", scale: 1 } : {}} transition={{ duration: 1.1, ease: EASE }}>
         <video ref={v} src={src} poster={IMG(poster)} playsInline muted loop autoPlay preload="metadata" className="h-full w-full object-cover" />
-        <div className="pointer-events-none absolute left-3 top-3"><Badge light={light}>{en ? "AI video · sample" : "AI 영상 · 예시"}</Badge></div>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 px-5 pb-5 pt-16" style={{ background: "linear-gradient(180deg,transparent,rgba(18,26,34,0.82))" }}>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 px-5 pb-5 pt-16" style={{ background: "linear-gradient(180deg,transparent,rgba(11,31,110,0.82))" }}>
           <p className="kick text-[10px] text-[#dfe7ee]">{kick}</p>
           <p className="mt-1 text-[17px] font-black text-white">{title}</p>
         </div>
@@ -199,7 +198,7 @@ function PlanSvg({ k }: { k: FloorKind }) {
         <g key={`s${i}`}>
           <rect {...rect(s.r)} fill="rgba(215,231,255,0.06)" stroke="none" />
           {s.label !== "복도" && (
-            <text x={(s.r[0] + s.r[2]) / 2} y={(s.r[1] + s.r[3]) / 2} fontSize={0.62} fill="#a9b8c6" textAnchor="middle" dominantBaseline="middle" fontWeight={700}>{en ? SVC_E[s.label] ?? s.label : s.label}</text>
+            <text x={(s.r[0] + s.r[2]) / 2} y={(s.r[1] + s.r[3]) / 2} fontSize={0.62} fill="#dfe6ff" textAnchor="middle" dominantBaseline="middle" fontWeight={700}>{en ? SVC_E[s.label] ?? s.label : s.label}</text>
           )}
         </g>
       ))}
@@ -209,13 +208,13 @@ function PlanSvg({ k }: { k: FloorKind }) {
         return (
           <g key={`r${i}`}>
             <motion.rect x={x0 + 0.1} y={z0 + 0.1} width={x1 - x0 - 0.2} height={z1 - z0 - 0.2} rx={0.25} fill={COLORS[r.t]} style={{ transformOrigin: `${cx}px ${cz}px`, transformBox: "view-box" }} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.6, delay: 0.6 + i * 0.07, ease: EASE }} />
-            <text x={cx} y={cz} fontSize={x1 - x0 < 2.4 ? 0.5 : 0.72} fill="#1d2630" textAnchor="middle" dominantBaseline="middle" fontWeight={800}>{en ? (r.t === "sh" ? "Share" : LBL(true)[r.t]) : r.t === "sh" ? "셰어" : LABEL[r.t]}</text>
+            <text x={cx} y={cz} fontSize={x1 - x0 < 2.4 ? 0.5 : 0.72} fill="#121212" textAnchor="middle" dominantBaseline="middle" fontWeight={800}>{en ? (r.t === "sh" ? "Share" : LBL(true)[r.t]) : r.t === "sh" ? "셰어" : LABEL[r.t]}</text>
           </g>
         );
       })}
-      <text x={(CORE[0] + CORE[2]) / 2} y={(CORE[1] + CORE[3]) / 2} fontSize={0.62} fill="#a9b8c6" textAnchor="middle" dominantBaseline="middle" fontWeight={700}>{en ? "Stair · Hall" : "계단 · 홀"}</text>
-      <text x={(EV[0] + EV[2]) / 2} y={(EV[1] + EV[3]) / 2} fontSize={0.6} fill="#a9b8c6" textAnchor="middle" dominantBaseline="middle" fontWeight={700}>EV</text>
-      <text x={0} y={-0.25 + (wide ? 0 : 0)} fontSize={0.6} fill="#74869a">12.2m × 10.4m</text>
+      <text x={(CORE[0] + CORE[2]) / 2} y={(CORE[1] + CORE[3]) / 2} fontSize={0.62} fill="#dfe6ff" textAnchor="middle" dominantBaseline="middle" fontWeight={700}>{en ? "Stair · Hall" : "계단 · 홀"}</text>
+      <text x={(EV[0] + EV[2]) / 2} y={(EV[1] + EV[3]) / 2} fontSize={0.6} fill="#dfe6ff" textAnchor="middle" dominantBaseline="middle" fontWeight={700}>EV</text>
+      <text x={0} y={-0.25 + (wide ? 0 : 0)} fontSize={0.6} fill="#c7d2ff">12.2m × 10.4m</text>
     </svg>
   );
 }
@@ -226,11 +225,11 @@ function Plans() {
   const en = useEN();
   const t = PLAN_TABS[tab];
   return (
-    <section id="plans" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#121a22 0%,#1a2430 100%)" }}>
+    <section id="plans" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#0b1f6e 0%,#1d4ed8 100%)" }}>
       <Head kick="05 / THE ORIGINAL LINES" a="Every future." b="Begins with a line." sub={en ? <>Imagination, grounded in the original lines.<br />A draft room plan laid over the original drawings.</> : <>상상에 근거를 더하는 원래의 선.<br />원도면 위에 객실 배치(안)를 올렸습니다.</>} />
       <div className="mt-8 flex gap-2">
         {PLAN_TABS.map((p, i) => (
-          <button key={p.k} onClick={() => setTab(i)} className="relative flex-1 rounded-full py-3 text-[14px] font-bold" style={{ color: i === tab ? "#121a22" : "#dfe7ee" }}>
+          <button key={p.k} onClick={() => setTab(i)} className="relative flex-1 rounded-full py-3 text-[14px] font-bold" style={{ color: i === tab ? "#0b1f6e" : "#dfe7ee" }}>
             {i === tab && <motion.span layoutId="ptab" className="absolute inset-0 rounded-full" style={{ background: "var(--o-line)" }} transition={{ duration: 0.45, ease: EASE }} />}
             {i !== tab && <span className="pill absolute inset-0" />}
             <span className="relative">{en ? p.labelE : p.label}</span>
@@ -242,14 +241,14 @@ function Plans() {
           <p className="kick text-[9.5px]" style={{ color: "var(--o-sub)" }}>{mode === "cad" ? "ORIGINAL CAD · 2023" : (en ? "ROOM PLAN · DRAFT" : "ROOM PLAN · 배치(안)")}</p>
           <div className="relative flex rounded-full bg-black/25 p-0.5 text-[11.5px] font-bold">
             {(["rooms", "cad"] as const).map((m) => (
-              <button key={m} onClick={() => setMode(m)} className="relative rounded-full px-3 py-1.5" style={{ color: mode === m ? "#121a22" : "#c9d4de" }}>
+              <button key={m} onClick={() => setMode(m)} className="relative rounded-full px-3 py-1.5" style={{ color: mode === m ? "#0b1f6e" : "#c9d4de" }}>
                 {mode === m && <motion.span layoutId="pmode" className="absolute inset-0 rounded-full" style={{ background: "var(--o-gold)" }} transition={{ duration: 0.35 }} />}
                 <span className="relative">{m === "rooms" ? (en ? "Rooms" : "객실 배치") : en ? "Original" : "원도면"}</span>
               </button>
             ))}
           </div>
         </div>
-        <div className="relative aspect-[1.23] w-full overflow-hidden rounded-[14px]" style={{ background: "#121a22" }}>
+        <div className="relative aspect-[1.23] w-full overflow-hidden rounded-[14px]" style={{ background: "#0b1f6e" }}>
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.div key={`${t.k}-${mode}`} className="absolute inset-0 flex items-center justify-center p-2" initial={{ clipPath: "inset(0% 100% 0% 0%)" }} animate={{ clipPath: "inset(0% 0% 0% 0%)" }} exit={{ clipPath: "inset(0% 0% 0% 100%)" }} transition={{ duration: 0.8, ease: EASE }}>
               {mode === "cad" ? (
@@ -279,7 +278,7 @@ function Plans() {
           </div>
         ))}
       </div>
-      <p className="mt-5 text-[11.5px] leading-[1.7] text-[#8193a6]">{en ? "The originals are images of the 2023 drawing set (B2 + 10 floors). The room plan is a schematic draft based on their dimensions, to be finalised after structural, plumbing and permit review." : "원도면은 2023년 도면(지하 2층 · 지상 10층) 이미지입니다. 객실 배치는 원도면 치수를 기준으로 한 개략(안)이며, 구조·배관·인허가 검토 후 확정합니다."}</p>
+      <p className="mt-5 text-[11.5px] leading-[1.7] text-[#c7d2ff]">{en ? "The originals are images of the 2023 drawing set (B2 + 10 floors). The room plan is a schematic draft based on their dimensions, to be finalised after structural, plumbing and permit review." : "원도면은 2023년 도면(지하 2층 · 지상 10층) 이미지입니다. 객실 배치는 원도면 치수를 기준으로 한 개략(안)이며, 구조·배관·인허가 검토 후 확정합니다."}</p>
     </section>
   );
 }
@@ -308,20 +307,19 @@ function RoomCarousel() {
             <div className="arch relative aspect-[3/4.3] bg-[#ddd6c6]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={IMG(r.img)} alt={en ? `${r.tE} concept` : `${r.t} 콘셉트`} className="h-full w-full object-cover" loading="lazy" />
-              <div className="absolute left-3 top-[18%]"><Badge light>{en ? "AI image · sample" : "AI 이미지 · 예시"}</Badge></div>
             </div>
             <div className="mt-3 flex items-baseline justify-between">
               <p className="text-[19px] font-black">{en ? r.tE : r.t}</p>
               <p className="serif text-[22px] italic">{r.n}{en ? " rooms" : "실"}</p>
             </div>
-            <p className="text-[12.5px] font-bold text-[#8a7d62]">{en ? `${r.sizeE} · one night to a semester` : `${r.size} · 하루부터 한 학기까지`}</p>
+            <p className="text-[12.5px] font-bold text-[#121212]">{en ? `${r.sizeE} · one night to a semester` : `${r.size} · 하루부터 한 학기까지`}</p>
             <p className="mt-1 text-[13.5px] leading-relaxed text-[#4a4f55]">{en ? r.dE : r.d}</p>
           </div>
         ))}
       </div>
       <div className="mt-3 flex justify-center gap-1.5">
         {ROOM_CARDS.map((_, k) => (
-          <span key={k} className="h-1.5 rounded-full bg-[#1d2630] transition-all" style={{ width: k === Math.min(i, ROOM_CARDS.length - 1) ? 22 : 6, background: k === Math.min(i, ROOM_CARDS.length - 1) ? "#1d2630" : "#c9c1b0" }} />
+          <span key={k} className="h-1.5 rounded-full bg-[#121212] transition-all" style={{ width: k === Math.min(i, ROOM_CARDS.length - 1) ? 22 : 6, background: k === Math.min(i, ROOM_CARDS.length - 1) ? "#121212" : "#c9c1b0" }} />
         ))}
       </div>
     </div>
@@ -343,9 +341,8 @@ function Life() {
                 <img src={IMG(l.img)} alt={en ? l.tE : l.t} className="h-full w-full object-cover" loading="lazy" />
               </div>
               <div className={`pb-3 ${i % 2 ? "text-right" : ""}`}>
-                <p className="kick text-[9.5px] text-[#8a7d62]">{l.en}</p>
+                <p className="kick text-[9.5px] text-[#121212]">{l.en}</p>
                 <p className="mt-2 text-[18px] font-black leading-snug">{en ? l.tE : l.t}</p>
-                <p className="mt-1 text-[11.5px] text-[#8a8577]">{en ? "Space concept · AI image" : "공간 연출 예시 · AI 이미지"}</p>
               </div>
             </div>
           </Reveal>
@@ -368,14 +365,13 @@ function Rooftop() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={IMG("orbit-roof")} alt={en ? "Rooftop lounge concept" : "옥상 휴식 공간 콘셉트"} className="h-full w-full object-cover" />
       </motion.div>
-      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(18,26,34,0.78) 0%,rgba(18,26,34,0) 38%,rgba(18,26,34,0) 60%,rgba(18,26,34,0.85) 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(11,31,110,0.78) 0%,rgba(11,31,110,0) 38%,rgba(11,31,110,0) 60%,rgba(11,31,110,0.85) 100%)" }} />
       <div className="absolute inset-x-6 top-20">
         <p className="kick text-[#e6ecf2]">A DIFFERENT KIND OF STAY</p>
         <h2 className="serif mt-3 text-[48px] leading-[0.96]">Above the city.<br /><em>Closer to life.</em></h2>
       </div>
       <div className="absolute inset-x-6 bottom-10">
         <p className="text-[15px] font-medium leading-[1.75] text-[#e6ecf2]">{en ? <>A busy city and a quiet day of your own.<br />Find the balance in the 4F roof garden, right above the city.</> : <>분주한 도시와 고요한 나의 하루.<br />4층 옥상정원에서, 도시 위 그 사이의 균형을.</>}</p>
-        <div className="mt-3"><Badge>{en ? "Space concept · AI image" : "공간 연출 예시 · AI 이미지"}</Badge></div>
       </div>
     </section>
   );
@@ -394,7 +390,7 @@ function Smart() {
   const on = useInView(ref, { once: true, margin: "-25% 0px" });
   const en = useEN();
   return (
-    <section id="smart" className="relative px-6 pb-20 pt-24" style={{ background: "#1a2430" }}>
+    <section id="smart" className="relative px-6 pb-20 pt-24" style={{ background: "#1d4ed8" }}>
       <Head kick="07 / SMART STAY" a="Five steps." b="No front desk." sub={en ? "From booking to check-out, a smart hostel day that runs on your phone." : "예약부터 퇴실까지, 휴대폰 하나로 이어지는 스마트호스텔의 하루."} />
       <div className="mt-8">
         <Clip src="/sinchon/arrival.mp4" poster="arrival-poster" kick={en ? "ARRIVAL · 40s" : "도착에서 객실까지 · 40초"} title={en ? "From the street to your room, no front desk" : "거리에서 내 방까지, 프런트 없이"} />
@@ -403,7 +399,7 @@ function Smart() {
         <motion.span className="absolute left-[7px] top-2 bottom-2 w-px origin-top" style={{ background: "linear-gradient(180deg,var(--o-mint),var(--o-gold))" }} initial={{ scaleY: 0 }} animate={on ? { scaleY: 1 } : {}} transition={{ duration: 1.6, ease: EASE }} />
         {STEPS.map((s, i) => (
           <motion.div key={s.en} className="relative pb-7 last:pb-0" initial={{ clipPath: "inset(0% 100% 0% 0%)", x: -10 }} animate={on ? { clipPath: "inset(0% 0% 0% 0%)", x: 0 } : {}} transition={{ duration: 0.7, delay: 0.25 + i * 0.22, ease: EASE }}>
-            <span className="absolute -left-8 top-1 h-[15px] w-[15px] rounded-full border-2" style={{ borderColor: i < 2 ? "var(--o-mint)" : "var(--o-gold)", background: "#1a2430" }} />
+            <span className="absolute -left-8 top-1 h-[15px] w-[15px] rounded-full border-2" style={{ borderColor: i < 2 ? "var(--o-mint)" : "var(--o-gold)", background: "#1d4ed8" }} />
             <p className="kick text-[10px]" style={{ color: i < 2 ? "var(--o-mint)" : "var(--o-gold)" }}>0{i + 1} · {s.en}</p>
             <p className="mt-1 text-[18px] font-black">{en ? s.tE : s.t}</p>
             <p className="mt-0.5 text-[13.5px] leading-relaxed text-[#b9c6d2]">{en ? s.dE : s.d}</p>
@@ -416,7 +412,7 @@ function Smart() {
             <div className="h-full rounded-2xl border border-white/10 p-4">
               <p className="serif text-[26px] italic leading-none" style={{ color: "var(--o-gold)" }}>{f}</p>
               <p className="mt-2 text-[14px] font-bold leading-snug">{t}</p>
-              <p className="mt-1 text-[12px] text-[#9fb0c0]">{d}</p>
+              <p className="mt-1 text-[12px] text-[#dfe6ff]">{d}</p>
             </div>
           </Reveal>
         ))}
@@ -430,7 +426,7 @@ function Exterior() {
   const [v, setV] = useState(50);
   const en = useEN();
   return (
-    <section id="exterior" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#1a2430,#121a22)" }}>
+    <section id="exterior" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#1d4ed8,#0b1f6e)" }}>
       <Head kick="08 / THE EXTERIOR STUDY" a="From drawing." b="Into dimension." sub={en ? "Thin lines gain light and depth. Slide to compare today with a remodelling concept." : "가느다란 선에 빛과 깊이가 더해집니다. 손가락으로 밀어 지금과 리모델링 후 예시를 비교해 보세요."} />
       <div className="relative mt-8 aspect-[941/1300] w-full overflow-hidden rounded-[24px] bg-black">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -440,13 +436,11 @@ function Exterior() {
           <img src={IMG("before-exterior")} alt={en ? "Today (signage blurred)" : "현재 모습(간판 흐림 처리)"} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "grayscale(0.35) contrast(1.05)" }} />
         </div>
         <div className="pointer-events-none absolute inset-y-0 w-px bg-white" style={{ left: `${v}%` }}>
-          <span className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[15px] font-black text-[#121a22] shadow-lg">⇆</span>
+          <span className="absolute left-1/2 top-1/2 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[15px] font-black text-[#0b1f6e] shadow-lg">⇆</span>
         </div>
         <div className="absolute left-3 top-3"><Badge>{en ? "Today" : "지금"}</Badge></div>
-        <div className="absolute right-3 top-3"><Badge light>{en ? "Remodelling concept · AI image" : "리모델링 후 예시 · AI 이미지"}</Badge></div>
         <input type="range" min={0} max={100} value={v} onChange={(e) => setV(Number(e.target.value))} className="cmp absolute inset-0 cursor-ew-resize" aria-label={en ? "Before and after" : "전후 비교"} />
       </div>
-      <p className="mt-4 text-[11.5px] leading-[1.7] text-[#8193a6]">{en ? "Signage and the building name are blurred in the current photo. The remodelled view is an AI-generated concept, not a final design." : "현재 사진의 간판·건물명은 흐림 처리했습니다. 리모델링 후 모습은 AI로 만든 예시이며 확정 설계가 아닙니다."}</p>
     </section>
   );
 }
@@ -474,18 +468,18 @@ function Roll({ value, on, delay = 0 }: { value: number; on: boolean; delay?: nu
 function RingRooms({ on }: { on: boolean }) {
   const en = useEN();
   const list = [...Array(C.s).fill("s"), ...Array(C.t).fill("t"), ...Array(C.sh).fill("sh")] as ("s" | "t" | "sh")[];
-  const col = { s: "#fbf8f0", t: "#1d2630", sh: "#2f8f86" };
+  const col = { s: "#fff8ea", t: "#121212", sh: "#e2252b" };
   return (
     <svg viewBox="-60 -60 120 120" className="h-full w-full">
-      <motion.circle r={34} fill="none" stroke="#1d2630" strokeOpacity={0.25} strokeWidth={0.8} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.2, ease: EASE }} />
+      <motion.circle r={34} fill="none" stroke="#121212" strokeOpacity={0.25} strokeWidth={0.8} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.2, ease: EASE }} />
       {list.map((t, i) => {
         const a = (i / list.length) * Math.PI * 2 - Math.PI / 2;
         const r0 = 39, r1 = t === "t" ? 54 : t === "sh" ? 51 : 48;
         return <motion.line key={i} x1={Math.cos(a) * r0} y1={Math.sin(a) * r0} x2={Math.cos(a) * r1} y2={Math.sin(a) * r1} stroke={col[t]} strokeWidth={2.6} strokeLinecap="round" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 0.35, delay: 0.3 + i * 0.03, ease: EASE }} />;
       })}
       <motion.g initial={{ scale: 0 }} animate={on ? { scale: 1 } : {}} transition={{ duration: 0.8, delay: 1.6, ease: EASE }}>
-        <text y={-4} textAnchor="middle" fontSize={8} fontWeight={800} fill="#1d2630">{en ? "9 floors" : "9개 층"}</text>
-        <text y={8} textAnchor="middle" fontSize={6.5} fontWeight={700} fill="#5f5236">2F – 10F</text>
+        <text y={-4} textAnchor="middle" fontSize={8} fontWeight={800} fill="#121212">{en ? "9 floors" : "9개 층"}</text>
+        <text y={8} textAnchor="middle" fontSize={6.5} fontWeight={700} fill="#121212">2F – 10F</text>
       </motion.g>
     </svg>
   );
@@ -494,7 +488,7 @@ function RingRooms({ on }: { on: boolean }) {
 /* 베드 — 점 하나가 침대 하나 */
 function DotsBeds({ on }: { on: boolean }) {
   const list = [...Array(C.s).fill("s"), ...Array(C.t * 2).fill("t"), ...Array(C.sh * 3).fill("sh")] as ("s" | "t" | "sh")[];
-  const col = { s: "#fbf8f0", t: "#1d2630", sh: "#2f8f86" };
+  const col = { s: "#fff8ea", t: "#121212", sh: "#e2252b" };
   return (
     <svg viewBox={`0 0 100 ${Math.ceil(list.length / 10) * 9.8 + 2.4}`} className="h-full w-full">
       {list.map((t, i) => {
@@ -511,21 +505,21 @@ function MapUnis({ on }: { on: boolean }) {
   const pins: [number, number, string][] = en ? [[56, 22, "Yonsei"], [94, 38, "Ewha"], [22, 60, "Sogang"], [10, 92, "Hongik"]] : [[56, 22, "연세"], [94, 38, "이화"], [22, 60, "서강"], [10, 92, "홍익"]];
   return (
     <svg viewBox="0 0 120 112" className="h-full w-full">
-      <motion.path d="M-4 96 C 20 90, 34 76, 58 74 S 100 70, 124 52" fill="none" stroke="#2f8f86" strokeWidth={4} strokeLinecap="round" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, ease: EASE }} />
-      <text x={100} y={74} fontSize={6} fontWeight={800} fill="#2f8f86">{en ? "Line 2" : "2호선"}</text>
+      <motion.path d="M-4 96 C 20 90, 34 76, 58 74 S 100 70, 124 52" fill="none" stroke="#e2252b" strokeWidth={4} strokeLinecap="round" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, ease: EASE }} />
+      <text x={100} y={74} fontSize={6} fontWeight={800} fill="#e2252b">{en ? "Line 2" : "2호선"}</text>
       {pins.map(([x, y, n], i) => (
         <g key={n}>
-          <motion.line x1={58} y1={74} x2={x} y2={y} stroke="#1d2630" strokeWidth={0.8} strokeDasharray="2 2" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 0.6, delay: 1 + i * 0.2 }} />
+          <motion.line x1={58} y1={74} x2={x} y2={y} stroke="#121212" strokeWidth={0.8} strokeDasharray="2 2" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 0.6, delay: 1 + i * 0.2 }} />
           <motion.g style={{ transformBox: "fill-box", transformOrigin: "50% 100%" }} initial={{ scale: 0, y: -10 }} animate={on ? { scale: 1, y: 0 } : {}} transition={{ type: "spring", stiffness: 260, damping: 14, delay: 1.2 + i * 0.2 }}>
-            <path d={`M${x} ${y} l-4.5 -7 a5.4 5.4 0 1 1 9 0 z`} fill="#1d2630" />
-            <circle cx={x} cy={y - 9.4} r={2} fill="#dcc29b" />
-            <text x={x} y={y + 8} textAnchor="middle" fontSize={7} fontWeight={800} fill="#1d2630">{n}</text>
+            <path d={`M${x} ${y} l-4.5 -7 a5.4 5.4 0 1 1 9 0 z`} fill="#121212" />
+            <circle cx={x} cy={y - 9.4} r={2} fill="#ffd21f" />
+            <text x={x} y={y + 8} textAnchor="middle" fontSize={7} fontWeight={800} fill="#121212">{n}</text>
           </motion.g>
         </g>
       ))}
-      <circle cx={58} cy={74} r={10} fill="none" stroke="#fbf8f0" strokeWidth={1.2} className="ping" style={{ transformBox: "fill-box", transformOrigin: "center" }} />
-      <circle cx={58} cy={74} r={5} fill="#fbf8f0" stroke="#1d2630" strokeWidth={1.6} />
-      <text x={58} y={90} textAnchor="middle" fontSize={6.5} fontWeight={800} fill="#1d2630">{en ? "Sinchon Stn." : "신촌역"}</text>
+      <circle cx={58} cy={74} r={10} fill="none" stroke="#fff8ea" strokeWidth={1.2} className="ping" style={{ transformBox: "fill-box", transformOrigin: "center" }} />
+      <circle cx={58} cy={74} r={5} fill="#fff8ea" stroke="#121212" strokeWidth={1.6} />
+      <text x={58} y={90} textAnchor="middle" fontSize={6.5} fontWeight={800} fill="#121212">{en ? "Sinchon Stn." : "신촌역"}</text>
     </svg>
   );
 }
@@ -534,18 +528,18 @@ function MapUnis({ on }: { on: boolean }) {
 function Clock24({ on }: { on: boolean }) {
   return (
     <svg viewBox="-60 -60 120 120" className="h-full w-full">
-      <motion.circle r={46} fill="none" stroke="#1d2630" strokeWidth={1.4} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.2, ease: EASE }} />
-      <motion.path d="M0 -40 A40 40 0 0 1 0 40" fill="none" stroke="#fbf8f0" strokeWidth={7} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, delay: 0.3, ease: EASE }} />
-      <motion.path d="M0 40 A40 40 0 0 1 0 -40" fill="none" stroke="#1d2630" strokeWidth={7} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, delay: 1.2, ease: EASE }} />
+      <motion.circle r={46} fill="none" stroke="#121212" strokeWidth={1.4} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.2, ease: EASE }} />
+      <motion.path d="M0 -40 A40 40 0 0 1 0 40" fill="none" stroke="#fff8ea" strokeWidth={7} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, delay: 0.3, ease: EASE }} />
+      <motion.path d="M0 40 A40 40 0 0 1 0 -40" fill="none" stroke="#121212" strokeWidth={7} initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 1.4, delay: 1.2, ease: EASE }} />
       {Array.from({ length: 24 }, (_, i) => {
         const a = (i / 24) * Math.PI * 2;
-        return <line key={i} x1={Math.sin(a) * 48} y1={-Math.cos(a) * 48} x2={Math.sin(a) * (i % 6 ? 51 : 55)} y2={-Math.cos(a) * (i % 6 ? 51 : 55)} stroke="#1d2630" strokeWidth={i % 6 ? 1 : 2} />;
+        return <line key={i} x1={Math.sin(a) * 48} y1={-Math.cos(a) * 48} x2={Math.sin(a) * (i % 6 ? 51 : 55)} y2={-Math.cos(a) * (i % 6 ? 51 : 55)} stroke="#121212" strokeWidth={i % 6 ? 1 : 2} />;
       })}
-      <text y={-22} textAnchor="middle" fontSize={8} fill="#5f5236">☀</text>
-      <text y={28} textAnchor="middle" fontSize={8} fill="#fbf8f0">☾</text>
+      <text y={-22} textAnchor="middle" fontSize={8} fill="#121212">☀</text>
+      <text y={28} textAnchor="middle" fontSize={8} fill="#fff8ea">☾</text>
       <g className={on ? "spin24" : ""}>
-        <line x1={0} y1={6} x2={0} y2={-36} stroke="#1d2630" strokeWidth={2.6} strokeLinecap="round" />
-        <circle r={3.6} fill="#1d2630" />
+        <line x1={0} y1={6} x2={0} y2={-36} stroke="#121212" strokeWidth={2.6} strokeLinecap="round" />
+        <circle r={3.6} fill="#121212" />
       </g>
     </svg>
   );
@@ -563,7 +557,7 @@ function StatRow({ s, i }: { s: (typeof STATS)[number]; i: number }) {
   const Art = s.Art;
   const en = useEN();
   return (
-    <div ref={ref} className={`relative flex items-center gap-4 border-t border-[#1d2630]/20 py-6 ${i % 2 ? "flex-row-reverse text-right" : ""}`}>
+    <div ref={ref} className={`relative flex items-center gap-4 border-t border-[#121212]/20 py-6 ${i % 2 ? "flex-row-reverse text-right" : ""}`}>
       <motion.div className="h-[124px] w-[124px] shrink-0" initial={{ rotate: i % 2 ? 20 : -20, scale: 0.6 }} animate={on ? { rotate: 0, scale: 1 } : {}} transition={{ duration: 1.1, ease: EASE }}>
         <Art on={on} />
       </motion.div>
@@ -578,10 +572,10 @@ function StatRow({ s, i }: { s: (typeof STATS)[number]; i: number }) {
 function Numbers() {
   const en = useEN();
   return (
-    <section className="relative overflow-hidden pb-16 pt-20" style={{ background: "var(--o-gold)", color: "#1d2630" }}>
+    <section className="relative overflow-hidden pb-16 pt-20" style={{ background: "var(--o-gold)", color: "#121212" }}>
       {/* 모핑 덩어리 */}
       <div className="liquid pointer-events-none absolute -right-24 top-10 h-[340px] w-[340px]" style={{ background: "radial-gradient(circle at 35% 35%, #f6e7c6, #e9d2a6 60%, transparent 72%)" }} />
-      <div className="liquid2 pointer-events-none absolute -left-28 bottom-24 h-[300px] w-[300px]" style={{ background: "radial-gradient(circle at 60% 40%, #a9e2d9, #8edbd3 55%, transparent 72%)" }} />
+      <div className="liquid2 pointer-events-none absolute -left-28 bottom-24 h-[300px] w-[300px]" style={{ background: "radial-gradient(circle at 60% 40%, #a9e2d9, #ff5a4e 55%, transparent 72%)" }} />
       {/* 흐르는 글씨 */}
       <div className="pointer-events-none relative overflow-hidden whitespace-nowrap">
         <div className="drift serif inline-block text-[64px] italic leading-none" style={{ color: "transparent", WebkitTextStroke: "1px rgba(29,38,48,0.35)" }}>
@@ -589,20 +583,20 @@ function Numbers() {
         </div>
       </div>
       <div className="relative px-6">
-        <p className="kick mt-8 text-[#5f5236]">09 / IN NUMBERS</p>
+        <p className="kick mt-8 text-[#121212]">09 / IN NUMBERS</p>
         <h2 className="serif mt-3 text-[42px] leading-[0.98]">Small numbers.<br /><em>Big welcome.</em></h2>
         <div className="mt-8">
           {STATS.map((s, i) => <StatRow key={s.l} s={s} i={i} />)}
         </div>
-        <div className="mt-4 overflow-hidden rounded-[22px] bg-[#1d2630] px-5 py-5 text-[#f3f0e8]">
+        <div className="mt-4 overflow-hidden rounded-[22px] bg-[#121212] px-5 py-5 text-[#ffd21f]">
           <div className="flex items-center gap-1.5">
-            {(["s", "t", "sh"] as const).map((k) => <span key={k} className="h-2.5 flex-1 origin-left rounded-full" style={{ background: k === "s" ? "#fbf8f0" : k === "t" ? "#dcc29b" : "#8edbd3", flexGrow: C[k] }} />)}
+            {(["s", "t", "sh"] as const).map((k) => <span key={k} className="h-2.5 flex-1 origin-left rounded-full" style={{ background: k === "s" ? "#fff8ea" : k === "t" ? "#ffd21f" : "#ff5a4e", flexGrow: C[k] }} />)}
           </div>
           <p className="mt-3 text-[14px] font-bold leading-relaxed">{en ? <>From one night to a full semester —<br />your first home in Seoul.</> : <>하루 숙박부터 한 학기 체류까지,<br />신촌의 첫 서울집.</>}</p>
         </div>
       </div>
       <div className="pointer-events-none relative mt-12 overflow-hidden whitespace-nowrap">
-        <div className="drift-r serif inline-block text-[44px] italic leading-none text-[#1d2630]/80">
+        <div className="drift-r serif inline-block text-[44px] italic leading-none text-[#121212]/80">
           {"ORBIT HOUSE · SINCHON · ".repeat(6)}
         </div>
       </div>
@@ -636,11 +630,11 @@ function Film() {
   }, [seen, i, sound]);
   const toggleSound = () => { const el = v.current; if (!el) return; const next = !sound; el.muted = !next; setSound(next); if (el.paused) el.play().catch(() => {}); };
   return (
-    <section id="film" className="relative px-6 pb-20 pt-24" style={{ background: "#121a22" }}>
+    <section id="film" className="relative px-6 pb-20 pt-24" style={{ background: "#0b1f6e" }}>
       <Head kick="10 / THE FILM" a="The whole story." b="In motion." sub={en ? <>From the building to daily life, and back to the city.<br />The full 2 min 41 s film, uncut.</> : <>건물에서 일상으로, 그리고 다시 도시로.<br />함께 만든 2분 41초를 자르지 않고 그대로 담았습니다.</>} />
       <div className="mt-7 flex flex-wrap gap-2">
         {FILMS.map((x, k) => (
-          <button key={x.k} onClick={() => setI(k)} className="relative rounded-full px-4 py-2.5 text-[13.5px] font-bold" style={{ color: k === i ? "#121a22" : "#dfe7ee" }}>
+          <button key={x.k} onClick={() => setI(k)} className="relative rounded-full px-4 py-2.5 text-[13.5px] font-bold" style={{ color: k === i ? "#0b1f6e" : "#dfe7ee" }}>
             {k === i && <motion.span layoutId="ftab" className="absolute inset-0 rounded-full" style={{ background: "var(--o-mint)" }} />}
             {k !== i && <span className="pill absolute inset-0" />}
             <span className="relative">{en ? x.tE : x.t}</span>
@@ -649,7 +643,6 @@ function Film() {
       </div>
       <div ref={box} className="relative mx-auto mt-4 aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[26px] bg-black">
         <video key={f.k} ref={v} src={f.src} poster={IMG(f.poster)} playsInline muted loop autoPlay preload="metadata" className="h-full w-full object-cover" />
-        <div className="pointer-events-none absolute left-3 top-3"><Badge>{en ? "AI video · sample" : "AI 영상 · 예시"}</Badge></div>
         <button onClick={toggleSound} className="glass absolute bottom-4 left-4 rounded-full px-4 py-2.5 text-[13px] font-bold" aria-label={sound ? "sound off" : "sound on"}>
           {sound ? (en ? "🔊 Sound off" : "🔊 소리 끄기") : en ? "🔇 Sound on" : "🔇 소리 켜기"}
         </button>
@@ -668,7 +661,7 @@ const DOCS = [
 function Docs() {
   const en = useEN();
   return (
-    <section id="docs" className="px-6 pb-16 pt-20" style={{ background: "#1a2430" }}>
+    <section id="docs" className="px-6 pb-16 pt-20" style={{ background: "#1d4ed8" }}>
       <p className="kick" style={{ color: "var(--o-sub)" }}>11 / DOCUMENTS</p>
       <h3 className="mt-3 text-[24px] font-black">{en ? "Project documents" : "사업 자료 바로보기"}</h3>
       <div className="mt-6 space-y-2.5">
@@ -676,7 +669,7 @@ function Docs() {
           <a key={d.href} href={d.href} target="_blank" rel="noreferrer" className="flex items-center justify-between rounded-2xl border border-white/12 px-5 py-4 active:scale-[0.99]">
             <span>
               <span className="block text-[16px] font-black">{en ? d.tE : d.t}</span>
-              <span className="block text-[12.5px] text-[#9fb0c0]">{en ? d.dE : d.d}</span>
+              <span className="block text-[12.5px] text-[#dfe6ff]">{en ? d.dE : d.d}</span>
             </span>
             <span className="serif text-[24px] italic" style={{ color: "var(--o-gold)" }}>↗</span>
           </a>
@@ -698,14 +691,12 @@ function Closing() {
         {en ? (
           <>
             <p>PRIVATE CONCEPT REVIEW</p>
-            <p>The 3D line model and room plan are schematic visualisations based on the original drawings — not a survey, permit or final design.</p>
-            <p>AI-generated images and videos are samples and may differ from reality. Use as lodging is subject to prior consultation with the authorities.</p>
+            <p>Everything on this site — text, numbers, images and videos — is a virtual scenario.</p>
           </>
         ) : (
           <>
             <p>PRIVATE CONCEPT REVIEW · 검토용 콘셉트 시안</p>
-            <p>3D 선 모델과 객실 배치는 원도면(2004·2023) 치수를 참고한 개략 연출이며, 실측·인허가·확정 설계가 아닙니다.</p>
-            <p>사진·영상 중 AI로 만든 예시는 실제와 다를 수 있습니다. 숙박시설 용도 가능 여부는 관할 기관과 사전 협의가 필요합니다.</p>
+            <p>이 사이트의 모든 내용과 이미지·영상은 가상 시나리오입니다.</p>
           </>
         )}
       </div>
@@ -719,10 +710,13 @@ function Closing() {
 function HeroFilm() {
   const en = useEN();
   return (
-    <section id="intro" className="relative h-[100svh] min-h-[600px] overflow-hidden" style={{ background: "#121a22" }}>
+    <section id="intro" className="relative h-[100svh] min-h-[600px] overflow-hidden" style={{ background: "#0b1f6e" }}>
       <video className="absolute inset-0 h-full w-full object-cover" src="/sinchon/rooftop-hero.mp4" poster={IMG("rooftop-hero-poster")} autoPlay muted loop playsInline preload="auto" />
-      <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(18,26,34,0.55) 0%,rgba(18,26,34,0) 28%,rgba(18,26,34,0) 52%,rgba(18,26,34,0.92) 100%)" }} />
-      <span className="glass absolute left-5 top-20 rounded-full px-3 py-1.5 text-[11px] font-bold">{en ? "AI video · concept" : "AI 영상 · 예시"}</span>
+      <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(11,31,110,0.55) 0%,rgba(11,31,110,0) 28%,rgba(11,31,110,0) 52%,rgba(11,31,110,0.92) 100%)" }} />
+      <div className="absolute inset-x-5 top-[84px] border-y-2 border-[var(--o-gold)] py-3 text-center" style={{ background: "rgba(11,31,110,0.55)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }}>
+        <p className="kick text-[var(--o-gold)]">VIRTUAL SCENARIO</p>
+        <p className="mt-1.5 text-[19px] font-black leading-[1.35]">{en ? <>Everything on this site<br />is a virtual scenario.</> : <>이 사이트의 모든 내용과 이미지는<br />가상 시나리오입니다</>}</p>
+      </div>
       <div className="absolute inset-x-0 bottom-0 px-6 pb-14">
         <p className="kick text-[var(--o-mint)]">{en ? "SINCHON SMART HOSTEL" : "신촌 스마트호스텔(가칭)"}</p>
         <h1 className="mt-3 text-[34px] font-black leading-[1.22] tracking-tight">
@@ -744,7 +738,7 @@ export default function OrbitSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
   return (
     <LangCtx.Provider value={en}>
     <main className="orb mx-auto min-h-screen w-full max-w-[480px]" lang={en ? "en" : "ko"}>
-      <header className="fixed inset-x-0 top-0 z-40 mx-auto flex max-w-[480px] items-center justify-between gap-3 px-5 pt-4" style={{ background: "linear-gradient(180deg,rgba(18,26,34,0.85),rgba(18,26,34,0))", paddingBottom: 18 }}>
+      <header className="fixed inset-x-0 top-0 z-40 mx-auto flex max-w-[480px] items-center justify-between gap-3 px-5 pt-4" style={{ background: "linear-gradient(180deg,rgba(11,31,110,0.85),rgba(11,31,110,0))", paddingBottom: 18 }}>
         <p className="min-w-0 truncate whitespace-nowrap text-[13px] font-black tracking-[0.22em]">ORBIT HOUSE</p>
         <div className="flex shrink-0 items-center gap-2">
           <a href={en ? "/sinchon/orbit" : "/sinchon/orbit/en"} className="pill glass whitespace-nowrap px-3 py-2 text-[12px] font-bold">{en ? "한국어" : "EN"}</a>
@@ -769,7 +763,7 @@ export default function OrbitSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
       </button>
 
       <motion.div className="fixed inset-x-0 bottom-0 z-50 mx-auto max-w-[480px]" initial={false} animate={{ y: info ? 0 : "105%" }} transition={{ duration: 0.5, ease: EASE }}>
-        <div className="rounded-t-[26px] border-t border-white/10 px-6 pb-9 pt-6" style={{ background: "#1a2430" }}>
+        <div className="rounded-t-[26px] border-t border-white/10 px-6 pb-9 pt-6" style={{ background: "#1d4ed8" }}>
           <div className="flex items-center justify-between">
             <p className="serif text-[28px] italic">{en ? "Space, seen differently." : "공간을, 다른 시선으로."}</p>
             <button onClick={() => setInfo(false)} className="pill h-9 w-9 text-[16px]" aria-label="close">×</button>
