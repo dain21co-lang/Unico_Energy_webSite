@@ -288,7 +288,7 @@ export default function SinchonSite() {
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const NAV: [string, string, string][] = [
-    ["story", "여행", "Tour"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"], ["basement", "층별", "Floors"],
+    ["ceo", "인사말", "CEO"], ["story", "여행", "Tour"], ["home", "건물", "Building"], ["rooms", "객실", "Rooms"], ["school", "학교", "Schools"], ["basement", "층별", "Floors"],
     ["apply", "신청", "Apply"], ["care", "생활지원", "Care"], ["parents", "안심", "Safety"], ["docs", "자료", "Docs"], ["contact", "문의", "Contact"],
   ];
 
@@ -364,6 +364,34 @@ export default function SinchonSite() {
         <div className="px-6 py-3 text-center text-[11.5px] leading-[1.6]" style={{ background: "var(--sh-olive2)", color: "#e9e2cd" }}>
           {t("콘셉트 시안 · 오픈 준비 중 — 객실 수·요금·이동시간은 예시이며 확정 전입니다.", "Concept preview · opening in preparation — room counts, prices and travel times are illustrative.")}
         </div>
+
+        {/* 01-1 대표 인사말 */}
+        <section id="ceo" className="px-6 py-20" style={{ background: "var(--sh-cream)" }}>
+          <Head no="CEO" en="MESSAGE">{t("신뢰를 짓고, 일상을 채웁니다.", "Trust, built into every floor.")}</Head>
+          <Photo src="/sinchon/ceo-formal.webp" alt={String(t("대표이사", "CEO"))} className="aspect-[4/5] w-full overflow-hidden rounded-2xl" pos="50% 15%" />
+          <Rise delay={0.1}>
+            <div className="mt-8 space-y-4 text-[15px] leading-[1.9]" style={{ color: "var(--sh-char)" }}>
+              {t(
+                <>
+                  <p>신촌의 오래된 건물에 새로운 쓰임을 더하는 일은, 결국 사람을 위한 공간을 짓는 일이라고 믿습니다.</p>
+                  <p>30여 년 금융 현장에서 신뢰와 책임의 무게를 배웠습니다. 이 스마트호스텔은 그 원칙 위에 세워집니다. 투명한 운영, 안전한 공간, 그리고 머무는 모든 분의 일상을 존중하는 서비스로 답하겠습니다.</p>
+                  <p>하루를 머무는 여행자부터 한 학기를 보내는 유학생, 병원 곁을 지키는 가족까지. 누구에게나 서울의 첫 집이 되는 곳, 신촌의 새로운 기준이 되겠습니다.</p>
+                </>,
+                <>
+                  <p>Giving an old building in Sinchon a new purpose is, in the end, about building a place for people.</p>
+                  <p>Over thirty years in banking taught me the weight of trust and responsibility. This smart hostel is founded on those principles: transparent operation, safe spaces, and service that respects the everyday life of everyone who stays.</p>
+                  <p>From a single night to a full semester, we will make this the first home in Seoul for travellers, students and families alike — a new standard for Sinchon.</p>
+                </>
+              )}
+            </div>
+          </Rise>
+          <Rise delay={0.15}>
+            <div className="mt-8 border-t pt-4" style={{ borderColor: "var(--sh-line)" }}>
+              <div className="sh-serif text-[20px] font-semibold tracking-[0.06em]" style={{ color: "var(--sh-ink)" }}>SMART HOSTEL · SINCHON</div>
+              <div className="mt-1 text-[13px] font-semibold tracking-[0.16em]" style={{ color: "var(--sh-olive)" }}>{t("대표이사", "CHIEF EXECUTIVE OFFICER")}</div>
+            </div>
+          </Rise>
+        </section>
 
         {/* 02 스크롤 여행 */}
         <Journey t={t} />
