@@ -1,717 +1,279 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#071657">
-<title>SINCHON — 가상 시나리오 샘플</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
+<title>ORBIT HOUSE · 신촌 — 가상 시나리오</title>
+<meta property="og:title" content="ORBIT HOUSE · 신촌, 수업 끝나고 돌아오는 곳">
+<meta property="og:description" content="대학생을 위한 신촌 스마트호스텔 — 가상 시나리오 샘플">
+<meta property="og:image" content="/sinchon/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+:root{--paper:#f3efe6;--ink:#121212;--blue:#2c4bff;--tomato:#ff4a2a;--lime:#d8ff3d;--pink:#ff8fc7;--mute:#6b665c}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:#0d0d0d}
+body{max-width:480px;margin:0 auto;background:var(--paper);color:var(--ink);font-family:"Noto Sans KR",system-ui,sans-serif;word-break:keep-all;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+img,video{display:block;width:100%}
+.en{font-family:"Archivo Black","Noto Sans KR",sans-serif;letter-spacing:-.01em}
+.kick{font-size:11px;font-weight:900;letter-spacing:.24em;text-transform:uppercase}
+.sticker{display:inline-block;padding:5px 10px;border:2px solid var(--ink);border-radius:999px;font-size:11px;font-weight:900;background:var(--lime);transform:rotate(-3deg)}
+/* reveal: 위치만 움직임 (투명도 사용 안 함) */
+.rv{transform:translateY(34px);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.rv.in{transform:none}
+.mask{overflow:hidden}.mask>span{display:block;transform:translateY(105%);transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.mask.in>span{transform:none}
 
-:root{--bg:#070f1e;--ink:#edf7ff;--muted:#849aad;--stroke:rgba(184,225,255,.19);--electric:#6ce7ff;--gold:#d9ae67;--card:rgba(9,22,40,.84)}
-*{box-sizing:border-box}html,body{margin:0;padding:0;width:100%;height:100%;background:#060d18;color:var(--ink);overflow:hidden;font-family:system-ui,-apple-system,'Noto Sans KR','Malgun Gothic',sans-serif}
-body:before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse at 59% 39%,rgba(20,72,108,.25),transparent 48%),radial-gradient(ellipse at 19% 90%,rgba(170,102,69,.10),transparent 40%),linear-gradient(145deg,#060e1c,#091726 54%,#030916);pointer-events:none}
-button{font:inherit;cursor:pointer}button:focus-visible{outline:2px solid #9af2ff;outline-offset:2px}a{color:inherit}#stage{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none}#stage:active{cursor:grabbing}#vignette{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(4,10,19,.6),transparent 32%,transparent 68%,rgba(4,10,19,.2)),linear-gradient(0deg,rgba(3,9,18,.45),transparent 34%,transparent 77%,rgba(3,9,18,.25));}
-.glass{background:rgba(8,20,35,.62);border:1px solid var(--stroke);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
-#top{position:absolute;top:0;left:0;right:0;height:89px;padding:24px clamp(20px,4vw,62px);display:flex;justify-content:space-between;align-items:center;z-index:10;border-bottom:1px solid rgba(159,204,233,.08)}
-.brand{display:flex;align-items:center;gap:14px}.mark{width:34px;height:40px;position:relative;display:grid;place-items:center;color:var(--electric)}.mark:before{content:"";position:absolute;inset:5px 4px 0;border:1.5px solid #85e4f9;transform:skewY(-19deg)}.mark:after{content:"";position:absolute;width:16px;height:24px;border:1px solid #d7a565;transform:translate(6px,-3px) skewY(20deg)}.brandtitle{letter-spacing:.26em;font-weight:800;font-size:16px}.brandtiny{margin-top:5px;letter-spacing:.22em;color:#94a8bd;font-size:8px;font-weight:600}.eyebrow{font-size:10px;letter-spacing:.23em;color:#91acbd;font-weight:700}
-.topactions{display:flex;align-items:center;gap:12px}.topactions button{color:#d5e9f6;background:rgba(255,255,255,.05);border:1px solid var(--stroke);border-radius:999px;padding:10px 14px;font-size:11px;letter-spacing:.03em}.statusdot{width:6px;height:6px;background:#6bead6;border-radius:50%;display:inline-block;box-shadow:0 0 10px #6bead6;margin-right:8px}
-#left{position:absolute;left:clamp(25px,6vw,94px);top:25%;width:clamp(230px,26vw,390px);z-index:5;pointer-events:none;transition:opacity .4s}#left .eyebrow{color:#dfb775}#headline{font-weight:600;font-size:clamp(31px,3.15vw,56px);letter-spacing:-.065em;line-height:1.22;margin:18px 0 14px;max-width:360px;word-break:keep-all}#headline em{font-style:normal;color:#83dfff}.lead{color:#8fa7b6;line-height:1.85;font-size:clamp(12px,.93vw,15px);max-width:315px;word-break:keep-all}#chapter{margin-top:35px;display:flex;align-items:center;gap:14px;font:11px ui-monospace,monospace;letter-spacing:.16em;color:#acc7db}#chapter .line{height:1px;width:50px;background:#a88453}
-#right{position:absolute;right:clamp(24px,5vw,80px);top:50%;transform:translateY(-42%);width:clamp(260px,23.5vw,370px);z-index:8;transition:opacity .35s,transform .5s}#right.hidden{opacity:0;pointer-events:none;transform:translate(20px,-42%)}.panel{border-radius:6px 6px 24px 6px;overflow:hidden;box-shadow:0 35px 65px rgba(0,0,0,.22)}.panelhead{padding:19px 22px 10px;display:flex;align-items:center;justify-content:space-between}.panel .index{font:10px ui-monospace,monospace;letter-spacing:.15em;color:#80a7c5}.chip{font-size:9px;font-weight:700;letter-spacing:.14em;color:#f2be75}.panelphoto{height:clamp(150px,24vh,226px);background:#203247;position:relative;overflow:hidden;margin:10px 14px 0;border-radius:3px}.panelphoto img{width:100%;height:100%;object-fit:cover;object-position:center 42%;transition:transform .6s}.panelphoto:after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);pointer-events:none}.paneldesc{padding:19px 22px 24px}.paneldesc h2{font-size:clamp(20px,1.6vw,26px);font-weight:650;letter-spacing:-.05em;margin:4px 0 8px}.paneldesc p{color:#a0b3c4;line-height:1.75;font-size:12px;margin:0 0 18px;word-break:keep-all}.flexrow{display:flex;gap:8px}.primary{border:1px solid #87e5f7;background:rgba(92,222,255,.16);color:#eaffff;padding:12px 15px;border-radius:4px;font-size:11px;letter-spacing:.03em;font-weight:700}.primary:hover{background:rgba(92,222,255,.27)}.quiet{border:1px solid rgba(167,203,226,.25);background:rgba(255,255,255,.035);color:#d2e6f6;padding:12px 13px;border-radius:4px;font-size:11px}.quiet:hover{border-color:#83d5ec}
-#floors{position:absolute;right:clamp(413px,30vw,510px);top:50%;transform:translateY(-38%);z-index:7;display:flex;flex-direction:column;gap:3px}.floorbtn{display:flex;gap:8px;align-items:center;border:0;background:transparent;color:#83a0b4;font:10px ui-monospace,monospace;letter-spacing:.12em;padding:5px 2px 5px 10px;transition:all .25s;border-left:1px solid rgba(155,184,213,.18)}.floorbtn span{width:38px;text-align:left;white-space:nowrap}.floorbtn b{font:10px system-ui;color:#7791a6;opacity:0;white-space:nowrap}.floorbtn:hover,.floorbtn.active{color:#8ce4f6;border-left-color:#86edff;padding-left:16px}.floorbtn:hover b,.floorbtn.active b{opacity:1;color:#e0f9ff}
-#bottom{position:absolute;left:clamp(25px,6vw,94px);bottom:clamp(24px,5vh,55px);right:clamp(24px,5vw,80px);z-index:10;display:flex;align-items:end;justify-content:space-between;gap:12px}#controls{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.pill{display:flex;align-items:center;gap:10px;border:1px solid var(--stroke);border-radius:50px;color:#c9dce9;background:rgba(9,23,39,.62);backdrop-filter:blur(10px);padding:12px 16px;font-size:11px}.pill.on{background:rgba(78,199,240,.13);border-color:#74d8e9;color:#e2fcff}.pill:hover{border-color:#91dced}#hint{color:#91a8bc;text-align:right;font:10px ui-monospace,monospace;letter-spacing:.14em;line-height:2}.gold{color:#e1bb7c}
-#scrollrail{position:absolute;left:50%;bottom:96px;transform:translateX(-50%);z-index:3;pointer-events:none;color:#6c97aa;display:flex;gap:10px;align-items:center;font:9px ui-monospace,monospace;letter-spacing:.20em;opacity:.85}.scrollarc{border:1px solid #6aa9bf;border-radius:50%;width:26px;height:26px;text-align:center;line-height:25px}
-#intro{position:fixed;inset:0;z-index:55;background:#050b15;display:grid;place-items:center;transition:opacity .85s,visibility .85s;overflow:hidden}#intro:before{content:"";position:absolute;width:70vmin;height:70vmin;border-radius:50%;border:1px solid rgba(102,213,255,.2);box-shadow:0 0 80px rgba(78,178,235,.07),inset 0 0 70px rgba(78,178,235,.06);animation:introspin 8s linear infinite}#intro:after{content:"";position:absolute;width:55vmin;height:55vmin;border-radius:50%;border:1px dashed rgba(221,181,99,.19);animation:introspin 10s linear reverse infinite}.introtext{text-align:center;z-index:1}.introtext .lg{font-size:clamp(34px,8vw,100px);letter-spacing:.20em;font-weight:780}.introtext .sm{margin-top:12px;letter-spacing:.42em;color:#8fc7de;font-size:11px}.introtext .wait{margin-top:42px;font:10px ui-monospace;color:#bd9456;letter-spacing:.28em}@keyframes introspin{to{transform:rotate(360deg)}}#intro.hide{opacity:0;visibility:hidden;pointer-events:none}
-#experience{display:none;position:fixed;inset:0;z-index:30;background:rgba(2,8,16,.95);overflow:auto;align-items:center;justify-content:center;padding:clamp(20px,4vw,60px)}#experience.open{display:flex}.experienceInner{width:min(1120px,100%);display:grid;grid-template-columns:minmax(300px,1.15fr) minmax(250px,.85fr);min-height:min(680px,84vh);border:1px solid rgba(164,218,242,.22);background:#071421;box-shadow:0 30px 100px #000;position:relative}.exvisual{position:relative;overflow:hidden;min-height:420px;background:#142d40}.exvisual>img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .35s;filter:brightness(.8)}.exvisual:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 65%,rgba(3,13,25,.6)),linear-gradient(0deg,rgba(3,10,20,.4),transparent 46%);pointer-events:none}.exvisual video{width:100%;height:100%;object-fit:contain;background:#061019;position:absolute;inset:0;z-index:2;display:none}.exvisual video.show{display:block}.exstamp{position:absolute;bottom:25px;left:28px;z-index:3;color:#d9eafa;font:10px ui-monospace;letter-spacing:.22em}.excontent{padding:clamp(30px,5vw,74px) clamp(25px,4vw,55px);display:flex;justify-content:center;flex-direction:column}.excontent h2{font-size:clamp(30px,3vw,46px);line-height:1.3;letter-spacing:-.055em;margin:20px 0}.excontent p{line-height:1.9;color:#9aafc0;font-size:13px}.exclose{position:absolute;top:19px;right:20px;z-index:5;background:rgba(5,20,35,.88);color:#fff;border:1px solid #526a7f;border-radius:50%;width:42px;height:42px;font-size:24px}.exbuttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:27px}.scrubline{font:10px ui-monospace;letter-spacing:.10em;color:#6caabc;margin-top:25px}.scrubline input{width:100%;accent-color:#81e2f5;margin-top:13px}.exmini{font:10px ui-monospace;color:#8aaabd;margin-top:15px}
-#toast{position:absolute;left:50%;top:112px;z-index:99;transform:translateX(-50%) translateY(-15px);opacity:0;transition:.3s;pointer-events:none;border:1px solid #3c7585;color:#c8f5fa;background:rgba(4,23,36,.91);padding:10px 18px;font-size:11px;letter-spacing:.07em;border-radius:4px;text-align:center}#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-#menu{display:none;position:absolute;z-index:18;right:30px;top:78px;width:265px;border-radius:10px;padding:18px;font-size:12px;line-height:1.85;color:#aac3d5}#menu.open{display:block}.divider{height:1px;background:var(--stroke);margin:14px 0}#menu button{background:none;border:1px solid var(--stroke);color:#e4f4f8;padding:9px 12px;margin:4px;border-radius:4px;font-size:11px}
-@media(max-width:1150px){#left{top:22%;width:240px}#headline{font-size:36px}#right{right:18px;width:270px;top:50%}#floors{right:300px}.lead{font-size:11px}#bottom{left:24px;right:24px}} 
-@media(max-width:760px){#top{height:72px;padding:14px 19px}.brandtitle{font-size:13px}.brandtiny{font-size:7px}.topactions .state{display:none}.topactions button{font-size:10px;padding:8px}#left{top:101px;left:24px;right:24px;width:75%;pointer-events:none}#headline{font-size:clamp(26px,7.9vw,41px);line-height:1.22;margin:9px 0}#left .lead{display:none}#chapter{margin-top:9px;font-size:9px}.panelphoto{height:95px;margin:7px 8px 0}.panelhead{padding:8px 11px 0}.paneldesc{padding:8px 12px 12px}.paneldesc h2{font-size:17px;margin:2px 0 3px}.paneldesc p{font-size:10px;line-height:1.3;margin:0 0 8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.paneldesc .primary,.paneldesc .quiet{font-size:10px;padding:9px 11px}.panel .index{font-size:9px}#right{top:auto;bottom:98px;right:15px;left:15px;width:auto;transform:none}#right.hidden{transform:translateY(20px)}.panel{display:grid;grid-template-columns:112px 1fr;grid-template-rows:25px 1fr;border-radius:11px}.panelhead{grid-column:2;grid-row:1;padding:8px 10px 0}.panelphoto{grid-column:1;grid-row:1/3;height:100%;min-height:132px;margin:0}.paneldesc{grid-column:2;grid-row:2}#floors{right:auto;top:44%;left:12px;transform:translateY(-33%);gap:0} .floorbtn{padding:4px 2px 4px 7px;font-size:9px;background:rgba(7,19,34,.12)}.floorbtn span{width:35px}.floorbtn b{display:none}.floorbtn:hover,.floorbtn.active{padding-left:12px}#bottom{left:12px;right:12px;bottom:max(18px,env(safe-area-inset-bottom));display:block}#controls{gap:5px;justify-content:space-between} .pill{padding:11px 12px;font-size:10px}#hint{display:none}#scrollrail{display:none}#stage{top:65px;bottom:70px;height:calc(100% - 135px)}#vignette{background:linear-gradient(0deg,#071322 2%,transparent 20%,transparent 82%,#06101e)}#experience{padding:10px} .experienceInner{grid-template-columns:1fr;grid-template-rows:minmax(290px,52vh) auto;max-height:94vh;overflow:auto}.exvisual{min-height:290px}.excontent{padding:24px}.excontent h2{font-size:28px;margin:8px 0}.excontent p{font-size:12px}.exclose{top:9px;right:9px}}
-@media(max-height:630px) and (min-width:761px){#left{top:20%}#right{top:49%}.panelphoto{height:130px}#bottom{bottom:18px}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+/* top bar + chips (햄버거 없음) */
+.bar{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
+.bar .row{display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+.bar .logo{font-size:15px}
+.bar a.cta{font-size:11px;font-weight:900;padding:7px 11px;border:2px solid var(--ink);border-radius:999px;background:var(--ink);color:var(--paper);text-decoration:none}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chips a{flex:none;font-size:12px;font-weight:700;color:var(--ink);text-decoration:none;padding:6px 11px;border:1.5px solid var(--ink);border-radius:999px;background:#fff}
 
-/* V3 / PRIMARY COLOR ARTSCHOOL EDITION — original visual system */
-:root{--bg:#08134c;--ink:#fffdf4;--muted:#bccafa;--stroke:rgba(255,235,173,.38);--electric:#4489ff;--gold:#ffdb31;--card:#07144c;--floor-color:#4489ff}
-html,body{background:#08154c;color:#fffdf1;font-family:system-ui,-apple-system,"Noto Sans KR","Malgun Gothic",sans-serif}
-body:before{background:radial-gradient(ellipse at 53% 47%,#1858cf 0%,#102b99 35%,#080f44 78%);}
-#vignette{background:linear-gradient(90deg,rgba(6,11,48,.60),transparent 32%,transparent 68%,rgba(6,12,45,.32)),linear-gradient(0deg,rgba(5,12,48,.48),transparent 24%,transparent 80%,rgba(6,13,45,.29))}
-#artShapes{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-.art{position:absolute;display:block;filter:drop-shadow(7px 11px 0 #040c33);opacity:.91}
-.art.a1{background:#ffcf22;clip-path:polygon(0 0,100% 21%,35% 100%);width:160px;height:210px;top:7%;left:-22px;transform:rotate(-17deg)}
-.art.a2{background:#ff3b3d;clip-path:polygon(0 18%,88% 0,100% 100%);width:240px;height:125px;top:-25px;right:12%;transform:rotate(6deg)}
-.art.a3{background:#09c5aa;clip-path:polygon(0 0,100% 100%,16% 76%);width:180px;height:120px;right:-55px;bottom:6%;transform:rotate(14deg)}
-.art.a4{background:#f3cc2a;clip-path:polygon(50% 0,100% 100%,0 70%);width:135px;height:185px;bottom:-60px;left:15%;transform:rotate(12deg)}
-.art.a5{background:#e9423b;clip-path:polygon(4% 10%,100% 0,78% 100%);width:160px;height:100px;bottom:11%;left:-50px}
-.scribble{position:absolute;width:150px;height:40px;border-top:6px solid #ffe240;transform:rotate(-27deg);right:17%;bottom:13%;opacity:.72}
-#top{height:87px;background:rgba(4,16,61,.92);border-bottom:3px solid #ffda2c;padding-top:18px;padding-bottom:18px;box-shadow:0 9px 0 rgba(0,0,0,.12)}
-.mark{background:linear-gradient(135deg,#ffe14e 0%,#ffe14e 50%,#f44338 50%,#f44338 75%,#3be3d5 75%);border:3px solid #fff9e3;border-radius:4px;box-shadow:4px 4px #060d33;transform:rotate(-9deg);width:38px;height:38px}
-.mark:before,.mark:after{content:none}
-.brandtitle{font-weight:950;letter-spacing:.12em;font-size:18px}.brandtiny{color:#fff5c7;letter-spacing:.1em;font-size:8px}
-.topactions button{border:2px solid #ffedb3;color:#0a1856;background:#ffdc2f;font-weight:900;box-shadow:4px 4px #07102d;transform:translate(-3px,-3px)}
-.topactions button:active{transform:translate(0,0);box-shadow:none}
-.topactions .state{color:#fffad1;font-weight:800}.statusdot{background:#ff4739;box-shadow:0 0 13px #ff4635}
-#left{top:24%;width:clamp(250px,27vw,430px);}
-#left .eyebrow{color:#ffea51;letter-spacing:.21em;font-weight:900;font-size:11px}
-.miniStar{font-size:23px;vertical-align:middle;color:#ff6446;margin-right:7px}
-#headline{font-weight:1000;letter-spacing:-.07em;line-height:1.08;font-size:clamp(45px,5vw,79px);max-width:520px;margin:15px 0 20px;text-shadow:6px 6px 0 #020d39;}
-#headline em{display:inline-block;transform:rotate(-3deg);background:#ffda23;color:#0a1755;padding:1px 12px 7px;border:3px solid #fff6b9;box-shadow:6px 6px 0 #ef4142;font-style:normal;text-shadow:none}
-.bigDot{color:#ff4d46;font-size:1.05em}.lead{font-weight:580;color:#f2e5bb;line-height:1.75;font-size:clamp(12px,1vw,15px);max-width:345px}
-.leftActions{margin-top:24px;display:flex;flex-direction:column;align-items:start;gap:14px;pointer-events:auto}
-.startExplore{display:flex;align-items:center;gap:12px;justify-content:space-between;background:#ffd41e;color:#08174c;border:2px solid #fff7be;transform:rotate(-2deg);padding:15px 19px;border-radius:5px;box-shadow:7px 7px 0 #ff493d;font-weight:1000;letter-spacing:.02em;font-size:14px;min-width:230px;transition:transform .2s}
-.startExplore:hover{transform:rotate(0) translateY(-3px)}.startExplore:active{transform:translate(6px,6px);box-shadow:none}
-.leftMicro{font-size:9px;color:#fff2ae;font-weight:800;letter-spacing:.13em}
-#chapter{margin-top:23px;color:#fefcf1;font-size:10px;letter-spacing:.12em}#chapter .line{background:#f9d623;height:3px}
-#focusPill{position:absolute;left:clamp(25px,6vw,94px);top:17.9%;font-weight:900;letter-spacing:.1em;font-size:11px;z-index:5;background:#ff5445;color:#fff;border:2px solid #fff9de;padding:7px 14px;transform:rotate(-2deg);box-shadow:4px 4px #05133b}
-#right{width:clamp(270px,24vw,382px);right:clamp(18px,3.2vw,70px)}
-.glass{background:rgba(7,19,66,.94);border:2px solid #fff1a1;backdrop-filter:blur(16px)}
-.panel{border-radius:15px 15px 16px 15px;box-shadow:8px 10px 0 #061139,12px 15px 0 #f63b3b}
-.panelhead{background:var(--floor-color);padding:12px 19px 10px}
-.panel .index{font-weight:1000;font-size:12px;letter-spacing:.04em;color:#051744;background:#fff8dc;padding:3px 9px;border-radius:3px}
-.chip{color:#071842;background:#fff8d5;border-radius:4px;font-weight:900;letter-spacing:.04em;padding:4px 6px;font-size:8px}
-.panelphoto{border-radius:9px;outline:3px solid #e9e8d3;height:clamp(148px,25vh,240px)}
-.paneldesc h2{font-weight:900;color:#fff7ca}.paneldesc p{color:#d8e6ff}
-.primary{background:#ffda25;color:#081748;border:2px solid #fff3b5;font-weight:950;box-shadow:3px 3px #f33d3d;border-radius:4px}
-.primary:hover{background:#fff189}.quiet{border:2px solid #7eacff;color:#faf8eb;background:#1b3e94;font-weight:850;border-radius:4px}
-#floors{right:clamp(410px,30vw,540px);top:47%;gap:5px}
-.floorbtn{background:#0b1d63;color:#fff8d4;padding:6px 9px;border:1.5px solid rgba(255,255,255,.40);border-radius:6px;box-shadow:3px 3px rgba(3,10,48,.5);font-weight:850;font-size:11px}
-.floorbtn span{width:43px}.floorbtn b{color:#fff1d9;opacity:1;font-weight:750}
-.floorbtn.active,.floorbtn:hover{background:var(--floor-color);color:#071548;border:2px solid #fff7b8;padding:6px 9px;box-shadow:4px 4px #f43f40}
-.floorbtn.active b,.floorbtn:hover b{color:#071548}
-#bottom{bottom:clamp(21px,4.7vh,55px)}.pill{font-weight:950;letter-spacing:.03em;background:#061a5b;border:2px solid #fff0ae;color:#fffdf1;border-radius:6px;box-shadow:4px 4px 0 rgba(6,12,37,.7);padding:13px 17px}.pill.on{background:#ffdc2d;color:#07164e;border-color:#fff8c7}.pill:hover{background:#28b7cf;color:#081342;border-color:#fff7c1}
-#hint{color:#f6f7c0;font-weight:800;font-size:9px;letter-spacing:.08em}#hint .gold{color:#ffc831}
-#scrollrail{color:#fff6c1;background:#0c2c8b;border:2px solid #ffec82;border-radius:80px;padding:5px 13px;font-weight:900;bottom:113px}.scrollarc{border:2px solid #ffe02b;color:#ffed31;font-size:15px}
-#experience{background:rgba(3,10,41,.95)}.experienceInner{border:3px solid #ffdc26;background:#0e1d5d;box-shadow:12px 12px 0 #eb3c3b}.exvisual{background:#08173e}.exvisual>img{filter:brightness(.91)}
-.excontent h2{color:#ffde36;font-weight:950;letter-spacing:-.065em}.excontent p{color:#e3e9fa}.exstamp{color:#fff5b9;font-weight:900}
-.exclose{background:#ffdf2d;color:#06184a;border:2px solid #fff8d0;font-weight:900}
-.exmini,.scrubline{color:#fff4c1}input[type=range]{accent-color:#ffda30}
-#toast{border:2px solid #ffe043;color:#08194d;background:#fff3c3;font-size:12px;font-weight:900;border-radius:6px;box-shadow:5px 5px #f53b3e}
-#menu{background:#0c215e;border:2px solid #ffd82b;color:#fff7d8;box-shadow:7px 7px 0 #ed4444}
-#intro{background:#0b1558}#intro:before{border:7px solid #ffdc35;border-radius:8%;width:55vmin;height:55vmin;transform:rotate(30deg);box-shadow:20px 30px 0 #f7483f;animation:introspin 3s ease-in-out infinite alternate}
-#intro:after{border:8px solid #0fd5b6;border-radius:9%;width:40vmin;height:40vmin;animation:introspin 4s ease-in-out infinite alternate-reverse}
-.introedition{display:inline-block;background:#ffde2a;color:#08184e;font-weight:950;font-size:12px;padding:8px 15px;margin-bottom:20px;transform:rotate(-3deg);box-shadow:4px 4px #f9464b}
-.introtext .lg{letter-spacing:.08em;font-weight:1000;color:#fff8d7;text-shadow:7px 7px #ed423b;font-size:clamp(45px,10vw,110px)}.introDot{color:#ffdb25;font-size:.45em;vertical-align:top}.introtext .sm{color:#ffed82;font-weight:900;letter-spacing:.2em}.introtext .wait{color:#d0ffe4;font-weight:850}
-@media(max-width:1149px) and (min-width:761px){#left{left:25px;width:30%}#headline{font-size:clamp(31px,4vw,57px)}#right{right:18px;width:267px}#floors{right:300px}.startExplore{min-width:190px}}
-@media(max-width:760px){
- #top{height:70px;padding:11px 13px}.brand{gap:9px}.mark{width:28px;height:28px;border-width:2px}.brandtitle{font-size:13px}.brandtiny{font-size:6px;letter-spacing:.06em}.topactions button{font-size:9px;padding:6px 8px;box-shadow:2px 2px #051039}
- #artShapes{opacity:.58}.art.a1{width:100px;height:120px}.art.a2{width:125px;height:80px}.art.a4{width:75px;height:90px}
- #left{left:17px;top:91px;width:70%;right:auto}#headline{font-size:clamp(29px,8vw,44px);margin:9px 0 9px;text-shadow:3px 3px #020a2d}#headline em{padding:0 7px 3px;border-width:2px;box-shadow:4px 4px #f34c4a}.bigDot{font-size:.9em}#left .eyebrow{font-size:8px}.miniStar{font-size:14px}#left .lead{display:none}.leftActions{margin-top:12px;gap:0}.startExplore{min-width:auto;font-size:10px;padding:9px 11px;box-shadow:4px 4px #ff463c} .leftMicro{display:none}#chapter{display:none}
- #focusPill{top:73px;left:auto;right:11px;font-size:8px;box-shadow:2px 2px #02093b;padding:5px 7px;border-width:1px}
- #stage{top:62px;bottom:68px;height:calc(100% - 130px)}#vignette{background:linear-gradient(0deg,#07134a 0%,transparent 14%,transparent 88%,#07134a 100%)}
- #floors{top:44%;left:10px;transform:translateY(-25%);gap:4px}.floorbtn{font-size:8px;padding:5px 6px;border-radius:4px}.floorbtn span{width:38px}.floorbtn b{display:none}.floorbtn.active,.floorbtn:hover{padding:5px 6px}
- #right{left:11px;right:11px;bottom:92px;width:auto}.panel{box-shadow:4px 5px #06113d,6px 7px #f14543;border-radius:9px;grid-template-columns:95px 1fr;grid-template-rows:26px 1fr}.panelphoto{min-height:131px;outline:none;border-right:2px solid #fff1ae}.panelhead{padding:5px 7px;gap:5px}.panel .index{font-size:8px;padding:2px 5px}.chip{font-size:7px;white-space:nowrap}.paneldesc{padding:7px 9px 10px}.paneldesc h2{font-size:17px;margin:1px 0 5px}.paneldesc p{font-size:10px;color:#d9e5fa}.paneldesc .primary,.paneldesc .quiet{font-size:9px;padding:8px 7px;box-shadow:2px 2px #f43f3f}
- #bottom{left:9px;right:9px;bottom:max(15px,env(safe-area-inset-bottom))}#controls{gap:5px}.pill{border-width:1.5px;font-size:9px;padding:9px 8px;box-shadow:2px 2px #071139}
- #scrollrail{display:none}#menu{right:9px;top:77px;max-width:calc(100% - 18px)}
- .experienceInner{box-shadow:5px 5px #ef403c;border-width:2px}.exvisual{min-height:270px}.excontent{padding:23px}.excontent h2{font-size:26px}
-}
-@media(max-width:385px){#headline{font-size:29px}.startExplore{padding:7px 10px;font-size:9px}.floorbtn{padding:4px 5px;font-size:7px}.panel{grid-template-columns:82px 1fr}.panelphoto{min-height:119px}.paneldesc p{display:none}.paneldesc h2{margin-bottom:6px}.pill{font-size:8px}}
-@media(prefers-reduced-motion:reduce){.art,#intro:before,#intro:after{animation:none!important}}
+/* hero */
+.hero{position:relative;height:calc(100svh - 92px);min-height:620px;overflow:hidden;background:#b8141c}
+.hero video{position:absolute;inset:0;height:100%;object-fit:cover}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,0) 40%,rgba(0,0,0,.7))}
+.vs{position:absolute;left:14px;right:14px;top:14px;z-index:3;background:var(--paper);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:12px 14px;text-align:center}
+.vs b{display:block;font-size:10.5px;letter-spacing:.3em;color:var(--tomato)}
+.vs span{display:block;margin-top:5px;font-size:21px;font-weight:900;line-height:1.3}
+.hero .copy{position:absolute;left:18px;right:18px;bottom:26px;color:#fff;z-index:2}
+.hero h1{font-size:40px;font-weight:900;line-height:1.12;letter-spacing:-.03em}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero p{margin-top:12px;font-size:14px;line-height:1.65;color:#f4f4f4}
+.hero .sticker{position:absolute;right:16px;top:150px;z-index:3;transform:rotate(8deg)}
 
-.passport{border:2px solid #ffe15a;background:#101b63;border-radius:5px;padding:7px 12px;box-shadow:3px 3px 0 #ed4547;color:#fff5c7;font-size:10px;font-weight:850;letter-spacing:.05em;white-space:nowrap}
-.passport span{color:#5df2de;font-size:9px}.passport b{font-size:13px;margin-left:7px;color:#ffe03e;font-variant-numeric:tabular-nums}
-.experienceTags{display:flex;flex-wrap:wrap;gap:6px;margin:15px 0 3px}.experienceTags span{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.04em;color:#09215a;background:#f8d437;border:1px solid #fff5c1;border-radius:3px;padding:5px 8px}
-#exMagic{background:#16cdb6;color:#071c49;border-color:#e5ffcf;box-shadow:3px 3px #fc5345}
-#exMagic.isActive{background:#ff4e53;color:#fff;border-color:#ffe244}
-#artSparkles{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:0;transition:opacity .5s;background:radial-gradient(circle at 20% 20%,#ffe04e 0 2px,transparent 3px),radial-gradient(circle at 70% 40%,#48f3e7 0 3px,transparent 4px),radial-gradient(circle at 42% 74%,#f74854 0 3px,transparent 5px),radial-gradient(circle at 83% 70%,#ffe04e 0 3px,transparent 4px);background-size:170px 190px,210px 170px,260px 240px,310px 310px}
-#exVisual.artActive #artSparkles{opacity:1;animation:starDrift 8s linear infinite}
-#exVisual.artActive #exImage{filter:saturate(1.22) contrast(1.10) hue-rotate(-11deg) brightness(1.1);transform:scale(1.18) translateX(-1%)!important}
-#exVisual.artActive{box-shadow:inset 0 0 0 9px #ffe243,inset 0 0 70px #ff4c3f}
-@keyframes starDrift{0%{background-position:0 0,0 0,0 0,0 0}100%{background-position:50px -180px,-100px 150px,70px -100px,-40px 100px}}
-@media(max-width:1149px){.passport{padding:5px 8px}.passport span{display:none}}
-@media(max-width:760px){.passport{border-width:1px;box-shadow:2px 2px #ef4747;padding:5px 6px;font-size:8px}.passport b{margin-left:0;font-size:10px}.exbuttons{flex-wrap:wrap}.exbuttons button{flex:1;min-width:95px}.experienceTags span{font-size:8px}}
-@media(max-width:390px){.passport{display:none}}
-@media(prefers-reduced-motion:reduce){#artSparkles{animation:none!important}}
-/* V5 experimental art cinema, scoped to the 3F experience */
-.art-film-btn{align-items:center;justify-content:center;gap:5px;background:#ef363d;border:2px solid #ffdc33;border-radius:5px;color:#fffbed;box-shadow:3px 3px 0 #082565;font-weight:900;padding:11px 15px;letter-spacing:.02em}
-.art-film-btn:hover,.art-film-btn:focus-visible{background:#ff5a40;box-shadow:3px 3px 0 #05d1c6}
-@media(max-width:650px){.art-film-btn{font-size:12px;padding:9px 9px}}
+/* marquee */
+.marq{background:var(--ink);color:var(--lime);overflow:hidden;white-space:nowrap;border-block:2px solid var(--ink)}
+.marq div{display:inline-block;padding:10px 0;font-size:15px;animation:mq 22s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
 
-/* V6 — Crimson Muse Orb / original-red-frame circular crystal (no background removal) */
-#museOrb{--orbsize:74px;position:fixed;left:0;top:0;width:var(--orbsize);height:var(--orbsize);z-index:24;pointer-events:none;will-change:transform;transform:translate3d(-180px,-180px,0);filter:drop-shadow(0 0 11px #f0287d9b);opacity:1;transition:opacity .2s ease}
-#museOrb.orb-hidden{opacity:0!important;visibility:hidden}
-#museOrb .orb-halo{position:absolute;inset:-9px;border-radius:50%;background:conic-gradient(from 10deg,transparent 0deg,#ffda38 70deg,transparent 105deg,#fa304f 160deg,transparent 210deg,#05d6e8 285deg,transparent 345deg);filter:blur(3px);opacity:.75;animation:muse-aura 6s linear infinite}
-#museOrb .orb-glass{position:absolute;inset:0;border:2px solid rgba(255,229,180,.9);border-radius:50%;background:#7f0c22 url(/sinchon/play/a/m0.jpg) center 48% / cover no-repeat;overflow:hidden;box-shadow:0 0 0 3px #250c24b8,0 0 0 5px #f84f6c6b,0 11px 30px #05091b99,inset -8px -9px 18px #0d04266e,inset 9px 7px 14px #fff7}
-#museOrb .orb-glass::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse 33% 18% at 27% 15%,#fff9 0%,#fff2 46%,transparent 100%),radial-gradient(ellipse at 28% 18%,#ffd6f044,transparent 40%),linear-gradient(145deg,#ffffff13 5%,transparent 47%,#05031f67 93%);mix-blend-mode:screen}
-#museOrb .orb-spark{position:absolute;right:-5px;bottom:1px;width:12px;height:12px;border-radius:50%;background:#ffe053;box-shadow:0 0 10px #ffe053,0 0 19px #ff5c5c;animation:muse-blink 3s ease-in-out infinite}
-#museOrb .orb-orbit{position:absolute;inset:-15px;border:1px solid #f5bbd465;border-radius:50%;transform:rotate(-24deg) scaleY(.75)}
-#museToggle{position:fixed;right:20px;bottom:104px;z-index:25;background:#260b2ce8;border:1px solid #fe779bb6;color:#fff4df;box-shadow:0 3px 0 #050e35,0 8px 24px #0008;border-radius:99px;padding:9px 12px;letter-spacing:.045em;font-weight:900;font-size:11px;cursor:pointer;min-height:34px;backdrop-filter:blur(9px)}
-#museToggle:focus-visible{outline:3px solid #ffe054;outline-offset:3px}
-#museToggle .muse-dot{display:inline-block;border-radius:50%;width:9px;height:9px;background:linear-gradient(135deg,#ff5265,#ffd04a);box-shadow:0 0 9px #ff556d;margin-right:6px}
-body.muse-hidden #museToggle{opacity:.65}
-body.muse-3f #museOrb{filter:drop-shadow(0 0 17px #fd306dca)}
-@keyframes muse-aura{to{transform:rotate(360deg)}}
-@keyframes muse-blink{50%{opacity:.35;transform:scale(.75)}}
-@media(max-width:650px){#museOrb{--orbsize:59px}#museToggle{right:12px;bottom:100px;padding:7px 9px;font-size:10px;min-height:32px}}
-@media(prefers-reduced-motion:reduce){#museOrb .orb-halo,#museOrb .orb-spark{animation:none!important}}
+section{position:relative}
+.pad{padding:56px 18px}
+h2{font-size:32px;font-weight:900;line-height:1.18;letter-spacing:-.03em}
+.lead{margin-top:14px;font-size:14.5px;line-height:1.75;color:#3a372f}
 
+/* before-after film */
+.film{background:var(--ink);color:#fff}
+.film .frame{margin-top:22px;border:3px solid var(--paper);border-radius:22px;overflow:hidden;aspect-ratio:9/16;background:#000;position:relative}
+.film .frame video{height:100%;object-fit:cover}
+.film .tag{position:absolute;left:12px;top:12px;background:var(--tomato);color:#fff;font-size:11px;font-weight:900;padding:5px 9px;border-radius:999px}
+.film .lead{color:#cfcabd}
+.btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:12px 16px;border:2px solid currentColor;border-radius:999px;font-size:13px;font-weight:900;background:none;color:inherit;cursor:pointer}
 
+/* day timeline */
+.day{background:var(--paper)}
+.slot{position:relative;margin-top:34px}
+.slot .time{display:flex;align-items:baseline;gap:10px}
+.slot .time .en{font-size:46px;line-height:1;color:var(--blue)}
+.slot .time .k{font-size:12px;font-weight:900;color:var(--mute);letter-spacing:.1em}
+.slot h3{margin-top:8px;font-size:21px;font-weight:900;line-height:1.3}
+.slot p{margin-top:6px;font-size:13.5px;line-height:1.7;color:#47433a}
+.slot .media{margin-top:14px;border:2.5px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:6px 6px 0 var(--ink);aspect-ratio:4/5;background:#ddd;position:relative}
+.slot .media video,.slot .media img{height:100%;object-fit:cover}
+.slot .media .fl{position:absolute;right:10px;top:10px;font-size:11px;font-weight:900;padding:5px 9px;border:2px solid var(--ink);border-radius:999px;background:var(--lime)}
+.slot:nth-child(even) .time .en{color:var(--tomato)}
+.slot:nth-child(3n) .media .fl{background:var(--pink)}
 
-/* SINCHON V7 - ORIGINAL NEON QUEST ART DIRECTION
-   Based on tempo, pulse and color relationships in user-provided 1000318404.mp4,
-   not on its characters, frames, branding or artwork. */
-:root { --bg:#080619; --ink:#fafaff; --muted:#c2b8e0; --stroke:rgba(132,255,217,.37); --electric:#67ffcc; --gold:#f9db60; --card:rgba(19,9,49,.88); }
-html,body { background:#070519 !important;color:var(--ink); }
-body::before { background:radial-gradient(ellipse 62% 48% at 57% 41%,#3d185f 0%,rgba(38,16,72,.62) 43%,transparent 81%),radial-gradient(ellipse 40% 45% at 87% 81%,rgba(219,43,115,.18),transparent 74%),linear-gradient(136deg,#08041a,#150a38 56%,#040513)!important; }
-#vignette { background:linear-gradient(90deg,rgba(6,3,23,.40),transparent 28%,transparent 71%,rgba(6,3,23,.23)),linear-gradient(0deg,rgba(8,5,29,.5),transparent 39%,transparent 80%,rgba(8,5,29,.18))!important; }
-#stage { filter:hue-rotate(28deg) saturate(1.45) contrast(1.09) drop-shadow(0 0 18px rgba(85,255,195,.17)); }
-#artShapes .art {opacity:.58;filter:drop-shadow(0 0 17px rgba(143,70,251,.35))!important;}
-#artShapes .a1{background:#b35dff!important}#artShapes .a2{background:#16efbb!important}#artShapes .a3{background:#ff4f6b!important}#artShapes .a4{background:#ffd166!important}#artShapes .a5{background:#10a6f8!important}
-#neonAtmosphere{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:1;opacity:.9}
-#neonAtmosphere .horizon-grid {position:absolute;left:-35%;width:170%;top:72%;height:54%;background-image:linear-gradient(rgba(64,247,180,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(64,247,180,.22) 1px,transparent 1px);background-size:58px 58px;transform-origin:center top;transform:perspective(420px) rotateX(66deg);mask-image:linear-gradient(to bottom,transparent,black 30%,transparent 98%);animation:gridWander 14s linear infinite;opacity:.56}
-@keyframes gridWander{0%{background-position:0 0}100%{background-position:0 116px}}
-#neonAtmosphere .ambilight{position:absolute;border-radius:50%;filter:blur(52px);opacity:.25;animation:ambimove 13s ease-in-out infinite alternate}
-.ambilight.ag{width:38vw;height:38vw;left:39%;top:19%;background:#5dffba}.ambilight.ap{width:28vw;height:28vw;right:2%;top:23%;background:#8f4bff;animation-delay:-4s}.ambilight.ac{width:35vw;height:35vw;left:2%;bottom:-19%;background:#f63a77;animation-delay:-7s}
-@keyframes ambimove{to{transform:translate(15px,-25px) scale(1.19);opacity:.36}}
-#top{background:linear-gradient(180deg,rgba(9,5,25,.92),rgba(12,6,32,.1));border-bottom:1px solid rgba(94,255,191,.19);box-shadow:0 2px 23px rgba(7,255,184,.06)}
-.brandtitle{color:#fff;letter-spacing:.18em;text-shadow:0 0 16px #8d55fc99}
-.brandtiny{color:#7ff4d5!important;letter-spacing:.115em;font-weight:800}
-.mark:before{border:2px solid #64f7c1;box-shadow:0 0 18px #34ffb665;transform:skewY(-19deg) rotate(5deg)}
-.mark:after{border:2px solid #fe5376;box-shadow:0 0 14px #fc597688}
-.eyebrow{color:#7affc9!important;letter-spacing:.18em;font-weight:850}
-#headline{color:#fff7ff;letter-spacing:-.06em;text-shadow:4px 5px 0 rgba(153,52,255,.15)}
-#headline em{font-style:normal!important;color:#80ffd1!important;background:linear-gradient(125deg,#68ffca,#00c9eb);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 11px #51ffd46b)}
-.lead{color:#d3c9e7!important;line-height:1.65}
-.leftMicro{color:#a59dcd!important}
-.startExplore,.primary{background:linear-gradient(105deg,#98ff8d,#4dfbcb)!important;color:#0d092a!important;border:1px solid #dbffe9!important;box-shadow:5px 5px 0 #ab42fb,0 0 25px rgba(74,255,178,.28)!important;border-radius:10px!important;font-weight:950!important;transition:transform .2s,filter .2s!important}
-.startExplore:hover,.primary:hover{filter:brightness(1.15);transform:translateY(-3px) scale(1.015)!important}
-#chapter{color:#d5a6ff!important}#chapter .line{background:#73ffbe!important}
-#focusPill{background:#ff5579!important;color:#fff!important;border:1px solid #ffd5e4!important;box-shadow:3px 4px 0 #480b65!important;border-radius:6px!important}
-#floors{filter:drop-shadow(0 0 10px rgba(63,255,174,.11))}
-.floorbtn{color:#c4bbe2!important;border-left-color:#5c3b91!important}
-.floorbtn span{border-radius:6px;border:1px solid rgba(144,104,203,.48);background:#190d3ba8;padding:5px 4px}
-.floorbtn.active{color:#91ffbe!important;border-left-color:#64ffbd!important;font-weight:950!important;text-shadow:0 0 14px #50ffaccc}
-.floorbtn.active span{background:#5df7aa!important;color:#11112f;border-color:#c9ffe3;box-shadow:0 0 17px #51ffb999}
-#right .glass,.glass{background:linear-gradient(150deg,rgba(20,10,55,.93),rgba(13,8,38,.91))!important;backdrop-filter:blur(22px);border:1px solid #69449f!important}
-.panel{border-radius:15px!important;overflow:hidden;box-shadow:0 16px 58px rgba(2,0,23,.62),0 0 28px rgba(119,55,210,.20)!important}
-.panelhead{background:linear-gradient(90deg,#42f4b6,#b0fc83)!important;color:#111130!important}
-.panelhead .index{color:#0b102d!important;font-weight:950!important}
-.panelhead .chip{background:#29124b!important;color:#7fffbd!important;border-radius:5px!important}
-.panelphoto{border-radius:9px!important;background:#130f31!important;box-shadow:0 0 0 1px #9c6ae855!important}
-.paneldesc h2{color:#fff!important}.paneldesc p{color:#c3b8e2!important}
-.paneldesc .quiet,.quiet{background:rgba(137,80,245,.17)!important;border:1px solid #9f67e8!important;color:#e5d3ff!important;border-radius:9px!important}
-.pill{background:rgba(18,9,49,.93)!important;color:#dacffd!important;border:1px solid #664494!important;box-shadow:inset 0 1px 0 #ba8cff33}
-.pill.on{background:linear-gradient(110deg,#59f7b6,#a0ff7d)!important;color:#0c1432!important;border:1px solid #e3ffeb!important;box-shadow:0 0 17px #3bffac55!important;font-weight:950!important}
-#bottom{padding-bottom:4px}#hint{color:#bca9e1!important}#hint .gold{color:#85ffd6!important}
-#menu{background:#10072f!important;border:1px solid #7d43ce!important;color:#e6d8ff!important;box-shadow:0 16px 60px #0009}
-#intro{background:#0b0629!important}
-#intro:before{border:2px solid #67ffc188!important;box-shadow:0 0 95px rgba(153,64,248,.22),inset 0 0 60px rgba(65,243,187,.12)!important;transform:rotate(21deg)}
-.introedition{background:#6bffb6!important;box-shadow:5px 5px #a039e7!important;color:#07112d!important}
-.introtext .lg{color:#f8f0ff!important;text-shadow:0 0 30px #aa49f699;letter-spacing:.12em!important}
-.introDot{color:#ff5b7e!important}.introtext .sm{color:#8df8d7!important}
-.introtext .wait{color:#c4a0f1!important}
-#experience{background:rgba(8,3,25,.965)!important}
-#experience .experienceInner{border:1px solid rgba(105,255,201,.37)!important;box-shadow:0 0 60px #7b2bca44!important}
-#experience .experienceTags{color:#ceaeff}
-#exMagic{background:linear-gradient(115deg,#e949a6,#d9a2ff)!important}
-#arcadeHud{position:absolute;bottom:13.5%;left:50%;transform:translateX(-50%);width:min(350px,39vw);z-index:10;pointer-events:none;display:grid;grid-template-columns:auto 1fr;gap:5px 10px;align-items:center;padding:11px 14px;border:1px solid rgba(91,255,185,.67);border-radius:12px;background:linear-gradient(95deg,rgba(14,8,46,.83),rgba(24,10,55,.72));box-shadow:0 9px 40px #04001499,0 0 13px #42ffb633;color:#bdfce7;font-family:ui-monospace,'Courier New',monospace}
-.hud-signal{font-size:10px;font-weight:900;letter-spacing:.1em;grid-column:1/2}.hud-signal b{display:inline-block;width:6px;height:6px;border-radius:50%;background:#65ff9c;box-shadow:0 0 11px #46ff93;animation:signalBeat 1.3s ease-in-out infinite alternate;margin-right:7px}
-@keyframes signalBeat{to{opacity:.35}}
-#hudLevel{justify-self:end;font-size:13px;color:#ffd36b;font-weight:1000;letter-spacing:.1em}
-.hud-meter{grid-column:1/-1;height:7px;background:#3a1b60;border-radius:99px;overflow:hidden;border:1px solid #9463df70}
-#hudMeter{height:100%;display:block;width:10%;background:linear-gradient(90deg,#f8598e,#b158ff,#70ffa6);transition:width .75s ease-out;box-shadow:0 0 15px #60ffc6}
-.hud-label{grid-column:1/-1;font-size:9px;letter-spacing:.13em;color:#b9a7d8}
-#arcadeFlash{position:absolute;inset:0;z-index:16;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--pulse-x,50%) var(--pulse-y,50%),rgba(89,255,201,.38),transparent 36%);transition:opacity .48s}
-#arcadeFlash.flash{opacity:1;transition:none}
-/* Prism takes the place of the old portrait orb without modifying site interaction. */
-#museOrb{filter:drop-shadow(0 0 13px rgba(116,255,185,.79))!important}
-#museOrb .orb-halo{background:conic-gradient(from 0deg,transparent,#c545fc,#68ffb4,#ff4a83,#ffce5e,transparent)!important;opacity:.85!important}
-#museOrb .orb-glass{background:radial-gradient(circle at 26% 18%,rgba(237,255,255,.55),transparent 26%),linear-gradient(130deg,#411270,#0b134d 58%,#0c2743)!important;border:2px solid #9fffdc!important;box-shadow:inset -7px -7px 18px #0203159c,inset 4px 4px 17px #92ffce44,0 0 20px #67ffbd5c!important;overflow:hidden}
-#museOrb .orb-glass:before{content:'';position:absolute;inset:13%;border:1px dashed #edb8ff99;border-radius:50%;animation:spinPrism 7s linear infinite}
-.prism-geom{position:absolute;inset:20%;filter:drop-shadow(0 0 9px #75ffce);transform:rotate(-19deg);animation:prismFloat 3s ease-in-out infinite alternate}
-.prism-geom i{position:absolute;display:block;width:100%;height:100%;clip-path:polygon(50% 0,100% 35%,85% 100%,15% 100%,0 35%);opacity:.96}
-.prism-geom i:nth-child(1){background:#67ffc7;transform:scale(.98)}.prism-geom i:nth-child(2){background:#ff557b;clip-path:polygon(50% 0,100% 35%,50% 61%);}.prism-geom i:nth-child(3){background:#9349f3;clip-path:polygon(0 35%,50% 61%,15% 100%)}
-@keyframes spinPrism{to{transform:rotate(360deg)}}@keyframes prismFloat{to{transform:translateY(-4px) rotate(20deg) scale(1.06)}}
-#museToggle{background:linear-gradient(105deg,#1d0a4b,#2c1158)!important;border:1px solid #76ffc4!important;color:#caffdd!important;box-shadow:0 7px 24px #0007,0 0 14px rgba(107,255,174,.22)!important}
-#museToggle .muse-dot{background:#65ffb1!important;box-shadow:0 0 11px #65ffb1!important}
-@media(max-width:950px){#arcadeHud{bottom:15.7%;width:min(285px,48vw);padding:7px 11px}.hud-label{display:none}}
-@media(max-width:760px){#arcadeHud{display:none}.hud-signal{font-size:8px}#hudLevel{font-size:10px}.hud-meter{height:5px}#neonAtmosphere .horizon-grid{top:73%;height:38%;opacity:.33}#headline{line-height:1.16}#top{border-bottom:1px solid #60fbb847!important}.brandtiny{font-size:7px!important}#museToggle{bottom:95px!important;font-size:9px!important}}
-@media(max-width:430px){#arcadeHud{bottom:8.5%;width:184px;opacity:.78}.hud-signal{font-size:7px}#hudLevel{font-size:9px}}
-@media(prefers-reduced-motion:reduce){#neonAtmosphere *,#museOrb *{animation:none!important}}
+/* rooms */
+.rooms{background:var(--blue);color:#fff}
+.rooms .lead{color:#dfe4ff}
+.snap{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:22px -18px 0;padding:0 18px 6px;scrollbar-width:none}.snap::-webkit-scrollbar{display:none}
+.card{flex:0 0 78%;scroll-snap-align:center;background:var(--paper);color:var(--ink);border:2.5px solid var(--ink);border-radius:20px;overflow:hidden}
+.card img{aspect-ratio:3/4;object-fit:cover}
+.card .t{padding:14px}
+.card .t b{font-size:18px;font-weight:900}
+.card .t span{display:block;margin-top:4px;font-size:12.5px;color:#55514a;line-height:1.6}
+.card .t i{font-style:normal;display:inline-block;margin-top:8px;font-size:11px;font-weight:900;padding:4px 8px;border-radius:999px;background:var(--lime);border:1.5px solid var(--ink)}
+.dots{display:flex;gap:6px;justify-content:center;margin-top:12px}.dots i{width:7px;height:7px;border-radius:9px;background:#ffffff66;transition:width .3s}.dots i.on{width:20px;background:var(--lime)}
+.must{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.must div{border:2px solid #fff;border-radius:14px;padding:12px;font-size:13px;font-weight:700;line-height:1.45}
+.must div b{display:block;font-size:20px;color:var(--lime)}
 
-</style>
-<style>
-/* V8 Red Curtain Premiere — self-contained; main V7 structure untouched */
-#curtainIntro {position:fixed;inset:0;z-index:9999;overflow:hidden;background:#09162f;isolation:isolate;color:#fff;opacity:1;visibility:visible;transition:opacity .8s ease,visibility .8s ease;font-family:system-ui,-apple-system,'Noto Sans KR',sans-serif}
-#curtainIntro.finished {opacity:0;visibility:hidden;pointer-events:none}
-#curtainIntro .cinema-bg {position:absolute;inset:-6%;background:linear-gradient(90deg,#08152cd4,#07132933,#071329c4),var(--bldg) center/cover no-repeat;filter:blur(26px) saturate(.75);transform:scale(1.09)}
-#curtainIntro .cinema-stage {position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}
-#curtainIntro .cinema-frame {position:relative;display:grid;place-items:center;height:100%;width:min(100%,920px);border-inline:1px solid #fee1a14b;background:linear-gradient(180deg,#24365388,#09111f55),#061124;box-shadow:0 0 65px #000a,0 0 120px #ebac6a28;overflow:hidden}
-#curtainIntro .cinema-photo {position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:contrast(1.05) saturate(1.1);transform:scale(1.06);transition:transform 7.3s ease-out}
-#curtainIntro.unveil .cinema-photo {transform:scale(1)}
-#curtainIntro .photo-shade {position:absolute;inset:0;background:linear-gradient(to bottom,rgba(4,9,19,.09) 30%,rgba(4,8,18,.75) 100%);pointer-events:none}
-#curtainIntro .curtain-panel {position:absolute;inset:-2% -2% -7% -2%;z-index:3;transform:translateY(0);will-change:transform;transition:transform 2.9s cubic-bezier(.65,.01,.23,1);background:repeating-linear-gradient(90deg,#4d0614 0%,#9a071c 3%,#e52b39 7%,#930719 11%,#39030e 15%,#c91b2f 19%,#ef3541 23%,#670518 28%,#470412 32%),linear-gradient(#dd2733,#530518);box-shadow:0 40px 85px #120008b8,inset 0 -20px 55px #250008d9}
-#curtainIntro.unveil .curtain-panel {transform:translateY(-111%)}
-#curtainIntro .curtain-panel:before {content:"";position:absolute;inset:0;background:repeating-linear-gradient(108deg,transparent 0%,#1000074d 8%,#ff77753d 13%,transparent 22%);opacity:.55}
-#curtainIntro .curtain-panel:after {content:"";position:absolute;left:0;right:0;bottom:0;height:13%;background:linear-gradient(180deg,transparent,#27010bba 76%,#9b0623);border-bottom:4px solid #ffbf79;clip-path:polygon(0 0,100% 0,100% 74%,94% 91%,86% 79%,78% 95%,68% 81%,59% 94%,50% 77%,41% 95%,32% 81%,22% 94%,13% 78%,5% 94%,0 82%)}
-#curtainIntro .curtain-rod {position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(90deg,#563014,#ffda9a,#8d4723,#ffe5b6,#55300d);box-shadow:0 3px 14px #120300a8;z-index:5}
-#curtainIntro .curtain-top {position:absolute;top:25px;left:50%;transform:translateX(-50%);z-index:4;color:#ffe3b1;font-size:clamp(10px,1vw,12px);letter-spacing:.24em;text-shadow:0 2px 8px #330009;white-space:nowrap;transition:opacity .4s}
-#curtainIntro.unveil .curtain-top {opacity:0}
-#curtainIntro .curtain-caption {position:absolute;left:20px;right:20px;bottom:clamp(65px,12vh,118px);z-index:2;text-align:center;opacity:0;transform:translateY(18px);transition:opacity .7s ease 1.2s,transform .7s ease 1.2s}
-#curtainIntro.unveil .curtain-caption {opacity:1;transform:translateY(0)}
-#curtainIntro .curtain-caption .small {letter-spacing:.3em;font-size:11px;font-weight:800;color:#ffe2a3}
-#curtainIntro .curtain-caption h1 {margin:10px 0 8px;font-size:clamp(43px,8vw,112px);font-weight:1000;line-height:1;letter-spacing:.1em;text-shadow:0 4px 24px #060915c0}
-#curtainIntro .curtain-caption p {margin:8px 0;color:#fff4e1;font-size:clamp(12px,2vw,17px)}
-#curtainIntro .intro-skip,#curtainIntro .intro-enter {position:absolute;z-index:11;border:1px solid #ffffff81;border-radius:30px;padding:12px 17px;font-size:12px;font-weight:800;letter-spacing:.05em;color:#fff;background:#080d20a3;backdrop-filter:blur(10px)}
-#curtainIntro .intro-skip {right:20px;top:20px}
-#curtainIntro .intro-enter {bottom:20px;left:50%;transform:translateX(-50%);background:#ffdb42;color:#091b38;border:none;box-shadow:0 5px 0 #cb3652;opacity:0;pointer-events:none;transition:opacity .4s ease}
-#curtainIntro.unveil .intro-enter {opacity:1;pointer-events:auto}
-#v8Actions {position:fixed;right:16px;top:98px;z-index:19;display:flex;gap:8px}
-#v8Actions button {color:#d8ffee;font-weight:900;font-size:11px;border:1px solid #6ff9c18c;background:#140a39e9;padding:11px 13px;border-radius:22px;box-shadow:0 4px 20px #000a;cursor:pointer}
-#v8Actions button:hover {background:#45277e}
-#motionLabModal {display:none;position:fixed;inset:0;z-index:9998;background:rgba(3,5,17,.94);padding:20px;overflow:auto;align-items:center;justify-content:center;color:#fff;backdrop-filter:blur(16px)}
-#motionLabModal.open {display:flex}
-#motionLabModal .motion-shell {width:min(1030px,100%);max-height:calc(100dvh - 28px);overflow:auto;border:1px solid #80f5d07a;border-radius:24px;background:linear-gradient(145deg,#171039,#071c2e);box-shadow:0 22px 90px #000b;padding:clamp(17px,3vw,28px)}
-#motionLabModal header {display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:18px}
-#motionLabModal header small {color:#71ffd4;letter-spacing:.17em;font-weight:900;font-size:11px}
-#motionLabModal h2 {font-size:clamp(23px,3vw,38px);margin:5px 0 0}
-#motionLabModal .close-motion {border:1px solid #ffffff61;color:#fff;border-radius:16px;background:#120c2b;padding:8px 14px}
-#motionLabModal .motion-main {display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;min-height:420px}
-#motionLabModal .motion-clips {display:flex;flex-direction:column;gap:8px}
-#motionLabModal .motion-clips button {display:flex;align-items:center;gap:10px;text-align:left;background:#060d2d;border:2px solid #7b6da277;color:#fff;border-radius:15px;padding:8px;min-height:93px}
-#motionLabModal .motion-clips button.active {border-color:#83ffd4;background:#2e1456}
-#motionLabModal .motion-clips img {width:58px;height:74px;object-fit:cover;border-radius:9px}
-#motionLabModal .motion-clips b {font-size:13px}#motionLabModal .motion-clips span {font-size:10px;color:#a5a3d1;display:block;margin-top:6px}
-#motionLabModal .motion-player {min-width:0;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#050b1c;border-radius:18px;overflow:hidden;border:1px solid #49769d4f}
-#motionLabModal #motionVideo {display:block;max-width:100%;max-height:min(62vh,590px);height:auto;object-fit:contain;background:#000}
-#motionLabModal .motion-foot {font-size:12px;color:#9cb4c6;text-align:center;margin-top:13px}
-@media(max-width:700px){
- #v8Actions{top:82px;right:8px;gap:5px}#v8Actions button{font-size:9px;padding:8px 9px}
- #curtainIntro .cinema-frame {width:100%}
- #curtainIntro .curtain-caption {bottom:19%}
- #motionLabModal{padding:7px}#motionLabModal .motion-shell{padding:12px;max-height:98dvh;border-radius:14px}
- #motionLabModal .motion-main{display:flex;flex-direction:column;gap:10px}
- #motionLabModal .motion-clips{flex-direction:row}#motionLabModal .motion-clips button {flex:1;min-width:0;min-height:70px;padding:4px;gap:4px;flex-direction:column;align-items:center;text-align:center}
- #motionLabModal .motion-clips img{width:100%;height:55px;object-fit:cover}#motionLabModal .motion-clips b{font-size:9px;line-height:1.2}#motionLabModal .motion-clips span{display:none}
- #motionLabModal .motion-player{max-height:63dvh}#motionLabModal #motionVideo {max-height:55dvh}
-}
-@media(prefers-reduced-motion:reduce){#curtainIntro .curtain-panel,#curtainIntro .curtain-caption,#curtainIntro .cinema-photo {transition-duration:.3s!important}}
-</style><style>
-/* V9 Velvet Roll: photographic fabric, physically eased upward lifting and motion sedan. */
-#curtainIntro .curtain-panel,#curtainIntro .curtain-rod{display:none!important}
-#curtainIntro .cinema-frame{background:#090d1b}
-#curtainIntro .cinema-photo{object-fit:cover;transform:scale(1.04);transition:transform 8.8s cubic-bezier(.2,.85,.2,1)}
-#curtainIntro.unveil .cinema-photo{transform:scale(1.005)}
-#curtainIntro .photo-shade{background:linear-gradient(to bottom,rgba(4,4,8,.02) 12%,rgba(5,5,13,.04) 52%,rgba(4,8,20,.45) 100%)}
-#velvetRollCanvas{position:absolute;inset:0;z-index:6;width:100%;height:100%;pointer-events:none}
-#curtainIntro .curtain-top{display:none}
-#curtainIntro .curtain-caption{bottom:13%;z-index:9;transition:opacity .8s ease 4.5s, transform .8s ease 4.5s;pointer-events:none}
-#curtainIntro .curtain-caption .small{font-size:10px;letter-spacing:.2em}
-#curtainIntro .curtain-caption h1{color:#fff2db;filter:drop-shadow(0 3px 16px #030916);letter-spacing:.16em;font-size:clamp(41px,5.8vw,78px)}
-#curtainIntro .curtain-caption p{font-size:clamp(11px,1.4vw,15px);font-weight:650}
-#curtainIntro .intro-skip{background:#07091bb5;border:1px solid #ffe0aa77;z-index:15}
-#curtainIntro .intro-enter{z-index:15;transition:opacity .4s ease 5s,transform .3s ease;box-shadow:0 2px 12px #0006,0 3px 0 #8e5b24;background:#f7d9a2}
-#curtainIntro .intro-enter:hover{transform:translateX(-50%) translateY(-3px)}
-#curtainIntro .curtain-side-light{position:absolute;top:0;bottom:0;width:5px;z-index:7;pointer-events:none;background:linear-gradient(180deg,#a86a2a,#f6d5a1,#78300e);opacity:.55}
-#curtainIntro .curtain-side-light.left{left:0}
-#curtainIntro .curtain-side-light.right{right:0}
-@media(max-width:600px){#curtainIntro .cinema-photo{object-position:center center}#curtainIntro .curtain-caption{bottom:17%;padding:0 10px}}
-@media(prefers-reduced-motion:reduce){#velvetRollCanvas{display:none}#curtainIntro .curtain-caption{transition-duration:.1s!important}}
-</style><style>
-#curtainIntro .vs-banner{position:absolute;left:16px;right:16px;top:70px;z-index:12;text-align:center;padding:14px 10px;border-top:2px solid #ffd27a;border-bottom:2px solid #ffd27a;background:#08102acc;backdrop-filter:blur(6px)}
-#curtainIntro .vs-banner b{display:block;font-size:11px;letter-spacing:.32em;color:#ffd27a}
-#curtainIntro .vs-banner span{display:block;margin-top:6px;font-size:clamp(18px,5.2vw,30px);font-weight:900;line-height:1.35;color:#fff}
-.prologue-btn{position:relative;z-index:40;pointer-events:auto;margin:12px 0 4px;display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:11px 16px;font-weight:900;font-size:13px;color:#091b38;background:linear-gradient(90deg,#ff5f6d,#ffc371);box-shadow:0 4px 0 #8e1d3a;cursor:pointer}
-.prologue-btn small{font-weight:700;opacity:.75}
-.vs-strip{position:relative;z-index:40;display:inline-block;margin:6px 0 0;padding:4px 10px;border-radius:8px;background:#0a0f2ccc;font-size:11.5px;font-weight:800;color:#ffd27a}
-#prologue{position:fixed;inset:0;z-index:10000;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center}
-#prologue.on{display:flex}
-#prologue video{width:100%;height:100%;object-fit:contain;background:#000}
-#prologue .pl-top{position:absolute;top:14px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;z-index:2;color:#fff;font:800 12px system-ui,'Noto Sans KR',sans-serif;letter-spacing:.08em}
-#prologue .pl-top button{border:1px solid #fff8;border-radius:30px;background:#0009;color:#fff;padding:9px 14px;font-weight:800}
-#prologue .pl-vs{position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#ffd27a;font:800 11px system-ui,'Noto Sans KR',sans-serif;z-index:2}
+/* floors */
+.floors{background:var(--paper)}
+.fl-list{margin-top:22px;border:2.5px solid var(--ink);border-radius:18px;overflow:hidden;background:#fff}
+.fl-row{display:flex;gap:12px;align-items:center;padding:13px 14px;border-top:2px solid var(--ink);position:relative}
+.fl-row:first-child{border-top:0}
+.fl-row .n{flex:none;width:58px;font-size:15px}
+.fl-row b{display:block;font-size:15px;font-weight:900}
+.fl-row span{display:block;font-size:12px;color:#5c574d;margin-top:2px}
+.fl-row .bar2{position:absolute;inset:0;transform-origin:left;transform:scaleX(0);transition:transform .9s cubic-bezier(.16,1,.3,1);z-index:0}
+.fl-row>*{position:relative;z-index:1}
+.fl-row.in .bar2{transform:scaleX(1)}
+
+/* campus */
+.campus{background:var(--ink);color:#fff}
+.campus .lead{color:#c9c4b8}
+.uni{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.uni span{padding:9px 13px;border:2px solid var(--lime);border-radius:999px;font-size:14px;font-weight:700}
+.big{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.big div{border-top:3px solid var(--lime);padding-top:10px}
+.big b{display:block;font-size:30px;color:var(--lime)}
+.big span{font-size:11.5px;color:#d7d2c6}
+
+/* rooftop */
+.roof{position:relative;height:100svh;min-height:600px;overflow:hidden;background:#000;color:#fff}
+.roof video{position:absolute;inset:0;height:100%;object-fit:cover}
+.roof .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,0) 35%,rgba(0,0,0,0) 55%,rgba(0,0,0,.8))}
+.roof .copy{position:absolute;left:18px;right:18px;bottom:40px}
+.roof h2{font-size:38px}
+.roof .top{position:absolute;left:18px;top:30px}
+
+/* closing */
+.close{background:var(--lime);border-top:3px solid var(--ink)}
+.close h2{font-size:36px}
+.links{margin-top:22px;display:grid;gap:10px}
+.links a{display:flex;justify-content:space-between;align-items:center;padding:16px;border:2.5px solid var(--ink);border-radius:16px;background:var(--paper);color:var(--ink);text-decoration:none;font-weight:900;box-shadow:4px 4px 0 var(--ink)}
+.links a small{display:block;font-weight:500;font-size:12px;color:#5c574d;margin-top:3px}
+.foot{padding:26px 18px 90px;background:var(--ink);color:#bdb8ad;font-size:11.5px;line-height:1.8}
+.foot b{color:var(--lime)}
+
+/* film overlay */
+#ov{position:fixed;inset:0;z-index:100;background:#000;display:none}
+#ov.on{display:block}
+#ov video{width:100%;height:100%;object-fit:contain}
+#ov .x{position:absolute;top:14px;right:14px;z-index:2;border:2px solid #fff;border-radius:999px;background:#0008;color:#fff;font-weight:900;padding:9px 14px}
+#ov .lb{position:absolute;top:20px;left:16px;z-index:2;color:var(--lime);font-size:12px;font-weight:900;letter-spacing:.08em}
+.top-btn{position:fixed;right:max(16px,calc(50vw - 224px));bottom:18px;z-index:60;width:46px;height:46px;border-radius:50%;border:2.5px solid var(--ink);background:var(--lime);font-weight:900;font-size:18px;box-shadow:3px 3px 0 var(--ink);transform:translateY(90px);transition:transform .4s}
+.top-btn.show{transform:none}
+@media (prefers-reduced-motion:reduce){.rv,.mask>span,.fl-row .bar2{transition:none;transform:none}.marq div{animation:none}}
 </style>
 </head>
 <body>
-<section id="curtainIntro" aria-label="신촌빌딩 붉은 커튼 공개 도입" style="--bldg:url(/sinchon/after-exterior.webp)">
-  <div class="cinema-bg"></div>
-  <div class="cinema-stage"><div class="cinema-frame">
-  <img class="cinema-photo" src="/sinchon/after-exterior.webp" alt="신촌빌딩 외관 콘셉트 이미지"><div class="photo-shade"></div><canvas id="velvetRollCanvas" aria-hidden="true"></canvas><div class="curtain-side-light left"></div><div class="curtain-side-light right"></div>
-  <div class="vs-banner"><b>VIRTUAL SCENARIO</b><span>이 사이트의 모든 내용과 이미지는<br>가상 시나리오입니다</span></div>
-  <div class="curtain-caption"><div class="small">THE CURTAIN RISES · A CITY AWAKENS</div><h1>SINCHON</h1><p>천천히 오르는 붉은 장막, 깨어나는 신촌의 건물.</p></div>
-  </div></div>
-  <div class="curtain-panel" aria-hidden="true"></div><div class="curtain-rod" aria-hidden="true"></div>
-  <div class="curtain-top">THE GRAND UNVEILING · SINCHON</div>
-  <button class="intro-skip" id="curtainSkip" type="button" aria-label="도입 건너뛰기">건너뛰기 ↗</button>
-  <button class="intro-enter" id="curtainEnter" type="button">▶ 건물 탐험 시작</button>
-</section>
 
-<div id="museOrb" aria-hidden="true"><div class="orb-halo"></div><div class="orb-orbit"></div><div class="orb-glass"><span class="prism-geom" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="orb-spark"></div></div><button type="button" id="museToggle" aria-pressed="true" title="네온 프리즘 심볼 표시/숨기기"><span class="muse-dot"></span>PRISM CORE ON</button>
-<div id="intro"><div class="introtext"><div class="introedition">THE BUILDING IS YOUR PLAYGROUND</div><div class="lg">SINCHON<span class="introDot">●</span></div><div class="sm">PLAY THE BUILDING / V7</div><div class="wait">ENTER A NEW LEVEL ···</div></div></div>
-<canvas id="stage" aria-label="회전하고 층을 선택할 수 있는 신촌빌딩 직사각형 3D 콘셉트"></canvas><div id="vignette"></div>
-<div id="artShapes" aria-hidden="true"><i class="art a1"></i><i class="art a2"></i><i class="art a3"></i><i class="art a4"></i><i class="art a5"></i><span class="scribble"></span></div>
-
-<div id="neonAtmosphere" aria-hidden="true"><div class="horizon-grid"></div><div class="ambilight ag"></div><div class="ambilight ap"></div><div class="ambilight ac"></div></div>
-<div id="arcadeHud" aria-live="polite"><span class="hud-signal"><b></b> SYSTEM ONLINE</span><span id="hudLevel">LVL 01</span><span class="hud-meter"><i id="hudMeter"></i></span><span class="hud-label" id="hudLabel">EXPLORE TO CHARGE</span></div>
-<div id="arcadeFlash" aria-hidden="true"></div>
-<header id="top">
- <div class="brand"><div class="mark" aria-hidden="true"></div><div><div class="brandtitle">SINCHON</div><div class="brandtiny">NEON QUEST · ARCADE ART EDITION 07</div></div></div>
- <div class="topactions"><div class="passport" aria-label="탐험한 공간 수"><span>✦ EXPLORED</span> <b id="passportCount">0 / 9</b></div><div class="eyebrow state"><span class="statusdot"></span>PRIVATE QUEST · 2026</div><button id="resetBtn" aria-label="건물 전체 보기">↺ 처음으로</button><button id="menuBtn" aria-label="조작 안내">? PLAY GUIDE</button></div>
+<header class="bar">
+  <div class="row"><span class="logo en">ORBIT HOUSE</span><a class="cta" href="#rooms">내 방 고르기</a></div>
+  <nav class="chips" aria-label="섹션 이동">
+    <a href="#film">변신</a><a href="#day">신촌의 하루</a><a href="#rooms">객실</a><a href="#floors">층별 안내</a><a href="#campus">캠퍼스</a><a href="#roof">옥상</a><a href="#more">더 보기</a>
+  </nav>
 </header>
-<section id="left"><div class="eyebrow"><span class="miniStar">✦</span> WELCOME TO THE NEON QUEST</div>
-<h1 id="headline">도시를<br><em>PLAY</em>하다<span class="bigDot">.</span></h1>
-<p class="lead">신촌의 건물이 살아나는 순간. 네온 레벨을 돌려 보고, 새로운 공간을 잠금 해제하세요.</p>
-<button type="button" class="prologue-btn" id="prologueOpen">▶ 프롤로그 · 건물이 깨어나다 <small>83초</small></button>
-<p class="vs-strip">※ 이 사이트의 모든 내용과 이미지는 가상 시나리오입니다</p>
-<div class="leftActions"><button id="startBtn" class="startExplore"><span>▶</span> START THE QUEST <span>↗</span></button><span class="leftMicro">DRAG THE TOWER / PICK A FLOOR</span></div>
-<div id="chapter"><span class="line"></span><span id="chaptertext">CHOOSE A FLOOR / UNLOCK A WORLD</span></div>
-</section>
-<div id="focusPill" aria-live="polite">B2 / 시네마</div><nav id="floors" aria-label="층 선택"></nav>
-<aside id="right" aria-live="polite"><div class="panel glass"><div class="panelhead"><span class="index" id="panelFloor">B2 / 01</span><span class="chip">LEVEL UNLOCKED ↗</span></div><div class="panelphoto"><img id="panelImg" alt="체험 공간 이미지"></div><div class="paneldesc"><h2 id="panelTitle">인생영화관</h2><p id="panelDesc">영화 속으로 들어가 직접 주인공이 되는 공간.</p><div class="flexrow"><button class="primary" id="enterBtn">↗ 공간 탐험</button><button class="quiet" id="videoBtn">▶ 영상 체험</button></div></div></div></aside>
-<div id="scrollrail"><div class="scrollarc">↔</div>DRAG TO SPIN ↗ · TAP TO ENTER</div>
-<footer id="bottom"><div id="controls"><button class="pill on" id="viewBtn">◇ BUILDING</button><button class="pill" id="tourBtn">▷ AUTO QUEST</button><button class="pill" id="allVideosBtn">▶ FILM</button></div><div id="hint">ALL FLOORS · PRIVATE CONCEPT TOUR<br><span class="gold">10F / RF = IMAGINED SPACES</span></div></footer>
-<div id="menu" class="glass"><b>HOW TO PLAY</b><div class="divider"></div>최회장님 개인 감상용 신촌빌딩 창작 시안입니다. 기존 건축물 및 2004년 도면을 참고했으나 실제 인허가·시공·운영을 확정한 내용은 아닙니다.<div class="divider"></div>키보드 ← → : 건물 회전<br>키보드 ↑ ↓ : 층 이동<br>마우스 휠 : 확대/축소<br>모바일 : 화면을 드래그하고 층 선택<button id="menuClose">GOT IT ✓</button></div>
-<div id="toast" role="status"></div>
-<section id="experience" role="dialog" aria-modal="true" aria-labelledby="exTitle">
- <div class="experienceInner">
- <button class="exclose" id="exClose" aria-label="닫기">×</button>
- <div class="exvisual" id="exVisual"><div id="artSparkles" aria-hidden="true"></div><img id="exImage" alt="실내 장면"><video id="exVideo" playsinline webkit-playsinline preload="none" controls></video><div class="exstamp" id="exstamp">B2 / SINCHON EXPERIENCE</div></div>
- <div class="excontent"><div class="eyebrow" id="exEyebrow">AN IMMERSIVE STORY</div><h2 id="exTitle">인생영화관</h2><p id="exDesc">상상을 현실로 바꾸는 특별한 영화관.</p><div class="exbuttons"><button class="primary" id="exMagic" type="button">✦ 아트 모드</button><button class="primary" id="exPlay">▶ 실제 영상 재생</button><button class="art-film-btn" id="exArtFilm" style="display:none" title="앞부분을 편집한 실험 영상을 재생합니다">🎞 ART FILM</button><button class="quiet" id="exNext">다음 공간 →</button></div><div class="scrubline" id="lookControl">이미지 속 시선 이동<input id="lookSlider" type="range" min="0" max="100" value="50" aria-label="화면 좌우 둘러보기"></div><div class="experienceTags" id="experienceTags" aria-label="공간 콘셉트 태그"></div><div class="exmini" id="exNote">영상 재생은 사용자가 직접 눌러 시작합니다.</div></div>
- </div>
-</section>
-<script>
-const ASSET_IMAGES={"cinema": "/sinchon/play/a/m3.jpg", "dining": "/sinchon/play/a/m4.jpg", "beauty": "/sinchon/play/a/m5.jpg", "rain": "/sinchon/play/a/m6.jpg"};
-const ASSET_VIDEOS={"hotel": "/sinchon/hero.mp4", "cinema": "/sinchon/play/a/cinema.mp4", "rain": "/sinchon/play/a/m8.mp4", "beauty": "/sinchon/play/a/beauty.mp4", "dining": "/sinchon/play/a/dining.mp4"};
 
-
-Object.assign(ASSET_IMAGES,{entry:"/sinchon/play/a/m11.svg",lounge:"/sinchon/play/a/m12.svg",hotel:"/sinchon/play/a/m13.svg",sky:"/sinchon/play/a/m14.svg",roof:"/sinchon/play/a/m15.svg"});
-</script>
-<script>
-/* V5: private 3F art-film extension; V4 source and existing films stay intact. */
-ASSET_VIDEOS.diningArt = "/sinchon/play/a/m16.mp4";
-const FLOOR_DATA = [
- {id:'roof',label:'RF',title:'빛의 정원',short:'옥상',index:'RF / CONCEPT',tag:'SKY GARDEN',description:'도심 위에 떠 있는 컬러 아트 정원. 빛의 고리와 조각이 만드는 옥상 전시를 탐험해 보세요. [가상 콘셉트]',color:'#ffdd39',image:'roof',video:null},
- {id:'hotel',label:'5–9F',title:'스마트 스테이',short:'호스텔',index:'5–9F / STAY',tag:'STAY THE NIGHT',description:'건물의 심장, 스마트 객실. 하루 머무는 여행자부터 한 학기를 보내는 유학생, 병원 가족까지 — 휴대폰 하나로 체크인하고 나만의 방에서 신촌의 밤을 내려다봅니다.',color:'#287bff',image:'hotel',video:'hotel'},
- {id:'lounge',label:'4F',title:'커뮤니티 라운지',short:'라운지',index:'4F / LOUNGE',tag:'SLOW DOWN',description:'도시의 야경을 바라보며 책과 음악, 대화를 즐기는 컬러풀 커뮤니티 살롱. 고요함과 활력이 공존합니다.',color:'#a66dff',image:'lounge',video:null},
- {id:'dining',label:'3F',title:'한식뷔페',short:'한식',index:'3F / DINING',tag:'TASTE THE CITY',description:'풍성한 한 상, 따뜻한 조명, 살아 있는 주방. 식사의 순간도 하나의 장면이 됩니다.',color:'#ffba17',image:'dining',video:'dining'},
- {id:'beauty',label:'2F',title:'K-뷰티 팝업',short:'K-뷰티',index:'2F / BEAUTY',tag:'DISCOVER BEAUTY',description:'제품을 만지고 발견하는 화사한 실험실. 일상의 아름다움이 작품이 됩니다.',color:'#ff5f9b',image:'beauty',video:'beauty'},
- {id:'entry',label:'1F',title:'도시의 문',short:'리셉션',index:'1F / ARRIVAL',tag:'YOUR JOURNEY BEGINS',description:'노란 아트 게이트를 지나면 신촌의 새로운 세계가 열립니다. 리셉션과 디지털 체크인이 여행의 출발점이 됩니다.',color:'#ffcb2c',image:'entry',video:null},
- {id:'rain',label:'B1',title:'폭우정원',short:'레인가든',index:'B1 / RAIN GARDEN',tag:'FEEL THE RAIN',description:'유리 너머 떨어지는 비와 수반의 물결. 도시 한가운데 숨은 또 다른 날씨입니다.',color:'#16e0b3',image:'rain',video:'rain'},
- {id:'cinema',label:'B2',title:'인생영화관',short:'시네마',index:'B2 / LIFE CINEMA',tag:'ENTER YOUR STORY',description:'푸른 고래가 머리 위를 유영하고, 관객이 직접 영화 속 주인공이 되는 공간입니다.',color:'#5085ff',image:'cinema',video:'cinema'},
- {id:'sky',label:'10F',title:'스카이 아틀리에',short:'스카이',index:'10F / FUTURE CONCEPT',tag:'THE SKY IS YOUR STAGE',description:'도시 위 작은 아틀리에. 여행자의 창작과 휴식을 위한 스카이 라운지 상상도입니다. [증축·운영 미확정 가상 콘셉트]',color:'#ff694d',image:'sky',video:null}
-];
-const $=id=>document.getElementById(id);
-let selected=5, mode='tower', yaw=-.40,targetYaw=-.40, pitch=.22,targetPitch=.22, zoom=1,targetZoom=1, activeTour=false,tourTimer=0, lastTs=0, openMedia=false, videoCurrent=null, insideLook=0;
-const cvs=$('stage'), ctx=cvs.getContext('2d',{alpha:true});
-let W=0,H=0,DPR=1;let projectedFloors=[]; let stars=[];
-function resize(){let r=cvs.getBoundingClientRect();W=r.width;H=r.height;DPR=Math.min(window.devicePixelRatio||1,2);cvs.width=Math.round(W*DPR);cvs.height=Math.round(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0);makeStars()}
-function makeStars(){stars=Array.from({length:95},()=>({x:Math.random()*W,y:Math.random()*H*.66,r:Math.random()*1.25,phase:Math.random()*6}))}
-window.addEventListener('resize',resize); resize();
-const clamp=(x,a,b)=>Math.max(a,Math.min(b,x)); const lerp=(a,b,t)=>a+(b-a)*t; const ease=(x)=>x*x*(3-2*x);
-function camProject(p){let xx=p[0], yy=p[1]-3.10, zz=p[2]; const cr=Math.cos(yaw),sr=Math.sin(yaw),ce=Math.cos(pitch),se=Math.sin(pitch);let rx=xx*cr-zz*sr, fw=xx*sr+zz*cr;let up=yy*ce-fw*se;let dep=fw*ce+yy*se;let dist=15.5-dep;let focal=Math.min(W*.88,H*.93)*zoom;let sc=focal/dist;let ox=W*.50,oy=H*.525;
-if(W>760){ox=W*.53;oy=H*.52;}else{ox=W*.55;oy=H*.49;}
-return [ox+rx*sc,oy-up*sc,sc,dep];}
-function shade(hex,f=1){let m=hex.replace('#','');return `rgb(${[0,2,4].map(i=>Math.round(clamp(parseInt(m.substr(i,2),16)*f,0,255))).join(',')})`}
-function poly(points,fill,stroke=null,sw=1){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=sw;ctx.stroke()}}
-function line(points,color,width=1){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke()}
-function point(x,y,z){return camProject([x,y,z])}
-function glowRing(y,time,alpha=1){const r=4.55,pts=[];for(let i=0;i<=68;i++){let a=i/68*Math.PI*2;pts.push(point(r*Math.cos(a),y,r*.5*Math.sin(a)))}ctx.save();ctx.globalAlpha=.6*alpha;ctx.shadowBlur=22;ctx.shadowColor=FLOOR_DATA[selected].color;line(pts,FLOOR_DATA[selected].color,1.8);ctx.shadowBlur=0;line(pts,'rgba(255,220,65,.47)',.9);ctx.restore();for(let k=0;k<6;k++){const a=time*.00045+k*Math.PI/3;const p=point(r*Math.cos(a),y,r*.5*Math.sin(a));ctx.fillStyle=`rgba(255,235,83,${(.3+.45*alpha).toFixed(2)})`;ctx.beginPath();ctx.arc(p[0],p[1],1.8,0,6.29);ctx.fill()}}
-function drawBackground(t){ctx.clearRect(0,0,W,H);let gx=W*.56,gy=H*.5;let rad=ctx.createRadialGradient(gx,gy,20,gx,gy,Math.max(W,H)*.5);rad.addColorStop(0,'rgba(36,85,246,.28)');rad.addColorStop(1,'rgba(9,16,66,0)');ctx.fillStyle=rad;ctx.fillRect(0,0,W,H);
- // Primary-colored abstract shards around the viewport. They are decorative, not a background image.
- ctx.save();
- const shards=[
-  {x:.05,y:.19,w:120,h:138,c:'#f7c828',a:.18},
-  {x:.86,y:.15,w:170,h:135,c:'#ff3c3d',a:.2},
-  {x:.77,y:.82,w:160,h:180,c:'#11bdbe',a:.13},
-  {x:.16,y:.77,w:150,h:85,c:'#ef4a44',a:.14},
-  {x:.59,y:.05,w:120,h:82,c:'#f6d42e',a:.14}];
- for(let i=0;i<shards.length;i++){let o=shards[i];ctx.globalAlpha=o.a;ctx.fillStyle=o.c;let x=W*o.x,y=H*o.y+5*Math.sin(t*.00038+i);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+o.w,y-25);ctx.lineTo(x+o.w*.42,y+o.h);ctx.closePath();ctx.fill()}
- ctx.restore();
-
- for(let s of stars){let a=.1+.18*Math.sin(t*.0005+s.phase)**2;ctx.fillStyle=`rgba(255,222,148,${a})`;ctx.fillRect(s.x,s.y,s.r,s.r)}
- const horizon=H*.76;ctx.fillStyle='rgba(73,139,166,.07)';for(let i=0;i<65;i++){let bx=i*W/63 + Math.sin(i*7)*12,hh=25+(Math.sin(i*44)*.5+.5)*120*(H/850);ctx.fillRect(bx,horizon-hh,W/85,hh);if(i%4===0){ctx.fillStyle='rgba(233,193,131,.09)';for(let k=0;k<4;k++)ctx.fillRect(bx+3,horizon-hh+8+k*15,2,2);ctx.fillStyle='rgba(73,139,166,.07)'}}
- const hg=ctx.createLinearGradient(0,horizon-20,0,H);hg.addColorStop(0,'rgba(41,108,130,.07)');hg.addColorStop(1,'rgba(2,9,21,.42)');ctx.fillStyle=hg;ctx.fillRect(0,horizon-20,W,H-horizon+20);
- ctx.lineWidth=.6;ctx.strokeStyle='rgba(103,181,209,.08)';for(let i=0;i<10;i++){let x=(i-3)*W*.21 + W*.4;line([[x,horizon],[W*.52+(x-W*.52)*1.4,H]],'rgba(85,166,197,.065)',.7)}for(let i=0;i<7;i++){let yy=horizon+Math.pow(i/6,1.8)*(H-horizon);line([[0,yy],[W,yy]],'rgba(80,160,185,.05)',1)}
-}
-// Long rectangular tower massing — stylized concept proportions, not a survey or construction drawing.
-const LONG_HALF=3.85, SHORT_HALF=1.62;
-const LONG_SPAN=LONG_HALF*2, SHORT_SPAN=SHORT_HALF*2;
-const floorPlanes=[];for(let i=0;i<13;i++)floorPlanes.push(i);
-const allLayerData=[
- {id:'basement2',y:-1.85,ref:7}, {id:'basement1',y:-.95,ref:6},{id:'ground',y:0,ref:5}, {id:'second',y:.90,ref:4}, {id:'third',y:1.80,ref:3},{id:'fourth',y:2.70,ref:2},
- {id:'fifth',y:3.60,ref:1},{id:'sixth',y:4.50,ref:1},{id:'seventh',y:5.40,ref:1},{id:'eighth',y:6.30,ref:1},{id:'ninth',y:7.20,ref:1},{id:'tenth',y:8.10,ref:8},{id:'roof',y:9.00,ref:0}];
-function drawBuilding(t){projectedFloors=[];const floorSet=allLayerData.map((f,i)=>({...f,i}));floorSet.sort((a,b)=>{let aP=camProject([0,a.y+(.6),0]), bP=camProject([0,b.y+(.6),0]);return aP[3]-bP[3]});
- // vertical translucent central core
- const centralTop=point(0,10.1,0),centralBot=point(0,-2.5,0);line([centralBot,centralTop],'rgba(86,178,225,.12)',3);
- for(let f of floorSet){let act=f.ref===selected;let focus=act?1:0;let shift=act ? 1.15 : 0;let pulse=.5+.5*Math.sin(t*.002);
- let y=f.y+ (act?.18:0), tth= f.i===12?.56:.78;
- let xoff=shift;
- let corners=[[-LONG_HALF,y,-SHORT_HALF],[LONG_HALF,y,-SHORT_HALF],[LONG_HALF,y,SHORT_HALF],[-LONG_HALF,y,SHORT_HALF]]; let atop=corners.map(p=>point(p[0]+xoff,p[1]+tth,p[2]));let bot=corners.map(p=>point(p[0]+xoff,p[1],p[2]));
- let col=FLOOR_DATA[f.ref].color; let colorMix=(act?.78:.43);
- let faceFront=poly([bot[0],bot[1],atop[1],atop[0]],act?'rgba(39,90,232,.67)':'rgba(24,61,162,.64)',act?col:'rgba(100,163,255,.50)',act?2.1:1.05);
- poly([bot[1],bot[2],atop[2],atop[1]],act?'rgba(35,50,142,.72)':'rgba(18,41,118,.72)',act?col:'rgba(109,169,244,.5)',act?2:1);
- poly([bot[3],bot[0],atop[0],atop[3]],'rgba(7,37,58,.25)',null);
- poly([atop[0],atop[1],atop[2],atop[3]],act?'rgba(255,204,50,.17)':'rgba(37,80,167,.32)',act?'#ffdd3b':'rgba(119,175,255,.25)',act?1.5:1);
- // A dynamic geometric artwork is mapped onto each floor's long facade. This is an original composition.
- let front=-SHORT_HALF-.006; const XX=(v)=>-LONG_HALF+LONG_SPAN*v;
- let muralColors=f.ref===8?['#f55c43','#ffdc2e','#1ff2d7']:f.ref===0?['#ffd23a','#ff5949','#19d8bd']:f.ref===5?['#fed02d','#f1544f','#27e0bd']:f.ref===2?['#a465ff','#f5c640','#27dde3']:f.ref===1?['#2f70ff','#f75d5c','#ffe04c']:f.ref===7?['#2f70ff','#9f43ff','#35dfff']:f.ref===6?['#07d7aa','#12b9d0','#ffcf2f']:f.ref===4?['#ff5d9c','#ffca40','#7f65fa']:f.ref===3?['#ff452f','#ffd12e','#ff8747']:['#2a65ee','#ffcc35','#ed4437'];
- let muralOpacity=act?.94:.76;
- ctx.save();ctx.globalAlpha=muralOpacity;
- poly([point(XX(.11)+xoff,y+.08,front),point(XX(.36)+xoff,y+.08,front),point(XX(.29)+xoff,y+tth-.08,front)],muralColors[(f.i+1)%3]);
- poly([point(XX(.36)+xoff,y+.08,front),point(XX(.59)+xoff,y+.08,front),point(XX(.68)+xoff,y+tth-.08,front),point(XX(.48)+xoff,y+tth-.08,front)],muralColors[f.i%3]);
- poly([point(XX(.72)+xoff,y+.08,front),point(XX(.92)+xoff,y+.08,front),point(XX(.86)+xoff,y+tth-.08,front)],muralColors[(f.i+2)%3]);
- // Animated checker-patch on the short return makes rotation colorful too.
- const sideX=LONG_HALF+.006+xoff;
- poly([point(sideX,y+.08,-SHORT_HALF*.76),point(sideX,y+.08,SHORT_HALF*.1),point(sideX,y+tth-.08,SHORT_HALF*.45)],muralColors[(f.i+2)%3]);
- ctx.restore();
- // Glass gloss re-established above the mural, so the facade remains recognizable as a building.
- poly([point(XX(.02)+xoff,y+.09,front-.004),point(XX(.98)+xoff,y+.09,front-.004),point(XX(.98)+xoff,y+tth-.08,front-.004),point(XX(.02)+xoff,y+tth-.08,front-.004)],'rgba(27,74,170,.075)');
- // Horizontal long-face glazing: deliberately more divisions along the long facade.
- const frontZ=-SHORT_HALF-.002;
- for(let j=1;j<12;j++){let x=-LONG_HALF+LONG_SPAN*j/12;line([point(x+xoff,y+.1,frontZ),point(x+xoff,y+tth-.09,frontZ)],`rgba(128,207,237,${act?.71:.29})`,.7)}
- for(let j=1;j<4;j++){let z=-SHORT_HALF+SHORT_SPAN*j/4;line([point(LONG_HALF+.002+xoff,y+.12,z),point(LONG_HALF+.002+xoff,y+tth-.1,z)],`rgba(117,199,232,${act?.67:.28})`,.7)}
- // Continuous horizontal ribbon window — emphasizes a long rectangular footprint.
- line([point(-LONG_HALF+xoff,y+tth*.52,frontZ-.003),point(LONG_HALF+xoff,y+tth*.52,frontZ-.003)],'rgba(105,190,228,.21)',.75);
- // Warm interior glints along the extended street-facing facade.
- for(let j=0;j<11;j++){if((j*13+f.i*3)%7<2){let x=-LONG_HALF+.3+j*(LONG_SPAN-.65)/11;let a=point(x+xoff,y+.32,frontZ-.02),b=point(x+xoff+.35,y+.39,frontZ-.02);ctx.fillStyle=act?'rgba(241,184,111,.42)':'rgba(239,180,102,.16)';ctx.fillRect(Math.min(a[0],b[0]),Math.min(a[1],b[1]),Math.max(1,Math.abs(b[0]-a[0])),1.2)}}
- // Continuous illuminated slab edges on the long facade and short return.
- let glow=act?(.75+.25*pulse):.27;ctx.save();ctx.shadowBlur=act?18:0;ctx.shadowColor=col;
- line([point(-LONG_HALF+xoff,y,-SHORT_HALF),point(LONG_HALF+xoff,y,-SHORT_HALF),point(LONG_HALF+xoff,y,SHORT_HALF)],act?col:`rgba(99,175,255,${glow})`,act?3.5:1.2);ctx.restore();
- const floorCenter=point(xoff,y+.42,0);projectedFloors.push({x:floorCenter[0],y:floorCenter[1],id:f.ref});
- if(act){const center=floorCenter;let a=point(xoff+3.45,y+.5,0);let b=point(xoff+4.35,y+.5,0);line([a,b],col,1.1);ctx.font='600 11px ui-monospace,monospace';ctx.fillStyle='#fff4d3';ctx.fillText(FLOOR_DATA[selected].label,b[0]+7,b[1]+3)}
- }
- // core signal spine
- let x=point(0,10.07,0);ctx.save();ctx.shadowColor='#a1e8ff';ctx.shadowBlur=21;ctx.fillStyle='rgba(164,245,255,.86)';ctx.beginPath();ctx.arc(x[0],x[1],2.6,0,Math.PI*2);ctx.fill();ctx.restore();
- // scan beam active
- const actYs=allLayerData.filter(x=>x.ref===selected),mid=actYs.reduce((a,x)=>a+x.y,0)/actYs.length+.48;
- glowRing(mid,t,.56); 
- // orbit lines + particles
- for(let k=0;k<5;k++){let a=k*1.256+t*.00016;let r=4.9;let p=point(r*Math.cos(a),mid+.2*(k%2),r*.48*Math.sin(a));ctx.fillStyle=`rgba(170,227,245,${.25+Math.sin(t*.001+k)**2*.45})`;ctx.beginPath();ctx.arc(p[0],p[1],k%2?1.2:1.8,0,Math.PI*2);ctx.fill()}
-}
-function draw(t){yaw=lerp(yaw,targetYaw,.085);pitch=lerp(pitch,targetPitch,.08);zoom=lerp(zoom,targetZoom,.08);if(!isDragging&&!activeTour&&mode==='tower') targetYaw+=.00018;
- drawBackground(t);drawBuilding(t);if(activeTour&&t-tourTimer>4900){tourTimer=t;selectFloor(TOUR_ORDER[(TOUR_ORDER.indexOf(selected)+1+TOUR_ORDER.length)%TOUR_ORDER.length],false)}requestAnimationFrame(draw)}
-let isDragging=false,lastX=0,lastY=0,dragDist=0;
-cvs.addEventListener('pointerdown',e=>{isDragging=true;dragDist=0;lastX=e.clientX;lastY=e.clientY;cvs.setPointerCapture(e.pointerId)});
-cvs.addEventListener('pointermove',e=>{if(!isDragging)return;let dx=e.clientX-lastX,dy=e.clientY-lastY;dragDist+=Math.abs(dx)+Math.abs(dy);targetYaw+=dx*.008;targetPitch=clamp(targetPitch+dy*.002,-.12,.48);lastX=e.clientX;lastY=e.clientY});
-cvs.addEventListener('pointerup',e=>{isDragging=false;if(dragDist<10){let r=cvs.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let best=null;for(const q of projectedFloors){let d=Math.hypot(q.x-x,q.y-y);if(d<85&&(!best||best.d<d))best={...q,d}}if(best){selectFloor(best.id,true)}else toast('왼쪽 또는 오른쪽의 층 선택 메뉴를 눌러보세요.')}});
-cvs.addEventListener('wheel',e=>{e.preventDefault();targetZoom=clamp(targetZoom-e.deltaY*.0007,.72,1.65)},{passive:false});
-const NAV_ORDER=[0,8,1,2,3,4,5,6,7];
-const TOUR_ORDER=[5,7,6,4,3,2,1,8,0];
-function navRender(){let el=$('floors');el.innerHTML='';NAV_ORDER.forEach(i=>{let f=FLOOR_DATA[i];let b=document.createElement('button');b.className='floorbtn'+(i===selected?' active':'');b.innerHTML=`<span>${f.label}</span><b>${f.short}</b>`;b.title=f.title;b.setAttribute('aria-label',`${f.label} ${f.title}`);b.addEventListener('click',()=>selectFloor(i,true));el.appendChild(b)})}
-function selectFloor(i,flash=true){selected=(i+FLOOR_DATA.length)%FLOOR_DATA.length;const f=FLOOR_DATA[selected];navRender();$('panelFloor').textContent=f.index;$('panelTitle').textContent=f.title;$('panelDesc').textContent=f.description;$('panelImg').src=ASSET_IMAGES[f.image]||ASSET_IMAGES.cinema;$('panelImg').alt=f.title+' 콘셉트 사진';$('videoBtn').textContent=f.video?'▶ 영상 체험':'◇ 공간 미리보기'; document.getElementById('focusPill').textContent=f.label+'  /  '+f.short;$('chaptertext').textContent=f.tag;document.documentElement.style.setProperty('--electric',f.color);document.documentElement.style.setProperty('--floor-color',f.color);targetYaw=selected%2?-.48:-.29; if(flash)toast(`${f.label} · ${f.title} — 선택되었습니다`)}
-function toast(str){let el=$('toast');el.textContent=str;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),2200)}
-let currentExperience=selected;
-
-const VISUAL_TAGS={
- entry:['ART GATE','SMART CHECK-IN','COLOR PORTAL'],lounge:['BOOKS & MUSIC','CITY VIEW','SOCIAL LOUNGE'],hotel:['SMART STAY','REST & PLAY','NIGHT VIEW'],sky:['FUTURE ROOM','SKYLINE','CONCEPT ONLY'],roof:['ART GARDEN','LIGHT SCULPTURE','CONCEPT ONLY'],cinema:['WHALE CINEMA','FILM','PARTICIPATE'],rain:['RAIN & WATER','GARDEN','IMMERSIVE'],beauty:['K-BEAUTY','COLOR LAB','TRY & DISCOVER'],dining:['KOREAN TABLE','LIVE KITCHEN','TASTE']};
-const MAGIC_LABELS={entry:['게이트 점등','빛의 문이 반짝입니다'],lounge:['살롱 조명','라운지의 조명 분위기를 전환했습니다'],hotel:['나이트 스테이','객실의 야경을 강조합니다'],sky:['스카이 아트','하늘의 빛이 변합니다'],roof:['빛의 축제','옥상 정원에 컬러 파티가 펼쳐집니다']};
-const visited = new Set(); let artMode=false;
-function updatePassport(){ const el=$('passportCount');if(el)el.textContent=`${visited.size} / ${FLOOR_DATA.length}`; }
-function setArtMode(on){artMode=on;$('exVisual').classList.toggle('artActive',on);$('exMagic').classList.toggle('isActive',on);let f=FLOOR_DATA[currentExperience];$('exMagic').textContent=on?'◉ 원래 조명':'✦ 아트 모드';if(on)toast((MAGIC_LABELS[f.id]||['아트 모드','색상과 조명이 변화합니다'])[1]); }
-function openExperience(play=false,idx=selected){activeTour=false;$('tourBtn').classList.remove('on');$('tourBtn').textContent='▷ AUTO QUEST';currentExperience=idx;let f=FLOOR_DATA[idx];visited.add(f.id);updatePassport();setArtMode(false);$('experienceTags').innerHTML=(VISUAL_TAGS[f.id]||[]).map(tag=>`<span>${tag}</span>`).join('');$('experience').classList.add('open');$('exTitle').textContent=f.title;$('exDesc').textContent=f.description+'\n 최회장님을 위한 개인 감상용 가상 공간입니다.';$('exEyebrow').textContent=f.index+' / '+f.tag;$('exstamp').textContent='SINCHON / '+f.index;$('exImage').src=ASSET_IMAGES[f.image];$('exImage').alt=f.title;$('exImage').style.transform='scale(1.14) translateX(0)';$('lookSlider').value=50;$('lookControl').style.display=play?'none':'block';$('exPlay').textContent=f.video?'▶ 실제 영상 재생':'◈ 공간 감상';$('exArtFilm').style.display=f.id==='dining'?'inline-flex':'none';$('exNote').textContent=f.video?'앞서 제작한 완성 영상을 그대로 재활용했습니다.':'이 공간은 창작 콘셉트입니다. 영상은 아직 없습니다.';stopVideo();if(play&&f.video)playVideo(f.video);else if(play)toast('이 공간은 이미지 체험으로 준비되어 있습니다.')}
-function playVideo(k){if(!ASSET_VIDEOS[k])return;let v=$('exVideo');v.classList.add('show');v.src=ASSET_VIDEOS[k];v.currentTime=0;videoCurrent=k;$('lookControl').style.display='none';v.play().catch(()=>{$('exNote').textContent='브라우저 재생 버튼(▶)을 눌러주세요.'});$('exPlay').textContent='↺ 다시 재생'}
-function stopVideo(){let v=$('exVideo');v.pause();v.removeAttribute('src');v.load();v.classList.remove('show');videoCurrent=null}
-function closeExperience(){setArtMode(false);stopVideo();$('experience').classList.remove('open');}
-$('startBtn').onclick=()=>{selectFloor(5,true);targetZoom=1.24;targetYaw-=.28;toast('BUILDING PLAY! 건물을 돌리고 빛나는 층을 선택해 보세요.')};$('enterBtn').onclick=()=>openExperience(false);$('videoBtn').onclick=()=>openExperience(true);$('exClose').onclick=closeExperience;$('experience').addEventListener('click',e=>{if(e.target===$('experience'))closeExperience()});$('exMagic').onclick=()=>{let dining=FLOOR_DATA[currentExperience].id==='dining';setArtMode(!artMode);if(dining){if(artMode){playVideo('diningArt');$('exPlay').textContent='▶ 기존 한식뷔페 영상';$('exNote').textContent='실험영화: 첫 스케치 화면을 제외한 아방가르드 편집본입니다.';}else if(videoCurrent==='diningArt'){stopVideo();$('exPlay').textContent='▶ 기존 한식뷔페 영상';$('exNote').textContent='기존 한식뷔페 영상과 ART FILM을 자유롭게 비교해 보세요.';}}};
-$('exArtFilm').onclick=()=>{playVideo('diningArt');$('exPlay').textContent='▶ 기존 한식뷔페 영상';$('exNote').textContent='원색 아방가르드 필름 — 원본 10초 중 건축 스케치 시작 부분만 제외했습니다.';};$('exPlay').onclick=()=>{let f=FLOOR_DATA[currentExperience];if(f.video){playVideo(f.video)}else{stopVideo();toast('실내 콘셉트를 자유롭게 감상하세요')}};$('exNext').onclick=()=>{let ix=TOUR_ORDER[(TOUR_ORDER.indexOf(currentExperience)+1)%TOUR_ORDER.length];selectFloor(ix,false);openExperience(false,ix)};
-$('lookSlider').oninput=e=>{$('exImage').style.transform=`scale(1.14) translateX(${(Number(e.target.value)-50)*-.15}%)`};
-$('resetBtn').onclick=()=>{selectFloor(5,true);targetZoom=1;targetPitch=.22;targetYaw=-.40;closeExperience();$('right').classList.remove('hidden')};$('tourBtn').onclick=()=>{activeTour=!activeTour;this; $('tourBtn').textContent=activeTour?'Ⅱ STOP TOUR':'▷ AUTO QUEST';$('tourBtn').classList.toggle('on',activeTour);tourTimer=performance.now();toast(activeTour?'8개 공간을 차례로 둘러봅니다':'자동 투어를 종료했습니다');if(activeTour)selectFloor(5,false)};
-$('viewBtn').onclick=()=>{mode=mode==='tower'?'close':'tower';$('viewBtn').classList.toggle('on',mode==='tower');targetZoom=mode==='close'?1.33:1;$('viewBtn').textContent=mode==='close'?'⌕ 확대 탐험':'◈ 건물 탐험'};
-$('allVideosBtn').onclick=()=>{selectFloor(7,false);openExperience(true,7)};
-$('menuBtn').onclick=()=>$('menu').classList.toggle('open');$('menuClose').onclick=()=>$('menu').classList.remove('open');
-window.addEventListener('keydown',e=>{if(e.key==='Escape'){closeExperience();$('menu').classList.remove('open')} if($('experience').classList.contains('open'))return;if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(e.key))e.preventDefault();if(e.key==='ArrowLeft')targetYaw-=.23;if(e.key==='ArrowRight')targetYaw+=.23;if(e.key==='ArrowUp')selectFloor(selected-1,true);if(e.key==='ArrowDown')selectFloor(selected+1,true);if(e.key===' ')$('tourBtn').click()});
-selectFloor(5,false);updatePassport();requestAnimationFrame(draw);setTimeout(()=>$('intro').classList.add('hide'),1850);setTimeout(()=>$('intro').remove(),3200);
-</script>
-<script>
-/* V6: A light, purely additive mouse/touch-following orb. All existing V5 art/video functions remain unchanged. */
-(function(){
-'use strict';
-const orb=document.getElementById('museOrb'),toggle=document.getElementById('museToggle');
-const exp=document.getElementById('experience'),floors=document.getElementById('floors');
-if(!orb||!toggle)return;
-const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-let visible=true, activePointer=false, targetX=0,targetY=0, x=0,y=0,lastX=0,lastY=0,lastTime=0;
-let isTouch=window.matchMedia('(pointer: coarse)').matches;
-function idle(){targetX=window.innerWidth*(isTouch?.84:.58);targetY=window.innerHeight*(isTouch?.34:.65); if(!activePointer){x=targetX;y=targetY;}}
-idle();
-function setVisibility(){
-  const hidden=!visible || (exp&&exp.classList.contains('open'));
-  orb.classList.toggle('orb-hidden',hidden);
-  document.body.classList.toggle('muse-hidden',!visible);
-  toggle.setAttribute('aria-pressed',String(visible));
-  toggle.innerHTML='<span class="muse-dot"></span>PRISM CORE '+(visible?'ON':'OFF');
-  // Highlight the orb around the experimental art-film experience only.
-  const activeFloor=document.querySelector('#floors .active');
-  document.body.classList.toggle('muse-3f', !!(activeFloor && /3F/.test(activeFloor.textContent||'')));
-}
-toggle.addEventListener('click',()=>{visible=!visible;setVisibility()});
-window.addEventListener('pointermove',e=>{
-  // Don't chase the pointer into modal interfaces or while interacting with small buttons.
-  if(exp&&exp.classList.contains('open'))return;
-  activePointer=true;
-  isTouch=e.pointerType==='touch'||window.matchMedia('(pointer: coarse)').matches;
-  targetX=e.clientX+ (isTouch?30:30);
-  targetY=e.clientY+ (isTouch?-54:30);
-},{passive:true});
-window.addEventListener('pointerleave',()=>{activePointer=false;idle()},{passive:true});
-window.addEventListener('resize',()=>{if(!activePointer)idle()},{passive:true});
-if(exp){new MutationObserver(setVisibility).observe(exp,{attributes:true,attributeFilter:['class']})}
-if(floors){new MutationObserver(setVisibility).observe(floors,{subtree:true,attributes:true,attributeFilter:['class']})}
-function animate(t){
- if(!lastTime)lastTime=t;
- let dt=Math.min((t-lastTime)/16.67,3);lastTime=t;
- if(!activePointer){
-  const drift=reduce?0:Math.sin(t/2300)*12;
-  targetX=window.innerWidth*(isTouch?.84:.58)+drift;
-  targetY=window.innerHeight*(isTouch?.34:.65)+(reduce?0:Math.cos(t/1700)*9);
- }
- const lerp=reduce?1:1-Math.pow(.81,dt);
- x+=(targetX-x)*lerp;y+=(targetY-y)*lerp;
- x=Math.max(35,Math.min(window.innerWidth-35,x));
- y=Math.max(45,Math.min(window.innerHeight-45,y));
- let dx=x-lastX;lastX=x;lastY=y;
- const angle=reduce?0:Math.max(-13,Math.min(13,dx*.42));
- const size=isTouch?59:74;
- orb.style.transform='translate3d('+(x-size/2).toFixed(1)+'px,'+(y-size/2).toFixed(1)+'px,0) rotate('+angle.toFixed(1)+'deg)';
- requestAnimationFrame(animate);
-}
-setVisibility();requestAnimationFrame(animate);
-})();
-</script>
-
-<script>
-/* V7 Arcade energy: optional HUD and pulse effects, no network calls. */
-(function(){
-  'use strict';
-  const hud=document.getElementById('arcadeHud'),level=document.getElementById('hudLevel'),bar=document.getElementById('hudMeter'),label=document.getElementById('hudLabel'),flash=document.getElementById('arcadeFlash'),floors=document.getElementById('floors');
-  if(!hud || !floors)return;
-  const order=['B2','B1','1F','2F','3F','4F','5-9F','10F','RF'];
-  const names={'B2':'CINEMA UNLOCKED','B1':'RAIN GARDEN UNLOCKED','1F':'ARRIVAL UNLOCKED','2F':'K-BEAUTY UNLOCKED','3F':'HANSIK UNLOCKED','4F':'SALON UNLOCKED','5-9F':'STAY UNLOCKED','10F':'SKY STUDIO UNLOCKED','RF':'ROOFTOP UNLOCKED'};
-  let timer;
-  function current(){
-    let btn=floors.querySelector('.active');let val=btn?btn.textContent.trim().toUpperCase().replace(/\\s/g,''):'';
-    if(/RF/.test(val))return 'RF';if(/10F/.test(val))return '10F';if(/5-9F|5~9F|5–9F/.test(val))return '5-9F';
-    return order.find(x=>val.includes(x)) || '1F';
-  }
-  function update(){let c=current(), idx=Math.max(0,order.indexOf(c));level.textContent='LVL '+String(idx+1).padStart(2,'0');bar.style.width=((idx+1)/order.length*100)+'%';label.textContent=names[c]||'EXPLORE TO CHARGE';}
-  const obs=new MutationObserver(update);obs.observe(floors,{attributes:true,childList:true,subtree:true});update();
-  function pulse(e){
-    if(e && e.target && e.target.closest && e.target.closest('input'))return;
-    const x=e&&typeof e.clientX==='number'?e.clientX:innerWidth*.5;
-    const y=e&&typeof e.clientY==='number'?e.clientY:innerHeight*.5;
-    flash.style.setProperty('--pulse-x',x+'px');flash.style.setProperty('--pulse-y',y+'px');flash.classList.add('flash');clearTimeout(timer);timer=setTimeout(()=>flash.classList.remove('flash'),135);
-  }
-  document.querySelectorAll('#floors,.leftActions,#controls,#viewBtn').forEach(node=>node.addEventListener('click',pulse));
-})();
-</script>
-
-<div id="v8Actions" aria-label="신촌 추가 체험"><button id="curtainReplay" type="button">↥ CURTAIN REPLAY</button><button id="motionLabOpen" type="button">▶ MOTION LAB · 3</button></div>
-<section id="motionLabModal" role="dialog" aria-modal="true" aria-label="움직임 영상 3편" aria-hidden="true">
-  <div class="motion-shell"><header><div><small>SINCHON / MOTION ARCHIVE</small><h2>움직임의 세 가지 영감</h2></div><button class="close-motion" id="motionLabClose" type="button">✕ 닫기</button></header>
-  <div class="motion-main"><nav class="motion-clips" aria-label="참고 영상 선택"><button data-clip="0" type="button" class="active"><img src="/sinchon/play/a/m17.jpg" alt="네온 리듬 썸네일"><div><b>네온 리듬</b><span>원색·움직임 벤치마킹</span></div></button><button data-clip="1" type="button" class=""><img src="/sinchon/play/a/m18.jpg" alt="붉은 커튼 · 레퍼런스 썸네일"><div><b>붉은 커튼 · 레퍼런스</b><span>신촌 오프닝의 동작 원리</span></div></button><button data-clip="2" type="button" class=""><img src="/sinchon/play/a/m19.jpg" alt="공간이 열리는 도시 썸네일"><div><b>공간이 열리는 도시</b><span>3D 공간 전환 레퍼런스</span></div></button></nav>
-  <div class="motion-player"><video id="motionVideo" playsinline controls preload="none" poster="/sinchon/play/a/m20.jpg" aria-label="선택한 참고 영상"></video></div></div>
-  <p class="motion-foot">세 영상은 별도 감상 · 메인 첫 공개 연출은 붉은 커튼의 동작만 새로 제작했습니다.</p>
+<section class="hero" id="top">
+  <video src="/sinchon/play/a/popart.mp4" poster="/sinchon/play/a/popart.jpg" autoplay muted loop playsinline preload="auto"></video>
+  <div class="shade"></div>
+  <div class="vs"><b>VIRTUAL SCENARIO</b><span>이 사이트의 모든 내용과 이미지는<br>가상 시나리오입니다</span></div>
+  <span class="sticker">신촌 · 2027 봄학기</span>
+  <div class="copy">
+    <p class="kick" style="color:var(--lime)">SINCHON SMART HOSTEL</p>
+    <h1 class="mask"><span>수업 끝나고</span></h1>
+    <h1 class="mask"><span><em>돌아오고 싶은</em> 집.</span></h1>
+    <p>연세 · 이화 · 서강 · 홍대 사이, 신촌 한복판.<br>하루부터 한 학기까지 머무는 대학생의 첫 서울집, ORBIT HOUSE.</p>
   </div>
 </section>
 
+<div class="marq" aria-hidden="true"><div class="en">STUDY · EAT · GLOW · DANCE · SLEEP · REPEAT · 공부하고 · 먹고 · 꾸미고 · 춤추고 · 쉬고 · STUDY · EAT · GLOW · DANCE · SLEEP · REPEAT · 공부하고 · 먹고 · 꾸미고 · 춤추고 · 쉬고 · </div></div>
+
+<section class="film pad" id="film">
+  <p class="kick" style="color:var(--tomato)">01 · BEFORE → AFTER</p>
+  <h2 class="mask"><span>잠든 건물이</span></h2><h2 class="mask"><span>깨어나는 66초.</span></h2>
+  <p class="lead">아무도 눈여겨보지 않던 신촌의 낡은 상가 건물. 선이 그려지고, 유리가 끼워지고, 빛이 감싸 오르면 — 신촌에서 가장 핫한 집이 됩니다.</p>
+  <div class="frame rv"><video data-auto src="/sinchon/play/a/transform.mp4" poster="/sinchon/play/a/transform-mid.jpg" muted loop playsinline preload="none"></video><span class="tag">변신 영상 · 66초</span></div>
+  <button class="btn" data-play="/sinchon/play/a/transform.mp4" data-label="잠든 건물이 깨어나다 · 66초">▶ 소리 켜고 처음부터 보기</button>
+</section>
+
+<section class="day pad" id="day">
+  <p class="kick" style="color:var(--blue)">02 · 24 HOURS IN SINCHON</p>
+  <h2 class="mask"><span>여기 사는 대학생의</span></h2><h2 class="mask"><span>하루를 따라가 볼까요?</span></h2>
+  <div>
+    <div class="slot rv"><div class="time"><span class="en">08:00</span><span class="k">MORNING · 5~10F</span></div><h3>알람 대신 창밖의 신촌</h3><p>책상 하나, 침대 하나, 나만의 욕실. 커튼을 열면 학교까지 걸어가는 길이 보입니다.</p><div class="media"><video data-auto src="/sinchon/hero.mp4" poster="/sinchon/hero-poster.webp" muted loop playsinline preload="none"></video><span class="fl">내 방</span></div></div>
+    <div class="slot rv"><div class="time"><span class="en">12:30</span><span class="k">LUNCH · 한식 다이닝</span></div><h3>점심은 무한 리필 한식</h3><p>외국인 친구랑 같이 줄 서는 한식뷔페. 오늘의 반찬을 고르는 게 하루 중 제일 진지한 시간.</p><div class="media"><video data-auto src="/sinchon/play/a/dining.mp4" poster="/sinchon/play/a/dining.jpg" muted loop playsinline preload="none"></video><span class="fl">한식 다이닝</span></div></div>
+    <div class="slot rv"><div class="time"><span class="en">16:00</span><span class="k">GLOW UP · K뷰티 체험</span></div><h3>공강엔 퍼스널컬러 진단</h3><p>새로 나온 앰플을 발라 보고, 내 톤에 맞는 컬러를 찾는 K뷰티 체험관. 친구 데려오면 더 재밌습니다.</p><div class="media"><video data-auto src="/sinchon/play/a/beauty.mp4" poster="/sinchon/play/a/beauty.jpg" muted loop playsinline preload="none"></video><span class="fl">K뷰티</span></div></div>
+    <div class="slot rv"><div class="time"><span class="en">20:00</span><span class="k">AFTER DARK · B2</span></div><h3>고래가 헤엄치는 영화관, 그리고 댄스</h3><p>머리 위로 고래가 지나가는 인생영화관. 영화가 끝나면 옆 연습실에서 챌린지 한 판, 마지막은 비 내리는 실내 정원에서.</p><div class="media"><video data-auto src="/sinchon/play/a/cinema.mp4" poster="/sinchon/play/a/cinema.jpg" muted loop playsinline preload="none"></video><span class="fl">인생영화관</span></div></div>
+    <div class="slot rv"><div class="time"><span class="en">23:00</span><span class="k">LATE NIGHT · 라운지</span></div><h3>방문만 열면 친구가 있다</h3><p>과제는 라운지에서 같이, 야식은 공유 주방에서. 혼자 살지만 외롭지 않은 집.</p><div class="media"><video data-auto src="/sinchon/community.mp4" poster="/sinchon/community-poster.webp" muted loop playsinline preload="none"></video><span class="fl">라운지</span></div></div>
+  </div>
+</section>
+
+<section class="rooms pad" id="rooms">
+  <p class="kick" style="color:var(--lime)">03 · PICK YOUR ROOM</p>
+  <h2 class="mask"><span>혼자, 둘이, 셋이.</span></h2><h2 class="mask"><span>내 스타일대로.</span></h2>
+  <p class="lead">모든 방에 개별 욕실과 가구가 갖춰져 있어요. 짐 가방 하나만 들고 오면 됩니다.</p>
+  <div class="snap" id="snap">
+    <div class="card"><img src="/sinchon/room-single.webp" alt="1인실 콘셉트" loading="lazy"><div class="t"><b>1인실 · SOLO</b><span>시험기간엔 나만의 독서실, 주말엔 나만의 영화관.</span><i>하루 · 한 달 · 한 학기</i></div></div>
+    <div class="card"><img src="/sinchon/room-twin.webp" alt="2인실 콘셉트" loading="lazy"><div class="t"><b>2인실 · DUO</b><span>동기랑, 교환학생 룸메이트랑. 반값으로 넓게.</span><i>룸메이트 매칭</i></div></div>
+    <div class="card"><img src="/sinchon/room-triple.webp" alt="3인 셰어룸 콘셉트" loading="lazy"><div class="t"><b>3인 셰어 · SQUAD</b><span>친구 셋이 함께 서울 상경. 제일 가성비 좋은 선택.</span><i>단기 여행도 OK</i></div></div>
+    <div class="card"><img src="/sinchon/room-arrival.webp" alt="도착 장면 콘셉트" loading="lazy"><div class="t"><b>체크인은 폰으로</b><span>프런트 없이 앱으로 문을 엽니다. 새벽 도착도 걱정 끝.</span><i>무인 체크인</i></div></div>
+  </div>
+  <div class="dots" id="dots"><i class="on"></i><i></i><i></i><i></i></div>
+  <div class="must">
+    <div><b>개별 욕실</b>모든 방에</div>
+    <div><b>스마트락</b>폰으로 열고 닫기</div>
+    <div><b>공유 주방</b>야식은 같이</div>
+    <div><b>세탁 라운지</b>기다리며 수다</div>
+  </div>
+</section>
+
+<section class="floors pad" id="floors">
+  <p class="kick" style="color:var(--tomato)">04 · FLOOR GUIDE</p>
+  <h2 class="mask"><span>한 건물에</span></h2><h2 class="mask"><span>신촌이 다 있다.</span></h2>
+  <div class="fl-list">
+    <div class="fl-row"><i class="bar2" style="background:#ffd9a8"></i><span class="n en">ROOF</span><div><b>루프탑 라운지</b><span>노을 바비큐 · 주말 파티 · 야경</span></div></div>
+    <div class="fl-row"><i class="bar2" style="background:#c9d3ff"></i><span class="n en">5–10F</span><div><b>스마트 객실</b><span>1인실 · 2인실 · 3인 셰어</span></div></div>
+    <div class="fl-row"><i class="bar2" style="background:#e3d4ff"></i><span class="n en">4F</span><div><b>커뮤니티 라운지</b><span>스터디 · 공유 주방 · 세탁</span></div></div>
+    <div class="fl-row"><i class="bar2" style="background:#ffe7a1"></i><span class="n en">3F</span><div><b>한식 다이닝</b><span>한식뷔페 · 쿠킹 클래스</span></div></div>
+    <div class="fl-row"><i class="bar2" style="background:#ffd0e6"></i><span class="n en">2F</span><div><b>K뷰티 체험관</b><span>퍼스널컬러 · 메이크업 · 신제품 팝업</span></div></div>
+    <div class="fl-row"><i class="bar2" style="background:#e6ff9c"></i><span class="n en">1F</span><div><b>무인 체크인 & 카페</b><span>짐 보관 · 공항 배송</span></div></div>
+    <div class="fl-row"><i class="bar2" style="background:#b8f2e6"></i><span class="n en">B1</span><div><b>레인 가든</b><span>비 내리는 실내 정원</span></div></div>
+    <div class="fl-row"><i class="bar2" style="background:#c4dcff"></i><span class="n en">B2</span><div><b>인생영화관 & 댄스룸</b><span>고래 시네마 · 챌린지 연습실</span></div></div>
+  </div>
+</section>
+
+<section class="campus pad" id="campus">
+  <p class="kick" style="color:var(--lime)">05 · CAMPUS NEXT DOOR</p>
+  <h2 class="mask"><span>캠퍼스는</span></h2><h2 class="mask"><span>옆 동네.</span></h2>
+  <p class="lead">걸어서, 혹은 한 정거장. 아침잠 10분이 늘어나는 위치입니다.</p>
+  <div class="uni"><span>연세대</span><span>이화여대</span><span>서강대</span><span>홍익대</span><span>세브란스병원</span></div>
+  <div class="big"><div><b class="en">4</b><span>대학가</span></div><div><b class="en">24h</b><span>무인 운영</span></div><div><b class="en">1 APP</b><span>예약부터 퇴실까지</span></div></div>
+</section>
+
+<section class="roof" id="roof">
+  <video data-auto src="/sinchon/rooftop-hero.mp4" poster="/sinchon/rooftop-hero-poster.webp" muted loop playsinline preload="none"></video>
+  <div class="shade"></div>
+  <p class="kick top" style="color:var(--lime)">06 · ROOFTOP</p>
+  <div class="copy">
+    <h2 class="mask"><span>하루의 끝은</span></h2><h2 class="mask"><span>신촌 위에서.</span></h2>
+    <p class="lead" style="color:#eee">종강 파티도, 생일 파티도, 그냥 아무 일 없는 금요일 밤도. 신촌의 불빛을 발아래 두고.</p>
+  </div>
+</section>
+
+<section class="close pad" id="more">
+  <p class="kick">ORBIT HOUSE · SINCHON</p>
+  <h2 class="mask"><span>신촌에서의</span></h2><h2 class="mask"><span>첫 학기를, 여기서.</span></h2>
+  <div class="links">
+    <a href="/sinchon/orbit"><div>건물 속까지 3D로 보기<small>원도면 선으로 쌓아 올린 건물 · 층별 객실 배치</small></div><span>→</span></a>
+    <a href="#" data-play="/sinchon/play/a/popart.mp4" data-label="선글라스 속 신촌 · 17초"><div>오프닝 영상 다시 보기<small>선글라스에 비친 신촌 · 17초</small></div><span>▶</span></a>
+  </div>
+</section>
+
+<footer class="foot"><b>VIRTUAL SCENARIO</b> · 이 사이트의 모든 내용과 이미지·영상은 가상 시나리오이며 실제와 다를 수 있습니다.<br>ORBIT HOUSE · SINCHON CONCEPT SAMPLE</footer>
+
+<div id="ov" aria-label="영상 보기"><span class="lb" id="ovl"></span><button class="x" id="ovx" type="button">닫기 ✕</button><video id="ovv" playsinline controls></video></div>
+<button class="top-btn" id="topb" type="button" aria-label="맨 위로">↑</button>
+
 <script>
-/* V8: Interactive red-curtain reveal and three original supplied video references. */
 (function(){
-  'use strict';
-  const intro=document.getElementById('curtainIntro');
-  const skip=document.getElementById('curtainSkip');const enter=document.getElementById('curtainEnter');
-  let cue,exitCue;
-  function closeIntro(){clearTimeout(cue);clearTimeout(exitCue);intro.classList.add('finished');}
-  function startIntro(){clearTimeout(cue);clearTimeout(exitCue);intro.classList.remove('finished','unveil');void intro.offsetWidth;cue=setTimeout(()=>intro.classList.add('unveil'),650);exitCue=setTimeout(closeIntro,9300);}
-  skip.addEventListener('click',closeIntro);enter.addEventListener('click',closeIntro);
-  document.getElementById('curtainReplay').addEventListener('click',startIntro);
-  startIntro();
-  const VIDS=["/sinchon/play/a/m21.mp4", "/sinchon/play/a/m22.mp4", "/sinchon/play/a/m23.mp4"];
-  const el=document.getElementById('motionLabModal'),vid=document.getElementById('motionVideo');
-  const cards=Array.from(el.querySelectorAll('[data-clip]'));
-  const motionOpen=document.getElementById('motionLabOpen'),motionClose=document.getElementById('motionLabClose');
-  function choose(i){vid.pause();vid.src=VIDS[i];vid.poster=cards[i].querySelector('img').src;vid.load();cards.forEach((b,j)=>b.classList.toggle('active',i===j));vid.play().catch(()=>{});}
-  function openModal(){closeIntro();el.classList.add('open');el.setAttribute('aria-hidden','false');choose(0);motionClose.focus();}
-  function closeModal(){vid.pause();vid.removeAttribute('src');vid.load();el.classList.remove('open');el.setAttribute('aria-hidden','true');motionOpen.focus();}
-  motionOpen.addEventListener('click',openModal);motionClose.addEventListener('click',closeModal);
-  cards.forEach((b,i)=>b.addEventListener('click',()=>choose(i)));
-  el.addEventListener('click',e=>{if(e.target===el)closeModal()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&el.classList.contains('open'))closeModal();});
+  // 등장: 위치·마스크만 (투명도 없음). 진입 감지는 바깥 요소에서.
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px'});
+  document.querySelectorAll('.rv,.mask,.fl-row').forEach(el=>io.observe(el));
+  // 화면에 들어온 영상만 재생
+  const vo=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}}),{threshold:.35});
+  document.querySelectorAll('video[data-auto]').forEach(v=>vo.observe(v));
+  // 객실 카드 점
+  const snap=document.getElementById('snap'),dots=[...document.querySelectorAll('#dots i')];
+  snap.addEventListener('scroll',()=>{const w=snap.firstElementChild.getBoundingClientRect().width+12;const i=Math.round(snap.scrollLeft/w);dots.forEach((d,k)=>d.classList.toggle('on',k===i));},{passive:true});
+  // 소리 있는 전체 영상
+  const ov=document.getElementById('ov'),ovv=document.getElementById('ovv'),ovl=document.getElementById('ovl');
+  document.querySelectorAll('[data-play]').forEach(b=>b.addEventListener('click',ev=>{ev.preventDefault();ovl.textContent=b.dataset.label||'';ovv.src=b.dataset.play;ov.classList.add('on');ovv.muted=false;ovv.play().catch(()=>{});}));
+  document.getElementById('ovx').addEventListener('click',()=>{ovv.pause();ov.classList.remove('on');});
+  ovv.addEventListener('ended',()=>ov.classList.remove('on'));
+  // 맨 위로
+  const tb=document.getElementById('topb');
+  addEventListener('scroll',()=>tb.classList.toggle('show',scrollY>900),{passive:true});
+  tb.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
 })();
 </script>
-
-<script id="v9VelvetMotion">
-(function(){
- const intro=document.getElementById('curtainIntro');
- const frame=intro.querySelector('.cinema-frame');
- const cvs=document.getElementById('velvetRollCanvas');
- const ctx=cvs.getContext('2d',{alpha:true});
- const cloth=new Image(), roll=new Image(), sedan=new Image();
- cloth.src='/sinchon/play/a/m24.jpg';roll.src='/sinchon/play/a/m25.png';sedan.src='/sinchon/play/a/m26.png';
- let req=0,started=-1,pendingReset=true,prevW=0,prevH=0;
- function clamp(x){return Math.min(1,Math.max(0,x));}
- function ease(x){x=clamp(x);return x*x*(3-2*x);}
- function resize(){
-  const box=frame.getBoundingClientRect(), w=Math.max(1,Math.round(box.width)),h=Math.max(1,Math.round(box.height));
-  if(w!==prevW||h!==prevH){ const dpr=Math.min(window.devicePixelRatio||1,2);cvs.width=w*dpr;cvs.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);prevW=w;prevH=h; }
-  return [w,h];
- }
- function draw(ms){
-  req=0;
-  if(intro.classList.contains('finished')){return;}
-  if(!intro.classList.contains('unveil')){started=-1;pendingReset=true;}
-  else if(started<0){started=ms;pendingReset=false;}
-  let elapsed=(started<0)?0:(ms-started)/1000;
-  let [w,h]=resize();ctx.clearRect(0,0,w,h);
-  const dur=5.4;let t=clamp(elapsed/dur);let v=ease(t);
-  // Velvet is fixed at the fly loft; its bottom is wound onto the moving padded roll.
-  const target=.298*h;
-  let edge=h-(h-target)*v;
-  if(t>.86&&t<1) edge+=Math.sin((t-.86)/.14*Math.PI)*3.2;
-  let rollHt=Math.max(50,Math.min(155,w*.225));
-  if(cloth.complete&&cloth.naturalWidth){
-   const texH=Math.max(0,edge-rollHt*.36);
-   ctx.save();ctx.beginPath();ctx.rect(0,0,w,Math.min(h,texH+rollHt*.55));ctx.clip();
-   // Real crushed velvet image supplies complicated specular folds rather than repeated CSS stripes.
-   ctx.drawImage(cloth,0,0,cloth.naturalWidth,cloth.naturalHeight,0,0,w,Math.max(h,edge+130));
-   // Deep optical falloff near rolled edge.
-   const shade=ctx.createLinearGradient(0,Math.max(0,edge-rollHt*1.6),0,edge+8);
-   shade.addColorStop(0,'rgba(15,0,6,0)');shade.addColorStop(.65,'rgba(27,0,11,.12)');shade.addColorStop(1,'rgba(13,0,8,.64)');
-   ctx.fillStyle=shade;ctx.fillRect(0,Math.max(0,edge-rollHt*1.6),w,rollHt*1.65);
-   ctx.restore();
-  }else{ctx.fillStyle='#35030c';ctx.fillRect(0,0,w,edge);}
-  if(roll.complete&&roll.naturalWidth){
-    const rollY=edge-rollHt*.81;
-    const sway=(t>0&&t<1)?Math.sin(t*7.2)*Math.sin(t*Math.PI)*1.9:0;
-    ctx.save();ctx.translate(0,sway);
-    // Thin shade on exposed architecture beneath rolling velvet.
-    const g=ctx.createLinearGradient(0,edge-6,0,edge+rollHt*.22);
-    g.addColorStop(0,'rgba(20,0,7,.68)');g.addColorStop(1,'rgba(20,0,7,0)');ctx.fillStyle=g;ctx.fillRect(0,edge-6,w,rollHt*.27);
-    ctx.drawImage(roll,0,0,roll.naturalWidth,roll.naturalHeight,-1,rollY,w+2,rollHt);
-    ctx.restore();
-  }
-  // Once the roll settles into the same photographed fabric at the top, fade the virtual layer seamlessly.
-  if(t>.94){
-    const a=clamp((t-.94)/.06);
-    ctx.save();ctx.globalCompositeOperation='destination-out';ctx.fillStyle='rgba(0,0,0,'+a+')';ctx.fillRect(0,0,w,h);ctx.restore();
-  }
-  // A small dark sedan glides across the foreground road only after it is revealed.
-  const carT=clamp((elapsed-3.65)/2.4);
-  if(carT>0 && carT<1 && sedan.complete && sedan.naturalWidth){
-     const cw=w*.33,ch=cw*(sedan.naturalHeight/sedan.naturalWidth);
-     const x=-cw+(w+cw*1.5)*ease(carT);
-     const y=h*.855+(carT-.5)*5;
-     ctx.globalAlpha=Math.min(1,carT*6,(1-carT)*8);
-     ctx.filter='drop-shadow(0 4px 5px rgba(0,0,0,.45))';
-     ctx.drawImage(sedan,x,y,cw,ch);ctx.filter='none';ctx.globalAlpha=1;
-  }
-  req=requestAnimationFrame(draw);
- }
- const observer=new MutationObserver(()=>{
-    if(intro.classList.contains('finished')){if(req)cancelAnimationFrame(req);req=0;started=-1;return;}
-    if(!intro.classList.contains('unveil'))started=-1;
-    if(!req)req=requestAnimationFrame(draw);
- });
- observer.observe(intro,{attributes:true,attributeFilter:['class']});
- window.addEventListener('resize',()=>{prevW=0;if(!req&&!intro.classList.contains('finished'))req=requestAnimationFrame(draw)});
- if(!req)req=requestAnimationFrame(draw);
-})();
-</script>
-
-<div id="prologue" aria-label="프롤로그 영상"><div class="pl-top"><span id="plLabel">PROLOGUE 1/2 · 선글라스 속 신촌</span><button type="button" id="prologueClose">닫기 ✕</button></div><video id="plVideo" playsinline controls preload="none" poster="/sinchon/play/a/popart.jpg"></video><div class="pl-vs">가상 시나리오</div></div>
-<script>
-(function(){const P=[{src:'/sinchon/play/a/popart.mp4',poster:'/sinchon/play/a/popart.jpg',label:'PROLOGUE 1/2 · 선글라스 속 신촌'},{src:'/sinchon/play/a/transform.mp4',poster:'/sinchon/play/a/transform.jpg',label:'PROLOGUE 2/2 · 잠든 건물이 깨어나다'}];
-const box=document.getElementById('prologue'),v=document.getElementById('plVideo'),lb=document.getElementById('plLabel');let i=0;
-function play(n){i=n;v.src=P[n].src;v.poster=P[n].poster;lb.textContent=P[n].label;v.play().catch(()=>{});}
-document.getElementById('prologueOpen').addEventListener('click',()=>{box.classList.add('on');play(0);});
-v.addEventListener('ended',()=>{if(i<P.length-1)play(i+1);else{box.classList.remove('on');}});
-document.getElementById('prologueClose').addEventListener('click',()=>{v.pause();box.classList.remove('on');});})();
-</script>
-</body></html>
+</body>
+</html>
