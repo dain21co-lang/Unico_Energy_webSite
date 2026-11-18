@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       { source: "/f6b1y4ds", destination: "/f6b1y4ds/index.html" },
       { source: "/scprofile", destination: "/scprofile/index.html" },
       { source: "/scplan", destination: "/scplan/index.html" },
+      { source: "/sinchon/play", destination: "/sinchon/play/index.html" },
     ];
   },
 };

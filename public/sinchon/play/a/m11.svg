@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" role="img" aria-label="1층 아트 게이트">
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#142b93"/><stop offset="1" stop-color="#3926a9"/></linearGradient>
+ <linearGradient id="floor" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#1b286d"/><stop offset=".7" stop-color="#09163d"/><stop offset="1" stop-color="#08112e"/></linearGradient>
+ <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8fff6" stop-opacity=".9"/><stop offset=".55" stop-color="#60c9ed" stop-opacity=".22"/><stop offset="1" stop-color="#1a2d90" stop-opacity=".8"/></linearGradient>
+ <linearGradient id="marble" x1="0" y1="0" x2="1" y2=".7"><stop stop-color="#1a2060"/><stop offset=".55" stop-color="#3559b2"/><stop offset="1" stop-color="#100d43"/></linearGradient>
+ <linearGradient id="amber" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff69e"/><stop offset="1" stop-color="#f9821d"/></linearGradient>
+ <filter id="g"><feGaussianBlur stdDeviation="9"/></filter>
+ <filter id="soft"><feDropShadow dx="0" dy="15" stdDeviation="12" flood-color="#02052c" flood-opacity=".65"/></filter>
+ <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#9acbff" stroke-opacity=".08" stroke-width="2"/></pattern>
+ </defs>
+ <rect width="1280" height="820" fill="url(#sky)"/>
+ <rect width="1280" height="820" fill="url(#grid)"/>
+ <path d="M0 550 L1280 420 V820 H0Z" fill="url(#floor)"/>
+ <path d="M0 550L1280 420" stroke="#91ebff" stroke-opacity=".5" stroke-width="4"/>
+ <path d="M0 775L1250 465M180 820L1280 560M470 820L1280 690" stroke="#ffffff" stroke-opacity=".12" stroke-width="3"/>
+ 
+<!-- entry hall long rectangular corridor and playful glass portal -->
+<path d="M150 110L690 85L690 545L150 550Z" fill="#121b56" stroke="#51f3e4" stroke-width="8"/>
+<path d="M690 85L1165 145L1165 450L690 545Z" fill="#1a3283" stroke="#52defc" stroke-width="8"/>
+<path d="M215 168L622 138L622 503L215 512Z" fill="url(#glass)" opacity=".7"/>
+<path d="M255 485V230Q255 175 315 170H530Q580 176 580 230V485" stroke="#ffd339" stroke-width="22" fill="none"/>
+<path d="M287 482V232Q287 204 322 203H520Q548 206 548 238V482" stroke="#18f1dc" stroke-width="10" fill="none"/>
+<path d="M315 475V245L520 231V476Z" fill="#122258"/>
+<path d="M315 360L520 347" stroke="#ff443e" stroke-width="12"/>
+<path d="M365 476V265M465 476V253" stroke="#42d5fa" stroke-width="6"/>
+<path d="M630 440L960 407L1090 503L750 548Z" fill="#101035" stroke="#ffb926" stroke-width="4"/>
+<path d="M675 393L928 365L959 410L630 441Z" fill="#ffdd31"/>
+<path d="M745 365L934 350L929 371L735 394" fill="#eb3f47"/>
+<path d="M720 439L970 409V517L745 542Z" fill="#e73d47" stroke="#ffb92a" stroke-width="5"/>
+<path d="M765 429L930 409" stroke="#fff4b9" stroke-width="12"/>
+<path d="M995 210L1120 228L1120 393L995 394Z" fill="#ffd32c" stroke="#0c1b69" stroke-width="8"/>
+<path d="M1010 255L1095 266L1040 345" fill="#ee4545"/>
+<circle cx="1065" cy="350" r="20" fill="#2ad2ce"/>
+<path d="M470 615L865 537" stroke="#ffd746" stroke-width="13" opacity=".8"/>
+<circle cx="144" cy="525" r="27" fill="#17dcc6"/><rect x="134" y="480" width="20" height="80" rx="5" fill="#cfebed"/>
+
+ <path d="M18 70 L210 18L520 18" fill="none" stroke="#ffe248" stroke-width="14" stroke-linejoin="miter" opacity=".84"/>
+ <path d="M1180 80L1245 40L1260 235" fill="none" stroke="#ffcf28" stroke-width="14"/>
+ <circle cx="1160" cy="110" r="38" fill="#ffe248" opacity=".2"/>
+ <path d="M75 585L280 520L315 570L105 638Z" fill="#ffe248" opacity=".13"/>
+ <path d="M1070 770L1210 690L1280 760" fill="none" stroke="#ff5845" stroke-width="16" opacity=".68"/>
+</svg>

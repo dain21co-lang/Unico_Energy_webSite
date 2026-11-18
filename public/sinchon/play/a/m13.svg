@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 820" role="img" aria-label="5~9층 스마트 스테이">
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2534a4"/><stop offset="1" stop-color="#8a3ccb"/></linearGradient>
+ <linearGradient id="floor" x1="0" y1="0" x2=".75" y2="1"><stop stop-color="#1b286d"/><stop offset=".7" stop-color="#09163d"/><stop offset="1" stop-color="#08112e"/></linearGradient>
+ <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d8fff6" stop-opacity=".9"/><stop offset=".55" stop-color="#60c9ed" stop-opacity=".22"/><stop offset="1" stop-color="#1a2d90" stop-opacity=".8"/></linearGradient>
+ <linearGradient id="marble" x1="0" y1="0" x2="1" y2=".7"><stop stop-color="#1a2060"/><stop offset=".55" stop-color="#3559b2"/><stop offset="1" stop-color="#100d43"/></linearGradient>
+ <linearGradient id="amber" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff69e"/><stop offset="1" stop-color="#f9821d"/></linearGradient>
+ <filter id="g"><feGaussianBlur stdDeviation="9"/></filter>
+ <filter id="soft"><feDropShadow dx="0" dy="15" stdDeviation="12" flood-color="#02052c" flood-opacity=".65"/></filter>
+ <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse"><path d="M64 0H0V64" fill="none" stroke="#9acbff" stroke-opacity=".08" stroke-width="2"/></pattern>
+ </defs>
+ <rect width="1280" height="820" fill="url(#sky)"/>
+ <rect width="1280" height="820" fill="url(#grid)"/>
+ <path d="M0 550 L1280 420 V820 H0Z" fill="url(#floor)"/>
+ <path d="M0 550L1280 420" stroke="#91ebff" stroke-opacity=".5" stroke-width="4"/>
+ <path d="M0 775L1250 465M180 820L1280 560M470 820L1280 690" stroke="#ffffff" stroke-opacity=".12" stroke-width="3"/>
+ 
+<!-- boutique hostel room with angular blue panels and turquoise panoramic window -->
+<path d="M85 110L775 85L775 530L85 550Z" fill="#18236a" stroke="#ffe84a" stroke-width="9"/>
+<path d="M810 116L1166 160L1180 450L810 524Z" fill="#101852" stroke="#65d8f2" stroke-width="8"/>
+<path d="M850 182L1116 208L1128 428L848 457Z" fill="url(#glass)" stroke="#eaf9e9" stroke-width="6"/>
+<path d="M850 340L1128 300V428L848 456" fill="#12266f"/><path d="M850 337L1127 298" stroke="#fbd736" stroke-width="7"/>
+<path d="M906 317L956 302V409L906 416ZM974 295L1021 279V400L974 407ZM1040 266L1095 249V390L1040 400Z" fill="#193778"/>
+<path d="M176 435L671 402L834 595L340 685Z" fill="#10123c" stroke="#ffd53c" stroke-width="8" filter="url(#soft)"/>
+<path d="M188 441L667 413L757 528L282 572Z" fill="#ffefc2"/>
+<path d="M197 436L420 423L480 486L240 506Z" fill="#0babc3" stroke="#fffef2" stroke-width="7"/>
+<path d="M429 417L671 404L725 474L485 486Z" fill="#fa5a59" stroke="#fffef2" stroke-width="7"/>
+<path d="M290 565L758 519V604L340 680Z" fill="#3045c4"/>
+<path d="M290 571L340 680M758 523V610" stroke="#ffdd39" stroke-width="9"/>
+<path d="M105 355L180 346L180 529L105 537Z" fill="#fcce2c" stroke="#fff4ca" stroke-width="7"/><path d="M112 375L173 369" stroke="#2dd6dc" stroke-width="13"/>
+<circle cx="140" cy="299" r="32" fill="#ffe380"/><path d="M140 335V385" stroke="#e9d9cd" stroke-width="8"/>
+<path d="M941 530L1140 508L1205 589L1000 614Z" fill="#fb5147" stroke="#ffd745" stroke-width="7"/>
+<path d="M1010 610L1010 688M1188 594V673" stroke="#ffd745" stroke-width="8"/>
+<rect x="1045" y="450" width="80" height="20" fill="#2df2dc"/>
+
+ <path d="M18 70 L210 18L520 18" fill="none" stroke="#ffcf2a" stroke-width="14" stroke-linejoin="miter" opacity=".84"/>
+ <path d="M1180 80L1245 40L1260 235" fill="none" stroke="#ffcf28" stroke-width="14"/>
+ <circle cx="1160" cy="110" r="38" fill="#ffcf2a" opacity=".2"/>
+ <path d="M75 585L280 520L315 570L105 638Z" fill="#ffcf2a" opacity=".13"/>
+ <path d="M1070 770L1210 690L1280 760" fill="none" stroke="#ff5845" stroke-width="16" opacity=".68"/>
+</svg>
