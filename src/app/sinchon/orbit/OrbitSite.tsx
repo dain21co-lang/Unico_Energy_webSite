@@ -706,6 +706,48 @@ function Closing() {
 
 /* ───────── 머리 · 떠 있는 버튼 · 안내 ───────── */
 
+/* ───────── 대표 인사말 (정장 프로필) ───────── */
+function CeoMessage() {
+  const en = useEN();
+  return (
+    <section id="ceo" className="paper relative px-6 pb-20 pt-20">
+      <Reveal><p className="kick" style={{ color: "#121212" }}>{en ? "A MESSAGE FROM THE CEO" : "MESSAGE · 대표 인사말"}</p></Reveal>
+      <Reveal delay={0.05}>
+        <h2 className="serif mt-4 text-[40px] leading-[1.02]">{en ? <>Trust, built<br /><em>into every floor.</em></> : <>신뢰를 짓고,<br /><em>일상을 채웁니다.</em></>}</h2>
+      </Reveal>
+      <Reveal delay={0.1}>
+        <div className="relative mt-8">
+          <div className="absolute inset-0 translate-x-3 translate-y-3 border-[3px] border-[#121212] bg-[#1d4ed8]" />
+          <img src="/sinchon/ceo-formal.webp" alt={en ? "CEO, ORBIT HOUSE" : "ORBIT HOUSE 대표이사"} className="relative block aspect-[4/5] w-full border-[3px] border-[#121212] object-cover object-top" loading="lazy" />
+        </div>
+      </Reveal>
+      <Reveal delay={0.15}>
+        <div className="mt-10 space-y-4 text-[15px] leading-[1.9] text-[#1d2630]">
+          {en ? (
+            <>
+              <p>Giving an old building in Sinchon a new purpose is, in the end, about building a place for people.</p>
+              <p>Over thirty years in banking taught me the weight of trust and responsibility. ORBIT HOUSE is founded on those same principles: transparent operation, safe spaces, and service that respects the everyday life of everyone who stays.</p>
+              <p>From a single night to a full semester, we will make this the place students, families and travellers from around the world are glad to call home in Seoul — and a new standard for Sinchon.</p>
+            </>
+          ) : (
+            <>
+              <p>신촌의 오래된 건물에 새로운 쓰임을 더하는 일은, 결국 사람을 위한 공간을 짓는 일이라고 믿습니다.</p>
+              <p>30여 년 금융 현장에서 신뢰와 책임의 무게를 배웠습니다. ORBIT HOUSE는 그 원칙 위에 세워집니다. 투명한 운영, 안전한 공간, 그리고 머무는 모든 분의 일상을 존중하는 서비스로 답하겠습니다.</p>
+              <p>하루를 머무는 여행자부터 한 학기를 보내는 유학생, 병원 곁을 지키는 가족까지. 누구에게나 서울의 첫 집이 되는 곳, 신촌의 새로운 기준이 되겠습니다.</p>
+            </>
+          )}
+        </div>
+      </Reveal>
+      <Reveal delay={0.2}>
+        <div className="mt-8 border-t-[3px] border-[#121212] pt-4">
+          <p className="serif text-[22px] italic">ORBIT HOUSE</p>
+          <p className="mt-1 text-[13px] font-bold tracking-[0.18em]">{en ? "CHIEF EXECUTIVE OFFICER" : "대표이사"}</p>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
 /* ───────── 0. 첫 화면 영상 (옥상 라운지 드론 장면) ───────── */
 function HeroFilm() {
   const en = useEN();
@@ -747,6 +789,7 @@ export default function OrbitSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
       </header>
 
       <HeroFilm />
+      <CeoMessage />
       <Journey paused={paused} />
       <Plans />
       <Life />
