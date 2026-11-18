@@ -194,6 +194,18 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
 .ceo .q em{font-style:normal;background:var(--r);color:#fff;padding:0 5px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
 .ceo .q2{margin-top:14px;font-size:15px;line-height:1.75;color:#3b382f}
 .ceo .sig{margin-top:18px;display:inline-block;border:3px solid var(--k);background:var(--b);color:#fff;font-weight:900;font-size:13px;padding:8px 12px;box-shadow:4px 4px 0 var(--k)}
+
+.ktx{margin-top:24px;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.ktx .kl{display:inline-block;border:3px solid var(--k);padding:4px 10px 6px;font-family:"Archivo Black","Noto Sans KR",sans-serif;font-weight:900;font-size:34px;line-height:1.05;letter-spacing:-.04em;transform:translateX(-115%) rotate(-4deg);transition:transform .8s cubic-bezier(.2,1.2,.3,1)}
+.ktx .kl:nth-child(even){transform:translateX(115%) rotate(4deg);align-self:flex-end}
+.ktx.in .kl{transform:none}
+.ktx .kl.big{font-size:52px;padding:2px 12px 8px}
+.ktx .kl.sm{font-size:22px}
+.ktx .roll{position:relative;height:66px;width:100%;overflow:hidden;border:3px solid var(--k);margin:6px 0}
+.ktx .roll .w{position:absolute;inset:0;display:flex;flex-direction:column;animation:kroll2 4s cubic-bezier(.8,0,.2,1) infinite}
+.ktx .roll .w span{flex:0 0 100%;display:flex;align-items:center;justify-content:center;font-family:"Archivo Black",sans-serif;font-size:40px;letter-spacing:.02em}
+@keyframes kroll2{0%,40%{transform:translateY(0)}50%,90%{transform:translateY(-100%)}100%{transform:translateY(-200%)}}
+@media (prefers-reduced-motion:reduce){.ktx .kl{transform:none!important;transition:none}.ktx .roll .w{animation:none}}
 </style>
 </head>
 <body>
@@ -311,7 +323,7 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
   <p class="kick" style="color:var(--r)">07 · HELLO FROM ORBIT HOUSE</p>
   <h2 class="mask" style="margin-top:8px"><span>대표가 드리는</span></h2><h2 class="mask"><span>첫 인사.</span></h2>
   <div class="ph rv"><img src="/sinchon/play/a/ceo.webp" alt="ORBIT HOUSE 대표" loading="lazy"></div>
-  <p class="q rv">30년 동안 은행에서<br><em>'신용'</em>을 심사했습니다.<br>이제는 여러분의 <em>'내일'</em>에 투자합니다.</p>
+  <div class="ktx"><span class="kl sm" style="background:#fff;color:var(--k);transition-delay:0.00s">30년 동안</span><span class="kl " style="background:var(--y);color:var(--k);transition-delay:0.08s">은행에서</span><span class="kl big" style="background:var(--r);color:#fff;transition-delay:0.16s">신용</span><span class="kl sm" style="background:#fff;color:var(--k);transition-delay:0.24s">을 심사했습니다.</span><div class="roll"><div class="w"><span style="background:#e2252b;color:#fff">CREDIT</span><span style="background:#1d4ed8;color:#fff">TOMORROW</span><span style="background:#e2252b;color:#fff">CREDIT</span></div></div><span class="kl sm" style="background:#fff;color:var(--k);transition-delay:0.32s">이제는</span><span class="kl " style="background:var(--y);color:var(--k);transition-delay:0.40s">여러분의</span><span class="kl big" style="background:var(--b);color:#fff;transition-delay:0.48s">내일</span><span class="kl " style="background:var(--k);color:var(--y);transition-delay:0.56s">에 투자합니다.</span></div>
   <p class="q2 rv">이자는 받지 않습니다. 대신 이 집에서 웃는 얼굴이면 충분합니다.</p>
   <span class="sig">ORBIT HOUSE 대표</span>
 </section>
@@ -335,7 +347,7 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
 (function(){
   // 등장: 위치·마스크만 (투명도 없음). 진입 감지는 바깥 요소에서.
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px'});
-  document.querySelectorAll('.rv,.mask,.fl-row').forEach(el=>io.observe(el));
+  document.querySelectorAll('.rv,.mask,.fl-row,.ktx').forEach(el=>io.observe(el));
   // 화면에 들어온 영상만 재생
   const vo=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}}),{threshold:.35});
   document.querySelectorAll('video[data-auto]').forEach(v=>vo.observe(v));
