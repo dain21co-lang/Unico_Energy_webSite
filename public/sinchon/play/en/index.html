@@ -206,6 +206,19 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
 .ktx .roll .w span{flex:0 0 100%;display:flex;align-items:center;justify-content:center;font-family:"Archivo Black",sans-serif;font-size:40px;letter-spacing:.02em}
 @keyframes kroll2{0%,40%{transform:translateY(0)}50%,90%{transform:translateY(-100%)}100%{transform:translateY(-200%)}}
 @media (prefers-reduced-motion:reduce){.ktx .kl{transform:none!important;transition:none}.ktx .roll .w{animation:none}}
+
+.intl{background:var(--r);color:#fff;padding:58px 18px}
+.intl .lead{color:#ffe7e4}
+.intl .zh{margin-top:16px;display:inline-block;font-size:30px;font-weight:900;background:var(--y);color:var(--k);border:3px solid var(--k);padding:4px 12px;transform:rotate(-3deg);box-shadow:5px 5px 0 var(--k)}
+.intl .pair{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.intl .pair .frame{margin-top:0}
+.intl .pair .frame .in{aspect-ratio:9/16}
+.intl .pair .frame:nth-child(1){--plane:var(--b);transform:rotate(-2deg)}
+.intl .pair .frame:nth-child(2){--plane:var(--y);transform:rotate(2deg) translateY(22px)}
+.intl .pair .tag{font-size:10px}
+.intl .flags{margin-top:44px;display:flex;flex-wrap:wrap;gap:8px}
+.intl .flags span{padding:8px 12px;border:3px solid var(--k);background:var(--w);color:var(--k);font-size:13px;font-weight:900}
+.intl .flags span:nth-child(2n){background:var(--y)}
 </style>
 </head>
 <body>
@@ -213,7 +226,7 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
 <header class="bar">
   <div class="row"><span class="logo en"><i></i>ORBIT HOUSE</span><a class="cta" href="#rooms">Pick a room</a></div>
   <nav class="chips" aria-label="Sections">
-    <a href="#film">Makeover</a><a href="#day">A day</a><a href="#rooms">Rooms</a><a href="#floors">Floors</a><a href="#campus">Campus</a><a href="#roof">Rooftop</a><a href="#more">More</a><a href="/sinchon/play">한국어</a>
+    <a href="#film">Makeover</a><a href="#day">A day</a><a href="#rooms">Rooms</a><a href="#floors">Floors</a><a href="#campus">Campus</a><a href="#intl">Intl</a><a href="#roof">Rooftop</a><a href="#more">More</a><a href="/sinchon/play">한국어</a>
   </nav>
 </header>
 
@@ -309,6 +322,19 @@ h2{font-size:33px;font-weight:900;line-height:1.16;letter-spacing:-.035em}
   <p class="lead">A walk or one stop away. Ten more minutes of sleep every morning.</p>
   <div class="uni"><span>Yonsei</span><span>Ewha</span><span>Sogang</span><span>Hongik</span><span>Severance Hospital</span></div>
   <div class="big"><div><b class="en">4</b><span>universities</span></div><div><b class="en">24h</b><span>self-service</span></div><div><b class="en">1 APP</b><span>booking to check-out</span></div></div>
+</section>
+
+<section class="intl" id="intl">
+  <div class="planes" style="right:-30px;top:30px;width:130px;height:140px"><svg viewBox="0 0 130 140"><polygon points="20,0 130,20 110,140 0,110" fill="#ffd21f" stroke="#121212" stroke-width="5"/><circle cx="62" cy="66" r="24" fill="#1d4ed8" stroke="#121212" stroke-width="5"/></svg></div>
+  <p class="kick" style="color:var(--y)">05½ · ROOMMATES FROM EVERYWHERE</p>
+  <h2 class="mask" style="margin-top:8px"><span>Roommates from</span></h2><h2 class="mask"><span>everywhere.</span></h2>
+  <p class="lead">More and more international students, especially from China, are studying at Yonsei and around Sinchon. Different languages, same floor, same dreams — your first semester in Seoul starts with new friends.</p>
+  <span class="zh">欢迎来新村!</span> <span style="display:block;margin-top:12px;font-size:12px;font-weight:800;color:#ffe7e4">Welcome to Sinchon!</span>
+  <div class="pair">
+    <div class="frame rv"><div class="in"><video data-auto src="/sinchon/play/a/intl-a.mp4" poster="/sinchon/play/a/intl-a.jpg" muted loop playsinline preload="none"></video></div><span class="tag">BEIJING → SINCHON</span></div>
+    <div class="frame rv"><div class="in"><video data-auto src="/sinchon/play/a/intl-b.mp4" poster="/sinchon/play/a/intl-b.jpg" muted loop playsinline preload="none"></video></div><span class="tag">SHANGHAI → SINCHON</span></div>
+  </div>
+  <div class="flags"><span>Chinese-language help</span><span>Multilingual app check-in</span><span>Language-exchange lounge</span><span>Semester plans for students</span><span>Airport pickup</span></div>
 </section>
 
 <section class="roof" id="roof">
