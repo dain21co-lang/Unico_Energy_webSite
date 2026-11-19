@@ -20,8 +20,8 @@ function Head({ no, en, title, sub }: { no: string; en: string; title: string; s
 
 const FLOORS = [
   { fl: "옥상", name: "힐링가든", d: "환자와 가족이 바람을 쐬고 해 질 녘 신촌을 내려다보는 정원" },
-  { fl: "9–10F", name: "완화돌봄 · 가족실", d: "마지막 시간까지 존엄을 지키는 1·2인실과 가족이 머무는 방" },
-  { fl: "4–8F", name: "요양병원 병동", d: "항암·수술 후 회복 환자를 위한 병동. 층마다 간호스테이션과 라운지" },
+  { fl: "9–10F", name: "가족 체류실 · 완화돌봄", d: "치료 기간 동안 보호자가 머무는 방, 그리고 마지막 시간까지 존엄을 지키는 1·2인실" },
+  { fl: "4–8F", name: "회복 병동 · 케어 레지던스", d: "항암·수술 후 회복 환자를 위한 공간. 인허가 검토에 따라 요양 병동 또는 체류형 레지던스로 조정" },
   { fl: "3F", name: "재활 · 통합치료", d: "재활운동, 영양 상담, 심리 상담, 통증 관리" },
   { fl: "2F", name: "평생주치의 의원", d: "조합원 주치의 진료, 전문의 원격협진, 방문진료 출발 거점" },
   { fl: "1F", name: "접수 · 상담 · 카페", d: "입원 상담, 조합원 가입 안내, 가족 대기 카페" },
@@ -52,7 +52,7 @@ function Proposal() {
         <Head no="01" en="IN ONE LINE" title="비어 있는 위층을, 암환자의 회복 공간으로" sub="신촌역 가까운 지하 2층~지상 10층 건물의 위층에 의료복지사회적협동조합이 운영하는 요양병원과 평생주치의 의원이 들어오는 구상입니다." />
         <div className="cr-stats">
           <div><b>B2–10F</b><span>기존 건물 활용</span></div>
-          <div><b>도보 6분</b><span>2호선 신촌역</span></div>
+          <div><b>세브란스</b><span>연세의료원 생활권</span></div>
           <div><b>생애 전주기</b><span>예방부터 웰다잉까지</span></div>
         </div>
       </section>
@@ -60,7 +60,7 @@ function Proposal() {
       <section className="cr-sec cr-cream">
         <Head no="02" en="WHY SINCHON" title="왜 신촌인가" />
         <ul className="cr-list">
-          <li><b>대학병원 생활권</b><span>대형 대학병원 진료권 한가운데에 있어, 통원 치료 중인 환자가 가까이 머물 수 있습니다.</span></li>
+          <li><b>연세의료원(세브란스) 생활권</b><span>암 치료로 오가는 환자와 가족, 대기하는 보호자가 근처에 머물 곳이 마땅치 않습니다. 이 일대에서 가장 큰 건물이 그 자리가 됩니다.</span></li>
           <li><b>지방 환자의 서울 거점</b><span>항암·방사선 치료를 위해 올라온 환자와 가족이 머물 곳이 부족합니다.</span></li>
           <li><b>교통</b><span>지하철 2호선, 공항철도·경의중앙선 환승권. 가족 방문이 쉽습니다.</span></li>
           <li><b>건물 여건</b><span>위층이 비어 있어 병동으로 바꾸기 좋은 시점입니다(구상).</span></li>
@@ -90,6 +90,7 @@ function Proposal() {
             <div className="cr-box">대학병원 협진<small>입원·수술·전문진료</small></div>
             <div className="cr-box">GB LABS<small>디지털 원격협진</small></div>
           </div>
+          <div className="cr-box">교수 자문단<small>전국 대학 교수·은퇴 교수 네트워크</small></div>
         </div>
         <img className="cr-img" src={`${A}/network-care.webp`} alt="협력 네트워크" />
       </section>
