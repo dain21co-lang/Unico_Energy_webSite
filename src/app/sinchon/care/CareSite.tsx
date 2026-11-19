@@ -45,6 +45,99 @@ const MONEY = [
   ["부대사업", "식당·카페·웰빙·토탈장례서비스"],
 ];
 
+
+const S = "/sinchon";
+const ZONES = [
+  { fl: "옥상", en: "SKY GARDEN", name: "하늘정원", img: `${S}/rooftop-hero-poster.webp`, d: "도심 한가운데의 옥상정원. 휠체어로도 오를 수 있는 산책로와 그늘 쉼터에서 환자와 가족이 바람을 쐽니다.", tags: ["무단차 산책로", "그늘 쉼터", "노을 전망"] },
+  { fl: "10F", en: "NOEUL", name: "노을 · 완화돌봄 스위트", img: `${A}/hug-poster.webp`, d: "마지막 시간을 가족과 함께 보내는 1인 스위트. 보호자 침대와 작은 거실이 붙어 있습니다.", tags: ["1인 스위트", "보호자 침대", "24시간 간호"] },
+  { fl: "9F", en: "MEOMUM", name: "머묾 · 가족 체류실", img: `${S}/room-twin.webp`, d: "지방에서 올라온 보호자가 치료 기간 동안 머무는 방. 병동과 같은 건물이라 밤에도 곁을 지킵니다.", tags: ["2인 체류실", "공용 주방", "세탁실"] },
+  { fl: "5–8F", en: "SOOP", name: "숲 · 회복 병동", img: `${A}/nurse-poster.webp`, d: "항암·수술 후 회복 환자를 위한 병동. 층마다 간호스테이션을 가운데 두고 1·2인실을 배치합니다. 인허가 검토에 따라 체류형 케어 레지던스로 조정할 수 있습니다.", tags: ["층별 간호스테이션", "1·2인실", "병상용 엘리베이터"] },
+  { fl: "4F", en: "BYEOT", name: "볕 · 재활 센터", img: `${A}/stage-home.webp`, d: "햇빛이 드는 재활 운동실. 체력 회복, 림프부종 관리, 통증 완화 프로그램을 운영합니다.", tags: ["재활 운동실", "물리치료", "림프부종 관리"] },
+  { fl: "3F", en: "GYEOL", name: "결 · 통합치료 · 상담", img: `${A}/stage-healthy.webp`, d: "영양 상담, 심리 상담, 통증 관리, 웰다잉 준비를 한 층에서 받습니다.", tags: ["영양 상담", "심리 상담", "통증 관리"] },
+  { fl: "2F", en: "CLINIC", name: "평생주치의 의원", img: `${A}/doctor-poster.webp`, d: "조합원 주치의 진료와 전문의 원격협진. 방문진료·방문간호 팀이 이곳에서 출발합니다.", tags: ["주치의 진료", "원격협진", "방문진료 거점"] },
+  { fl: "1F", en: "LOBBY", name: "로비 · 카페 · 약국", img: `${S}/arrival-poster.webp`, d: "입원 상담과 조합원 가입 안내, 보호자가 기다리는 카페. 거리에서 바로 들어오는 열린 1층입니다.", tags: ["입원 상담", "보호자 카페", "약국"] },
+  { fl: "B1", en: "HANSANG", name: "한상 · 영양 식당", img: `${S}/orbit-dinner.webp`, d: "치료 단계에 맞춘 영양식을 환자와 가족이 함께 먹는 식당.", tags: ["치료식 · 영양식", "가족 식사"] },
+  { fl: "B2", en: "SUPPORT", name: "주차 · 이송", img: `${S}/exterior-poster.webp`, d: "환자 이송 차량과 대학병원 통원 셔틀이 서는 곳.", tags: ["통원 셔틀", "이송 차량"] },
+];
+
+const ROOMS = [
+  { img: `${S}/room-single.webp`, name: "1인 회복실", d: "항암 기간 감염 걱정 없이 쉬는 개인실" },
+  { img: `${S}/room-twin.webp`, name: "2인 회복실 · 체류실", d: "환자와 보호자가 함께, 또는 환자 두 분이" },
+  { img: `${S}/lounge.webp`, name: "공용 라운지 · 주방", d: "가족이 음식을 만들고 함께 먹는 층별 공간" },
+];
+
+const NEAR = [
+  ["세브란스병원 · 연세대", "도보 약 10분", "연세로를 따라 정문까지"],
+  ["2호선 신촌역", "도보 약 6분", "공항철도·경의중앙선 환승권"],
+  ["이화여대", "도보 약 15분", "버스 5분 안팎"],
+];
+
+function Building() {
+  const [z, setZ] = useState(3);
+  const cur = ZONES[z];
+  return (
+    <>
+      <section className="cr-sec">
+        <Head no="01" en="EXPLORE THE BUILDING" title="건물을 둘러보세요" sub="지하 2층부터 옥상까지, 층을 누르면 그 층의 시설이 열립니다." />
+        <div className="cr-explore">
+          <div className="cr-tower">
+            {ZONES.map((x, i) => (
+              <button key={x.fl} className={`cr-lvl ${i === z ? "on" : ""} ${x.fl === "옥상" ? "roof" : ""} ${x.fl.startsWith("B") ? "base" : ""}`} onClick={() => setZ(i)}>
+                <span>{x.fl}</span>
+              </button>
+            ))}
+          </div>
+          <div className="cr-panel">
+            <div className="cr-panel-img">
+              <img key={cur.img} src={cur.img} alt={cur.name} />
+              <em>AI 이미지 · 예시</em>
+            </div>
+            <div className="cr-panel-en">{cur.fl} · {cur.en}</div>
+            <h3>{cur.name}</h3>
+            <p>{cur.d}</p>
+            <div className="cr-tags">{cur.tags.map((t) => <span key={t}>{t}</span>)}</div>
+          </div>
+        </div>
+      </section>
+
+      <section className="cr-media">
+        <Vid src="../rooftop-hero.mp4" poster="../rooftop-hero-poster.webp" className="cr-tall" />
+      </section>
+
+      <section className="cr-sec cr-cream">
+        <Head no="02" en="ROOMS" title="머무는 방" sub="회복실과 가족 체류실은 같은 건물에 있어, 보호자가 밤에도 곁을 지킵니다." />
+        <div className="cr-rooms">
+          {ROOMS.map((r) => (
+            <div key={r.name}><div className="cr-room-img"><img src={r.img} alt={r.name} /><em>AI 이미지 · 예시</em></div><b>{r.name}</b><span>{r.d}</span></div>
+          ))}
+        </div>
+      </section>
+
+      <section className="cr-sec">
+        <Head no="03" en="LOCATION" title="대학병원 바로 곁" sub="치료는 대학병원에서 받고, 걸어서 돌아와 쉽니다." />
+        <div className="cr-near">
+          {NEAR.map(([n, t, d]) => (<div key={n}><b>{n}</b><strong>{t}</strong><span>{d}</span></div>))}
+        </div>
+      </section>
+
+      <section className="cr-sec cr-dark">
+        <Head no="04" en="SAFETY" title="안전과 편의 설비 (계획)" />
+        <div className="cr-grid cr-grid-dark">
+          {[["병상용 엘리베이터", "침대째 이동하는 승강기"], ["스프링클러 · 피난설비", "의료시설 기준으로 보강"], ["무단차 동선", "로비부터 옥상까지 휠체어로"], ["간호 호출", "모든 방에 호출 장치"], ["통원 셔틀", "대학병원 정기 운행"], ["보호자 출입 관리", "24시간 출입 확인"]].map(([t, d]) => (<div key={t}><b>{t}</b><span>{d}</span></div>))}
+        </div>
+      </section>
+
+      <section className="cr-sec">
+        <Head no="05" en="BEFORE · AFTER" title="지금의 건물, 바뀐 모습" />
+        <div className="cr-ba">
+          <div><img src={`${S}/before-exterior.webp`} alt="현재" /><span>현재</span></div>
+          <div><img src={`${S}/after-exterior.webp`} alt="리모델링 후 예시" /><span>리모델링 후 예시</span></div>
+        </div>
+      </section>
+    </>
+  );
+}
+
 function Proposal() {
   return (
     <>
@@ -67,20 +160,9 @@ function Proposal() {
         </ul>
       </section>
 
-      <section className="cr-sec">
-        <Head no="03" en="FLOOR PLAN" title="층별 구성 (안)" sub="실측과 인허가 검토 전의 구상안입니다." />
-        <div className="cr-floors">
-          {FLOORS.map((f) => (
-            <div key={f.fl} className="cr-floor">
-              <span className="cr-fl">{f.fl}</span>
-              <div><b>{f.name}</b><p>{f.d}</p></div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       <section className="cr-sec cr-dark">
-        <Head no="04" en="STRUCTURE" title="운영 구조" sub="병원은 협동조합이 열고, 건물은 임대로 제공합니다." />
+        <Head no="03" en="STRUCTURE" title="운영 구조" sub="병원은 협동조합이 열고, 건물은 임대로 제공합니다." />
         <div className="cr-flow">
           <div className="cr-box">건물<small>장기 임대 제공</small></div>
           <div className="cr-arrow">↓ 입점 협약</div>
@@ -96,14 +178,14 @@ function Proposal() {
       </section>
 
       <section className="cr-sec">
-        <Head no="05" en="FUNDING" title="지속 가능한 재원 구조" />
+        <Head no="04" en="FUNDING" title="지속 가능한 재원 구조" />
         <div className="cr-grid">
           {MONEY.map(([t, d]) => (<div key={t}><b>{t}</b><span>{d}</span></div>))}
         </div>
       </section>
 
       <section className="cr-sec cr-cream">
-        <Head no="06" en="ROADMAP" title="추진 단계" />
+        <Head no="05" en="ROADMAP" title="추진 단계" />
         <ol className="cr-steps">
           {STEPS.map(([t, d], i) => (<li key={t}><span>{i + 1}</span><div><b>{t}</b><p>{d}</p></div></li>))}
         </ol>
@@ -193,11 +275,12 @@ function Family() {
 }
 
 export default function CareSite() {
-  const [tab, setTab] = useState<"p" | "f">("p");
+  const [tab, setTab] = useState<"b" | "p" | "f">("b");
+  const go = (t: "b" | "p" | "f") => { setTab(t); window.scrollTo({ top: window.innerHeight * 0.85 }); };
   return (
     <main className="cr">
       <header className="cr-hero">
-        <img src={`${A}/hero.webp`} alt="" className="cr-hero-bg" />
+        <img src="/sinchon/after-exterior.webp" alt="" className="cr-hero-bg" />
         <div className="cr-hero-in">
           <div className="cr-virtual">
             <b>가상 시나리오</b>
@@ -210,11 +293,12 @@ export default function CareSite() {
       </header>
 
       <nav className="cr-tabs">
-        <button className={tab === "p" ? "on" : ""} onClick={() => { setTab("p"); window.scrollTo({ top: window.innerHeight * 0.85 }); }}>입점 제안</button>
-        <button className={tab === "f" ? "on" : ""} onClick={() => { setTab("f"); window.scrollTo({ top: window.innerHeight * 0.85 }); }}>환자·가족</button>
+        <button className={tab === "b" ? "on" : ""} onClick={() => go("b")}>건물·시설</button>
+        <button className={tab === "p" ? "on" : ""} onClick={() => go("p")}>입점 제안</button>
+        <button className={tab === "f" ? "on" : ""} onClick={() => go("f")}>환자·가족</button>
       </nav>
 
-      {tab === "p" ? <Proposal /> : <Family />}
+      {tab === "b" ? <Building /> : tab === "p" ? <Proposal /> : <Family />}
 
       <footer className="cr-foot">
         <b>신촌 평생주치의 케어하우스 (가칭)</b>
