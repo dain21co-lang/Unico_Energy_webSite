@@ -1,0 +1,20 @@
+import type { Metadata } from "next";
+import OrbitCareSite from "./OrbitCareSite";
+import "./orbit-care.css";
+
+export const metadata: Metadata = {
+  title: "ORBIT HOUSE · 파스텔 케어 버전(시안)",
+  description: "원도면의 선에서 시작하는 신촌 스마트호스텔 — 66실 · 103베드, 하루부터 한 학기까지 (콘셉트 시안)",
+  robots: { index: false, follow: false },
+  openGraph: {
+    title: "ORBIT HOUSE · 신촌 스마트호스텔(가칭)",
+    description: "선이 펼쳐지고, 색이 깨어나고 — 새로운 신촌의 모습.",
+    locale: "ko_KR",
+    type: "website",
+    images: [{ url: "/sinchon/og.jpg", width: 1200, height: 630 }],
+  },
+};
+
+export default function Page() {
+  return <OrbitCareSite />;
+}

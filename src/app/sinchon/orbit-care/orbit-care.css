@@ -1,0 +1,60 @@
+/* 신촌 스마트호스텔 — ORBIT (차콜 네이비 · 실버 블루 선 · 민트 · 샴페인 / 아이보리 생활 구간) */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@400;500;700;900&display=swap");
+
+.orb {
+  --o-ink: #3e6e82;
+  --o-night: #5b97ac;
+  --o-slate: #24313f;
+  --o-line: #e3f1f4;
+  --o-mint: #f2a7a0;
+  --o-gold: #eaf4ef;
+  --o-ivory: #eaf4ef;
+  --o-paper: #eaf4ef;
+  --o-sub: #f2f9f9;
+  --o-mute: #e4f1f3;
+  background: var(--o-ink);
+  color: #f3f3ec;
+  font-family: "Noto Sans KR", system-ui, sans-serif;
+  word-break: keep-all;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+.orb .serif { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; }
+.orb .kick { font-size: 11px; letter-spacing: 0.28em; font-weight: 700; text-transform: uppercase; }
+.orb .glass { background: rgba(62,110,130, 0.62); border: 1px solid rgba(215, 231, 255, 0.18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.orb .pill { border: 1px solid rgba(215, 231, 255, 0.35); border-radius: 999px; }
+.orb .snap { scroll-snap-type: x mandatory; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.orb .snap::-webkit-scrollbar { display: none; }
+.orb .snap > * { scroll-snap-align: center; }
+.orb .arch { border-radius: 999px 999px 22px 22px; overflow: hidden; }
+.orb .stage { background: radial-gradient(120% 70% at 50% 38%, #8cc2d2 0%, #5b97ac 48%, #3e6e82 100%); }
+.orb .stage canvas { display: block; }
+.orb .grain::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px); background-size: 3px 3px; }
+.orb .paper { background: var(--o-ivory); color: #121212; }
+.orb input[type="range"].cmp { -webkit-appearance: none; appearance: none; background: transparent; width: 100%; height: 100%; margin: 0; }
+.orb input[type="range"].cmp::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 44px; border-radius: 50%; background: transparent; }
+.orb input[type="range"].cmp::-moz-range-thumb { width: 44px; height: 44px; border: 0; background: transparent; }
+@keyframes orb-scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+.orb .scan { animation: orb-scan 2.6s ease-in-out infinite; }
+@keyframes orb-nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+.orb .nudge { animation: orb-nudge 1.8s ease-in-out infinite; }
+@keyframes orb-liquid {
+  0%, 100% { border-radius: 58% 42% 38% 62% / 52% 44% 56% 48%; transform: rotate(0deg) scale(1); }
+  33% { border-radius: 40% 60% 62% 38% / 44% 58% 42% 56%; transform: rotate(40deg) scale(1.08); }
+  66% { border-radius: 50% 50% 34% 66% / 60% 40% 60% 40%; transform: rotate(-30deg) scale(0.94); }
+}
+.orb .liquid { animation: orb-liquid 11s ease-in-out infinite; }
+.orb .liquid2 { animation: orb-liquid 14s ease-in-out infinite reverse; }
+@keyframes orb-drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.orb .drift { animation: orb-drift 38s linear infinite; }
+.orb .drift-r { animation: orb-drift 46s linear infinite reverse; }
+@keyframes orb-ping { 0% { transform: scale(0.6); } 100% { transform: scale(2.4); stroke-width: 0; } }
+.orb .ping { animation: orb-ping 1.8s ease-out infinite; }
+@keyframes orb-spin24 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.orb .spin24 { animation: orb-spin24 6s linear infinite; transform-origin: 0 0; }
+@media (prefers-reduced-motion: reduce) { .orb .scan, .orb .nudge, .orb .liquid, .orb .liquid2, .orb .drift, .orb .drift-r, .orb .ping, .orb .spin24 { animation: none; } }
+
+/* 원색 아트 톤: 노랑 생활 구간, 굵은 윤곽 */
+.orb .paper { background: #eaf4ef; color: #121212; }
+.orb .arch { border: 3px solid #121212; }
+.orb .glass { border-width: 2px; }
