@@ -285,14 +285,14 @@ function Plans() {
 
 /* ───────── 3. 생활 (아이보리) ───────── */
 const ROOM_CARDS = [
-  { img: "care/nurse-poster", t: "1인 회복실", tE: "Single", size: "약 16㎡", sizeE: "approx. 16㎡", n: C.s, d: "항암 기간 감염 걱정 없이, 간호 호출과 개별 욕실.", dE: "Private recovery room." },
-  { img: "care/hug-poster", t: "2인 회복실", tE: "Twin", size: "약 18~20㎡", sizeE: "approx. 18–20㎡", n: C.t, d: "환자와 보호자가 함께, 또는 환자 두 분이.", dE: "Patient and carer together." },
-  { img: "care/lounge-poster", t: "가족 체류실", tE: "Family stay", size: "약 26㎡", sizeE: "approx. 26㎡", n: C.sh, d: "지방에서 올라온 보호자 가족이 치료 기간 머무는 방.", dE: "For families staying during treatment." },
+  { img: "care/room-single", t: "1인 회복실", tE: "Single", size: "약 16㎡", sizeE: "approx. 16㎡", n: C.s, d: "항암 기간 감염 걱정 없이, 간호 호출과 개별 욕실.", dE: "Private recovery room." },
+  { img: "care/room-twin", t: "2인 회복실", tE: "Twin", size: "약 18~20㎡", sizeE: "approx. 18–20㎡", n: C.t, d: "환자와 보호자가 함께, 또는 환자 두 분이.", dE: "Patient and carer together." },
+  { img: "care/room-family", t: "가족 체류실", tE: "Family stay", size: "약 26㎡", sizeE: "approx. 26㎡", n: C.sh, d: "지방에서 올라온 보호자 가족이 치료 기간 머무는 방.", dE: "For families staying during treatment." },
 ];
 const LIFE = [
-  { img: "care/doctor-poster", t: "나를 오래 아는 주치의", tE: "A doctor who knows you", en: "LIFELONG DOCTOR" },
-  { img: "care/stage-home", t: "다시 걷는 연습", tE: "Learning to walk again", en: "REHAB" },
-  { img: "care/stage-healthy", t: "치료 단계에 맞춘 한 끼", tE: "Meals for every stage", en: "NUTRITION" },
+  { img: "care/doctor", t: "나를 오래 아는 주치의", tE: "A doctor who knows you", en: "LIFELONG DOCTOR" },
+  { img: "care/rehab", t: "다시 걷는 연습", tE: "Learning to walk again", en: "REHAB" },
+  { img: "care/nutrition", t: "치료 단계에 맞춘 한 끼", tE: "Meals for every stage", en: "NUTRITION" },
 ];
 
 function RoomCarousel() {
@@ -363,7 +363,7 @@ function Rooftop() {
     <section ref={ref} className="relative h-[92svh] overflow-hidden">
       <motion.div className="absolute inset-0" initial={{ clipPath: "inset(14% 10% 14% 10% round 28px)", scale: 1.12 }} animate={on ? { clipPath: "inset(0% 0% 0% 0% round 0px)", scale: 1 } : {}} transition={{ duration: 1.4, ease: EASE }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG("rooftop-hero-poster")} alt={en ? "Rooftop garden concept" : "하늘정원 · AI 예시"} className="h-full w-full object-cover" />
+        <img src={IMG("care/rooftop")} alt={en ? "Rooftop garden concept" : "하늘정원 · AI 예시"} className="h-full w-full object-cover" />
       </motion.div>
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(62,110,130,0.78) 0%,rgba(62,110,130,0) 38%,rgba(62,110,130,0) 60%,rgba(62,110,130,0.85) 100%)" }} />
       <div className="absolute inset-x-6 top-20">
@@ -430,7 +430,7 @@ function Exterior() {
       <Head kick="08 / THE EXTERIOR STUDY" a="From drawing." b="Into dimension." sub={en ? "Thin lines gain light and depth. Slide to compare today with a remodelling concept." : "가느다란 선에 빛과 깊이가 더해집니다. 손가락으로 밀어 지금과 케어하우스로 바뀐 예시를 비교해 보세요."} />
       <div className="relative mt-8 aspect-[941/1300] w-full overflow-hidden rounded-[24px] bg-black">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG("after-exterior-day")} alt={en ? "Remodelling concept" : "리모델링 후 예시"} className="absolute inset-0 h-full w-full object-cover" />
+        <img src={IMG("care/after-new")} alt={en ? "Remodelling concept" : "리모델링 후 예시"} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0" style={{ clipPath: `inset(0% ${100 - v}% 0% 0%)` }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={IMG("before-exterior")} alt={en ? "Today (signage blurred)" : "현재 모습(간판 흐림 처리)"} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "grayscale(0.35) contrast(1.05)" }} />
@@ -607,11 +607,11 @@ function Numbers() {
 /* ───────── 7. 영상 ───────── */
 const FILMS = [
   { k: "intro", t: "신촌에서 회복실까지 0:40", tE: "Intro 0:40", src: "/sinchon/care/intro.mp4", poster: "care/intro-poster" },
-  { k: "care", t: "공동체 돌봄", tE: "Community care", src: "/sinchon/care/coop-care-ko.mp4", poster: "care/care-poster-ko" },
-  { k: "doctor", t: "평생주치의", tE: "Lifelong doctor", src: "/sinchon/care/coop-doctor-ko.mp4", poster: "care/doctor-poster" },
-  { k: "nurse", t: "간호", tE: "Nursing", src: "/sinchon/care/coop-nurse.mp4", poster: "care/nurse-poster" },
-  { k: "lounge", t: "가족 라운지", tE: "Family lounge", src: "/sinchon/care/coop-lounge.mp4", poster: "care/lounge-poster" },
-  { k: "hug", t: "함께", tE: "Together", src: "/sinchon/care/coop-hug.mp4", poster: "care/hug-poster" },
+  { k: "care", t: "공동체 돌봄", tE: "Community care", src: "/sinchon/care/coop-care-ko.mp4", poster: "care/film-coop-care-ko" },
+  { k: "doctor", t: "평생주치의", tE: "Lifelong doctor", src: "/sinchon/care/coop-doctor-ko.mp4", poster: "care/film-coop-doctor-ko" },
+  { k: "nurse", t: "간호", tE: "Nursing", src: "/sinchon/care/coop-nurse.mp4", poster: "care/film-coop-nurse" },
+  { k: "lounge", t: "가족 라운지", tE: "Family lounge", src: "/sinchon/care/coop-lounge.mp4", poster: "care/film-coop-lounge" },
+  { k: "hug", t: "함께", tE: "Together", src: "/sinchon/care/coop-hug.mp4", poster: "care/film-coop-hug" },
 ];
 function Film() {
   const [i, setI] = useState(0);
