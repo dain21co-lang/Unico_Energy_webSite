@@ -101,7 +101,7 @@ function Building() {
       </section>
 
       <section className="cr-media">
-        <Vid src="../rooftop-hero.mp4" poster="../rooftop-hero-poster.webp" className="cr-tall" />
+        <Vid src="approach.mp4" poster="approach-poster.webp" className="cr-tall" />
       </section>
 
       <section className="cr-sec cr-cream">
@@ -131,7 +131,7 @@ function Building() {
         <Head no="05" en="BEFORE · AFTER" title="지금의 건물, 바뀐 모습" />
         <div className="cr-ba">
           <div><img src={`${S}/before-exterior.webp`} alt="현재" /><span>현재</span></div>
-          <div><img src={`${S}/after-exterior.webp`} alt="리모델링 후 예시" /><span>리모델링 후 예시</span></div>
+          <div><img src={`${A}/after-new.webp`} alt="리모델링 후 예시" /><span>리모델링 후 예시</span></div>
         </div>
       </section>
     </>

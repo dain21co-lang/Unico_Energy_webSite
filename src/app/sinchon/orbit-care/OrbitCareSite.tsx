@@ -607,6 +607,7 @@ function Numbers() {
 /* ───────── 7. 영상 ───────── */
 const FILMS = [
   { k: "intro", t: "신촌에서 회복실까지 0:40", tE: "Intro 0:40", src: "/sinchon/care/intro.mp4", poster: "care/intro-poster" },
+  { k: "approach", t: "건물 외관 드론", tE: "Exterior", src: "/sinchon/care/approach.mp4", poster: "care/approach-poster" },
   { k: "care", t: "공동체 돌봄", tE: "Community care", src: "/sinchon/care/coop-care-ko.mp4", poster: "care/film-coop-care-ko" },
   { k: "doctor", t: "평생주치의", tE: "Lifelong doctor", src: "/sinchon/care/coop-doctor-ko.mp4", poster: "care/film-coop-doctor-ko" },
   { k: "nurse", t: "간호", tE: "Nursing", src: "/sinchon/care/coop-nurse.mp4", poster: "care/film-coop-nurse" },
