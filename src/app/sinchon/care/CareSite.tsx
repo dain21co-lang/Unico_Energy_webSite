@@ -280,7 +280,7 @@ export default function CareSite() {
   return (
     <main className="cr">
       <header className="cr-hero">
-        <img src="/sinchon/after-exterior.webp" alt="" className="cr-hero-bg" />
+        <video className="cr-hero-bg" src={`${A}/intro.mp4`} poster={`${A}/intro-poster.webp`} autoPlay muted loop playsInline preload="auto" />
         <div className="cr-hero-in">
           <div className="cr-virtual">
             <b>가상 시나리오</b>
