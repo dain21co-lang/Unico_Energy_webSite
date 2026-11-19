@@ -102,3 +102,5 @@
 .cr-ba { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .cr-ba img { width: 100%; aspect-ratio: 9/16; object-fit: cover; border-radius: 10px; }
 .cr-ba span { display: block; text-align: center; font-size: 13px; margin-top: 6px; font-weight: 700; }
+
+.cr-mini { margin-top: 14px; font-size: 11px; opacity: .75; letter-spacing: .02em; }

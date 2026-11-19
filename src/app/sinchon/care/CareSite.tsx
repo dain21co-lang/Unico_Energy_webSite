@@ -282,13 +282,10 @@ export default function CareSite() {
       <header className="cr-hero">
         <video className="cr-hero-bg" src={`${A}/intro.mp4`} poster={`${A}/intro-poster.webp`} autoPlay muted loop playsInline preload="auto" />
         <div className="cr-hero-in">
-          <div className="cr-virtual">
-            <b>가상 시나리오</b>
-            <span>이 사이트의 모든 내용과 이미지는 검토용 가상 시나리오입니다</span>
-          </div>
           <p className="cr-eyebrow">SINCHON CARE HOUSE</p>
           <h1>치료는 대학병원에서,<br />회복은 <em>신촌</em>에서</h1>
           <p className="cr-lead">신촌 평생주치의 케어하우스(가칭)<br />의료복지사회적협동조합 입점 구상</p>
+          <p className="cr-mini">입점 검토용 시안 · 이미지와 영상은 AI 예시</p>
         </div>
       </header>
 
