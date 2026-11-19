@@ -21,7 +21,7 @@ const BEDS = C.s + C.t * 2 + C.sh * 3;
 /* 언어: false = 한국어, true = English */
 const LangCtx = createContext(false);
 const useEN = () => useContext(LangCtx);
-const LBL = (en: boolean) => (en ? { s: "Single", t: "Twin", sh: "Triple share" } : LABEL);
+const LBL = (en: boolean) => (en ? { s: "Single", t: "Twin", sh: "Family" } : { s: "1인 회복실", t: "2인 회복실", sh: "가족 체류실" });
 
 /* ───────── 공통 ───────── */
 function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
@@ -84,12 +84,12 @@ function Clip({ src, poster, kick, title, light = false }: { src: string; poster
 
 /* ───────── 1. 3D 여정 (스크롤 고정) ───────── */
 const CHAPTERS = [
-  { n: "01", en: "THE ARRIVAL", kick: "01 / IMAGINE A NEW CHAPTER", a: "Form.", b: "In motion.", sub: "선이 펼쳐지고, 층이 올라가고.\n새로운 신촌이 모습을 갖춥니다.", subE: "Lines unfold, floors rise.\nA new Sinchon takes shape." },
-  { n: "02", en: "THE REVEAL", kick: "02 / A DIFFERENT PERSPECTIVE", a: "See it", b: "differently.", sub: "원도면 치수 그대로.\n지하 2층 · 지상 10층, 하나의 건물을 다른 시선으로.", subE: "True to the original drawings.\nTen floors above ground, one building, a new view." },
-  { n: "03", en: "THE LAYERS", kick: "03 / OPEN UP THE POSSIBILITIES", a: "Room for", b: "new stories.", sub: "층을 펼치면 객실이 보입니다.\n2층부터 10층까지 66개의 방.", subE: "Open the floors and the rooms appear.\n66 rooms from the 2nd to the 10th floor." },
-  { n: "04", en: "THE HORIZON", kick: "04 / ONE BUILDING", a: "One city.", b: "New life.", sub: "하루 숙박부터 한 학기까지,\n신촌의 첫 서울집.", subE: "From one night to a full semester —\nyour first home in Seoul." },
+  { n: "01", en: "THE ARRIVAL", kick: "01 / IMAGINE A NEW CHAPTER", a: "Form.", b: "In motion.", sub: "선이 펼쳐지고, 층이 올라가고.\n대학병원 곁에 회복의 집이 모습을 갖춥니다.", subE: "Lines unfold, floors rise.\nA new Sinchon takes shape." },
+  { n: "02", en: "THE REVEAL", kick: "02 / A DIFFERENT PERSPECTIVE", a: "See it", b: "differently.", sub: "원도면 치수 그대로.\n지하 2층 · 지상 10층, 한 건물에 담는 생애 전주기 돌봄.", subE: "True to the original drawings.\nTen floors above ground, one building, a new view." },
+  { n: "03", en: "THE LAYERS", kick: "03 / OPEN UP THE POSSIBILITIES", a: "Room for", b: "new stories.", sub: "층을 펼치면 방이 보입니다.\n2층부터 10층까지, 회복실과 가족 체류실 66실.", subE: "Open the floors and the rooms appear.\n66 rooms from the 2nd to the 10th floor." },
+  { n: "04", en: "THE HORIZON", kick: "04 / ONE BUILDING", a: "One city.", b: "New life.", sub: "치료는 대학병원에서,\n회복은 신촌에서.", subE: "From one night to a full semester —\nyour first home in Seoul." },
 ];
-const FLOOR_LIST: [string, string, string][] = [["10F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["9F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["8F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["7F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["6F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["5F", "1인실 5 · 2인실 1", "Single 5 · Twin 1"], ["4F", "1인실 5 · 2인실 1 · 옥상정원", "Single 5 · Twin 1 · Roof garden"], ["3F", "셰어 6 · 2인실 3 · 1인실 3", "Share 6 · Twin 3 · Single 3"], ["2F", "셰어 6 · 2인실 3 · 1인실 3", "Share 6 · Twin 3 · Single 3"], ["1F", "무인 체크인 · 기존 임차", "Self check-in · existing tenant"]];
+const FLOOR_LIST: [string, string, string][] = [["10F", "완화돌봄 스위트", "Palliative suites"], ["9F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["8F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["7F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["6F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["5F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["4F", "재활 센터 · 하늘정원", "Rehab · roof garden"], ["3F", "가족 체류실 · 상담", "Family stay · counselling"], ["2F", "평생주치의 의원 · 가족실", "Clinic · family rooms"], ["1F", "로비 · 입원 상담 · 카페", "Lobby · admissions · cafe"]];
 
 function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -176,9 +176,9 @@ function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
 
 /* ───────── 2. 원도면 · 객실 배치 ───────── */
 const PLAN_TABS: { k: FloorKind; label: string; labelE: string; cad: string; sum: string; sumE: string; note: string; noteE: string }[] = [
-  { k: "f23", label: "2·3층", labelE: "2F · 3F", cad: "orbit-cad-2f", sum: "층당 12실 · 셰어룸 6 + 2인실 3 + 1인실 3", sumE: "12 rooms per floor · 6 share + 3 twin + 3 single", note: "층당 337.89㎡의 가장 넓은 층 — 그룹·어학연수생 중심", noteE: "The widest floors (337.89㎡ each) — for groups and language students" },
-  { k: "f4", label: "4층", labelE: "4F", cad: "orbit-cad-4f", sum: "6실 · 1인실 5 + 2인실 1 + 옥상정원", sumE: "6 rooms · 5 single + 1 twin + roof garden", note: "2·3층 지붕을 옥상정원으로 — 입주자 모두의 마당", noteE: "The roof over 2F–3F becomes a garden for every resident" },
-  { k: "typ", label: "5~10층", labelE: "5F – 10F", cad: "orbit-cad-typ", sum: "층당 6실 · 1인실 5 + 2인실 1", sumE: "6 rooms per floor · 5 single + 1 twin", note: "기준층 — 모든 객실 개별 욕실, 린넨·세탁실 층마다", noteE: "Typical floor — private bathroom in every room, linen & laundry on each floor." },
+  { k: "f23", label: "2·3층", labelE: "2F · 3F", cad: "orbit-cad-2f", sum: "층당 12실 · 가족 체류실 6 + 2인 3 + 1인 3", sumE: "12 rooms per floor · 6 share + 3 twin + 3 single", note: "층당 337.89㎡의 가장 넓은 층 — 평생주치의 의원과 보호자 가족 체류실", noteE: "The widest floors (337.89㎡ each) — for groups and language students" },
+  { k: "f4", label: "4층", labelE: "4F", cad: "orbit-cad-4f", sum: "재활 센터 + 하늘정원", sumE: "6 rooms · 5 single + 1 twin + roof garden", note: "2·3층 지붕을 하늘정원으로 — 휠체어로 오르는 회복의 마당", noteE: "The roof over 2F–3F becomes a garden for every resident" },
+  { k: "typ", label: "5~10층", labelE: "5F – 10F", cad: "orbit-cad-typ", sum: "층당 6실 · 1인 회복실 5 + 2인 회복실 1", sumE: "6 rooms per floor · 5 single + 1 twin", note: "회복 병동 — 층마다 간호스테이션, 모든 방에 개별 욕실과 간호 호출", noteE: "Typical floor — private bathroom in every room, linen & laundry on each floor." },
 ];
 const SVC_E: Record<string, string> = { 린넨: "Linen", 복도: "Corridor", 옥상정원: "Roof garden" };
 
@@ -226,7 +226,7 @@ function Plans() {
   const t = PLAN_TABS[tab];
   return (
     <section id="plans" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#3e6e82 0%,#5b97ac 100%)" }}>
-      <Head kick="05 / THE ORIGINAL LINES" a="Every future." b="Begins with a line." sub={en ? <>Imagination, grounded in the original lines.<br />A draft room plan laid over the original drawings.</> : <>상상에 근거를 더하는 원래의 선.<br />원도면 위에 객실 배치(안)를 올렸습니다.</>} />
+      <Head kick="05 / THE ORIGINAL LINES" a="Every future." b="Begins with a line." sub={en ? <>Imagination, grounded in the original lines.<br />A draft room plan laid over the original drawings.</> : <>상상에 근거를 더하는 원래의 선.<br />원도면 위에 회복실 배치(안)를 올렸습니다.</>} />
       <div className="mt-8 flex gap-2">
         {PLAN_TABS.map((p, i) => (
           <button key={p.k} onClick={() => setTab(i)} className="relative flex-1 rounded-full py-3 text-[14px] font-bold" style={{ color: i === tab ? "#3e6e82" : "#dfe7ee" }}>
@@ -243,7 +243,7 @@ function Plans() {
             {(["rooms", "cad"] as const).map((m) => (
               <button key={m} onClick={() => setMode(m)} className="relative rounded-full px-3 py-1.5" style={{ color: mode === m ? "#3e6e82" : "#c9d4de" }}>
                 {mode === m && <motion.span layoutId="pmode" className="absolute inset-0 rounded-full" style={{ background: "var(--o-gold)" }} transition={{ duration: 0.35 }} />}
-                <span className="relative">{m === "rooms" ? (en ? "Rooms" : "객실 배치") : en ? "Original" : "원도면"}</span>
+                <span className="relative">{m === "rooms" ? (en ? "Rooms" : "방 배치") : en ? "Original" : "원도면"}</span>
               </button>
             ))}
           </div>
@@ -278,21 +278,21 @@ function Plans() {
           </div>
         ))}
       </div>
-      <p className="mt-5 text-[11.5px] leading-[1.7] text-[#e4f1f3]">{en ? "The originals are images of the 2023 drawing set (B2 + 10 floors). The room plan is a schematic draft based on their dimensions, to be finalised after structural, plumbing and permit review." : "원도면은 2023년 도면(지하 2층 · 지상 10층) 이미지입니다. 객실 배치는 원도면 치수를 기준으로 한 개략(안)이며, 구조·배관·인허가 검토 후 확정합니다."}</p>
+      <p className="mt-5 text-[11.5px] leading-[1.7] text-[#e4f1f3]">{en ? "The originals are images of the 2023 drawing set (B2 + 10 floors). The room plan is a schematic draft based on their dimensions, to be finalised after structural, plumbing and permit review." : "원도면은 2023년 도면(지하 2층 · 지상 10층) 이미지입니다. 방 배치는 원도면 치수를 기준으로 한 개략(안)이며, 의료시설 용도변경·구조·인허가 검토 후 확정합니다."}</p>
     </section>
   );
 }
 
 /* ───────── 3. 생활 (아이보리) ───────── */
 const ROOM_CARDS = [
-  { img: "room-single", t: "1인실", tE: "Single", size: "약 16㎡", sizeE: "approx. 16㎡", n: C.s, d: "책상·수납·개별 욕실. 나만의 속도로.", dE: "Desk, storage and a private bathroom. Live at your own pace." },
-  { img: "room-twin", t: "2인실", tE: "Twin", size: "약 18~20㎡", sizeE: "approx. 18–20㎡", n: C.t, d: "친구·형제와 함께, 각자의 침대와 책상.", dE: "Share with a friend or sibling — your own bed and desk each." },
-  { img: "room-triple", t: "3인 셰어룸", tE: "Triple share", size: "약 26㎡", sizeE: "approx. 26㎡", n: C.sh, d: "어학연수·교환학생 그룹을 위한 넓은 방.", dE: "A roomy space for language-course and exchange-student groups." },
+  { img: "care/nurse-poster", t: "1인 회복실", tE: "Single", size: "약 16㎡", sizeE: "approx. 16㎡", n: C.s, d: "항암 기간 감염 걱정 없이, 간호 호출과 개별 욕실.", dE: "Private recovery room." },
+  { img: "care/hug-poster", t: "2인 회복실", tE: "Twin", size: "약 18~20㎡", sizeE: "approx. 18–20㎡", n: C.t, d: "환자와 보호자가 함께, 또는 환자 두 분이.", dE: "Patient and carer together." },
+  { img: "care/lounge-poster", t: "가족 체류실", tE: "Family stay", size: "약 26㎡", sizeE: "approx. 26㎡", n: C.sh, d: "지방에서 올라온 보호자 가족이 치료 기간 머무는 방.", dE: "For families staying during treatment." },
 ];
 const LIFE = [
-  { img: "orbit-room", t: "나에게 돌아오는 방", tE: "A room to come home to", en: "PRIVATE ROOM" },
-  { img: "orbit-study", t: "함께 자라는 시간", tE: "Time to grow together", en: "STUDY & COMMUNITY" },
-  { img: "orbit-dinner", t: "한 끼에서 시작되는 인연", tE: "Friendships that start over a meal", en: "SHARED KITCHEN" },
+  { img: "care/doctor-poster", t: "나를 오래 아는 주치의", tE: "A doctor who knows you", en: "LIFELONG DOCTOR" },
+  { img: "care/stage-home", t: "다시 걷는 연습", tE: "Learning to walk again", en: "REHAB" },
+  { img: "care/stage-healthy", t: "치료 단계에 맞춘 한 끼", tE: "Meals for every stage", en: "NUTRITION" },
 ];
 
 function RoomCarousel() {
@@ -306,13 +306,13 @@ function RoomCarousel() {
           <div key={r.t} className="w-[74%] shrink-0">
             <div className="arch relative aspect-[3/4.3] bg-[#ddd6c6]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMG(r.img)} alt={en ? `${r.tE} concept` : `${r.t} 콘셉트`} className="h-full w-full object-cover" loading="lazy" />
+              <img src={IMG(r.img)} alt={en ? `${r.tE} concept` : `${r.t} · AI 예시`} className="h-full w-full object-cover" loading="lazy" />
             </div>
             <div className="mt-3 flex items-baseline justify-between">
               <p className="text-[19px] font-black">{en ? r.tE : r.t}</p>
               <p className="serif text-[22px] italic">{r.n}{en ? " rooms" : "실"}</p>
             </div>
-            <p className="text-[12.5px] font-bold text-[#121212]">{en ? `${r.sizeE} · one night to a semester` : `${r.size} · 하루부터 한 학기까지`}</p>
+            <p className="text-[12.5px] font-bold text-[#121212]">{en ? `${r.sizeE} · one night to a semester` : `${r.size} · 회복 기간 동안`}</p>
             <p className="mt-1 text-[13.5px] leading-relaxed text-[#4a4f55]">{en ? r.dE : r.d}</p>
           </div>
         ))}
@@ -330,7 +330,7 @@ function Life() {
   const en = useEN();
   return (
     <section id="life" className="paper relative px-6 pb-20 pt-24">
-      <Head dark={false} kick="06 / LIFE IN FULL COLOUR" a="Not just a room." b="Your Seoul." sub={en ? <>The moment lines turn into the warmth of daily life.<br />Every room has a private bathroom and comes fully furnished.</> : <>공간의 선이 생활의 온도로 바뀌는 순간.<br />모든 객실에 개별 욕실, 가구는 모두 갖춰져 있습니다.</>} />
+      <Head dark={false} kick="06 / CARE IN FULL COLOUR" a="Not just a ward." b="A place to heal." sub={en ? <>The moment lines turn into the warmth of daily life.<br />Every room has a private bathroom and comes fully furnished.</> : <>공간의 선이 돌봄의 온도로 바뀌는 순간.<br />주치의·간호사·요양보호사가 한 팀으로 곁을 지킵니다.</>} />
       <div className="mt-9"><RoomCarousel /></div>
       <div className="mt-16 space-y-10">
         {LIFE.map((l, i) => (
@@ -349,7 +349,7 @@ function Life() {
         ))}
       </div>
       <div className="mt-14">
-        <Clip src="/sinchon/community.mp4" poster="community-poster" kick={en ? "FROM ROOM TO LOUNGE · 40s" : "방에서 라운지로 · 40초"} title={en ? "Close the door, and friends are a few steps away" : "문을 나서면 몇 걸음 거리에 친구들"} />
+        <Clip src="/sinchon/care/coop-lounge.mp4" poster="care/lounge-poster" kick={en ? "COMMUNITY CARE" : "공동체가 함께 돌봅니다"} title={en ? "Care, shared by a community" : "돌봄의 무게를 혼자 지지 않도록"} />
       </div>
     </section>
   );
@@ -363,15 +363,15 @@ function Rooftop() {
     <section ref={ref} className="relative h-[92svh] overflow-hidden">
       <motion.div className="absolute inset-0" initial={{ clipPath: "inset(14% 10% 14% 10% round 28px)", scale: 1.12 }} animate={on ? { clipPath: "inset(0% 0% 0% 0% round 0px)", scale: 1 } : {}} transition={{ duration: 1.4, ease: EASE }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={IMG("orbit-roof")} alt={en ? "Rooftop lounge concept" : "옥상 휴식 공간 콘셉트"} className="h-full w-full object-cover" />
+        <img src={IMG("rooftop-hero-poster")} alt={en ? "Rooftop garden concept" : "하늘정원 · AI 예시"} className="h-full w-full object-cover" />
       </motion.div>
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(62,110,130,0.78) 0%,rgba(62,110,130,0) 38%,rgba(62,110,130,0) 60%,rgba(62,110,130,0.85) 100%)" }} />
       <div className="absolute inset-x-6 top-20">
-        <p className="kick text-[#e6ecf2]">A DIFFERENT KIND OF STAY</p>
-        <h2 className="serif mt-3 text-[48px] leading-[0.96]">Above the city.<br /><em>Closer to life.</em></h2>
+        <p className="kick text-[#e6ecf2]">A DIFFERENT KIND OF CARE</p>
+        <h2 className="serif mt-3 text-[48px] leading-[0.96]">Above the city.<br /><em>Closer to healing.</em></h2>
       </div>
       <div className="absolute inset-x-6 bottom-10">
-        <p className="text-[15px] font-medium leading-[1.75] text-[#e6ecf2]">{en ? <>A busy city and a quiet day of your own.<br />Find the balance in the 4F roof garden, right above the city.</> : <>분주한 도시와 고요한 나의 하루.<br />4층 옥상정원에서, 도시 위 그 사이의 균형을.</>}</p>
+        <p className="text-[15px] font-medium leading-[1.75] text-[#e6ecf2]">{en ? <>A busy city and a quiet day of your own.<br />Find the balance in the 4F roof garden, right above the city.</> : <>병실 문을 열고 바람을 쐬는 시간.<br />4층 하늘정원에서 환자와 가족이 함께 쉬어 갑니다.</>}</p>
       </div>
     </section>
   );
@@ -379,11 +379,11 @@ function Rooftop() {
 
 /* ───────── 4. 스마트 운영 ───────── */
 const STEPS = [
-  { en: "BOOK", t: "다국어 예약", tE: "Book in your language", d: "웹·앱에서 1박부터 한 학기까지 고르고 결제", dE: "Choose anything from one night to a semester on web or app, and pay" },
-  { en: "ARRIVE", t: "줄 서지 않는 입실", tE: "No queue at check-in", d: "도착 전날 받은 비밀번호로 바로 객실까지", dE: "Go straight to your room with the code sent the day before" },
-  { en: "LIVE", t: "AI 생활 안내", tE: "AI concierge", d: "한·영·중·일 24시간 안내, 수리 접수, 시설 예약", dE: "24/7 help in Korean, English, Chinese and Japanese — repairs, bookings" },
-  { en: "EXTEND", t: "앱에서 바로 연장", tE: "Extend in the app", d: "단기 숙박을 학기 플랜으로 그대로 전환", dE: "Turn a short stay into a semester plan in a tap" },
-  { en: "LEAVE", t: "가벼운 퇴실", tE: "Leave light", d: "짐 보관 서비스 연계, 다음 학기 재예약", dE: "Luggage storage on request, rebook next semester" },
+  { en: "CONSULT", t: "입원 상담", tE: "Consultation", d: "대학병원 진료 기록을 주치의가 함께 검토", dE: "Your doctor reviews your hospital records" },
+  { en: "ADMIT", t: "회복실 입실", tE: "Admission", d: "치료 일정에 맞춰 1인·2인 회복실 배정", dE: "A recovery room matched to your treatment" },
+  { en: "CARE", t: "팀 돌봄", tE: "Team care", d: "주치의·간호사·요양보호사·영양·상담이 한 팀으로", dE: "Doctor, nurse, carer, nutrition and counselling as one team" },
+  { en: "LINK", t: "대학병원 연계", tE: "Hospital link", d: "통원 셔틀과 전문의 원격협진으로 치료를 잇습니다", dE: "Shuttle and remote consults keep treatment connected" },
+  { en: "HOME", t: "집으로, 그리고 계속", tE: "Home, and beyond", d: "퇴원 후 방문진료·방문간호로 돌봄을 이어 갑니다", dE: "Home visits continue the care after discharge" },
 ];
 function Smart() {
   const ref = useRef<HTMLDivElement>(null);
@@ -391,9 +391,9 @@ function Smart() {
   const en = useEN();
   return (
     <section id="smart" className="relative px-6 pb-20 pt-24" style={{ background: "#5b97ac" }}>
-      <Head kick="07 / SMART STAY" a="Five steps." b="No front desk." sub={en ? "From booking to check-out, a smart hostel day that runs on your phone." : "예약부터 퇴실까지, 휴대폰 하나로 이어지는 스마트호스텔의 하루."} />
+      <Head kick="07 / CARE JOURNEY" a="Five steps." b="Never alone." sub={en ? "From admission to home, care that stays connected." : "입원 상담부터 집으로 돌아간 뒤까지, 끊기지 않는 돌봄의 다섯 단계."} />
       <div className="mt-8">
-        <Clip src="/sinchon/arrival.mp4" poster="arrival-poster" kick={en ? "ARRIVAL · 40s" : "도착에서 객실까지 · 40초"} title={en ? "From the street to your room, no front desk" : "거리에서 내 방까지, 프런트 없이"} />
+        <Clip src="/sinchon/care/intro.mp4" poster="care/intro-poster" kick={en ? "ARRIVAL · 40s" : "신촌에서 회복실까지 · 40초"} title={en ? "From the city to the recovery room" : "노을 진 신촌에서 회복실 창가까지"} />
       </div>
       <div ref={ref} className="relative mt-10 pl-8">
         <motion.span className="absolute left-[7px] top-2 bottom-2 w-px origin-top" style={{ background: "linear-gradient(180deg,var(--o-mint),var(--o-gold))" }} initial={{ scaleY: 0 }} animate={on ? { scaleY: 1 } : {}} transition={{ duration: 1.6, ease: EASE }} />
@@ -407,7 +407,7 @@ function Smart() {
         ))}
       </div>
       <div className="mt-12 grid grid-cols-2 gap-2.5">
-        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "무인 체크인 데스크", "밤에도 줄 서지 않는 입실"], ["B1", "K뷰티 · 생활용품 매장", "입주자와 관광객이 함께"], ["B2", "한식뷔페", "집밥 같은 한 끼, 입주자 할인"], ["4F", "옥상정원", "도시 위의 쉼"]]).map(([f, t, d]) => (
+        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "로비 · 입원 상담", "보호자 카페와 약국"], ["2F", "평생주치의 의원", "원격협진·방문진료 거점"], ["B1", "영양 식당", "치료식과 가족 식사"], ["4F", "재활 · 하늘정원", "다시 걷는 연습, 도시 위의 쉼"]]).map(([f, t, d]) => (
           <Reveal key={f}>
             <div className="h-full rounded-2xl border border-white/10 p-4">
               <p className="serif text-[26px] italic leading-none" style={{ color: "var(--o-gold)" }}>{f}</p>
@@ -427,7 +427,7 @@ function Exterior() {
   const en = useEN();
   return (
     <section id="exterior" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#5b97ac,#3e6e82)" }}>
-      <Head kick="08 / THE EXTERIOR STUDY" a="From drawing." b="Into dimension." sub={en ? "Thin lines gain light and depth. Slide to compare today with a remodelling concept." : "가느다란 선에 빛과 깊이가 더해집니다. 손가락으로 밀어 지금과 리모델링 후 예시를 비교해 보세요."} />
+      <Head kick="08 / THE EXTERIOR STUDY" a="From drawing." b="Into dimension." sub={en ? "Thin lines gain light and depth. Slide to compare today with a remodelling concept." : "가느다란 선에 빛과 깊이가 더해집니다. 손가락으로 밀어 지금과 케어하우스로 바뀐 예시를 비교해 보세요."} />
       <div className="relative mt-8 aspect-[941/1300] w-full overflow-hidden rounded-[24px] bg-black">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={IMG("after-exterior-day")} alt={en ? "Remodelling concept" : "리모델링 후 예시"} className="absolute inset-0 h-full w-full object-cover" />
@@ -546,10 +546,10 @@ function Clock24({ on }: { on: boolean }) {
 }
 
 const STATS = [
-  { n: TOTAL, u: "실", uE: "rooms", l: "객실", lE: "Rooms", d: `1인실 ${C.s} · 2인실 ${C.t} · 셰어룸 ${C.sh} — 눈금 하나가 방 하나`, dE: `${C.s} single · ${C.t} twin · ${C.sh} share — one tick, one room`, Art: RingRooms },
-  { n: BEDS, u: "베드", uE: "beds", l: "침대", lE: "Beds", d: `1인 ${C.s} · 2인 ${C.t * 2} · 3인 ${C.sh * 3} — 점 하나가 침대 하나`, dE: `${C.s} + ${C.t * 2} + ${C.sh * 3} — one dot, one bed`, Art: DotsBeds },
-  { n: 4, u: "곳", uE: "", l: "대학 생활권", lE: "Universities nearby", d: "연세 · 이화 · 서강 · 홍익, 신촌역 도보권", dE: "Yonsei · Ewha · Sogang · Hongik, near Sinchon Station", Art: MapUnis },
-  { n: 24, u: "시간", uE: "/7", l: "무인 체크인 · AI 안내", lE: "Self check-in · AI help", d: "낮에도 밤에도, 줄 서지 않는 입실", dE: "Day or night, no queue to get in", Art: Clock24 },
+  { n: TOTAL, u: "실", uE: "rooms", l: "회복실 · 가족 체류실", lE: "Rooms", d: `1인 ${C.s} · 2인 ${C.t} · 가족 체류 ${C.sh} — 눈금 하나가 방 하나`, dE: `${C.s} single · ${C.t} twin · ${C.sh} share — one tick, one room`, Art: RingRooms },
+  { n: BEDS, u: "베드", uE: "beds", l: "환자·보호자 침대", lE: "Beds", d: `회복실과 가족 체류실 — 점 하나가 침대 하나`, dE: `${C.s} + ${C.t * 2} + ${C.sh * 3} — one dot, one bed`, Art: DotsBeds },
+  { n: 10, u: "분", uE: "min", l: "세브란스병원까지 도보", lE: "Walk to Severance", d: "연세의료원 생활권 · 이화 · 서강 · 홍익도 가까이", dE: "Yonsei · Ewha · Sogang · Hongik, near Sinchon Station", Art: MapUnis },
+  { n: 24, u: "시간", uE: "/7", l: "간호 · 주치의 연결", lE: "Nursing 24/7", d: "낮에도 밤에도, 호출하면 곁에 오는 간호", dE: "Day or night, no queue to get in", Art: Clock24 },
 ];
 function StatRow({ s, i }: { s: (typeof STATS)[number]; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -579,12 +579,12 @@ function Numbers() {
       {/* 흐르는 글씨 */}
       <div className="pointer-events-none relative overflow-hidden whitespace-nowrap">
         <div className="drift serif inline-block text-[64px] italic leading-none" style={{ color: "transparent", WebkitTextStroke: "1px rgba(29,38,48,0.35)" }}>
-          {`${TOTAL} rooms · ${BEDS} beds · 4 universities · 24/7 · `.repeat(4)}
+          {`${TOTAL} rooms · lifelong doctor · 10 min to Severance · 24/7 care · `.repeat(4)}
         </div>
       </div>
       <div className="relative px-6">
         <p className="kick mt-8 text-[#121212]">09 / IN NUMBERS</p>
-        <h2 className="serif mt-3 text-[42px] leading-[0.98]">Small numbers.<br /><em>Big welcome.</em></h2>
+        <h2 className="serif mt-3 text-[42px] leading-[0.98]">Small numbers.<br /><em>Big care.</em></h2>
         <div className="mt-8">
           {STATS.map((s, i) => <StatRow key={s.l} s={s} i={i} />)}
         </div>
@@ -592,12 +592,12 @@ function Numbers() {
           <div className="flex items-center gap-1.5">
             {(["s", "t", "sh"] as const).map((k) => <span key={k} className="h-2.5 flex-1 origin-left rounded-full" style={{ background: k === "s" ? "#fff8ea" : k === "t" ? "#eaf4ef" : "#f2a7a0", flexGrow: C[k] }} />)}
           </div>
-          <p className="mt-3 text-[14px] font-bold leading-relaxed">{en ? <>From one night to a full semester —<br />your first home in Seoul.</> : <>하루 숙박부터 한 학기 체류까지,<br />신촌의 첫 서울집.</>}</p>
+          <p className="mt-3 text-[14px] font-bold leading-relaxed">{en ? <>From one night to a full semester —<br />your first home in Seoul.</> : <>건강할 때부터 생의 마지막까지,<br />나를 아는 주치의가 곁에 있습니다.</>}</p>
         </div>
       </div>
       <div className="pointer-events-none relative mt-12 overflow-hidden whitespace-nowrap">
         <div className="drift-r serif inline-block text-[44px] italic leading-none text-[#121212]/80">
-          {"ORBIT HOUSE · SINCHON · ".repeat(6)}
+          {"SINCHON CARE HOUSE · GB LABS · ".repeat(6)}
         </div>
       </div>
     </section>
@@ -606,12 +606,12 @@ function Numbers() {
 
 /* ───────── 7. 영상 ───────── */
 const FILMS = [
-  { k: "full", t: "전체 이야기 2:41", tE: "Full story 2:41", src: "/sinchon/fullstory.mp4", poster: "fullstory-poster" },
-  { k: "arrival", t: "도착 → 객실", tE: "Arrival", src: "/sinchon/arrival.mp4", poster: "arrival-poster" },
-  { k: "community", t: "방 → 라운지", tE: "Room → Lounge", src: "/sinchon/community.mp4", poster: "community-poster" },
-  { k: "exterior", t: "외관", tE: "Exterior", src: "/sinchon/exterior.mp4", poster: "exterior-poster" },
-  { k: "hero", t: "첫 장면", tE: "Opening", src: "/sinchon/hero.mp4", poster: "hero-poster" },
-  { k: "lounge", t: "라운지", tE: "Lounge", src: "/sinchon/lounge.mp4", poster: "lounge-poster" },
+  { k: "intro", t: "신촌에서 회복실까지 0:40", tE: "Intro 0:40", src: "/sinchon/care/intro.mp4", poster: "care/intro-poster" },
+  { k: "care", t: "공동체 돌봄", tE: "Community care", src: "/sinchon/care/coop-care-ko.mp4", poster: "care/care-poster-ko" },
+  { k: "doctor", t: "평생주치의", tE: "Lifelong doctor", src: "/sinchon/care/coop-doctor-ko.mp4", poster: "care/doctor-poster" },
+  { k: "nurse", t: "간호", tE: "Nursing", src: "/sinchon/care/coop-nurse.mp4", poster: "care/nurse-poster" },
+  { k: "lounge", t: "가족 라운지", tE: "Family lounge", src: "/sinchon/care/coop-lounge.mp4", poster: "care/lounge-poster" },
+  { k: "hug", t: "함께", tE: "Together", src: "/sinchon/care/coop-hug.mp4", poster: "care/hug-poster" },
 ];
 function Film() {
   const [i, setI] = useState(0);
@@ -631,7 +631,7 @@ function Film() {
   const toggleSound = () => { const el = v.current; if (!el) return; const next = !sound; el.muted = !next; setSound(next); if (el.paused) el.play().catch(() => {}); };
   return (
     <section id="film" className="relative px-6 pb-20 pt-24" style={{ background: "#3e6e82" }}>
-      <Head kick="10 / THE FILM" a="The whole story." b="In motion." sub={en ? <>From the building to daily life, and back to the city.<br />The full 2 min 41 s film, uncut.</> : <>건물에서 일상으로, 그리고 다시 도시로.<br />함께 만든 2분 41초를 자르지 않고 그대로 담았습니다.</>} />
+      <Head kick="10 / THE FILM" a="The whole story." b="In motion." sub={en ? <>From the building to daily life, and back to the city.<br />The full 2 min 41 s film, uncut.</> : <>신촌의 노을에서 회복실 창가까지,<br />그리고 공동체가 함께 돌보는 하루.</>} />
       <div className="mt-7 flex flex-wrap gap-2">
         {FILMS.map((x, k) => (
           <button key={x.k} onClick={() => setI(k)} className="relative rounded-full px-4 py-2.5 text-[13.5px] font-bold" style={{ color: k === i ? "#3e6e82" : "#dfe7ee" }}>
@@ -653,17 +653,16 @@ function Film() {
 
 /* ───────── 8. 자료 · 마무리 ───────── */
 const DOCS = [
-  { href: "/sinchon/ir", t: "IR 모션 프레젠테이션", tE: "IR motion presentation", d: "휴대폰에서 밀어 넘기는 33장", dE: "33 swipeable slides (Korean)" },
-  { href: "/scprofile", t: "사업소개서", tE: "Business profile", d: "콘셉트 · 객실 · 운영 12장", dE: "Concept · rooms · operations, 12 slides (Korean)" },
-  { href: "/scplan", t: "IR 자료", tE: "IR deck", d: "시장 · 수입 구조 · 자금 조달 18장", dE: "Market · income stack · funding, 18 slides (Korean)" },
-  { href: "/sinchon", t: "고객용 소개 사이트", tE: "Guest website", d: "객실 · 요금 · 동네 안내", dE: "Rooms · rates · neighbourhood" },
+  { href: "https://gblabs.co.kr/ko/coop", t: "평생주치의 의료·돌봄 협동조합", tE: "Cooperative", d: "GB LABS · 필요성 · 운영 모델 · 로드맵", dE: "GB LABS cooperative page" },
+  { href: "/sinchon/care", t: "케어하우스 입점 시안", tE: "Care house proposal", d: "층별 시설 · 입점 구조 · 환자·가족 안내", dE: "Floors · structure · families" },
+  { href: "https://gblabs.co.kr", t: "GB LABS", tE: "GB LABS", d: "AI · 빅데이터 디지털 헬스케어", dE: "Digital health company" },
 ];
 function Docs() {
   const en = useEN();
   return (
     <section id="docs" className="px-6 pb-16 pt-20" style={{ background: "#5b97ac" }}>
       <p className="kick" style={{ color: "var(--o-sub)" }}>11 / DOCUMENTS</p>
-      <h3 className="mt-3 text-[24px] font-black">{en ? "Project documents" : "사업 자료 바로보기"}</h3>
+      <h3 className="mt-3 text-[24px] font-black">{en ? "Learn more" : "더 알아보기"}</h3>
       <div className="mt-6 space-y-2.5">
         {DOCS.map((d) => (
           <a key={d.href} href={d.href} target="_blank" rel="noreferrer" className="flex items-center justify-between rounded-2xl border border-white/12 px-5 py-4 active:scale-[0.99]">
@@ -682,10 +681,10 @@ function Closing() {
   const en = useEN();
   return (
     <section className="stage relative overflow-hidden px-6 pb-14 pt-28 text-center">
-      <p className="kick" style={{ color: "var(--o-sub)" }}>ORBIT HOUSE · SINCHON</p>
-      <Reveal><h2 className="serif mt-5 text-[52px] leading-[0.96]">Space becomes<br /><em>possibility.</em></h2></Reveal>
-      <p className="mt-6 text-[15px] font-bold">{en ? "Sinchon Smart Hostel (working title)" : "신촌 스마트호스텔(가칭)"}</p>
-      <p className="mt-1 text-[14px] text-[#c9d4de]">{en ? "One night to a semester — for students, travellers and hospital visitors" : "하루부터 한 학기까지 — 유학생 · 여행자 · 병원 보호자의 신촌 집"}</p>
+      <p className="kick" style={{ color: "var(--o-sub)" }}>SINCHON CARE HOUSE · GB LABS</p>
+      <Reveal><h2 className="serif mt-5 text-[52px] leading-[0.96]">Space becomes<br /><em>care.</em></h2></Reveal>
+      <p className="mt-6 text-[15px] font-bold">{en ? "Sinchon Care House (working title)" : "신촌 평생주치의 케어하우스(가칭)"}</p>
+      <p className="mt-1 text-[14px] text-[#c9d4de]">{en ? "Treatment at the hospital, recovery in Sinchon" : "치료는 대학병원에서, 회복은 신촌에서 — 의료복지사회적협동조합"}</p>
       <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="pill mt-8 px-6 py-3 text-[14px] font-bold">{en ? "Back to top ↑" : "처음으로 ↑"}</button>
       <div className="mt-16 space-y-1.5 text-[11px] leading-[1.7] text-[#7f91a4]">
         {en ? (
@@ -695,8 +694,9 @@ function Closing() {
           </>
         ) : (
           <>
-            <p>PRIVATE CONCEPT REVIEW · 검토용 콘셉트 시안</p>
-            <p>이 사이트의 모든 내용과 이미지·영상은 가상 시나리오입니다.</p>
+            <img src="/sinchon/care/gblabs-logo-white.png" alt="GB LABS" className="mx-auto mb-4 h-7 w-auto opacity-90" />
+            <p>입점 검토용 시안 · 이미지와 영상은 AI 예시</p>
+            <p>층별 구성·운영 구조는 인허가 검토 후 확정합니다.</p>
           </>
         )}
       </div>
@@ -708,40 +708,32 @@ function Closing() {
 
 /* ───────── 대표 인사말 (정장 프로필) ───────── */
 function CeoMessage() {
-  const en = useEN();
+  const caps = ["고려대학교 의과대학·동 대학원 마취통증의학 (석사·박사)", "고려대학교 안암병원 마취통증의학과 교수", "대한의학회 정책이사", "전) 고려대학교 의과대학 교육 부학장", "전) 대한중환자의학회 부회장"];
   return (
     <section id="ceo" className="paper relative px-6 pb-20 pt-20">
-      <Reveal><p className="kick" style={{ color: "#121212" }}>{en ? "A MESSAGE FROM THE CEO" : "MESSAGE · 대표 인사말"}</p></Reveal>
+      <Reveal><p className="kick" style={{ color: "#121212" }}>MESSAGE · 대표 인사말</p></Reveal>
       <Reveal delay={0.05}>
-        <h2 className="serif mt-4 text-[40px] leading-[1.02]">{en ? <>Trust, built<br /><em>into every floor.</em></> : <>신뢰를 짓고,<br /><em>일상을 채웁니다.</em></>}</h2>
+        <h2 className="serif mt-4 text-[40px] leading-[1.02]">혼자 짊어지지 않는<br /><em>돌봄.</em></h2>
       </Reveal>
       <Reveal delay={0.1}>
         <div className="relative mt-8">
-          <div className="absolute inset-0 translate-x-3 translate-y-3 border-[3px] border-[#121212] bg-[#5b97ac]" />
-          <img src="/sinchon/ceo-formal.webp" alt={en ? "CEO, ORBIT HOUSE" : "ORBIT HOUSE 대표이사"} className="relative block aspect-[4/5] w-full border-[3px] border-[#121212] object-cover object-top" loading="lazy" />
+          <div className="absolute inset-0 translate-x-3 translate-y-3 border-[3px] border-[#121212] bg-[#8cc2d2]" />
+          <img src="/sinchon/care/ceo-gown.webp" alt="GB LABS 대표이사 임춘학" className="relative block aspect-[4/5] w-full border-[3px] border-[#121212] object-cover object-top" loading="lazy" />
         </div>
       </Reveal>
       <Reveal delay={0.15}>
         <div className="mt-10 space-y-4 text-[15px] leading-[1.9] text-[#1d2630]">
-          {en ? (
-            <>
-              <p>Giving an old building in Sinchon a new purpose is, in the end, about building a place for people.</p>
-              <p>Over thirty years in banking taught me the weight of trust and responsibility. ORBIT HOUSE is founded on those same principles: transparent operation, safe spaces, and service that respects the everyday life of everyone who stays.</p>
-              <p>From a single night to a full semester, we will make this the place students, families and travellers from around the world are glad to call home in Seoul — and a new standard for Sinchon.</p>
-            </>
-          ) : (
-            <>
-              <p>신촌의 오래된 건물에 새로운 쓰임을 더하는 일은, 결국 사람을 위한 공간을 짓는 일이라고 믿습니다.</p>
-              <p>30여 년 금융 현장에서 신뢰와 책임의 무게를 배웠습니다. ORBIT HOUSE는 그 원칙 위에 세워집니다. 투명한 운영, 안전한 공간, 그리고 머무는 모든 분의 일상을 존중하는 서비스로 답하겠습니다.</p>
-              <p>하루를 머무는 여행자부터 한 학기를 보내는 유학생, 병원 곁을 지키는 가족까지. 누구에게나 서울의 첫 집이 되는 곳, 신촌의 새로운 기준이 되겠습니다.</p>
-            </>
-          )}
+          <p>안녕하십니까, GB LABS 대표이사 임춘학입니다.</p>
+          <p>마취통증의학을 전공한 의사로 오랜 시간 환자의 가장 힘든 순간을 곁에서 지켜보았습니다. 병상 옆에서 가장 아프게 마주한 것은 병 그 자체보다, 그 무게를 홀로 감당하는 환자와 가족의 얼굴이었습니다.</p>
+          <p>대학병원에서 치료를 받는 동안, 많은 환자와 보호자가 머물 곳을 찾아 병원 주변을 헤맵니다. 신촌 케어하우스는 그 질문에 대한 저희의 답입니다. 치료는 대학병원에서 받고, 회복은 나를 아는 주치의와 간호 팀이 있는 이곳에서 — 가족도 같은 건물에서 곁을 지킬 수 있도록.</p>
+          <p>의사와 간호사, 요양보호사, 상담·복지 전문가가 한 팀이 되어 건강할 때부터 생의 마지막까지 함께하는 의료·돌봄 공동체. 의료복지사회적협동조합과 함께 신촌에서 그 첫걸음을 내딛겠습니다.</p>
         </div>
       </Reveal>
       <Reveal delay={0.2}>
         <div className="mt-8 border-t-[3px] border-[#121212] pt-4">
-          <p className="serif text-[22px] italic">ORBIT HOUSE</p>
-          <p className="mt-1 text-[13px] font-bold tracking-[0.18em]">{en ? "CHIEF EXECUTIVE OFFICER" : "대표이사"}</p>
+          <img src="/sinchon/care/gblabs-logo-dark.png" alt="GB LABS" className="h-6 w-auto" />
+          <p className="mt-3 text-[14px] font-black">대표이사 임춘학</p>
+          <ul className="mt-3 space-y-1 text-[12px] leading-[1.6] text-[#4a4f55]">{caps.map((c) => <li key={c}>{c}</li>)}</ul>
         </div>
       </Reveal>
     </section>
@@ -750,22 +742,16 @@ function CeoMessage() {
 
 /* ───────── 0. 첫 화면 영상 (옥상 라운지 드론 장면) ───────── */
 function HeroFilm() {
-  const en = useEN();
   return (
     <section id="intro" className="relative h-[100svh] min-h-[600px] overflow-hidden" style={{ background: "#3e6e82" }}>
-      <video className="absolute inset-0 h-full w-full object-cover" src="/sinchon/rooftop-hero.mp4" poster={IMG("rooftop-hero-poster")} autoPlay muted loop playsInline preload="auto" />
-      <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(62,110,130,0.55) 0%,rgba(62,110,130,0) 28%,rgba(62,110,130,0) 52%,rgba(62,110,130,0.92) 100%)" }} />
-      <div className="absolute inset-x-5 top-[84px] border-y-2 border-[var(--o-gold)] py-3 text-center" style={{ background: "rgba(62,110,130,0.55)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)" }}>
-        <p className="kick text-[var(--o-gold)]">VIRTUAL SCENARIO</p>
-        <p className="mt-1.5 text-[19px] font-black leading-[1.35]">{en ? <>Everything on this site<br />is a virtual scenario.</> : <>이 사이트의 모든 내용과 이미지는<br />가상 시나리오입니다</>}</p>
-      </div>
+      <video className="absolute inset-0 h-full w-full object-cover" src="/sinchon/care/intro.mp4" poster="/sinchon/care/intro-poster.webp" autoPlay muted loop playsInline preload="auto" />
+      <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(62,110,130,0.45) 0%,rgba(62,110,130,0) 24%,rgba(62,110,130,0) 52%,rgba(62,110,130,0.9) 100%)" }} />
       <div className="absolute inset-x-0 bottom-0 px-6 pb-14">
-        <p className="kick text-[var(--o-mint)]">{en ? "SINCHON SMART HOSTEL" : "신촌 스마트호스텔(가칭)"}</p>
-        <h1 className="mt-3 text-[34px] font-black leading-[1.22] tracking-tight">
-          {en ? <>From one night<br />to a whole semester.</> : <>하루부터 한 학기까지,<br />신촌의 새로운 궤도.</>}
-        </h1>
-        <p className="serif mt-3 text-[20px] italic text-[var(--o-gold)]">ORBIT HOUSE</p>
-        <a href="#top" className="nudge mt-7 inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.2em] text-[var(--o-sub)]">{en ? "SCROLL" : "아래로"} ↓</a>
+        <p className="kick text-[var(--o-mint)]">신촌 평생주치의 케어하우스(가칭)</p>
+        <h1 className="mt-3 text-[34px] font-black leading-[1.22] tracking-tight">치료는 대학병원에서,<br />회복은 신촌에서.</h1>
+        <p className="mt-3 text-[14px] font-medium text-[var(--o-sub)]">평생주치의 의료·돌봄 의료복지사회적협동조합</p>
+        <p className="mt-2 text-[11px] text-white/70">입점 검토용 시안 · 이미지와 영상은 AI 예시</p>
+        <a href="#ceo" className="nudge mt-6 inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.2em] text-[var(--o-sub)]">아래로 ↓</a>
       </div>
     </section>
   );
@@ -781,10 +767,9 @@ export default function OrbitCareSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
     <LangCtx.Provider value={en}>
     <main className="orb mx-auto min-h-screen w-full max-w-[480px]" lang={en ? "en" : "ko"}>
       <header className="fixed inset-x-0 top-0 z-40 mx-auto flex max-w-[480px] items-center justify-between gap-3 px-5 pt-4" style={{ background: "linear-gradient(180deg,rgba(62,110,130,0.85),rgba(62,110,130,0))", paddingBottom: 18 }}>
-        <p className="min-w-0 truncate whitespace-nowrap text-[13px] font-black tracking-[0.22em]">ORBIT HOUSE</p>
+        <img src="/sinchon/care/gblabs-logo-white.png" alt="GB LABS" className="h-6 w-auto" />
         <div className="flex shrink-0 items-center gap-2">
-          <a href={en ? "/sinchon/orbit" : "/sinchon/orbit/en"} className="pill glass whitespace-nowrap px-3 py-2 text-[12px] font-bold">{en ? "한국어" : "EN"}</a>
-          <button onClick={() => setInfo(true)} className="pill glass whitespace-nowrap px-3.5 py-2 text-[12px] font-bold">{en ? "About" : "안내"}</button>
+                    <button onClick={() => setInfo(true)} className="pill glass whitespace-nowrap px-3.5 py-2 text-[12px] font-bold">{en ? "About" : "안내"}</button>
         </div>
       </header>
 
@@ -820,9 +805,9 @@ export default function OrbitCareSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
               </>
             ) : (
               <>
-            <p>첫 화면의 건물은 사진이나 영상이 아니라, 2004년 원도면과 2023년 도면(지하 2층 · 지상 10층)의 치수(기준층 12.2m × 10.4m, 2~3층 동측 날개, 남측 계단·승강기 코어, 동측 비상계단)로 세운 실시간 3D 선 모델입니다. 아래로 밀면 층이 쌓이고, 펼쳐지며, 66개 객실이 색으로 채워집니다. 손가락으로 좌우로 끌면 돌아갑니다.</p>
-            <p>층고·창 간격·옥상 세부는 연출용 가정이며 실측 복원이 아닙니다. 객실 배치는 검토용 개략(안)입니다.</p>
-            <p>색: 차콜 네이비 위에 실버 블루 선 → 민트 → 샴페인 골드, 그리고 생활 구간은 따뜻한 아이보리.</p>
+            <p>인사말 아래의 건물은 사진이나 영상이 아니라, 원도면(지하 2층 · 지상 10층)의 치수로 세운 실시간 3D 선 모델입니다. 아래로 밀면 층이 쌓이고, 펼쳐지며, 66개의 회복실·가족 체류실이 색으로 채워집니다. 손가락으로 좌우로 끌면 돌아갑니다.</p>
+            <p>층고·창 간격·옥상 세부는 연출용 가정입니다. 방 배치와 층별 용도는 의료시설 인허가 검토 전의 개략(안)입니다.</p>
+            <p>GB LABS · 평생주치의 의료·돌봄 의료복지사회적협동조합 입점 검토용 시안</p>
               </>
             )}
           </div>
