@@ -669,36 +669,26 @@ const INFRA = [
   { k: "cool", t: "냉각", d: "장비의 열을 밖으로 내보낼 경로가 필요합니다. 지하라면 배기 동선이 핵심입니다." },
   { k: "flood", t: "침수 대비", d: "지하 공간은 물막이판·차수 설계·바닥 높이 확보로 침수에 대비합니다." },
 ];
+function DcStep({ i, set, children }: { i: number; set: (n: number) => void; children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const seen = useInView(ref, { amount: 0.6 });
+  useEffect(() => { if (seen) set(i); }, [seen, i, set]);
+  return <div ref={ref} className="flex min-h-[46svh] items-center">{children}</div>;
+}
 function DcSim() {
-  const [open, setOpen] = useState(false);
-  const [f, setF] = useState(0);
-  const [on, setOn] = useState<Record<string, boolean>>({ power: false, cool: false, flood: false });
-  const tog = (k: string) => setOn((o) => ({ ...o, [k]: !o[k] }));
+  const [idx, setIdx] = useState(0);
+  const f = Math.min(idx, 2);
+  const on: Record<string, boolean> = { power: idx >= 3, cool: idx >= 4, flood: idx >= 5 };
   const hi = (i: number) => (f === i ? "#f2a7a0" : "#ffffff");
+  const steps = [...FLOW.map((x, i) => ({ n: `0${i + 1}`, t: x.t, d: x.d, tag: "흐름" })), ...INFRA.map((x, i) => ({ n: `0${i + 4}`, t: x.t, d: x.d, tag: "지하 설비" }))];
   return (
-    <>
-      <section id="dc" className="px-6 pb-10 pt-16" style={{ background: "#3e6e82" }}>
-        <p className="kick" style={{ color: "var(--o-sub)" }}>VIRTUAL SIMULATION</p>
-        <h3 className="mt-3 text-[22px] font-black leading-snug">돌봄을 뒷받침하는<br />작은 데이터실</h3>
-        <p className="mt-2 text-[13.5px] leading-relaxed text-[#e4f1f3]">병실 센서에서 담당자의 확인까지, 건물 안에서 한 번에 이어지는 흐름을 가상으로 보여 드립니다.</p>
-        <button onClick={() => setOpen(true)} className="pill glass mt-5 w-full py-3.5 text-[14px] font-bold">가상 시뮬레이션 열기 ↗</button>
-      </section>
-      <motion.div className="fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[90svh] max-w-[480px] overflow-y-auto rounded-t-[26px]" style={{ background: "#eaf4ef", color: "#121212" }} initial={false} animate={{ y: open ? 0 : "105%" }} transition={{ duration: 0.5, ease: EASE }}>
-        <div className="px-6 pb-10 pt-6">
-          <div className="flex items-center justify-between">
-            <p className="kick text-[10px] text-[#3e6e82]">VIRTUAL SIMULATION · 가상</p>
-            <button onClick={() => setOpen(false)} className="h-9 w-9 rounded-full bg-white text-[16px] font-bold" aria-label="close">×</button>
-          </div>
-          <h3 className="mt-2 text-[22px] font-black leading-snug">돌봄을 뒷받침하는<br />작은 데이터실</h3>
-          <div className="mt-5 grid grid-cols-3 gap-1.5">
-            {FLOW.map((x, i) => (
-              <button key={x.k} onClick={() => setF(i)} className="relative rounded-2xl px-1 py-2.5 text-[12.5px] font-black" style={{ background: f === i ? "#3e6e82" : "#ffffff", color: f === i ? "#fff" : "#3e6e82" }}>
-                <span className="block text-[10px] font-bold opacity-70">0{i + 1}</span>{x.t}
-              </button>
-            ))}
-          </div>
-          <p className="mt-3 min-h-[40px] text-[13px] leading-relaxed text-[#1d2630]">{FLOW[f].d}</p>
-          <svg viewBox="0 0 300 300" className="mt-2 h-auto w-full">
+    <section id="dc" className="relative px-6 pb-16 pt-20" style={{ background: "#eaf4ef", color: "#121212" }}>
+      <p className="kick text-[10px] text-[#3e6e82]">VIRTUAL SIMULATION · 가상</p>
+      <h3 className="mt-3 text-[24px] font-black leading-snug">돌봄을 뒷받침하는<br />작은 데이터실</h3>
+      <p className="mt-2 text-[13.5px] leading-relaxed text-[#4a4f55]">아래로 내리면 병실 센서에서 담당자 확인까지, 그리고 지하 설비가 하나씩 켜집니다.</p>
+      <div className="sticky top-[60px] z-10 mt-5 rounded-[22px] bg-[#eaf4ef]/95 pb-1 pt-1 backdrop-blur">
+        <div className="mx-auto max-w-[360px]">
+          <svg viewBox="0 0 300 300" className="h-auto w-full max-h-[44svh]">
             {/* 지면 */}
             <rect x={0} y={178} width={300} height={3} fill="#121212" />
             <text x={6} y={174} fontSize={8} fontWeight={800} fill="#3e6e82">지상</text>
@@ -757,22 +747,25 @@ function DcSim() {
             )}
             <text x={150} y={286} textAnchor="middle" fontSize={7.5} fill="#7a7466">단순화한 가상 단면도</text>
           </svg>
-          <p className="mt-2 text-[13px] font-black">지하 설비를 하나씩 켜 보세요</p>
-          <div className="mt-2 grid grid-cols-3 gap-1.5">
-            {INFRA.map((x) => (
-              <button key={x.k} onClick={() => tog(x.k)} className="rounded-2xl py-3 text-[13px] font-black" style={{ background: on[x.k] ? "#3e6e82" : "#ffffff", color: on[x.k] ? "#fff" : "#3e6e82" }}>{on[x.k] ? "● " : "○ "}{x.t}</button>
-            ))}
-          </div>
-          <div className="mt-3 space-y-2">
-            {INFRA.filter((x) => on[x.k]).map((x) => (
-              <div key={x.k} className="rounded-2xl bg-white px-4 py-3"><p className="text-[14px] font-black text-[#3e6e82]">{x.t}</p><p className="mt-0.5 text-[12.5px] leading-relaxed text-[#4a4f55]">{x.d}</p></div>
-            ))}
-          </div>
-          <div className="mt-5 rounded-2xl bg-[#3e6e82] px-4 py-3 text-[12.5px] leading-relaxed text-white">기존 지하 재활 구상은 그대로 두고, 데이터실의 층 · 위치 · 장비 규모는 지하층 평면 · 단면 · 바닥 하중 · 수전 여유를 확인한 뒤 정합니다.</div>
-          <p className="mt-4 text-[11px] leading-relaxed text-[#7a7466]">이 화면은 검토용 가상 시뮬레이션이며, 확정된 시설 계획이나 계약 내용이 아닙니다.</p>
         </div>
-      </motion.div>
-    </>
+        <div className="mt-1 flex justify-center gap-1.5 pb-2">
+          {steps.map((_, k) => <span key={k} className="h-1.5 rounded-full transition-all" style={{ width: k === idx ? 22 : 6, background: k <= idx ? "#3e6e82" : "#c9d4de" }} />)}
+        </div>
+      </div>
+      <div className="relative">
+        {steps.map((x, i) => (
+          <DcStep key={x.n} i={i} set={setIdx}>
+            <div className="w-full rounded-[20px] bg-white p-5 shadow-sm" style={{ outline: i === idx ? "2px solid #3e6e82" : "none" }}>
+              <p className="text-[11px] font-bold tracking-[0.15em] text-[#5b97ac]">{x.n} · {x.tag}</p>
+              <p className="mt-1 text-[19px] font-black text-[#3e6e82]">{x.t}</p>
+              <p className="mt-1.5 text-[13.5px] leading-relaxed text-[#4a4f55]">{x.d}</p>
+            </div>
+          </DcStep>
+        ))}
+      </div>
+      <div className="mt-6 rounded-2xl bg-[#3e6e82] px-4 py-3 text-[12.5px] leading-relaxed text-white">기존 지하 재활 구상은 그대로 두고, 데이터실의 층 · 위치 · 장비 규모는 지하층 평면 · 단면 · 바닥 하중 · 수전 여유를 확인한 뒤 정합니다.</div>
+      <p className="mt-4 text-[11px] leading-relaxed text-[#7a7466]">이 화면은 검토용 가상 시뮬레이션이며, 확정된 시설 계획이나 계약 내용이 아닙니다.</p>
+    </section>
   );
 }
 
