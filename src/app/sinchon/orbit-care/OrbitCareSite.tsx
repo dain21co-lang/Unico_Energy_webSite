@@ -89,7 +89,7 @@ const CHAPTERS = [
   { n: "03", en: "THE LAYERS", kick: "03 / OPEN UP THE POSSIBILITIES", a: "Room for", b: "new stories.", sub: "층을 펼치면 방이 보입니다.\n2층부터 10층까지, 회복실과 가족 체류실 66실.", subE: "Open the floors and the rooms appear.\n66 rooms from the 2nd to the 10th floor." },
   { n: "04", en: "THE HORIZON", kick: "04 / ONE BUILDING", a: "One city.", b: "New life.", sub: "치료는 대학병원에서,\n회복은 신촌에서.", subE: "From one night to a full semester —\nyour first home in Seoul." },
 ];
-const FLOOR_LIST: [string, string, string][] = [["10F", "완화돌봄 스위트", "Palliative suites"], ["9F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["8F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["7F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["6F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["5F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["4F", "재활 센터 · 하늘정원", "Rehab · roof garden"], ["3F", "가족 체류실 · 상담", "Family stay · counselling"], ["2F", "평생주치의 의원 · 가족실", "Clinic · family rooms"], ["1F", "로비 · 입원 상담 · 카페", "Lobby · admissions · cafe"]];
+const FLOOR_LIST: [string, string, string][] = [["10F", "완화돌봄 스위트 · 증축 가능", "Palliative suites"], ["9F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["8F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["7F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["6F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["5F", "회복 병동 · 1인 5 · 2인 1", "Recovery ward"], ["4F", "재활 센터 · 하늘정원", "Rehab · roof garden"], ["3F", "가족 체류실 · 상담", "Family stay · counselling"], ["2F", "평생주치의 의원 · 가족실", "Clinic · family rooms"], ["1F", "로비 · 입원 상담 · 카페", "Lobby · admissions · cafe"]];
 
 function Journey({ paused }: { paused: React.MutableRefObject<boolean> }) {
   const wrap = useRef<HTMLDivElement>(null);
@@ -278,7 +278,7 @@ function Plans() {
           </div>
         ))}
       </div>
-      <p className="mt-5 text-[11.5px] leading-[1.7] text-[#e4f1f3]">{en ? "The originals are images of the 2023 drawing set (B2 + 10 floors). The room plan is a schematic draft based on their dimensions, to be finalised after structural, plumbing and permit review." : "원도면은 2023년 도면(지하 2층 · 지상 10층) 이미지입니다. 방 배치는 원도면 치수를 기준으로 한 개략(안)이며, 의료시설 용도변경·구조·인허가 검토 후 확정합니다."}</p>
+      <p className="mt-5 text-[11.5px] leading-[1.7] text-[#e4f1f3]">{en ? "The originals are images of the 2023 drawing set (B2 + 10 floors). The room plan is a schematic draft based on their dimensions, to be finalised after structural, plumbing and permit review." : "원도면은 2023년 도면(지하 2층 · 지상 10층) 이미지입니다. 방 배치는 원도면 치수를 기준으로 한 개략(안)이며, 객실 수는 병원 운영 전문가 그룹의 판단과 운영 방향에 따라 달라질 수 있습니다. 10층 위는 추가 공간 증축이 가능합니다."}</p>
     </section>
   );
 }
@@ -407,7 +407,7 @@ function Smart() {
         ))}
       </div>
       <div className="mt-12 grid grid-cols-2 gap-2.5">
-        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "로비 · 입원 상담", "보호자 카페와 약국"], ["2F", "평생주치의 의원", "원격협진·방문진료 거점"], ["B1", "회복식 레스토랑 · 델리", "입주자와 외래 환우 모두에게"], ["B2", "주차 · 셔틀", "일대에서 드문 주차장"]]).map(([f, t, d]) => (
+        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "로비 · 입원 상담", "보호자 카페와 약국"], ["2F", "평생주치의 의원", "원격협진·방문진료 거점"], ["B1", "회복식 레스토랑 · 델리", "입주자와 외래 환우 모두에게"], ["P", "별도 주차타워", "일대에서 드문 주차 시설"]]).map(([f, t, d]) => (
           <Reveal key={f}>
             <div className="h-full rounded-2xl border border-white/10 p-4">
               <p className="serif text-[26px] italic leading-none" style={{ color: "var(--o-gold)" }}>{f}</p>
@@ -732,7 +732,7 @@ function Who() {
         ))}
       </div>
       <div className="mt-8 grid grid-cols-3 gap-2 text-center">
-        {[["세브란스", "가장 가까운 대형 건물", "#8cc2d2"], ["전국", "대기 중인 환우", "#f2a7a0"], ["주차 완비", "일대에서 드문 시설", "#a9c4e8"]].map(([a, b, c], i) => (
+        {[["세브란스", "가장 가까운 대형 건물", "#8cc2d2"], ["전국", "대기 중인 환우", "#f2a7a0"], ["주차타워", "별도 주차 시설 완비", "#a9c4e8"]].map(([a, b, c], i) => (
           <Reveal key={a} delay={0.1 + i * 0.1}>
             <div className="h-full rounded-2xl px-2 py-4 text-white" style={{ background: c }}><p className="text-[16px] font-black">{a}</p><p className="mt-1 text-[11px] leading-snug opacity-90">{b}</p></div>
           </Reveal>
@@ -778,7 +778,8 @@ const REV = [
   { f: "2~10F", t: "회복 레지던스 체류", d: "1인·2인 회복실, 가족 체류실 — 2~3개월 단기 체류 중심의 프리미엄 요금" },
   { f: "2F", t: "의료·간호 서비스", d: "평생주치의 진료, 방문간호, 재활 — 건강보험·장기요양·정책자금 연계 검토" },
   { f: "B1", t: "회복식 레스토랑 · 델리", d: "암 환우 맞춤 영양식을 입주자와 외래 환우·보호자에게, 포장·배달까지" },
-  { f: "B2", t: "주차 · 통원 셔틀 · 웰니스 숍", d: "일대에서 드문 주차장, 병원 셔틀, 항암 관리 용품과 웰니스 제품" },
+  { f: "B2", t: "웰니스 숍 · 통원 셔틀", d: "항암 관리 용품과 웰니스 제품, 대학병원 통원 셔틀 — 주차는 별도 주차타워" },
+  { f: "10F+", t: "증축 가능 공간", d: "10층 위 추가 공간 증축 여지 — 운영 방향에 맞춘 확장" },
 ];
 function Revenue() {
   return (
@@ -794,7 +795,7 @@ function Revenue() {
           </Reveal>
         ))}
       </div>
-      <p className="mt-6 text-[11.5px] leading-[1.7] text-[#e4f1f3]">객실 수 대비 수익성과 지하층 매출 구성은 수지분석으로 검증한 뒤 확정합니다.</p>
+      <p className="mt-6 text-[11.5px] leading-[1.7] text-[#e4f1f3]">객실 수는 병원 운영 전문가 그룹이 운영 방향에 맞춰 정하며, 수익성과 지하층 매출 구성은 수지분석으로 검증한 뒤 확정합니다.</p>
     </section>
   );
 }
