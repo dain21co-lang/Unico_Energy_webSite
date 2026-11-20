@@ -739,6 +739,37 @@ function Who() {
   );
 }
 
+
+/* ───────── 왜 수술 병원 가까이여야 하나 ───────── */
+const NEAR_WHY = [
+  { k: "01", t: "이상 징후에 바로 수술 병원으로", d: "수술 후 열이 나거나 상처에 문제가 생기면, 먼 길을 돌지 않고 수술받은 병원으로 곧장 갑니다." },
+  { k: "02", t: "외래·항암 통원이 가벼워집니다", d: "항암·방사선·외래 일정마다 지방을 오가는 대신, 걸어서 약 10분 거리에서 치료를 이어 갑니다." },
+  { k: "03", t: "수술 의료진과 끊김 없는 연계", d: "주치의가 수술 병원의 진료 기록을 함께 보고, 필요하면 전문의와 원격으로 협진합니다." },
+  { k: "04", t: "보호자의 시간과 체력을 아낍니다", d: "병원과 숙소를 오가던 시간을 줄여, 가족이 환자 곁에 더 오래 머물 수 있습니다." },
+];
+function NearWhy() {
+  return (
+    <section id="near" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#5b97ac,#3e6e82)" }}>
+      <Head kick="WHY CLOSE TO THE HOSPITAL" a="Closer to surgery." b="Faster to heal." sub="수술 병원과 가까워야 하는 이유. 회복기의 안전은 거리에서 시작됩니다." />
+      <div className="mt-8 space-y-3">
+        {NEAR_WHY.map((x) => (
+          <Reveal key={x.k}>
+            <div className="glass rounded-[20px] p-5">
+              <p className="serif text-[28px] italic leading-none" style={{ color: "var(--o-gold)" }}>{x.k}</p>
+              <p className="mt-2 text-[17px] font-black leading-snug">{x.t}</p>
+              <p className="mt-1 text-[13.5px] leading-relaxed text-[#f2f9f9]">{x.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <div className="mt-6 flex items-center justify-between rounded-2xl bg-white/10 px-5 py-4">
+        <span className="text-[14px] font-bold">세브란스병원 · 연세의료원</span>
+        <span className="serif text-[26px] italic" style={{ color: "var(--o-gold)" }}>도보 약 10분</span>
+      </div>
+    </section>
+  );
+}
+
 /* ───────── 수익 구조 ───────── */
 const REV = [
   { f: "2~10F", t: "회복 레지던스 체류", d: "1인·2인 회복실, 가족 체류실 — 2~3개월 단기 체류 중심의 프리미엄 요금" },
@@ -838,6 +869,7 @@ export default function OrbitCareSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
       <HeroFilm />
       <CeoMessage />
       <Who />
+      <NearWhy />
       <Journey paused={paused} />
       <Plans />
       <Life />
