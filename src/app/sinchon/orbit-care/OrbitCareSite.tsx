@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import dynamic from "next/dynamic";
+import { preload } from "react-dom";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ROOMS, SERVICE, COLORS, LABEL, PLATE, WING, CORE, EV, ESTAIR_TYP, ESTAIR_LOW, countRooms } from "../orbit/model";
 import type { FloorKind, Rect } from "../orbit/model";
@@ -911,6 +912,7 @@ function Revenue() {
 
 /* ───────── 대표 인사말 (정장 프로필) ───────── */
 function CeoMessage() {
+  preload("/sinchon/care/ceo-gown.webp", { as: "image", fetchPriority: "high" });
   const caps = ["고려대학교 의과대학·동 대학원 마취통증의학 (석사·박사)", "고려대학교 안암병원 마취통증의학과 교수", "대한의학회 정책이사", "전) 고려대학교 의과대학 교육 부학장", "전) 대한중환자의학회 부회장"];
   return (
     <section id="ceo" className="paper relative px-6 pb-20 pt-20">
@@ -921,7 +923,7 @@ function CeoMessage() {
       <Reveal delay={0.1}>
         <div className="relative mt-8">
           <div className="absolute inset-0 translate-x-3 translate-y-3 border-[3px] border-[#121212] bg-[#8cc2d2]" />
-          <img src="/sinchon/care/ceo-gown.webp" alt="GB LABS 대표이사 임춘학" className="relative block aspect-[4/5] w-full border-[3px] border-[#121212] object-cover object-top" loading="lazy" />
+          <img src="/sinchon/care/ceo-gown.webp" alt="GB LABS 대표이사 임춘학" className="relative block aspect-[4/5] w-full border-[3px] border-[#121212] object-cover object-top" loading="eager" fetchPriority="high" decoding="async" />
         </div>
       </Reveal>
       <Reveal delay={0.15}>
