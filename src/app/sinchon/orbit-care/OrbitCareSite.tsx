@@ -407,7 +407,7 @@ function Smart() {
         ))}
       </div>
       <div className="mt-12 grid grid-cols-2 gap-2.5">
-        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "로비 · 입원 상담", "보호자 카페와 약국"], ["2F", "평생주치의 의원", "원격협진·방문진료 거점"], ["B1", "영양 식당", "치료식과 가족 식사"], ["4F", "재활 · 하늘정원", "다시 걷는 연습, 도시 위의 쉼"]]).map(([f, t, d]) => (
+        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "로비 · 입원 상담", "보호자 카페와 약국"], ["2F", "평생주치의 의원", "원격협진·방문진료 거점"], ["B1", "회복식 레스토랑 · 델리", "입주자와 외래 환우 모두에게"], ["B2", "주차 · 셔틀", "일대에서 드문 주차장"]]).map(([f, t, d]) => (
           <Reveal key={f}>
             <div className="h-full rounded-2xl border border-white/10 p-4">
               <p className="serif text-[26px] italic leading-none" style={{ color: "var(--o-gold)" }}>{f}</p>
@@ -705,6 +705,66 @@ function Closing() {
   );
 }
 
+
+/* ───────── 누구를 위한 곳인가 ───────── */
+const WHO = [
+  { n: "01", t: "지방에서 올라온 환우", d: "세브란스에서 암 치료를 받는 동안, 서울에 머물 곳이 필요한 분", stay: "단기 2~3개월" },
+  { n: "02", t: "수술 후 집에서 관리가 어려운 환우", d: "퇴원은 했지만 상처 관리·영양·재활을 체계적으로 이어 가야 하는 분", stay: "단기 2~3개월" },
+  { n: "03", t: "정기적으로 통원하는 환우", d: "항암·방사선·외래 일정이 이어져 병원 가까이 머무는 것이 나은 분", stay: "통원 기간 동안" },
+];
+function Who() {
+  return (
+    <section id="who" className="paper relative px-6 pb-20 pt-20">
+      <Head dark={false} kick="WHO WE CARE FOR" a="Between hospital" b="and home." sub={<>퇴원해도 바로 집으로 가기 어려운 분들을 위한,<br />요양원 가기 전의 고급 회복 중간집입니다.</>} />
+      <div className="mt-8 space-y-3">
+        {WHO.map((w) => (
+          <Reveal key={w.n}>
+            <div className="rounded-[20px] border-[3px] border-[#121212] bg-white/60 p-5">
+              <div className="flex items-baseline justify-between">
+                <span className="serif text-[30px] italic leading-none">{w.n}</span>
+                <span className="rounded-full bg-[#121212] px-3 py-1 text-[11.5px] font-bold text-[#eaf4ef]">{w.stay}</span>
+              </div>
+              <p className="mt-3 text-[18px] font-black leading-snug">{w.t}</p>
+              <p className="mt-1 text-[13.5px] leading-relaxed text-[#4a4f55]">{w.d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <div className="mt-8 grid grid-cols-3 gap-2 text-center">
+        {[["세브란스", "가장 가까운 대형 건물"], ["전국", "대기 중인 환우"], ["주차 완비", "일대에서 드문 시설"]].map(([a, b]) => (
+          <div key={a} className="rounded-2xl bg-[#121212] px-2 py-4 text-[#eaf4ef]"><p className="text-[16px] font-black">{a}</p><p className="mt-1 text-[11px] leading-snug opacity-80">{b}</p></div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ───────── 수익 구조 ───────── */
+const REV = [
+  { f: "2~10F", t: "회복 레지던스 체류", d: "1인·2인 회복실, 가족 체류실 — 2~3개월 단기 체류 중심의 프리미엄 요금" },
+  { f: "2F", t: "의료·간호 서비스", d: "평생주치의 진료, 방문간호, 재활 — 건강보험·장기요양·정책자금 연계 검토" },
+  { f: "B1", t: "회복식 레스토랑 · 델리", d: "암 환우 맞춤 영양식을 입주자와 외래 환우·보호자에게, 포장·배달까지" },
+  { f: "B2", t: "주차 · 통원 셔틀 · 웰니스 숍", d: "일대에서 드문 주차장, 병원 셔틀, 항암 관리 용품과 웰니스 제품" },
+];
+function Revenue() {
+  return (
+    <section id="revenue" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#3e6e82,#5b97ac)" }}>
+      <Head kick="REVENUE MODEL" a="Care that" b="sustains itself." sub="위층의 회복 레지던스에, 지하 1·2층이 매일의 현금 흐름을 더하는 구조입니다." />
+      <div className="mt-8 space-y-2.5">
+        {REV.map((x) => (
+          <Reveal key={x.t}>
+            <div className="grid grid-cols-[80px_1fr] gap-3 rounded-2xl border border-white/15 p-4">
+              <p className="serif text-[22px] italic leading-none" style={{ color: "var(--o-gold)" }}>{x.f}</p>
+              <div><p className="text-[16px] font-black">{x.t}</p><p className="mt-1 text-[12.5px] leading-relaxed text-[#f2f9f9]">{x.d}</p></div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <p className="mt-6 text-[11.5px] leading-[1.7] text-[#e4f1f3]">객실 수 대비 수익성과 지하층 매출 구성은 수지분석으로 검증한 뒤 확정합니다.</p>
+    </section>
+  );
+}
+
 /* ───────── 머리 · 떠 있는 버튼 · 안내 ───────── */
 
 /* ───────── 대표 인사말 (정장 프로필) ───────── */
@@ -750,7 +810,8 @@ function HeroFilm() {
       <div className="absolute inset-x-0 bottom-0 px-6 pb-14">
         <p className="kick text-[var(--o-mint)]">신촌 평생주치의 케어하우스(가칭)</p>
         <h1 className="mt-3 text-[34px] font-black leading-[1.22] tracking-tight">치료는 대학병원에서,<br />회복은 신촌에서.</h1>
-        <p className="mt-3 text-[14px] font-medium text-[var(--o-sub)]">평생주치의 의료·돌봄 의료복지사회적협동조합</p>
+        <p className="mt-3 text-[15px] font-bold text-[var(--o-sub)]">퇴원과 일상 사이, 프리미엄 회복 레지던스</p>
+        <p className="mt-1 text-[13px] text-white/80">평생주치의 의료·돌봄 의료복지사회적협동조합</p>
         <p className="mt-2 text-[11px] text-white/70">입점 검토용 시안 · 이미지와 영상은 AI 예시</p>
         <a href="#ceo" className="nudge mt-6 inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.2em] text-[var(--o-sub)]">아래로 ↓</a>
       </div>
@@ -776,6 +837,7 @@ export default function OrbitCareSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
 
       <HeroFilm />
       <CeoMessage />
+      <Who />
       <Journey paused={paused} />
       <Plans />
       <Life />
@@ -783,6 +845,7 @@ export default function OrbitCareSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
       <Smart />
       <Exterior />
       <Numbers />
+      <Revenue />
       <Film />
       <Docs />
       <Closing />
