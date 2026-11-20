@@ -382,7 +382,7 @@ const STEPS = [
   { en: "CONSULT", t: "입원 상담", tE: "Consultation", d: "대학병원 진료 기록을 주치의가 함께 검토", dE: "Your doctor reviews your hospital records" },
   { en: "ADMIT", t: "회복실 입실", tE: "Admission", d: "치료 일정에 맞춰 1인·2인 회복실 배정", dE: "A recovery room matched to your treatment" },
   { en: "CARE", t: "팀 돌봄", tE: "Team care", d: "주치의·간호사·요양보호사·영양·상담이 한 팀으로", dE: "Doctor, nurse, carer, nutrition and counselling as one team" },
-  { en: "LINK", t: "대학병원 연계", tE: "Hospital link", d: "통원 셔틀과 전문의 원격협진으로 치료를 잇습니다", dE: "Shuttle and remote consults keep treatment connected" },
+  { en: "LINK", t: "대학병원 연계", tE: "Hospital link", d: "통원 셔틀과 전문의 협진 연계(구상)로 치료를 잇습니다", dE: "Shuttle and remote consults keep treatment connected" },
   { en: "HOME", t: "집으로, 그리고 계속", tE: "Home, and beyond", d: "퇴원 후 방문진료·방문간호로 돌봄을 이어 갑니다", dE: "Home visits continue the care after discharge" },
 ];
 function Smart() {
@@ -407,7 +407,7 @@ function Smart() {
         ))}
       </div>
       <div className="mt-12 grid grid-cols-2 gap-2.5">
-        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "로비 · 입원 상담", "보호자 카페와 약국"], ["2F", "평생주치의 의원", "원격협진·방문진료 거점"], ["B1", "회복식 레스토랑 · 델리", "입주자와 외래 환우 모두에게"], ["P", "별도 주차타워", "일대에서 드문 주차 시설"]]).map(([f, t, d]) => (
+        {(en ? [["1F", "Self check-in desk", "No queue, day or night"], ["B1", "K-beauty & daily goods", "A shop downstairs for residents and visitors"], ["B2", "Korean buffet", "Home-style meals, resident discount"], ["4F", "Roof garden", "A breather above the city"]] : [["1F", "로비 · 입원 상담", "보호자 카페와 약국"], ["2F", "평생주치의 의원", "원격협진·방문진료 거점"], ["B1", "재활운동 센터 (구상)", "회복 단계별 운동"], ["B2", "수중 보행훈련 (구상)", "물속에서 다시 걷는 연습"]]).map(([f, t, d]) => (
           <Reveal key={f}>
             <div className="h-full rounded-2xl border border-white/10 p-4">
               <p className="serif text-[26px] italic leading-none" style={{ color: "var(--o-gold)" }}>{f}</p>
@@ -548,8 +548,8 @@ function Clock24({ on }: { on: boolean }) {
 const STATS = [
   { n: TOTAL, u: "실", uE: "rooms", l: "회복실 · 가족 체류실", lE: "Rooms", d: `1인 ${C.s} · 2인 ${C.t} · 가족 체류 ${C.sh} — 눈금 하나가 방 하나`, dE: `${C.s} single · ${C.t} twin · ${C.sh} share — one tick, one room`, Art: RingRooms },
   { n: BEDS, u: "베드", uE: "beds", l: "환자·보호자 침대", lE: "Beds", d: `회복실과 가족 체류실 — 점 하나가 침대 하나`, dE: `${C.s} + ${C.t * 2} + ${C.sh * 3} — one dot, one bed`, Art: DotsBeds },
-  { n: 10, u: "분", uE: "min", l: "세브란스병원까지 도보", lE: "Walk to Severance", d: "연세의료원 생활권 · 이화 · 서강 · 홍익도 가까이", dE: "Yonsei · Ewha · Sogang · Hongik, near Sinchon Station", Art: MapUnis },
-  { n: 24, u: "시간", uE: "/7", l: "간호 · 주치의 연결", lE: "Nursing 24/7", d: "낮에도 밤에도, 호출하면 곁에 오는 간호", dE: "Day or night, no queue to get in", Art: Clock24 },
+  { n: 4, u: "곳", uE: "", l: "대학 · 의료 생활권", lE: "Universities nearby", d: "연세대·세브란스병원 생활권 · 이화 · 서강 · 홍익", dE: "Yonsei · Ewha · Sogang · Hongik, near Sinchon Station", Art: MapUnis },
+  { n: 3, u: "개월", uE: "mo", l: "퇴원 후 단기 회복 체류", lE: "Short recovery stay", d: "식사 · 재활 · 돌봄과 가족의 동행 (구상)", dE: "Day or night, no queue to get in", Art: Clock24 },
 ];
 function StatRow({ s, i }: { s: (typeof STATS)[number]; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -579,7 +579,7 @@ function Numbers() {
       {/* 흐르는 글씨 */}
       <div className="pointer-events-none relative overflow-hidden whitespace-nowrap">
         <div className="drift serif inline-block text-[64px] italic leading-none" style={{ color: "transparent", WebkitTextStroke: "1px rgba(29,38,48,0.35)" }}>
-          {`${TOTAL} rooms · lifelong doctor · 10 min to Severance · 24/7 care · `.repeat(4)}
+          {`recovery · family · meals · rehab · lifelong doctor · `.repeat(4)}
         </div>
       </div>
       <div className="relative px-6">
@@ -743,11 +743,97 @@ function Who() {
 }
 
 
+
+/* ───────── 도심 속 회복의 그늘막 ───────── */
+function Shade() {
+  return (
+    <section id="shade" className="paper relative px-6 pb-20 pt-24">
+      <Head dark={false} kick="OUR PHILOSOPHY" a="A shade" b="for recovery." sub={<>도심 속 회복의 그늘막.</>} />
+      <Reveal>
+        <div className="arch relative mt-8 aspect-[4/5] bg-[#ddd6c6]">
+          <img src="/sinchon/care/hug-poster.webp" alt="회복의 그늘막 · AI 예시" className="h-full w-full object-cover" loading="lazy" />
+        </div>
+      </Reveal>
+      <div className="mt-8 space-y-3 text-[15.5px] leading-[1.85] text-[#1d2630]">
+        <p>골프장의 그늘막처럼, 치료와 치료 사이 잠시 쉬어 가는 자리.</p>
+        <p>병원 치료 이후에도 이어져야 할 회복과 돌봄. 편안한 체류 공간과 식사, 재활, 가족의 동행까지 함께 고려한 새로운 공간을 구상합니다.</p>
+        <p className="font-bold">치료와 일상 사이, 몸과 마음이 쉬어 갈 수 있는 공간을 지향합니다.</p>
+      </div>
+      <div className="mt-8 grid grid-cols-3 gap-2 text-center">
+        {[["회복", "퇴원 후 일상 복귀까지"], ["체류", "환자와 가족이 함께"], ["지원", "식사 · 재활 · 돌봄"]].map(([a, b], i) => (
+          <Reveal key={a} delay={i * 0.08}><div className="h-full rounded-2xl px-2 py-4" style={{ background: ["#d9eef0", "#fde3dc", "#e6e9f8"][i] }}><p className="text-[17px] font-black text-[#3e6e82]">{a}</p><p className="mt-1 text-[11px] leading-snug text-[#4a4f55]">{b}</p></div></Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ───────── 지하 1·2층 특화 재활 ───────── */
+function Rehab() {
+  return (
+    <section id="rehab" className="relative px-6 pb-20 pt-24" style={{ background: "linear-gradient(180deg,#3e6e82,#5b97ac)" }}>
+      <Head kick="B1 · B2 / SPECIAL REHAB" a="A space" b="to move again." sub="회복을 위한 특별한 공간. 지하 1·2층을 활용한 재활운동, 수중 보행훈련 등 특화 프로그램을 검토합니다." />
+      <div className="mt-8 grid grid-cols-2 gap-3">
+        {[["/sinchon/care/rehab.webp", "B1", "재활운동 센터", "회복 단계에 맞춘 운동과 신체기능 회복"], ["/sinchon/care/aqua.webp", "B2", "수중 보행훈련", "부력으로 관절 부담을 줄이는 보행 연습"]].map(([img, f, t, d]) => (
+          <Reveal key={f}>
+            <div>
+              <div className="relative aspect-[3/4] overflow-hidden rounded-[18px] bg-[#8cc2d2]">
+                <img src={img} alt={`${t} · 구상 이미지`} className="h-full w-full object-cover" loading="lazy" onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/sinchon/care/stage-home.webp"; }} />
+                <span className="absolute left-2 top-2 rounded-full bg-black/45 px-2 py-0.5 text-[10px] font-bold">구상 이미지</span>
+              </div>
+              <p className="serif mt-3 text-[22px] italic leading-none" style={{ color: "var(--o-gold)" }}>{f}</p>
+              <p className="mt-1 text-[16px] font-black">{t}</p>
+              <p className="mt-0.5 text-[12.5px] leading-relaxed text-[#f2f9f9]">{d}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+      <p className="mt-6 text-[11.5px] leading-[1.7] text-[#e4f1f3]">공간의 구조와 방수·설비·피난·장애인 접근성, 의료시설 인허가에 맞춰 세부 계획을 구체화할 예정입니다.</p>
+    </section>
+  );
+}
+
+/* ───────── 대학과 의료, 신촌이라는 입지 ───────── */
+function Place() {
+  return (
+    <section id="place" className="paper relative px-6 pb-20 pt-24">
+      <Head dark={false} kick="LOCATION" a="University, medicine," b="and Sinchon." sub={<>대학과 의료, 신촌이라는 입지.<br />연세대학교와 세브란스병원이 가까운 신촌 도심 생활권.</>} />
+      <Reveal>
+        <div className="mt-8 overflow-hidden rounded-[22px] border-[3px] border-[#121212] bg-[#f2f9f9] p-3">
+          <svg viewBox="0 0 300 260" className="h-auto w-full">
+            <path d="M0 200 C 80 190, 160 170, 300 150" stroke="#8cc2d2" strokeWidth={10} fill="none" strokeLinecap="round" />
+            <path d="M150 260 L 150 0" stroke="#d3e7ea" strokeWidth={12} />
+            <text x={238} y={142} fontSize={9} fontWeight={800} fill="#3e6e82">신촌로</text>
+            <text x={156} y={18} fontSize={9} fontWeight={800} fill="#3e6e82">연세로</text>
+            <rect x={110} y={20} width={80} height={46} rx={10} fill="#e6e9f8" stroke="#121212" strokeWidth={1.5} />
+            <text x={150} y={40} textAnchor="middle" fontSize={10} fontWeight={900} fill="#121212">연세대학교</text>
+            <text x={150} y={55} textAnchor="middle" fontSize={9} fontWeight={700} fill="#4a4f55">세브란스병원</text>
+            <circle cx={70} cy={196} r={9} fill="#fff8ea" stroke="#121212" strokeWidth={1.6} />
+            <text x={70} y={220} textAnchor="middle" fontSize={9} fontWeight={800} fill="#121212">2호선 신촌역</text>
+            <line x1={150} y1={150} x2={150} y2={70} stroke="#121212" strokeWidth={1} strokeDasharray="3 3" />
+            <g>
+              <rect x={136} y={140} width={28} height={40} rx={4} fill="#f2a7a0" stroke="#121212" strokeWidth={1.6} />
+              <text x={150} y={198} textAnchor="middle" fontSize={10} fontWeight={900} fill="#121212">SINCHON CARE</text>
+            </g>
+          </svg>
+          <p className="px-1 pb-1 text-[10.5px] text-[#4a4f55]">위치 관계를 단순화한 개략도입니다. 거리와 소요시간은 실제 경로 확인 후 표기합니다.</p>
+        </div>
+      </Reveal>
+      <div className="mt-6 space-y-2.5">
+        {[["의료", "연세의료원 생활권 — 치료와 회복을 같은 동네에서"], ["교육", "연세 · 이화 · 서강 · 홍익, 대학가의 활기"], ["교통", "지하철 2호선, 주요 간선도로와 버스 노선"], ["건물", "도로에 면한 코너 건물, 별도 주차타워"]].map(([a, b]) => (
+          <div key={a} className="flex items-baseline gap-3 border-t border-[#121212]/15 pt-2.5"><span className="w-10 shrink-0 text-[14px] font-black text-[#3e6e82]">{a}</span><span className="text-[13.5px] leading-relaxed text-[#1d2630]">{b}</span></div>
+        ))}
+      </div>
+      <p className="mt-5 text-[11px] text-[#7a7466]">인근 대학·병원은 위치 안내이며, 공식 제휴를 뜻하지 않습니다.</p>
+    </section>
+  );
+}
+
 /* ───────── 왜 수술 병원 가까이여야 하나 ───────── */
 const NEAR_WHY = [
   { k: "01", t: "이상 징후에 바로 수술 병원으로", d: "수술 후 열이 나거나 상처에 문제가 생기면, 먼 길을 돌지 않고 수술받은 병원으로 곧장 갑니다." },
-  { k: "02", t: "외래·항암 통원이 가벼워집니다", d: "항암·방사선·외래 일정마다 지방을 오가는 대신, 걸어서 약 10분 거리에서 치료를 이어 갑니다." },
-  { k: "03", t: "수술 의료진과 끊김 없는 연계", d: "주치의가 수술 병원의 진료 기록을 함께 보고, 필요하면 전문의와 원격으로 협진합니다." },
+  { k: "02", t: "외래·항암 통원이 가벼워집니다", d: "항암·방사선·외래 일정마다 지방을 오가는 대신, 대학병원 생활권 안에서 치료를 이어 갑니다." },
+  { k: "03", t: "수술 의료진과 끊김 없는 연계", d: "주치의가 수술 병원의 진료 기록을 함께 보고, 전문의 협진 연계를 구상합니다." },
   { k: "04", t: "보호자의 시간과 체력을 아낍니다", d: "병원과 숙소를 오가던 시간을 줄여, 가족이 환자 곁에 더 오래 머물 수 있습니다." },
 ];
 function NearWhy() {
@@ -767,7 +853,7 @@ function NearWhy() {
       </div>
       <div className="mt-6 flex items-center justify-between rounded-2xl bg-white/10 px-5 py-4">
         <span className="text-[14px] font-bold">세브란스병원 · 연세의료원</span>
-        <span className="serif text-[26px] italic" style={{ color: "var(--o-gold)" }}>도보 약 10분</span>
+        <span className="serif text-[22px] italic" style={{ color: "var(--o-gold)" }}>같은 생활권</span>
       </div>
     </section>
   );
@@ -850,8 +936,8 @@ function HeroFilm() {
       <div className="absolute inset-x-0 bottom-0 px-6 pb-14">
         <p className="kick text-[var(--o-mint)]">신촌 평생주치의 케어하우스(가칭)</p>
         <h1 className="mt-3 text-[34px] font-black leading-[1.22] tracking-tight">치료는 대학병원에서,<br />회복은 신촌에서.</h1>
-        <p className="mt-3 text-[15px] font-bold text-[var(--o-sub)]">퇴원과 일상 사이, 프리미엄 회복 레지던스</p>
-        <p className="mt-1 text-[13px] text-white/80">평생주치의 의료·돌봄 의료복지사회적협동조합</p>
+        <p className="mt-3 text-[15px] font-bold text-[var(--o-sub)]">치료와 일상 사이, 나와 가족이 함께 머무는 회복의 공간.</p>
+        <p className="mt-2 text-[11px] font-bold tracking-[0.18em] text-white/80">SINCHON CARE · GB LABS<br />PREMIUM MEDICAL RECOVERY &amp; CARE LIVING</p>
         <p className="mt-2 text-[11px] text-white/70">입점 검토용 시안 · 이미지와 영상은 AI 예시</p>
         <a href="#ceo" className="nudge mt-6 inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.2em] text-[var(--o-sub)]">아래로 ↓</a>
       </div>
@@ -877,16 +963,18 @@ export default function OrbitCareSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
 
       <HeroFilm />
       <CeoMessage />
+      <Shade />
       <Who />
+      <Place />
       <NearWhy />
       <Journey paused={paused} />
       <Plans />
       <Life />
       <Rooftop />
+      <Rehab />
       <Smart />
       <Exterior />
       <Numbers />
-      <Revenue />
       <Film />
       <Docs />
       <Closing />
