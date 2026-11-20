@@ -671,22 +671,27 @@ const INFRA = [
 ];
 function DcStep({ i, set, children }: { i: number; set: (n: number) => void; children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
-  const seen = useInView(ref, { amount: 0.6 });
+  const seen = useInView(ref, { margin: "-45% 0px -35% 0px" });
   useEffect(() => { if (seen) set(i); }, [seen, i, set]);
-  return <div ref={ref} id={`dcstep-${i}`} className="flex min-h-[46svh] items-center">{children}</div>;
+  return <div ref={ref} id={`dcstep-${i}`} className="flex min-h-[46svh] flex-col justify-center py-6">{children}</div>;
 }
 function DcSim() {
   const [idx, setIdx] = useState(0);
   const f = Math.min(idx, 2);
   const on: Record<string, boolean> = { power: idx >= 3, cool: idx >= 4, flood: idx >= 5 };
   const hi = (i: number) => (f === i ? "#f2a7a0" : "#ffffff");
-  const steps = [...FLOW.map((x, i) => ({ n: `0${i + 1}`, t: x.t, d: x.d, tag: "흐름" })), ...INFRA.map((x, i) => ({ n: `0${i + 4}`, t: x.t, d: x.d, tag: "지하 설비" }))];
+  const IMGS = ["dc-1-room", "dc-2-edge", "dc-3-nurse", "dc-4-power", "dc-5-cool", "dc-6-flood"];
+  const steps = [...FLOW.map((x, i) => ({ n: `0${i + 1}`, t: x.t, d: x.d, tag: "흐름" })), ...INFRA.map((x, i) => ({ n: `0${i + 4}`, t: x.t, d: x.d, tag: "지하 설비" }))].map((x, i) => ({ ...x, img: IMGS[i] }));
   return (
     <section id="dc" className="relative px-6 pb-16 pt-20" style={{ background: "#eaf4ef", color: "#121212" }}>
       <p className="kick text-[10px] text-[#3e6e82]">VIRTUAL SIMULATION · 가상</p>
       <h3 className="mt-3 text-[24px] font-black leading-snug">돌봄을 뒷받침하는<br />작은 데이터실</h3>
       <p className="mt-2 text-[13.5px] leading-relaxed text-[#4a4f55]">아래로 내리면 병실 센서에서 담당자 확인까지, 그리고 지하 설비가 하나씩 켜집니다.</p>
       <div className="mt-5 overflow-hidden rounded-[22px] bg-[#0e1f24]"><video src="/sinchon/care/mg-hidden.mp4" poster="/sinchon/care/mg-hidden-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full object-cover" /></div>
+      <motion.div className="mt-5 overflow-hidden rounded-[22px] bg-[#d9e4e2]" initial={{ y: 28, clipPath: "inset(10% 0% 0% 0% round 22px)" }} whileInView={{ y: 0, clipPath: "inset(0% 0% 0% 0% round 22px)" }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, ease: EASE }}>
+        <img src="/sinchon/care/dc-exterior.webp" alt="고급 회복 시설 콘셉트 이미지" className="block aspect-[4/5] w-full object-cover" loading="lazy" decoding="async" />
+      </motion.div>
+      <p className="mt-2 text-[11px] text-[#7a7466]">콘셉트 이미지 · 실제 건물 외관과 다를 수 있습니다</p>
       <div className="relative">
       <div id="dcsticky" className="sticky top-[60px] z-10 mt-5 rounded-[22px] bg-[#eaf4ef]/95 pb-1 pt-1 backdrop-blur">
         <div className="mx-auto max-w-[360px]">
@@ -766,6 +771,9 @@ function DcSim() {
               <p className="mt-1 text-[19px] font-black text-[#3e6e82]">{x.t}</p>
               <p className="mt-1.5 text-[13.5px] leading-relaxed text-[#4a4f55]">{x.d}</p>
             </div>
+            <motion.div className="mt-5 overflow-hidden rounded-[20px] bg-[#d9e4e2]" initial={{ y: 28, clipPath: "inset(12% 0% 0% 0% round 20px)" }} whileInView={{ y: 0, clipPath: "inset(0% 0% 0% 0% round 20px)" }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, ease: EASE }}>
+              <img src={`/sinchon/care/${x.img}.webp`} alt={`${x.t} · 콘셉트 이미지`} className="block aspect-video w-full object-cover" loading="lazy" decoding="async" />
+            </motion.div>
           </DcStep>
         ))}
       </div>
