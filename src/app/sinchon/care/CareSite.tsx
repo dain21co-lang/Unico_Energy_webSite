@@ -49,7 +49,7 @@ const MONEY = [
 const S = "/sinchon";
 const ZONES = [
   { fl: "옥상", en: "SKY GARDEN", name: "하늘정원", img: `${S}/rooftop-hero-poster.webp`, d: "도심 한가운데의 옥상정원. 휠체어로도 오를 수 있는 산책로와 그늘 쉼터에서 환자와 가족이 바람을 쐽니다.", tags: ["무단차 산책로", "그늘 쉼터", "노을 전망"] },
-  { fl: "10F", en: "NOEUL", name: "노을 · 완화돌봄 스위트 (증축 가능)", img: `${A}/hug-poster.webp`, d: "마지막 시간을 가족과 함께 보내는 1인 스위트. 보호자 침대와 작은 거실이 붙어 있습니다.", tags: ["1인 스위트", "보호자 침대", "24시간 간호"] },
+  { fl: "10F", en: "NOEUL", name: "노을 · 완화돌봄 스위트 (증축 가능)", img: `${A}/room-single.webp`, d: "마지막 시간을 가족과 함께 보내는 1인 스위트. 보호자 침대와 작은 거실이 붙어 있습니다.", tags: ["1인 스위트", "보호자 침대", "24시간 간호"] },
   { fl: "9F", en: "MEOMUM", name: "머묾 · 가족 체류실", img: `${S}/room-twin.webp`, d: "지방에서 올라온 보호자가 치료 기간 동안 머무는 방. 병동과 같은 건물이라 밤에도 곁을 지킵니다.", tags: ["2인 체류실", "공용 주방", "세탁실"] },
   { fl: "5–8F", en: "SOOP", name: "숲 · 회복 병동", img: `${A}/nurse-poster.webp`, d: "항암·수술 후 회복 환자를 위한 병동. 층마다 간호스테이션을 가운데 두고 1·2인실을 배치합니다. 인허가 검토에 따라 체류형 케어 레지던스로 조정할 수 있습니다.", tags: ["층별 간호스테이션", "1·2인실", "병상용 엘리베이터"] },
   { fl: "4F", en: "BYEOT", name: "볕 · 재활 센터", img: `${A}/stage-home.webp`, d: "햇빛이 드는 재활 운동실. 체력 회복, 림프부종 관리, 통증 완화 프로그램을 운영합니다.", tags: ["재활 운동실", "물리치료", "림프부종 관리"] },
@@ -257,7 +257,7 @@ function Family() {
         <Head no="05" en="TOGETHER" title="가족도 함께 쉬어 갑니다" />
         <div className="cr-vids">
           <Vid src="coop-lounge.mp4" poster="lounge-poster.webp" />
-          <Vid src="coop-hug.mp4" poster="hug-poster.webp" />
+          <Vid src="coop-hug.mp4" poster="film-coop-hug.webp" />
         </div>
       </section>
 
