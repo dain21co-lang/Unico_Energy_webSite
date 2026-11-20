@@ -1119,7 +1119,7 @@ function CeoMessage() {
 function HeroFilm() {
   return (
     <section id="intro" className="relative h-[100svh] min-h-[600px] overflow-hidden" style={{ background: "#3e6e82" }}>
-      <video className="absolute inset-0 h-full w-full object-cover" src="/sinchon/care/intro.mp4" poster="/sinchon/care/intro-poster.webp" autoPlay muted loop playsInline preload="auto" />
+      <video className="absolute inset-0 h-full w-full object-cover" src="/sinchon/care/intro-20261120-v2.mp4" poster="/sinchon/care/intro-20261120-v2-poster.webp" autoPlay muted loop playsInline preload="auto" />
       <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(62,110,130,0.45) 0%,rgba(62,110,130,0) 24%,rgba(62,110,130,0) 52%,rgba(62,110,130,0.9) 100%)" }} />
       <div className="absolute inset-x-0 bottom-0 px-6 pb-14">
         <p className="kick text-[var(--o-mint)]">신촌 평생주치의 케어하우스(가칭)</p>
