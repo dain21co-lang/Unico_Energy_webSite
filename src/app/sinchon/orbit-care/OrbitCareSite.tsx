@@ -687,6 +687,7 @@ function DcSim() {
       <h3 className="mt-3 text-[24px] font-black leading-snug">돌봄을 뒷받침하는<br />작은 데이터실</h3>
       <p className="mt-2 text-[13.5px] leading-relaxed text-[#4a4f55]">아래로 내리면 병실 센서에서 담당자 확인까지, 그리고 지하 설비가 하나씩 켜집니다.</p>
       <div className="mt-5 overflow-hidden rounded-[22px] bg-[#0e1f24]"><video src="/sinchon/care/mg-hidden.mp4" poster="/sinchon/care/mg-hidden-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full object-cover" /></div>
+      <div className="relative">
       <div className="sticky top-[60px] z-10 mt-5 rounded-[22px] bg-[#eaf4ef]/95 pb-1 pt-1 backdrop-blur">
         <div className="mx-auto max-w-[360px]">
           <svg viewBox="0 0 300 300" className="h-auto w-full max-h-[44svh]">
@@ -764,9 +765,10 @@ function DcSim() {
           </DcStep>
         ))}
       </div>
-      <div className="mt-6 grid grid-cols-2 gap-2.5">
-        <div><div className="overflow-hidden rounded-[18px] bg-[#0e1f24]"><video src="/sinchon/care/mg-signal.mp4" poster="/sinchon/care/mg-signal-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full object-cover" /></div><p className="mt-2 text-[13px] font-black text-[#3e6e82]">병실의 신호가 담당자에게</p></div>
-        <div><div className="overflow-hidden rounded-[18px] bg-[#0e1f24]"><video src="/sinchon/care/mg-layers.mp4" poster="/sinchon/care/mg-layers-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full object-cover" /></div><p className="mt-2 text-[13px] font-black text-[#3e6e82]">지하의 디지털 레이어</p></div>
+      </div>
+      <div className="mt-10 space-y-6">
+        <div><div className="overflow-hidden rounded-[18px] bg-[#0e1f24]"><video src="/sinchon/care/mg-signal.mp4" poster="/sinchon/care/mg-signal-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full object-cover" /></div><p className="mt-2 text-[15px] font-black text-[#3e6e82]">병실의 신호가 담당자에게</p></div>
+        <div><div className="overflow-hidden rounded-[18px] bg-[#0e1f24]"><video src="/sinchon/care/mg-layers.mp4" poster="/sinchon/care/mg-layers-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full object-cover" /></div><p className="mt-2 text-[15px] font-black text-[#3e6e82]">지하의 디지털 레이어</p></div>
       </div>
       <div className="mt-6 rounded-2xl bg-[#3e6e82] px-4 py-3 text-[12.5px] leading-relaxed text-white">기존 지하 재활 구상은 그대로 두고, 데이터실의 층 · 위치 · 장비 규모는 지하층 평면 · 단면 · 바닥 하중 · 수전 여유를 확인한 뒤 정합니다.</div>
       <p className="mt-4 text-[11px] leading-relaxed text-[#7a7466]">이 화면은 검토용 가상 시뮬레이션이며, 확정된 시설 계획이나 계약 내용이 아닙니다.</p>
@@ -918,6 +920,13 @@ function Rehab() {
   );
 }
 
+function OnceVideo({ src, poster, className }: { src: string; poster: string; className: string }) {
+  const v = useRef<HTMLVideoElement>(null);
+  const seen = useInView(v, { once: true, amount: 0.5 });
+  useEffect(() => { if (seen && v.current) { v.current.currentTime = 0; v.current.play().catch(() => {}); } }, [seen]);
+  return <video ref={v} src={src} poster={poster} muted playsInline preload="auto" className={className} />;
+}
+
 /* ───────── 대학과 의료, 신촌이라는 입지 ───────── */
 function Place() {
   return (
@@ -925,7 +934,7 @@ function Place() {
       <Head dark={false} kick="LOCATION" a="University, medicine," b="and Sinchon." sub={<>대학과 의료, 신촌이라는 입지.<br />연세대학교와 세브란스병원이 가까운 신촌 도심 생활권.</>} />
       <Reveal>
         <div className="mt-8 overflow-hidden rounded-[22px] border-[3px] border-[#121212] bg-[#f2f9f9] p-2">
-          <video src="/sinchon/care/mg-map.mp4" poster="/sinchon/care/mg-map-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full rounded-[14px] object-cover" />
+          <OnceVideo src="/sinchon/care/mg-map.mp4" poster="/sinchon/care/mg-map-poster.webp" className="block aspect-[9/16] w-full rounded-[14px] object-cover" />
           <p className="px-1 pb-1 text-[10.5px] text-[#4a4f55]">위치 관계를 단순화한 개략도입니다. 거리와 소요시간은 실제 경로 확인 후 표기합니다.</p>
         </div>
       </Reveal>
