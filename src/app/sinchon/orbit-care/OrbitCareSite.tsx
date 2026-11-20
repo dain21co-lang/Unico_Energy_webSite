@@ -687,7 +687,7 @@ function DcSim() {
       <p className="kick text-[10px] text-[#3e6e82]">VIRTUAL SIMULATION · 가상</p>
       <h3 className="mt-3 text-[24px] font-black leading-snug">돌봄을 뒷받침하는<br />작은 데이터실</h3>
       <p className="mt-2 text-[13.5px] leading-relaxed text-[#4a4f55]">아래로 내리면 병실 센서에서 담당자 확인까지, 그리고 지하 설비가 하나씩 켜집니다.</p>
-      <div className="mt-5 overflow-hidden rounded-[22px] bg-[#0e1f24]"><video src="/sinchon/care/mg-hidden.mp4" poster="/sinchon/care/mg-hidden-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full object-cover" /></div>
+      <div className="mt-5 overflow-hidden rounded-[22px] bg-[#0e1f24]"><video src="/sinchon/care/mg-hidden.mp4" poster="/sinchon/care/mg-hidden-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-video w-full object-cover" /></div>
       <motion.div className="mt-5 overflow-hidden rounded-[22px] bg-[#d9e4e2]" initial={{ y: 28, clipPath: "inset(10% 0% 0% 0% round 22px)" }} whileInView={{ y: 0, clipPath: "inset(0% 0% 0% 0% round 22px)" }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.8, ease: EASE }}>
         <img src="/sinchon/care/dc-exterior.webp" alt="고급 회복 시설 콘셉트 이미지" className="block aspect-[4/5] w-full object-cover" loading="lazy" decoding="async" />
       </motion.div>
