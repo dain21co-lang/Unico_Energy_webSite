@@ -935,8 +935,8 @@ function HeroFilm() {
       <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(62,110,130,0.45) 0%,rgba(62,110,130,0) 24%,rgba(62,110,130,0) 52%,rgba(62,110,130,0.9) 100%)" }} />
       <div className="absolute inset-x-0 bottom-0 px-6 pb-14">
         <p className="kick text-[var(--o-mint)]">신촌 평생주치의 케어하우스(가칭)</p>
-        <h1 className="mt-3 text-[34px] font-black leading-[1.22] tracking-tight">치료는 대학병원에서,<br />회복은 신촌에서.</h1>
-        <p className="mt-3 text-[15px] font-bold text-[var(--o-sub)]">치료와 일상 사이, 나와 가족이 함께 머무는 회복의 공간.</p>
+        <h1 className="mt-3 text-[36px] font-black leading-[1.2] tracking-tight">도심 속,<br /><span className="text-[var(--o-gold)]">회복의 그늘막.</span></h1>
+        <p className="mt-3 text-[15px] font-bold text-[var(--o-sub)]">치료는 대학병원에서, 회복은 신촌에서.<br />치료와 일상 사이, 나와 가족이 잠시 쉬어 가는 곳.</p>
         <p className="mt-2 text-[11px] font-bold tracking-[0.18em] text-white/80">SINCHON CARE · GB LABS<br />PREMIUM MEDICAL RECOVERY &amp; CARE LIVING</p>
         <p className="mt-2 text-[11px] text-white/70">입점 검토용 시안 · 이미지와 영상은 AI 예시</p>
         <a href="#ceo" className="nudge mt-6 inline-flex items-center gap-2 text-[12px] font-bold tracking-[0.2em] text-[var(--o-sub)]">아래로 ↓</a>
