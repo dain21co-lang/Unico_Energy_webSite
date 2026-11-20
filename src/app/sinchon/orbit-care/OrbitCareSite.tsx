@@ -775,7 +775,7 @@ function NearWhy() {
 
 /* ───────── 수익 구조 ───────── */
 const REV = [
-  { f: "2~10F", t: "회복 레지던스 체류", d: "1인·2인 회복실, 가족 체류실 — 2~3개월 단기 체류 중심의 프리미엄 요금" },
+  { f: "2~10F", t: "회복 레지던스 체류", d: "1인·2인 회복실, 가족 체류실 — 2~3개월 단기 체류 중심. 1인실 하루 20만 원선 (서울 중급 병원 1인실 기준)" },
   { f: "2F", t: "의료·간호 서비스", d: "평생주치의 진료, 방문간호, 재활 — 건강보험·장기요양·정책자금 연계 검토" },
   { f: "B1", t: "회복식 레스토랑 · 델리", d: "암 환우 맞춤 영양식을 입주자와 외래 환우·보호자에게, 포장·배달까지" },
   { f: "B2", t: "웰니스 숍 · 통원 셔틀", d: "항암 관리 용품과 웰니스 제품, 대학병원 통원 셔틀 — 주차는 별도 주차타워" },
@@ -794,6 +794,11 @@ function Revenue() {
             </div>
           </Reveal>
         ))}
+      </div>
+      <div className="mt-6 rounded-2xl bg-white/12 p-5">
+        <p className="kick text-[10px]" style={{ color: "var(--o-sub)" }}>REFERENCE · 1인실 기준</p>
+        <p className="mt-2 flex items-baseline gap-2"><span className="serif text-[44px] italic leading-none" style={{ color: "var(--o-gold)" }}>20</span><span className="text-[15px] font-black">만 원 / 1일</span></p>
+        <p className="mt-2 text-[12.5px] leading-relaxed text-[#f2f9f9]">서울 시내 중간 수준 병원(대형·종합병원이 아닌 통건물 전문병원) 1인실 기준가를 참고했습니다.</p>
       </div>
       <p className="mt-6 text-[11.5px] leading-[1.7] text-[#e4f1f3]">객실 수는 병원 운영 전문가 그룹이 운영 방향에 맞춰 정하며, 수익성과 지하층 매출 구성은 수지분석으로 검증한 뒤 확정합니다.</p>
     </section>
