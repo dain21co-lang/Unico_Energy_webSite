@@ -751,7 +751,7 @@ function Shade() {
       <Head dark={false} kick="OUR PHILOSOPHY" a="A shade" b="for recovery." sub={<>도심 속 회복의 그늘막.</>} />
       <Reveal>
         <div className="arch relative mt-8 aspect-[4/5] bg-[#ddd6c6]">
-          <img src="/sinchon/care/hug-poster.webp" alt="회복의 그늘막 · AI 예시" className="h-full w-full object-cover" loading="lazy" />
+          <video src="/sinchon/care/coop-hug.mp4" poster="/sinchon/care/film-coop-hug.webp" autoPlay muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
         </div>
       </Reveal>
       <div className="mt-8 space-y-3 text-[15.5px] leading-[1.85] text-[#1d2630]">
