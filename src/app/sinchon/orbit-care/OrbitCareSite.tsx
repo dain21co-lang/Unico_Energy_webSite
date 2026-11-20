@@ -209,7 +209,7 @@ function PlanSvg({ k }: { k: FloorKind }) {
         return (
           <g key={`r${i}`}>
             <motion.rect x={x0 + 0.1} y={z0 + 0.1} width={x1 - x0 - 0.2} height={z1 - z0 - 0.2} rx={0.25} fill={COLORS[r.t]} style={{ transformOrigin: `${cx}px ${cz}px`, transformBox: "view-box" }} initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.6, delay: 0.6 + i * 0.07, ease: EASE }} />
-            <text x={cx} y={cz} fontSize={x1 - x0 < 2.4 ? 0.5 : 0.72} fill="#121212" textAnchor="middle" dominantBaseline="middle" fontWeight={800}>{en ? (r.t === "sh" ? "Share" : LBL(true)[r.t]) : r.t === "sh" ? "셰어" : LABEL[r.t]}</text>
+            <text x={cx} y={cz} fontSize={x1 - x0 < 2.4 ? 0.5 : 0.72} fill="#121212" textAnchor="middle" dominantBaseline="middle" fontWeight={800}>{en ? (r.t === "sh" ? "Share" : LBL(true)[r.t]) : r.t === "sh" ? "가족" : r.t === "t" ? "2인" : "1인"}</text>
           </g>
         );
       })}
@@ -249,12 +249,12 @@ function Plans() {
             ))}
           </div>
         </div>
-        <div className="relative aspect-[1.23] w-full overflow-hidden rounded-[14px]" style={{ background: "#3e6e82" }}>
+        <div className="relative aspect-[1.23] w-full overflow-hidden rounded-[14px]" style={{ background: mode === "cad" ? "#13262d" : "#3e6e82" }}>
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.div key={`${t.k}-${mode}`} className="absolute inset-0 flex items-center justify-center p-2" initial={{ clipPath: "inset(0% 100% 0% 0%)" }} animate={{ clipPath: "inset(0% 0% 0% 0%)" }} exit={{ clipPath: "inset(0% 0% 0% 100%)" }} transition={{ duration: 0.8, ease: EASE }}>
               {mode === "cad" ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={IMG(t.cad)} alt={en ? `${t.labelE} original drawing (2023)` : `${t.label} 원도면(2023)`} className="h-full w-full object-contain" />
+                <img src={IMG(t.cad)} alt={en ? `${t.labelE} original drawing (2023)` : `${t.label} 원도면(2023)`} className="h-full w-full object-contain" style={{ filter: "brightness(1.7) contrast(1.35) drop-shadow(0 0 0.7px #ffffff) drop-shadow(0 0 0.7px #ffffff)" }} />
               ) : (
                 <PlanSvg k={t.k} />
               )}
