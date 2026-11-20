@@ -657,6 +657,125 @@ const DOCS = [
   { href: "/sinchon/care", t: "케어하우스 입점 시안", tE: "Care house proposal", d: "층별 시설 · 입점 구조 · 환자·가족 안내", dE: "Floors · structure · families" },
   { href: "https://gblabs.co.kr", t: "GB LABS", tE: "GB LABS", d: "AI · 빅데이터 디지털 헬스케어", dE: "Digital health company" },
 ];
+
+/* ───────── 가상 시뮬레이션 · 돌봄을 뒷받침하는 작은 데이터실 ───────── */
+const FLOW = [
+  { k: "sense", t: "병실 센서", d: "회복실의 생체신호·움직임 센서가 상태를 계속 읽습니다." },
+  { k: "edge", t: "현장 처리", d: "건물 안 작은 데이터실이 바로 분석해, 멀리 보내지 않고도 이상 징후를 찾습니다." },
+  { k: "care", t: "돌봄 담당자 확인", d: "간호스테이션과 주치의 화면에 알림이 뜨고, 담당자가 곁으로 갑니다." },
+];
+const INFRA = [
+  { k: "power", t: "전력", d: "안정적인 전기 공급과 비상전원(UPS)이 먼저입니다. 건물의 수전 여유를 확인해야 합니다." },
+  { k: "cool", t: "냉각", d: "장비의 열을 밖으로 내보낼 경로가 필요합니다. 지하라면 배기 동선이 핵심입니다." },
+  { k: "flood", t: "침수 대비", d: "지하 공간은 물막이판·차수 설계·바닥 높이 확보로 침수에 대비합니다." },
+];
+function DcSim() {
+  const [open, setOpen] = useState(false);
+  const [f, setF] = useState(0);
+  const [on, setOn] = useState<Record<string, boolean>>({ power: false, cool: false, flood: false });
+  const tog = (k: string) => setOn((o) => ({ ...o, [k]: !o[k] }));
+  const hi = (i: number) => (f === i ? "#f2a7a0" : "#ffffff");
+  return (
+    <>
+      <section id="dc" className="px-6 pb-10 pt-16" style={{ background: "#3e6e82" }}>
+        <p className="kick" style={{ color: "var(--o-sub)" }}>VIRTUAL SIMULATION</p>
+        <h3 className="mt-3 text-[22px] font-black leading-snug">돌봄을 뒷받침하는<br />작은 데이터실</h3>
+        <p className="mt-2 text-[13.5px] leading-relaxed text-[#e4f1f3]">병실 센서에서 담당자의 확인까지, 건물 안에서 한 번에 이어지는 흐름을 가상으로 보여 드립니다.</p>
+        <button onClick={() => setOpen(true)} className="pill glass mt-5 w-full py-3.5 text-[14px] font-bold">가상 시뮬레이션 열기 ↗</button>
+      </section>
+      <motion.div className="fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[90svh] max-w-[480px] overflow-y-auto rounded-t-[26px]" style={{ background: "#eaf4ef", color: "#121212" }} initial={false} animate={{ y: open ? 0 : "105%" }} transition={{ duration: 0.5, ease: EASE }}>
+        <div className="px-6 pb-10 pt-6">
+          <div className="flex items-center justify-between">
+            <p className="kick text-[10px] text-[#3e6e82]">VIRTUAL SIMULATION · 가상</p>
+            <button onClick={() => setOpen(false)} className="h-9 w-9 rounded-full bg-white text-[16px] font-bold" aria-label="close">×</button>
+          </div>
+          <h3 className="mt-2 text-[22px] font-black leading-snug">돌봄을 뒷받침하는<br />작은 데이터실</h3>
+          <div className="mt-5 grid grid-cols-3 gap-1.5">
+            {FLOW.map((x, i) => (
+              <button key={x.k} onClick={() => setF(i)} className="relative rounded-2xl px-1 py-2.5 text-[12.5px] font-black" style={{ background: f === i ? "#3e6e82" : "#ffffff", color: f === i ? "#fff" : "#3e6e82" }}>
+                <span className="block text-[10px] font-bold opacity-70">0{i + 1}</span>{x.t}
+              </button>
+            ))}
+          </div>
+          <p className="mt-3 min-h-[40px] text-[13px] leading-relaxed text-[#1d2630]">{FLOW[f].d}</p>
+          <svg viewBox="0 0 300 300" className="mt-2 h-auto w-full">
+            {/* 지면 */}
+            <rect x={0} y={178} width={300} height={3} fill="#121212" />
+            <text x={6} y={174} fontSize={8} fontWeight={800} fill="#3e6e82">지상</text>
+            <text x={6} y={192} fontSize={8} fontWeight={800} fill="#3e6e82">지하</text>
+            {/* 병실 층 */}
+            {Array.from({ length: 5 }, (_, i) => (
+              <g key={i}>
+                <rect x={80} y={40 + i * 26} width={140} height={24} rx={2} fill={i === 4 ? "#d9eef0" : "#fde3dc"} stroke="#121212" strokeWidth={1} />
+                {i < 4 && [0, 1, 2].map((j) => (
+                  <circle key={j} cx={100 + j * 40} cy={52 + i * 26} r={3} fill={hi(0)} stroke="#121212" strokeWidth={0.8}>
+                    {f === 0 && <animate attributeName="r" values="2.5;4.5;2.5" dur={`${1 + j * 0.3}s`} repeatCount="indefinite" />}
+                  </circle>
+                ))}
+              </g>
+            ))}
+            <text x={150} y={34} textAnchor="middle" fontSize={8.5} fontWeight={800} fill="#121212">회복실 층 · 병실 센서</text>
+            {/* 간호스테이션 */}
+            <rect x={160} y={146} width={52} height={16} rx={3} fill={hi(2)} stroke="#121212" strokeWidth={1} />
+            <text x={186} y={157} textAnchor="middle" fontSize={7.5} fontWeight={900} fill="#121212">간호스테이션</text>
+            {/* 지하 */}
+            <rect x={80} y={186} width={140} height={34} rx={3} fill="#cfe6ec" stroke="#121212" strokeWidth={1} />
+            <text x={110} y={207} textAnchor="middle" fontSize={8} fontWeight={800} fill="#3e6e82">재활 공간</text>
+            <rect x={160} y={192} width={52} height={22} rx={3} fill={hi(1)} stroke="#121212" strokeWidth={1.2} />
+            <text x={186} y={206} textAnchor="middle" fontSize={7.5} fontWeight={900} fill="#121212">작은 데이터실</text>
+            <text x={186} y={232} textAnchor="middle" fontSize={7} fill="#4a4f55">층 · 위치 · 규모 미정</text>
+            {/* 흐름 선 */}
+            <path d="M210 60 C 250 80, 250 180, 212 200" stroke="#5b97ac" strokeWidth={1.6} fill="none" strokeDasharray="4 4"><animate attributeName="stroke-dashoffset" from="0" to="-16" dur="0.8s" repeatCount="indefinite" /></path>
+            <path d="M186 192 L186 162" stroke="#f2a7a0" strokeWidth={1.8} strokeDasharray="3 3"><animate attributeName="stroke-dashoffset" from="0" to="-12" dur="0.6s" repeatCount="indefinite" /></path>
+            <circle r={3.5} fill="#ffffff" stroke="#3e6e82" strokeWidth={1.5}>
+              <animateMotion dur="3s" repeatCount="indefinite" path="M210 60 C 250 80, 250 180, 212 200 L186 200 L186 162" />
+            </circle>
+            {/* 전력 */}
+            {on.power && (
+              <g>
+                <path d="M300 190 L232 190 L232 203 L212 203" stroke="#e8b04a" strokeWidth={2.4} fill="none"><animate attributeName="stroke-dasharray" values="0 200;200 0" dur="1s" fill="freeze" /></path>
+                <text x={262} y={185} textAnchor="middle" fontSize={7.5} fontWeight={900} fill="#b07a12">수전 · UPS</text>
+              </g>
+            )}
+            {/* 냉각 */}
+            {on.cool && (
+              <g>
+                <path d="M200 192 L200 120 L230 120 L230 20" stroke="#7aa6e8" strokeWidth={2.2} fill="none" strokeDasharray="6 4"><animate attributeName="stroke-dashoffset" from="0" to="-20" dur="0.7s" repeatCount="indefinite" /></path>
+                <text x={232} y={16} textAnchor="middle" fontSize={7.5} fontWeight={900} fill="#3e6eb0">배기 · 냉각</text>
+              </g>
+            )}
+            {/* 침수 대비 */}
+            {on.flood && (
+              <g>
+                <rect x={40} y={164} width={36} height={14} fill="#5b97ac" />
+                <rect x={224} y={164} width={36} height={14} fill="#5b97ac" />
+                <text x={58} y={160} textAnchor="middle" fontSize={7.5} fontWeight={900} fill="#3e6e82">물막이</text>
+                <text x={242} y={160} textAnchor="middle" fontSize={7.5} fontWeight={900} fill="#3e6e82">물막이</text>
+                <path d="M80 222 L220 222" stroke="#3e6e82" strokeWidth={3} />
+                <text x={150} y={246} textAnchor="middle" fontSize={7} fill="#3e6e82">차수 설계 · 바닥 높이 확보</text>
+              </g>
+            )}
+            <text x={150} y={286} textAnchor="middle" fontSize={7.5} fill="#7a7466">단순화한 가상 단면도</text>
+          </svg>
+          <p className="mt-2 text-[13px] font-black">지하 설비를 하나씩 켜 보세요</p>
+          <div className="mt-2 grid grid-cols-3 gap-1.5">
+            {INFRA.map((x) => (
+              <button key={x.k} onClick={() => tog(x.k)} className="rounded-2xl py-3 text-[13px] font-black" style={{ background: on[x.k] ? "#3e6e82" : "#ffffff", color: on[x.k] ? "#fff" : "#3e6e82" }}>{on[x.k] ? "● " : "○ "}{x.t}</button>
+            ))}
+          </div>
+          <div className="mt-3 space-y-2">
+            {INFRA.filter((x) => on[x.k]).map((x) => (
+              <div key={x.k} className="rounded-2xl bg-white px-4 py-3"><p className="text-[14px] font-black text-[#3e6e82]">{x.t}</p><p className="mt-0.5 text-[12.5px] leading-relaxed text-[#4a4f55]">{x.d}</p></div>
+            ))}
+          </div>
+          <div className="mt-5 rounded-2xl bg-[#3e6e82] px-4 py-3 text-[12.5px] leading-relaxed text-white">기존 지하 재활 구상은 그대로 두고, 데이터실의 층 · 위치 · 장비 규모는 지하층 평면 · 단면 · 바닥 하중 · 수전 여유를 확인한 뒤 정합니다.</div>
+          <p className="mt-4 text-[11px] leading-relaxed text-[#7a7466]">이 화면은 검토용 가상 시뮬레이션이며, 확정된 시설 계획이나 계약 내용이 아닙니다.</p>
+        </div>
+      </motion.div>
+    </>
+  );
+}
+
 function Docs() {
   const en = useEN();
   return (
@@ -994,6 +1113,7 @@ export default function OrbitCareSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
       <Exterior />
       <Numbers />
       <Film />
+      <DcSim />
       <Docs />
       <Closing />
 
