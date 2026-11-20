@@ -58,3 +58,4 @@
 .orb .paper { background: #eaf4ef; color: #121212; }
 .orb .arch { border: 3px solid #121212; }
 .orb .glass { border-width: 2px; }
+.orb #dc { scroll-margin-top: 64px; }

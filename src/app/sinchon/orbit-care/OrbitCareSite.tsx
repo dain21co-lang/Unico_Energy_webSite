@@ -673,7 +673,7 @@ function DcStep({ i, set, children }: { i: number; set: (n: number) => void; chi
   const ref = useRef<HTMLDivElement>(null);
   const seen = useInView(ref, { amount: 0.6 });
   useEffect(() => { if (seen) set(i); }, [seen, i, set]);
-  return <div ref={ref} className="flex min-h-[46svh] items-center">{children}</div>;
+  return <div ref={ref} id={`dcstep-${i}`} className="flex min-h-[46svh] items-center">{children}</div>;
 }
 function DcSim() {
   const [idx, setIdx] = useState(0);
@@ -688,7 +688,7 @@ function DcSim() {
       <p className="mt-2 text-[13.5px] leading-relaxed text-[#4a4f55]">아래로 내리면 병실 센서에서 담당자 확인까지, 그리고 지하 설비가 하나씩 켜집니다.</p>
       <div className="mt-5 overflow-hidden rounded-[22px] bg-[#0e1f24]"><video src="/sinchon/care/mg-hidden.mp4" poster="/sinchon/care/mg-hidden-poster.webp" autoPlay muted loop playsInline preload="metadata" className="block aspect-[9/16] w-full object-cover" /></div>
       <div className="relative">
-      <div className="sticky top-[60px] z-10 mt-5 rounded-[22px] bg-[#eaf4ef]/95 pb-1 pt-1 backdrop-blur">
+      <div id="dcsticky" className="sticky top-[60px] z-10 mt-5 rounded-[22px] bg-[#eaf4ef]/95 pb-1 pt-1 backdrop-blur">
         <div className="mx-auto max-w-[360px]">
           <svg viewBox="0 0 300 300" className="h-auto w-full max-h-[44svh]">
             {/* 지면 */}
@@ -750,8 +750,12 @@ function DcSim() {
             <text x={150} y={286} textAnchor="middle" fontSize={7.5} fill="#7a7466">단순화한 가상 단면도</text>
           </svg>
         </div>
-        <div className="mt-1 flex justify-center gap-1.5 pb-2">
-          {steps.map((_, k) => <span key={k} className="h-1.5 rounded-full transition-all" style={{ width: k === idx ? 22 : 6, background: k <= idx ? "#3e6e82" : "#c9d4de" }} />)}
+        <div className="mt-1 flex gap-1 overflow-x-auto px-1 pb-2" style={{ scrollbarWidth: "none" }}>
+          {steps.map((x, k) => (
+            <button key={k} onClick={() => { const el = document.getElementById(`dcstep-${k}`); const st = document.getElementById("dcsticky"); if (!el) return; const off = (st ? st.getBoundingClientRect().height : 0) + 72; window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - off + 40, behavior: "smooth" }); }} className="shrink-0 rounded-full px-2.5 py-1.5 text-[11px] font-bold transition-colors" style={{ background: k === idx ? "#3e6e82" : k < idx ? "#cfe6ec" : "#ffffff", color: k === idx ? "#fff" : "#3e6e82" }}>
+              {k + 1}. {x.t}
+            </button>
+          ))}
         </div>
       </div>
       <div className="relative">
@@ -1077,7 +1081,8 @@ export default function OrbitCareSite({ lang = "ko" }: { lang?: "ko" | "en" }) {
       <header className="fixed inset-x-0 top-0 z-40 mx-auto flex max-w-[480px] items-center justify-between gap-3 px-5 pt-4" style={{ background: "linear-gradient(180deg,rgba(62,110,130,0.85),rgba(62,110,130,0))", paddingBottom: 18 }}>
         <img src="/sinchon/care/gblabs-logo-white.png" alt="GB LABS" className="h-6 w-auto" />
         <div className="flex shrink-0 items-center gap-2">
-                    <button onClick={() => setInfo(true)} className="pill glass whitespace-nowrap px-3.5 py-2 text-[12px] font-bold">{en ? "About" : "안내"}</button>
+                    <a href="#dc" className="pill glass whitespace-nowrap px-3 py-2 text-[12px] font-bold">지하 데이터실</a>
+          <button onClick={() => setInfo(true)} className="pill glass whitespace-nowrap px-3.5 py-2 text-[12px] font-bold">{en ? "About" : "안내"}</button>
         </div>
       </header>
 
