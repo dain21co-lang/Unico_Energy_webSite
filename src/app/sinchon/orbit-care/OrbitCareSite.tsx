@@ -934,8 +934,8 @@ function Rehab() {
 
 function OnceVideo({ src, poster, className }: { src: string; poster: string; className: string }) {
   const v = useRef<HTMLVideoElement>(null);
-  const seen = useInView(v, { once: true, amount: 0.5 });
-  useEffect(() => { if (seen && v.current) { v.current.currentTime = 0; v.current.play().catch(() => {}); } }, [seen]);
+  const seen = useInView(v, { once: true, amount: 0.15 });
+  useEffect(() => { if (seen && v.current) { v.current.playbackRate = 1.6; v.current.play().catch(() => {}); } }, [seen]);
   return <video ref={v} src={src} poster={poster} muted playsInline preload="auto" className={className} />;
 }
 
@@ -946,7 +946,7 @@ function Place() {
       <Head dark={false} kick="LOCATION" a="University, medicine," b="and Sinchon." sub={<>대학과 의료, 신촌이라는 입지.<br />연세대학교와 세브란스병원이 가까운 신촌 도심 생활권.</>} />
       <Reveal>
         <div className="mt-8 overflow-hidden rounded-[22px] border-[3px] border-[#121212] bg-[#f2f9f9] p-2">
-          <OnceVideo src="/sinchon/care/mg-map.mp4" poster="/sinchon/care/mg-map-poster.webp" className="block aspect-[9/16] w-full rounded-[14px] object-cover" />
+          <OnceVideo src="/sinchon/care/mg-map.mp4" poster="/sinchon/care/mg-map-end.webp" className="block aspect-[9/16] w-full rounded-[14px] object-cover" />
           <p className="px-1 pb-1 text-[10.5px] text-[#4a4f55]">위치 관계를 단순화한 개략도입니다. 거리와 소요시간은 실제 경로 확인 후 표기합니다.</p>
         </div>
       </Reveal>
