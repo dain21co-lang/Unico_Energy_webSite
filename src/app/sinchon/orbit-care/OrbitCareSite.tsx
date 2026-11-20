@@ -707,6 +707,7 @@ function Closing() {
 
 
 /* ───────── 누구를 위한 곳인가 ───────── */
+const TINT = ["#d9eef0", "#fde3dc", "#e6e9f8"];
 const WHO = [
   { n: "01", t: "지방에서 올라온 환우", d: "세브란스에서 암 치료를 받는 동안, 서울에 머물 곳이 필요한 분", stay: "단기 2~3개월" },
   { n: "02", t: "수술 후 집에서 관리가 어려운 환우", d: "퇴원은 했지만 상처 관리·영양·재활을 체계적으로 이어 가야 하는 분", stay: "단기 2~3개월" },
@@ -717,12 +718,12 @@ function Who() {
     <section id="who" className="paper relative px-6 pb-20 pt-20">
       <Head dark={false} kick="WHO WE CARE FOR" a="Between hospital" b="and home." sub={<>퇴원해도 바로 집으로 가기 어려운 분들을 위한,<br />요양원 가기 전의 고급 회복 중간집입니다.</>} />
       <div className="mt-8 space-y-3">
-        {WHO.map((w) => (
-          <Reveal key={w.n}>
-            <div className="rounded-[20px] border-[3px] border-[#121212] bg-white/60 p-5">
+        {WHO.map((w, i) => (
+          <Reveal key={w.n} delay={i * 0.08}>
+            <div className="rounded-[22px] p-5" style={{ background: TINT[i] }}>
               <div className="flex items-baseline justify-between">
-                <span className="serif text-[30px] italic leading-none">{w.n}</span>
-                <span className="rounded-full bg-[#121212] px-3 py-1 text-[11.5px] font-bold text-[#eaf4ef]">{w.stay}</span>
+                <span className="serif text-[30px] italic leading-none text-[#3e6e82]">{w.n}</span>
+                <span className="rounded-full bg-white/80 px-3 py-1 text-[11.5px] font-bold text-[#3e6e82]">{w.stay}</span>
               </div>
               <p className="mt-3 text-[18px] font-black leading-snug">{w.t}</p>
               <p className="mt-1 text-[13.5px] leading-relaxed text-[#4a4f55]">{w.d}</p>
@@ -731,8 +732,10 @@ function Who() {
         ))}
       </div>
       <div className="mt-8 grid grid-cols-3 gap-2 text-center">
-        {[["세브란스", "가장 가까운 대형 건물"], ["전국", "대기 중인 환우"], ["주차 완비", "일대에서 드문 시설"]].map(([a, b]) => (
-          <div key={a} className="rounded-2xl bg-[#121212] px-2 py-4 text-[#eaf4ef]"><p className="text-[16px] font-black">{a}</p><p className="mt-1 text-[11px] leading-snug opacity-80">{b}</p></div>
+        {[["세브란스", "가장 가까운 대형 건물", "#8cc2d2"], ["전국", "대기 중인 환우", "#f2a7a0"], ["주차 완비", "일대에서 드문 시설", "#a9c4e8"]].map(([a, b, c], i) => (
+          <Reveal key={a} delay={0.1 + i * 0.1}>
+            <div className="h-full rounded-2xl px-2 py-4 text-white" style={{ background: c }}><p className="text-[16px] font-black">{a}</p><p className="mt-1 text-[11px] leading-snug opacity-90">{b}</p></div>
+          </Reveal>
         ))}
       </div>
     </section>
