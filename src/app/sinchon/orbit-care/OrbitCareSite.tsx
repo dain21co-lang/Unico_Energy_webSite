@@ -934,7 +934,7 @@ function Rehab() {
 
 /* ───────── 신촌 대학가 약도 (애니메이션) ───────── */
 const UNIS: [number, number, string, string][] = [[150, 62, "연세대학교", "세브란스병원"], [256, 108, "이화여대", ""], [212, 312, "서강대학교", ""], [44, 132, "홍익대학교", ""]];
-const STNS: [number, number, string, string][] = [[40, 232, "홍대입구역", "2호선 · 경의중앙 · 공항철도"], [150, 232, "신촌역", "2호선"], [254, 232, "이대역", "2호선"], [222, 166, "신촌역", "경의중앙선"]];
+const STNS: [number, number, string, string, number][] = [[150, 232, "2호선 신촌역", "", 0.9], [222, 166, "경의·중앙선 신촌역", "(신촌기차역)", 0.9], [40, 232, "홍대입구역", "", 2.7], [254, 232, "이대역", "", 2.85]];
 function CampusMap() {
   const ref = useRef<HTMLDivElement>(null);
   const on = useInView(ref, { once: true, amount: 0.2 });
@@ -953,9 +953,10 @@ function CampusMap() {
         <text x={292} y={138} textAnchor="end" fontSize={7} fontWeight={800} fill="#3e8f8b">경의중앙선</text>
         <text x={292} y={226} textAnchor="end" fontSize={7} fontWeight={800} fill="#2e7d32">2호선</text>
         {/* 역 */}
-        {STNS.map(([x, y, n, l], i) => (
-          <motion.g key={n + l} initial={{ scale: 0 }} animate={on ? { scale: 1 } : {}} transition={{ type: "spring", stiffness: 260, damping: 16, delay: 1 + i * 0.15 }} style={{ transformOrigin: `${x}px ${y}px` }}>
-            <circle cx={x} cy={y} r={6.5} fill="#ffffff" stroke="#121212" strokeWidth={1.6} />
+        {STNS.map(([x, y, n, l, dl], i) => (
+          <motion.g key={n + l} initial={{ scale: 0 }} animate={on ? { scale: 1 } : {}} transition={{ type: "spring", stiffness: 260, damping: 16, delay: dl }} style={{ transformOrigin: `${x}px ${y}px` }}>
+            {i < 2 && <circle cx={x} cy={y} r={11} fill="#4caf50" opacity={0.25}><animate attributeName="r" values="8;16;8" dur="2.2s" repeatCount="indefinite" /></circle>}
+            <circle cx={x} cy={y} r={i < 2 ? 7.5 : 5.5} fill={i < 2 ? "#fff8ea" : "#ffffff"} stroke="#121212" strokeWidth={i < 2 ? 2 : 1.4} />
             <text x={x} y={y + (y > 200 ? 18 : -11)} textAnchor="middle" fontSize={8.5} fontWeight={900} fill="#121212">{n}</text>
             <text x={x} y={y + (y > 200 ? 27 : -3) } textAnchor="middle" fontSize={6} fontWeight={700} fill="#4a4f55" style={{ display: y > 200 ? "block" : "none" }}>{l}</text>
             {y < 200 && <text x={x + 10} y={y + 3} fontSize={6} fontWeight={700} fill="#4a4f55">{l}</text>}
@@ -963,14 +964,14 @@ function CampusMap() {
         ))}
         {/* 대학 */}
         {UNIS.map(([x, y, n, sub], i) => (
-          <motion.g key={n} initial={{ y: -14, scale: 0 }} animate={on ? { y: 0, scale: 1 } : {}} transition={{ type: "spring", stiffness: 220, damping: 14, delay: 1.6 + i * 0.18 }} style={{ transformOrigin: `${x}px ${y}px` }}>
+          <motion.g key={n} initial={{ y: -14, scale: 0 }} animate={on ? { y: 0, scale: 1 } : {}} transition={{ type: "spring", stiffness: 220, damping: 14, delay: i === 0 ? 1.5 : 2.6 + i * 0.15 }} style={{ transformOrigin: `${x}px ${y}px` }}>
             <rect x={x - (sub ? 38 : 30)} y={y - 13} width={sub ? 76 : 60} height={sub ? 30 : 20} rx={8} fill={i === 0 ? "#e6e9f8" : "#ffffff"} stroke="#121212" strokeWidth={1.3} />
             <text x={x} y={y + 1} textAnchor="middle" fontSize={8.5} fontWeight={900} fill="#121212">{n}</text>
             {sub && <text x={x} y={y + 12} textAnchor="middle" fontSize={7.5} fontWeight={800} fill="#3e6e82">{sub}</text>}
           </motion.g>
         ))}
         {/* 세브란스 연결 */}
-        <motion.line x1={164} y1={196} x2={152} y2={78} stroke="#3e6e82" strokeWidth={1.3} strokeDasharray="4 4" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 0.8, delay: 2.4 }} />
+        <motion.line x1={164} y1={196} x2={152} y2={78} stroke="#3e6e82" strokeWidth={1.3} strokeDasharray="4 4" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 0.8, delay: 1.8 }} />
         {/* 케어하우스 */}
         <circle cx={166} cy={204} fill="none" stroke="#f2a7a0"><animate attributeName="r" values="10;30" dur="2s" repeatCount="indefinite" /><animate attributeName="stroke-width" values="3;0" dur="2s" repeatCount="indefinite" /></circle>
         <motion.g initial={{ scale: 0 }} animate={on ? { scale: 1 } : {}} transition={{ type: "spring", stiffness: 200, damping: 12, delay: 0.6 }} style={{ transformOrigin: "166px 204px" }}>
@@ -980,7 +981,7 @@ function CampusMap() {
           <text x={214} y={203} textAnchor="middle" fontSize={7.5} fontWeight={900} fill="#ffffff">SINCHON CARE</text>
         </motion.g>
         <rect x={52} y={346} width={196} height={17} rx={8.5} fill="#ffffff" />
-        <text x={150} y={357.5} textAnchor="middle" fontSize={8.5} fontWeight={800} fill="#3e6e82">국내 최대 대학가 · 연세 · 이화 · 서강 · 홍익</text>
+        <text x={150} y={357.5} textAnchor="middle" fontSize={8.5} fontWeight={800} fill="#3e6e82">두 신촌역 사이 · 국내 최대 대학가</text>
       </svg>
     </div>
   );
@@ -1001,6 +1002,7 @@ function Place() {
       <Reveal>
         <div className="mt-8 overflow-hidden rounded-[22px] border-[3px] border-[#121212] bg-[#f2f9f9] p-2">
           <CampusMap />
+          <p className="px-1 pt-3 text-[14px] font-black leading-snug text-[#3e6e82]">대학과 병원이 가까운 신촌,<br />환자와 가족을 위한 회복의 그늘막</p>
           <p className="px-1 pb-1 pt-2 text-[10.5px] text-[#4a4f55]">위치 관계를 단순화한 개략도입니다. 거리와 소요시간은 실제 경로 확인 후 표기합니다.</p>
         </div>
       </Reveal>
