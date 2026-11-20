@@ -393,7 +393,7 @@ function Smart() {
     <section id="smart" className="relative px-6 pb-20 pt-24" style={{ background: "#5b97ac" }}>
       <Head kick="07 / CARE JOURNEY" a="Five steps." b="Never alone." sub={en ? "From admission to home, care that stays connected." : "입원 상담부터 집으로 돌아간 뒤까지, 끊기지 않는 돌봄의 다섯 단계."} />
       <div className="mt-8">
-        <Clip src="/sinchon/care/intro.mp4" poster="care/intro-poster" kick={en ? "ARRIVAL · 40s" : "신촌에서 회복실까지 · 40초"} title={en ? "From the city to the recovery room" : "노을 진 신촌에서 회복실 창가까지"} />
+        <Clip src="/sinchon/care/coop-doctor-ko.mp4" poster="care/film-coop-doctor-ko" kick={en ? "LIFELONG DOCTOR" : "평생주치의"} title={en ? "A doctor who knows you" : "나를 오래 아는 주치의가 곁에"} />
       </div>
       <div ref={ref} className="relative mt-10 pl-8">
         <motion.span className="absolute left-[7px] top-2 bottom-2 w-px origin-top" style={{ background: "linear-gradient(180deg,var(--o-mint),var(--o-gold))" }} initial={{ scaleY: 0 }} animate={on ? { scaleY: 1 } : {}} transition={{ duration: 1.6, ease: EASE }} />
@@ -606,13 +606,10 @@ function Numbers() {
 
 /* ───────── 7. 영상 ───────── */
 const FILMS = [
-  { k: "intro", t: "신촌에서 회복실까지 0:40", tE: "Intro 0:40", src: "/sinchon/care/intro.mp4", poster: "care/intro-poster" },
   { k: "approach", t: "건물 외관 드론", tE: "Exterior", src: "/sinchon/care/approach.mp4", poster: "care/approach-poster" },
   { k: "care", t: "공동체 돌봄", tE: "Community care", src: "/sinchon/care/coop-care-ko.mp4", poster: "care/film-coop-care-ko" },
-  { k: "doctor", t: "평생주치의", tE: "Lifelong doctor", src: "/sinchon/care/coop-doctor-ko.mp4", poster: "care/film-coop-doctor-ko" },
   { k: "nurse", t: "간호", tE: "Nursing", src: "/sinchon/care/coop-nurse.mp4", poster: "care/film-coop-nurse" },
   { k: "lounge", t: "가족 라운지", tE: "Family lounge", src: "/sinchon/care/coop-lounge.mp4", poster: "care/film-coop-lounge" },
-  { k: "hug", t: "함께", tE: "Together", src: "/sinchon/care/coop-hug.mp4", poster: "care/film-coop-hug" },
 ];
 function Film() {
   const [i, setI] = useState(0);
