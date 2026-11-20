@@ -933,7 +933,7 @@ function Rehab() {
 }
 
 /* ───────── 신촌 대학가 약도 (애니메이션) ───────── */
-const UNIS: [number, number, string, string][] = [[150, 62, "연세대학교", "세브란스병원"], [256, 108, "이화여대", ""], [212, 312, "서강대학교", ""], [44, 132, "홍익대학교", ""]];
+const UNIS: [number, number, string, string][] = [[150, 104, "연세대학교", "세브란스병원"], [256, 108, "이화여대", ""], [212, 312, "서강대학교", ""], [44, 132, "홍익대학교", ""]];
 const STNS: [number, number, string, string, number][] = [[150, 232, "2호선 신촌역", "", 0.9], [222, 166, "경의중앙선 신촌역", "", 0.9], [40, 232, "홍대입구역", "", 2.7], [254, 232, "이대역", "", 2.85]];
 function CampusMap() {
   const ref = useRef<HTMLDivElement>(null);
@@ -944,8 +944,15 @@ function CampusMap() {
       <svg viewBox="0 0 300 370" className="absolute inset-0 h-full w-full">
         {/* 대학가 영역 */}
         <motion.ellipse cx={150} cy={190} rx={150} ry={170} fill="#d9eef0" initial={{ scale: 0.6 }} animate={on ? { scale: 1 } : {}} transition={{ duration: 1.4, ease: EASE }} style={{ transformOrigin: "150px 190px" }} />
-        {/* 도로 */}
-        <path d="M150 370 L150 0" stroke="#e4f1f3" strokeWidth={10} />
+        {/* 도로 (연세로 · 신촌로) */}
+        <path d="M160 340 L160 92" stroke="#c9d4de" strokeWidth={24} strokeLinecap="round" />
+        <path d="M160 340 L160 92" stroke="#ffffff" strokeWidth={20} strokeLinecap="round" />
+        <path d="M160 336 L160 96" stroke="#c9d4de" strokeWidth={0.8} strokeDasharray="5 5" />
+        <path d="M6 212 L294 212" stroke="#c9d4de" strokeWidth={22} strokeLinecap="round" />
+        <path d="M6 212 L294 212" stroke="#ffffff" strokeWidth={18} strokeLinecap="round" />
+        <path d="M10 212 L290 212" stroke="#c9d4de" strokeWidth={0.8} strokeDasharray="5 5" />
+        <text x={168} y={300} fontSize={7.5} fontWeight={800} fill="#7f91a4" transform="rotate(-90 168 300)">연세로</text>
+        <text x={22} y={208} fontSize={7.5} fontWeight={800} fill="#7f91a4">신촌로</text>
         {/* 2호선 */}
         <motion.path d="M0 232 L300 232" stroke="#4caf50" strokeWidth={5} fill="none" strokeLinecap="round" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={T} />
         {/* 경의중앙선 */}
@@ -970,8 +977,9 @@ function CampusMap() {
             {sub && <text x={x} y={y + 12} textAnchor="middle" fontSize={7.5} fontWeight={800} fill="#3e6e82">{sub}</text>}
           </motion.g>
         ))}
-        {/* 세브란스 연결 */}
-        <motion.line x1={164} y1={196} x2={152} y2={78} stroke="#3e6e82" strokeWidth={1.3} strokeDasharray="4 4" initial={{ pathLength: 0 }} animate={on ? { pathLength: 1 } : {}} transition={{ duration: 0.8, delay: 1.8 }} />
+        {/* 세브란스 가는 길 (흐르는 점선 + 이동 점) */}
+        <path d="M162 186 L156 120" stroke="#3e6e82" strokeWidth={1.6} strokeDasharray="3 4" fill="none"><animate attributeName="stroke-dashoffset" from="0" to="-14" dur="0.7s" repeatCount="indefinite" /></path>
+        <circle r={3} fill="#3e6e82"><animateMotion dur="2s" repeatCount="indefinite" path="M162 186 L156 120" /></circle>
         {/* 케어하우스 */}
         <circle cx={166} cy={204} fill="none" stroke="#f2a7a0"><animate attributeName="r" values="10;30" dur="2s" repeatCount="indefinite" /><animate attributeName="stroke-width" values="3;0" dur="2s" repeatCount="indefinite" /></circle>
         <motion.g initial={{ scale: 0 }} animate={on ? { scale: 1 } : {}} transition={{ type: "spring", stiffness: 200, damping: 12, delay: 0.6 }} style={{ transformOrigin: "166px 204px" }}>
