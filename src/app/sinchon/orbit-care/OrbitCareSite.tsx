@@ -934,7 +934,7 @@ function Rehab() {
 
 /* ───────── 신촌 대학가 약도 (애니메이션) ───────── */
 const UNIS: [number, number, string, string][] = [[150, 62, "연세대학교", "세브란스병원"], [256, 108, "이화여대", ""], [212, 312, "서강대학교", ""], [44, 132, "홍익대학교", ""]];
-const STNS: [number, number, string, string, number][] = [[150, 232, "2호선 신촌역", "", 0.9], [222, 166, "경의·중앙선 신촌역", "(신촌기차역)", 0.9], [40, 232, "홍대입구역", "", 2.7], [254, 232, "이대역", "", 2.85]];
+const STNS: [number, number, string, string, number][] = [[150, 232, "2호선 신촌역", "", 0.9], [222, 166, "경의중앙선 신촌역", "", 0.9], [40, 232, "홍대입구역", "", 2.7], [254, 232, "이대역", "", 2.85]];
 function CampusMap() {
   const ref = useRef<HTMLDivElement>(null);
   const on = useInView(ref, { once: true, amount: 0.2 });
