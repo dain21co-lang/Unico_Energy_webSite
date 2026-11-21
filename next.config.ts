@@ -11,6 +11,8 @@ const nextConfig: NextConfig = {
       { source: "/scplan", destination: "/scplan/index.html" },
       { source: "/sinchon/play", destination: "/sinchon/play/index.html" },
       { source: "/sinchon/play/en", destination: "/sinchon/play/en/index.html" },
+      { source: "/dc7g2k9a", destination: "/dc7g2k9a/index.html" },
+      { source: "/dc7g2k9a/roadmap", destination: "/dc7g2k9a/roadmap/index.html" },
     ];
   },
 };
