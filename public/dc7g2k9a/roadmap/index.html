@@ -9,5 +9,5 @@ const k=await crypto.subtle.deriveKey({name:"PBKDF2",salt:u(D.s),iterations:D.n,
 const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:u(D.i)},k,u(D.c));return new TextDecoder().decode(pt);}
 async function go(pw,silent){try{const h=await open_(pw);try{sessionStorage.setItem("gdc",pw)}catch(e){}document.open();document.write(h);document.close();}catch(e){if(!silent)document.getElementById("e").textContent="비밀번호가 맞지 않습니다.";}}
 document.getElementById("f").addEventListener("submit",e=>{e.preventDefault();go(document.getElementById("pw").value.trim(),false)});
-let s=null;try{s=sessionStorage.getItem("gdc")}catch(e){}if(s)go(s,true);
+let s=null;try{s=sessionStorage.getItem("gdc")}catch(e){}const hp=decodeURIComponent(location.hash.slice(1));(async()=>{if(hp){try{const h=await open_(hp);try{sessionStorage.setItem("gdc",hp)}catch(e){}document.open();document.write(h);document.close();return}catch(e){}}if(s)go(s,true)})();
 </script></body></html>
