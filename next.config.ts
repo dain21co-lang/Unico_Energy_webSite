@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       { source: "/sinchon/play/en", destination: "/sinchon/play/en/index.html" },
       { source: "/dc7g2k9a", destination: "/dc7g2k9a/index.html" },
       { source: "/dc7g2k9a/roadmap", destination: "/dc7g2k9a/roadmap/index.html" },
+      { source: "/2f3xu9ud", destination: "/2f3xu9ud/index.html" },
     ];
   },
 };
