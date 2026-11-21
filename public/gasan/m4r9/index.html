@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>가산 메디컬·AI 빌딩(가칭)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400&display=swap" rel="stylesheet">
+<style>
+/* VOICE: 신촌 케어 사이트와 같은 말투 — 짧은 영문 세리프 제목 + 한글 한두 줄
+   IDEA: 신촌 케어(ORBIT) 틀을 그대로, 그림만 가산 빌딩으로
+   PICTURE: 62초 드론 영상(외관→정문→로비→엘리베이터→데이터센터→연구실), 고정 단면도, 가산 지도
+   COLOUR and TYPE: 나이트 블루 #16202a · 실버 #f6f8f9 · GB 레드 #e3262f · 데이터 블루 #2b7de9 / Instrument Serif + Noto Sans KR
+   LAYOUT: 모바일 480px 한 줄, 장면 단위 */
+:root{--k:1;--ink:#16202a;--night:#22303d;--slate:#24313f;--coral:#e3262f;--paper:#f6f8f9;--sub:#e9eef2;--soft:#aab6c1;--blue:#2b7de9}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:#0f161d;font-family:"Noto Sans KR",system-ui,sans-serif;word-break:keep-all;overflow-x:clip;-webkit-tap-highlight-color:transparent}
+main{max-width:480px;margin:0 auto;background:var(--ink);color:#f3f3ec;position:relative}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400}
+.kick{font-size:calc(11px*var(--k));letter-spacing:.28em;font-weight:700;text-transform:uppercase;margin:0}
+.glass{background:rgba(22,32,42,.62);border:1px solid rgba(215,231,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.pill{border:1px solid rgba(215,231,255,.35);border-radius:999px}
+.paper{background:var(--paper);color:#121212}
+section{position:relative}
+.pad{padding:88px 24px 72px}
+h2.big{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:calc(clamp(32px,10vw,44px)*var(--k));overflow-wrap:anywhere;line-height:.98;letter-spacing:-.01em;margin:16px 0 0}
+.sub{margin:18px 0 0;font-size:calc(15px*var(--k));font-weight:500;line-height:1.75;color:var(--soft)}
+.paper .sub{color:#4a4f55}
+.rv{clip-path:inset(0 0 100% 0);transform:translateY(26px);transition:clip-path .9s cubic-bezier(.22,.8,.2,1),transform .9s cubic-bezier(.22,.8,.2,1)}
+.rv.in{clip-path:inset(0 0 -12% 0);transform:none}
+.badge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:calc(10px*var(--k));font-weight:700;letter-spacing:.06em;background:rgba(22,32,42,.72);color:#e8eef4}
+.badge.l{background:rgba(255,255,255,.86);color:#121212}
+/* 헤더 */
+header{position:fixed;top:0;left:0;right:0;z-index:40;max-width:480px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 20px 18px;background:linear-gradient(180deg,rgba(22,32,42,.85),rgba(22,32,42,0))}
+header img{height:20px;flex:none}
+header nav{display:flex;gap:8px}
+header a,header button{font:inherit;font-size:calc(12px*var(--k));font-weight:700;color:#f3f3ec;text-decoration:none;padding:7px 11px;cursor:pointer;white-space:nowrap}
+/* 히어로 */
+.hero{height:100svh;min-height:600px;overflow:hidden;background:var(--ink)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(22,32,42,.45) 0%,rgba(22,32,42,0) 20%,rgba(22,32,42,0) 72%,rgba(22,32,42,.75) 100%)}
+.hero .tx{position:absolute;z-index:2;left:24px;right:24px;bottom:34px}
+.hero h1{margin:12px 0 0;font-size:calc(clamp(28px,9vw,36px)*var(--k));font-weight:900;line-height:1.2;letter-spacing:-.02em}
+.hero h1 span{color:#ffffff}
+.hero p{margin:12px 0 0;font-size:calc(15px*var(--k));font-weight:700;color:var(--sub)}
+.hero .en{font-size:calc(11px*var(--k));letter-spacing:.18em;color:rgba(255,255,255,.8);font-weight:700}
+.hero .ai{font-size:calc(11px*var(--k));color:rgba(255,255,255,.7);font-weight:500;margin-top:8px}
+.nudge{display:inline-block;margin-top:22px;font-size:calc(12px*var(--k));font-weight:700;letter-spacing:.2em;color:var(--sub);text-decoration:none;animation:nd 1.8s ease-in-out infinite}
+@keyframes nd{50%{transform:translateY(6px)}}
+/* 대표 인사말 */
+.ceo .ph{position:relative;margin-top:32px}
+.ceo .ph::before{content:"";position:absolute;inset:0;transform:translate(12px,12px);border:3px solid #121212;background:#2b7de9}
+.ceo .ph img{position:relative;display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;border:3px solid #121212}
+.ceo .body p{font-size:calc(15px*var(--k));line-height:1.9;color:#1d2630;margin:0 0 14px}
+.ceo .sign{margin-top:30px;border-top:3px solid #121212;padding-top:16px}
+.ceo .sign img{height:24px}
+.ceo ul{list-style:none;padding:0;margin:12px 0 0;font-size:calc(12px*var(--k));line-height:1.6;color:#4a4f55}
+/* 영상 카드 */
+.films{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:36px -24px 0;padding:0 24px 8px;scrollbar-width:none}
+.films::-webkit-scrollbar{display:none}
+.clip{flex:0 0 78%;scroll-snap-align:center;position:relative;aspect-ratio:9/16;border-radius:26px;overflow:hidden;background:#000;clip-path:inset(8% 8% 8% 8% round 40px);transform:scale(.96);transition:clip-path 1.1s cubic-bezier(.22,.8,.2,1),transform 1.1s}
+.clip.in{clip-path:inset(0 round 26px);transform:none}
+.clip video,.clip img{width:100%;height:100%;object-fit:cover;display:block}
+.clip img.kb{animation:kb2 14s ease-in-out infinite alternate;transform-origin:50% 60%}
+@keyframes kb2{from{transform:scale(1.02) translateY(0)}to{transform:scale(1.14) translateY(-3%)}}
+.clip .cap{position:absolute;left:0;right:0;bottom:0;padding:60px 20px 20px;background:linear-gradient(180deg,transparent,rgba(22,32,42,.85))}
+.clip .cap b{display:block;margin-top:4px;font-size:calc(17px*var(--k));font-weight:900}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);transition:all .3s}.dots i.on{background:var(--coral);transform:scale(1.3)}
+/* 지도 */
+.map{margin-top:28px;border:3px solid #121212;background:#fff;aspect-ratio:1/1;position:relative}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.mcap{margin-top:14px;font-size:calc(13px*var(--k));color:#4a4f55}
+.near{display:grid;gap:10px;margin-top:22px}
+.near div{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;align-items:center;border-top:2px solid #121212;padding-top:12px}
+.near b{font-family:"Instrument Serif",serif;font-weight:400;font-size:calc(30px*var(--k));line-height:1}
+.near span{font-size:calc(14px*var(--k));color:#333}
+/* 고정 장면 */
+.story{height:500svh}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden;background:radial-gradient(120% 70% at 50% 38%,#2c4a66 0%,#1a2633 52%,#111920 100%)}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:3px 3px}
+.stage svg{position:absolute;left:0;right:0;top:11svh;width:100%;height:46svh}
+.chap{position:absolute;left:24px;right:24px;top:59svh;bottom:3svh;overflow:hidden}
+.chap .s{display:none}
+.chap .s.on{display:block;animation:cin .6s cubic-bezier(.22,.8,.2,1) both}
+@keyframes cin{from{clip-path:inset(0 0 100% 0);transform:translateY(24px)}to{clip-path:inset(-10% 0 -10% 0);transform:none}}
+.chap h3{font-family:"Instrument Serif",serif;font-weight:400;font-size:calc(clamp(28px,8.6vw,38px)*var(--k));line-height:.98;margin:10px 0 0}
+.chap p{margin:10px 0 0;font-size:calc(14px*var(--k));line-height:1.7;color:var(--sub);white-space:pre-line}
+.prog{position:absolute;top:70px;left:24px;right:24px;display:flex;gap:6px;z-index:3}
+.prog i{flex:1;height:2px;background:rgba(255,255,255,.25);position:relative;overflow:hidden}
+.prog i b{position:absolute;inset:0;background:var(--paper);transform:scaleX(0);transform-origin:left}
+.lbl{font:700 11px "Noto Sans KR",sans-serif;fill:#e9eef2;letter-spacing:.04em}
+/* 층별 */
+.floors{margin-top:30px;border-top:1px solid rgba(255,255,255,.2)}
+.fl{border-bottom:1px solid rgba(255,255,255,.2)}
+.fl button{all:unset;box-sizing:border-box;width:100%;min-height:58px;display:grid;grid-template-columns:3.6em minmax(0,1fr) auto;gap:12px;align-items:center;cursor:pointer;padding:10px 0}
+.fl .no{font-family:"Instrument Serif",serif;font-size:calc(26px*var(--k));line-height:1;white-space:nowrap}
+.fl .nm{font-size:calc(15px*var(--k));font-weight:700}
+.fl .ar{transition:transform .3s}.fl.open .ar{transform:rotate(45deg)}
+.fl .det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s}
+.fl.open .det{grid-template-rows:1fr}
+.fl .det>div{overflow:hidden}
+.fl .det p{margin:0;padding:0 0 16px 5.2em;font-size:calc(14px*var(--k));line-height:1.7;color:var(--soft)}
+.fl .tag{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px}
+/* 데이터센터 단계 */
+.dc .step{margin-top:34px}
+.dc .img{position:relative;border-radius:999px 999px 22px 22px;overflow:hidden;aspect-ratio:4/5;clip-path:inset(10% 10% 10% 10% round 120px);transition:clip-path 1.1s cubic-bezier(.22,.8,.2,1)}
+.dc .img.in{clip-path:inset(0 round 0)}
+.dc .img img{width:100%;height:100%;object-fit:cover;display:block}
+.dc .img .badge{position:absolute;left:14px;bottom:14px}
+.dc .n{font-family:"Instrument Serif",serif;font-size:calc(44px*var(--k));line-height:1;margin-top:16px;color:var(--ink)}
+.dc h3{margin:4px 0 6px;font-size:calc(20px*var(--k));font-weight:900}
+.dc p{margin:0;font-size:calc(14.5px*var(--k));line-height:1.75;color:#3b4853}
+/* 두 갈래 */
+.two{display:grid;gap:16px;margin-top:30px}
+.card{border-radius:22px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
+.card .im{aspect-ratio:16/10;overflow:hidden}
+.card .im video,.card .im img{width:100%;height:100%;object-fit:cover;display:block}
+.card .bd{padding:18px 20px 22px}
+.card h3{margin:8px 0 6px;font-size:calc(21px*var(--k));font-weight:900}
+.card p{margin:0;font-size:calc(14px*var(--k));line-height:1.7;color:var(--soft)}
+.card ul{margin:12px 0 0;padding-left:18px;font-size:calc(14px*var(--k));line-height:1.8;color:#e4eef2}
+/* 숫자 */
+.nums{background:var(--paper);color:#121212}
+.nrow{display:block;border-top:3px solid #121212;padding:18px 0}
+.nrow .v{font-family:"Instrument Serif",serif;font-size:calc(clamp(44px,14vw,64px)*var(--k));line-height:.95;white-space:nowrap}
+.nrow .v small{font-family:"Noto Sans KR",sans-serif;font-size:calc(15px*var(--k));font-weight:700;margin-left:6px}
+.nrow .k{font-size:calc(13px*var(--k));color:#4a4f55;margin-top:6px}
+/* 마무리 */
+.closing{text-align:center;padding:110px 24px 56px;background:radial-gradient(120% 70% at 50% 38%,#2c4a66 0%,#1a2633 52%,#111920 100%);overflow:hidden}
+.closing h2{font-family:"Instrument Serif",serif;font-weight:400;font-size:calc(clamp(34px,11vw,48px)*var(--k));line-height:.98;margin:18px 0 0}
+.closing p{color:var(--sub);font-size:calc(15px*var(--k));line-height:1.75;margin:18px 0 0}
+.blob{position:absolute;width:260px;height:260px;background:rgba(234,244,239,.18);animation:lq 11s ease-in-out infinite}
+@keyframes lq{0%,100%{border-radius:58% 42% 38% 62%/52% 44% 56% 48%;transform:rotate(0) scale(1)}33%{border-radius:40% 60% 62% 38%/44% 58% 42% 56%;transform:rotate(40deg) scale(1.08)}66%{border-radius:50% 50% 34% 66%/60% 40% 60% 40%;transform:rotate(-30deg) scale(.94)}}
+.lead{padding:34px 24px 40px;background:var(--ink)}
+.lead .l1{margin:12px 0 0;font-size:calc(16px*var(--k));font-weight:700;line-height:1.6;color:var(--sub)}
+.lead .en{margin:14px 0 0;font-size:calc(11px*var(--k));letter-spacing:.18em;font-weight:700;color:rgba(255,255,255,.8)}
+.gifbox{position:relative;margin-top:22px;aspect-ratio:1/1;border-radius:22px;overflow:hidden}.gifbox video{width:100%;height:100%;object-fit:cover;display:block}.gifbox .badge{position:absolute;left:12px;bottom:12px}
+.lead .ai{margin:8px 0 0;font-size:calc(11px*var(--k));color:rgba(255,255,255,.65)}
+
+/* 오프닝(그늘막 대응) */
+.shade{background:#0b1117;height:100svh;max-height:880px;overflow:hidden}
+.shade canvas{position:absolute;inset:0;width:100%;height:100%}
+.shade .stx{position:absolute;left:0;right:0;bottom:16%;text-align:center}
+.shade .sh{font-family:"Noto Serif KR","Instrument Serif",serif;font-weight:400;color:#eef3f1;font-size:calc(34px*var(--k));line-height:1.5;margin:22px 0 0;clip-path:inset(0 0 100% 0);transition:clip-path 1.4s cubic-bezier(.22,.8,.2,1) .6s}
+.shade.on .sh{clip-path:inset(0 0 -10% 0)}
+.shade .ln{display:block;width:44px;height:1px;background:#e3262f;margin:26px auto 0;transform:scaleX(0);transition:transform 1s 1.6s}
+.shade.on .ln{transform:scaleX(1)}
+/* Who */
+.who{display:grid;gap:12px;margin-top:30px}
+.wc{border-radius:22px;padding:20px}
+.wt{display:flex;justify-content:space-between;align-items:baseline}
+.wn{font-size:calc(30px*var(--k));font-style:italic;color:#2b7de9;line-height:1}
+.wb{border-radius:999px;background:rgba(255,255,255,.8);padding:4px 12px;font-size:calc(11.5px*var(--k));font-weight:700;color:#16202a}
+.wc b{display:block;margin-top:12px;font-size:calc(18px*var(--k));font-weight:900}
+.wc p{margin:4px 0 0;font-size:calc(13.5px*var(--k));line-height:1.6;color:#4a4f55}
+.chips3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:28px;text-align:center}
+.chips3 div{border-radius:16px;padding:16px 6px;color:#fff}
+.chips3 b{display:block;font-size:calc(16px*var(--k));font-weight:900}
+.chips3 span{display:block;margin-top:4px;font-size:calc(11px*var(--k));line-height:1.35}
+/* 3D 여정 */
+.story{height:440svh}
+.b3d{position:absolute;left:0;right:0;bottom:0;top:25%}
+.b3d canvas{display:block;touch-action:pan-y}
+.jt{position:absolute;left:24px;right:24px;top:78px;pointer-events:none}
+.jt .c{animation:cin .7s cubic-bezier(.22,.8,.2,1) both}
+.jt h3{font-family:"Instrument Serif",serif;font-weight:400;font-size:calc(clamp(38px,12vw,54px)*var(--k));line-height:.94;margin:12px 0 0}
+.jt p.d{margin:14px 0 0;font-size:calc(14.5px*var(--k));line-height:1.7;color:#d3dce5;white-space:pre-line;font-weight:500}
+.flist{position:absolute;right:10px;top:40%;width:132px;border-radius:16px;padding:10px 12px;pointer-events:none;clip-path:inset(0 0 0 100%);transform:translateX(20px);transition:clip-path .7s,transform .7s}
+.flist.on{clip-path:inset(0);transform:none}
+.flist div{display:flex;gap:8px;align-items:baseline;padding:2px 0;font-size:calc(10.5px*var(--k));color:#dfe7ee;font-weight:500}
+.flist i{font-family:"Instrument Serif",serif;font-size:calc(15px*var(--k));width:28px;color:var(--paper)}
+.flist .dc i{color:#5aa2ff}.flist .ls i{color:#c3ccd4;width:44px}.flist .cl i{color:#fff8ea}
+.legend{position:absolute;left:20px;right:20px;bottom:92px;border-radius:16px;padding:12px 14px;display:flex;justify-content:space-between;gap:6px;pointer-events:none;clip-path:inset(100% 0 0 0);transform:translateY(16px);transition:clip-path .7s,transform .7s}
+.legend.on{clip-path:inset(0);transform:none}
+.legend{flex-wrap:wrap}.legend span{display:flex;align-items:center;gap:6px;font-size:calc(10.5px*var(--k));font-weight:700;white-space:nowrap}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend em{font-family:"Instrument Serif",serif;font-size:calc(14px*var(--k))}
+.jn{position:absolute;left:24px;right:96px;bottom:28px;display:flex;align-items:flex-end;gap:12px;pointer-events:none}
+.jn .serif{font-size:calc(44px*var(--k));font-style:italic;line-height:1}
+.jn>div{flex:1;margin-bottom:6px}
+.jbar{margin-top:8px;height:1px;background:rgba(255,255,255,.15)}
+.jbar b{display:block;height:1px;background:var(--paper);transform:scaleX(0);transform-origin:left}
+.jhint{position:absolute;left:0;right:0;bottom:150px;text-align:center;font-size:calc(11px*var(--k));font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.7);pointer-events:none;transition:clip-path .5s,transform .5s}
+.jhint.off{clip-path:inset(0 0 100% 0);transform:translateY(60px)}
+/* 숫자 (신촌 케어 방식) */
+.nums2{position:relative;overflow:hidden;padding:80px 0 64px;background:var(--paper);color:#121212}
+.liquid{position:absolute;pointer-events:none;animation:lq 11s ease-in-out infinite}
+.drift-wrap{position:relative;overflow:hidden;white-space:nowrap;pointer-events:none}
+.drift{display:inline-block;animation:dr 38s linear infinite}.drift-r{display:inline-block;animation:dr 46s linear infinite reverse}
+@keyframes dr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.outline{font-size:calc(64px*var(--k));font-style:italic;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(29,38,48,.35)}
+.srow{position:relative;display:flex;align-items:center;gap:16px;border-top:1px solid rgba(18,18,18,.2);padding:24px 0}
+.srow.rev{flex-direction:row-reverse;text-align:right}
+.srow .art{width:124px;height:124px;flex:none;transform:rotate(-20deg) scale(.6);transition:transform 1.1s cubic-bezier(.22,.8,.2,1)}
+.srow.rev .art{transform:rotate(20deg) scale(.6)}
+.srow.on .art{transform:none}
+.srow .art svg{width:100%;height:100%}
+.srow .v{font-family:"Instrument Serif",serif;font-style:italic;font-size:calc(62px*var(--k));line-height:1;margin:0;white-space:nowrap}
+.srow .v small{font-family:"Noto Sans KR",sans-serif;font-style:normal;font-weight:900;font-size:calc(17px*var(--k));margin-left:4px}
+.srow .l{margin:8px 0 0;font-size:calc(15px*var(--k));font-weight:900;clip-path:inset(0 100% 0 0);transition:clip-path .8s .6s}
+.srow .d{margin:4px 0 0;font-size:calc(12.5px*var(--k));font-weight:500;line-height:1.45;color:#4b4232;clip-path:inset(0 100% 0 0);transition:clip-path .9s .8s}
+.srow.rev .l,.srow.rev .d{clip-path:inset(0 0 0 100%)}
+.srow.on .l,.srow.on .d{clip-path:inset(0)}
+.roll{display:inline-flex;overflow:hidden;height:1em;line-height:1}
+.roll>span{display:inline-block;height:1em}
+.roll>span>span{display:flex;flex-direction:column;transition:transform 1.6s cubic-bezier(.2,.9,.25,1)}
+.roll>span>span>span{height:1em;line-height:1}
+.ani{transition:all .5s}
+.nbar{margin-top:16px;border-radius:22px;background:#121212;color:#eaf4ef;padding:20px}
+.nbarrow{display:flex;gap:6px}.nbarrow span{height:10px;border-radius:99px}
+.nbar p{margin:12px 0 0;font-size:calc(14px*var(--k));font-weight:700;line-height:1.6}
+@keyframes ping{0%{transform:scale(.6)}100%{transform:scale(2.4);stroke-width:0}}
+.ping{animation:ping 1.8s ease-out infinite;transform-box:fill-box;transform-origin:center}
+.lease2{margin-top:26px;background:#fff;border:3px solid #121212}
+.lease2 svg{display:block;width:100%;height:auto}
+.lw{margin-top:18px}
+.lw>div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;border-top:2px solid #121212;padding:14px 0}
+.lw .serif{font-size:calc(30px*var(--k));font-style:italic;color:#e3262f;line-height:1}
+.lw b{display:block;font-size:calc(17px*var(--k));font-weight:900}
+.lw p{margin:4px 0 0;font-size:calc(14px*var(--k));line-height:1.65;color:#3b4853}
+.l3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px;text-align:center}
+.l3 div{border-radius:16px;padding:16px 6px;color:#fff}
+.l3 b{display:block;font-size:calc(17px*var(--k));font-weight:900}
+.l3 span{display:block;margin-top:4px;font-size:calc(11px*var(--k));line-height:1.35}
+footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;color:var(--soft);background:#0f161d}
+/* 안내 시트 */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;max-width:480px;margin:0 auto;transform:translateY(105%);transition:transform .5s cubic-bezier(.22,.8,.2,1)}
+.sheet.on{transform:none}
+.sheet>div{border-radius:26px 26px 0 0;background:#22303d;padding:24px 24px 36px}
+.sheet p{font-size:calc(13.5px*var(--k));line-height:1.75;color:var(--soft)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.clip,.dc .img,.chap .s{clip-path:none;transform:none}}
+</style><script>(function(){try{var t=document.createElement('div');t.style.cssText='position:absolute;visibility:hidden;left:-999px;font-size:100px;line-height:1;white-space:nowrap';t.textContent='가';document.documentElement.appendChild(t);var f=t.getBoundingClientRect().height/100;var c=parseFloat(getComputedStyle(t).fontSize)/100;t.remove();var z=Math.max(f,c);var k=z>1.04?Math.max(.55,1/z):1;document.documentElement.style.setProperty('--k',(k*0.94).toFixed(3));}catch(e){}})();</script></head><body><main>
+
+<header><img src="/gasan/m4r9/gblabs-logo-white.png" alt="GB LABS"><nav><a href="#dc" class="pill glass">데이터센터</a><button class="pill glass" id="openInfo">안내</button></nav></header>
+
+<section class="hero" id="intro">
+  <video src="/gasan/m4r9/hero.mp4" poster="/gasan/m4r9/hero-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+  <div class="tx">
+    <h1>도심 속,<br><span>의료 AI가 머무는 곳.</span></h1>
+    <a href="#lead" class="nudge">아래로 ↓</a>
+  </div>
+</section>
+
+<section class="lead" id="lead">
+  <p class="kick rv" style="color:var(--coral)">가산 메디컬·AI 빌딩(가칭)</p>
+  <p class="l1 rv">진료는 1층에서, 데이터는 5~7층에서,<br>연구는 8~10층에서.</p>
+  <p class="en rv">GASAN · GB LABS<br>MEDICAL AI &amp; EDGE DATA BUILDING</p>
+  <p class="ai rv">입점 검토용 시안 · 이미지와 영상은 AI 예시</p>
+  <div class="gifbox rv"><video src="/gasan/m4r9/gif-f1.mp4" poster="/gasan/m4r9/gif-f1.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="badge">BLUE HOUR · 5–7F 데이터 · 8–10F 연구</span></div>
+</section>
+
+<section class="paper pad ceo" id="ceo">
+  <p class="kick rv">MESSAGE · 대표 인사말</p>
+  <h2 class="big rv" style="font-size:40px">데이터가 환자 곁에<br><em>머무는 연구소.</em></h2>
+  <div class="ph rv"><img src="/gasan/m4r9/ceo-gown.webp" alt="GB LABS 대표이사 임춘학"></div>
+  <div class="body rv" style="margin-top:36px">
+    <p>안녕하십니까, GB LABS 대표이사 임춘학입니다.</p>
+    <p>마취통증의학을 전공한 의사로 오랜 시간 환자 곁을 지켜 왔습니다. 그동안 의료 현장에서 쌓이는 수많은 기록이 정작 다음 환자를 위한 연구로 이어지지 못하는 모습을 자주 보았습니다.</p>
+    <p>가산 빌딩은 그 거리를 좁히는 곳입니다. 1층 클리닉에서 생긴 진료 기록이 환자가 동의한 범위 안에서 같은 건물의 데이터센터로 안전하게 옮겨지고, 위층 연구소에서 더 나은 원격진료와 통증 치료로 다시 돌아옵니다.</p>
+    <p>G밸리의 기업과 사람들 곁에서, 진료와 데이터와 연구가 한 건물에서 이어지는 의료 AI의 첫 거점을 만들겠습니다.</p>
+  </div>
+  <div class="sign rv"><img src="/gasan/m4r9/gblabs-logo-dark.png" alt="GB LABS"><p style="margin:12px 0 0;font-size:14px;font-weight:900">대표이사 임춘학</p>
+    <ul><li>고려대학교 의과대학·동 대학원 마취통증의학 (석사·박사)</li><li>고려대학교 안암병원 마취통증의학과 교수</li><li>대한의학회 정책이사</li><li>전) 고려대학교 의과대학 교육 부학장</li><li>전) 대한중환자의학회 부회장</li></ul></div>
+</section>
+
+<section class="shade" id="spark"><canvas id="sparkc"></canvas>
+  <div class="stx"><p class="kick" style="letter-spacing:.42em;font-size:calc(10px*var(--k));color:#9fb6bd">GASAN&nbsp;&nbsp;/&nbsp;&nbsp;G-VALLEY</p><p class="sh">한 점의 빛이<br>건물을 깨우다</p><i class="ln"></i></div>
+</section>
+
+<section class="paper pad" id="who">
+  <p class="kick rv" style="color:#7a7466">WHO IT'S FOR</p>
+  <h2 class="big rv">Between care<br><em>and code.</em></h2>
+  <p class="sub rv">진료가 필요한 사람, 연구할 기업, 데이터를 맡길 곳.<br>세 쪽의 필요가 한 건물에서 만납니다.</p>
+  <div class="who">
+    <div class="wc rv" style="background:#e6eef7"><div class="wt"><span class="serif wn">01</span><span class="wb">검진 · 외래</span></div><b>G밸리에서 일하는 직장인</b><p>점심시간과 퇴근길에 검진·통증·피부 진료가 필요한 분</p></div>
+    <div class="wc rv" style="background:#fbe6e7"><div class="wt"><span class="serif wn">02</span><span class="wb">R&amp;D 입주</span></div><b>의료 AI · 바이오 기업</b><p>진료 현장 가까이에서 연구하고 시험해야 하는 기업</p></div>
+    <div class="wc rv" style="background:#eef1f4"><div class="wt"><span class="serif wn">03</span><span class="wb">데이터 처리</span></div><b>데이터를 가까이 둬야 하는 기업</b><p>학습데이터·의료데이터를 밖으로 보내지 않고 처리하려는 기업</p></div>
+  </div>
+  <div class="chips3">
+    <div class="rv" style="background:#2b7de9"><b>1·7호선</b><span>가산디지털단지역</span></div>
+    <div class="rv" style="background:#e3262f"><b>14만</b><span>G밸리 근무자</span></div>
+    <div class="rv" style="background:#5d6b78"><b>IDC</b><span>길 건너편 SK브로드밴드</span></div>
+  </div>
+</section>
+
+<section class="pad" id="film" style="background:#16202a">
+  <p class="kick rv" style="color:var(--sub)">01 / THE WAY IN</p>
+  <h2 class="big rv">Step inside.<br><em>Floor by floor.</em></h2>
+  <p class="sub rv">정문을 지나 로비로, 엘리베이터를 타고 데이터센터와 연구실까지. 옆으로 넘겨 보세요.</p>
+  <div class="films" id="films">
+    <div class="clip"><video src="/gasan/m4r9/gif-f3.mp4" poster="/gasan/m4r9/gif-f3.jpg" muted loop playsinline preload="metadata"></video><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">EXTERIOR · AI 예시</p><b>해 질 녘, ㄷ자 정면</b></div></div>
+    <div class="clip"><video src="/gasan/m4r9/gif-f2.mp4" poster="/gasan/m4r9/gif-f2.jpg" muted loop playsinline preload="metadata"></video><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">TELEMEDICINE · AI 예시</p><b>원격진료 관제실</b></div></div>
+    
+    <div class="clip"><video src="/gasan/m4r9/gif-f4.mp4" poster="/gasan/m4r9/gif-f4.jpg" muted loop playsinline preload="metadata"></video><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">5–7F · DATA · AI 예시</p><b>손끝의 데이터</b></div></div>
+    <div class="clip"><img class="kb" src="/gasan/m4r9/img-f5.webp" alt="건물 단면 모형 (AI 예시)"><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">CUTAWAY · AI 예시</p><b>층마다 다른 쓰임</b></div></div>
+  </div>
+  <div class="dots" id="fdots"><i class="on"></i><i></i><i></i><i></i></div>
+</section>
+
+<section class="paper pad" id="place">
+  <p class="kick rv">02 / THE PLACE</p>
+  <h2 class="big rv">In the heart of<br><em>G-Valley.</em></h2>
+  <p class="sub rv">가산디지털단지역 가까이, 길 건너편에는 SK브로드밴드 IDC. 1만2천여 기업과 14만여 근무자 한가운데입니다.</p>
+  <div class="map rv" id="mapbox"><svg viewBox="0 0 360 360" id="msvg" aria-label="가산디지털단지 개념 지도"></svg></div>
+  <p class="mcap">개념도입니다. 실제 거리와 다를 수 있습니다.</p>
+  <div class="near">
+    <div class="rv"><b>1·7</b><span>가산디지털단지역 (1호선·7호선)</span></div>
+    <div class="rv"><b>IDC</b><span>길 건너편 SK브로드밴드 IDC, 전력·통신망이 검증된 곳</span></div>
+    <div class="rv"><b>14만</b><span>G밸리 근무자, 단체검진과 외래의 바로 옆 수요</span></div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="stage">
+    <div id="b3d" class="b3d"></div>
+    <div class="jt" id="jt"></div>
+    <div class="flist glass" id="flist">
+      <div class="ls"><i>11–17F</i>빅데이터 임대</div><div><i>10F</i>협력 기업</div><div><i>9F</i>임상연구</div><div><i>8F</i>GB LABS 연구소</div><div class="dc"><i>7F</i>데이터센터</div><div class="dc"><i>6F</i>데이터센터</div><div class="dc"><i>5F</i>데이터센터</div><div><i>2F</i>검진 상담</div><div class="cl"><i>1F</i>클리닉 · 로비</div>
+    </div>
+    <div class="legend glass" id="legend"><span><i style="background:#5aa2ff"></i>데이터 <em>5–7F</em></span><span><i style="background:#ff5560"></i>GB LABS <em>8–10F</em></span><span><i style="background:#c3ccd4"></i>임대 <em>11–17F</em></span><span><i style="background:#fff8ea"></i>클리닉 <em>1F</em></span></div>
+    <div class="jn"><span class="serif" id="jnum">01</span><div><p class="kick" id="jen" style="font-size:calc(10px*var(--k));color:#dfe7ee">THE ARRIVAL</p><div class="jbar"><b id="jbar"></b></div></div></div>
+    <p class="jhint nudge" id="jhint">↓ 아래로 밀어 보세요 · 손가락으로 돌려 보세요</p>
+  </div>
+</section>
+
+<section class="pad" id="plans" style="background:linear-gradient(180deg,#16202a 0%,#22303d 100%)">
+  <p class="kick rv" style="color:var(--sub)">07 / THE FLOORS</p>
+  <h2 class="big rv">Floor<br><em>by floor.</em></h2>
+  <p class="sub rv">층을 누르면 쓰임이 펼쳐집니다. 면적은 층별면적표(2024.05) 바닥면적 기준입니다.</p>
+  <div class="floors" id="floors">
+    <div class="fl"><button><span class="no">10F</span><span class="nm"><i class="tag" style="background:var(--coral)"></i>협력 기업 · 스타트업</span><span class="ar">+</span></button><div class="det"><div><p>헬스케어 스타트업이 모이는 클러스터 · 2,062.1㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">9F</span><span class="nm"><i class="tag" style="background:var(--coral)"></i>임상연구 · 의료기기</span><span class="ar">+</span></button><div class="det"><div><p>통증 의료기기 등 임상연구·시험실 · 1,999.1㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">8F</span><span class="nm"><i class="tag" style="background:var(--coral)"></i>GB LABS AI 연구소</span><span class="ar">+</span></button><div class="det"><div><p>AI·빅데이터 연구, 원격진료(DIGIDOC) 관제실 · 1,999.1㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">5–7F</span><span class="nm"><i class="tag" style="background:#9fd3ff"></i>엣지 데이터센터</span><span class="ar">+</span></button><div class="det"><div><p>세 개 층 약 6,088㎡ · 층간 높이 3.9m · 건물 수전 8,000kVA (별도 제안)</p></div></div></div>
+    <div class="fl"><button><span class="no">2F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>단체검진 상담 · 교육</span><span class="ar">+</span></button><div class="det"><div><p>G밸리 기업 단체검진 상담과 건강 교육 · 면적 협의</p></div></div></div>
+    <div class="fl"><button><span class="no">1F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>로비 · 클리닉</span><span class="ar">+</span></button><div class="det"><div><p>검진·통증·피부 클리닉과 로비 · 근린생활 면적 중 협의</p></div></div></div>
+  </div>
+</section>
+
+<section class="paper pad dc" id="dc">
+  <p class="kick rv">08 / EDGE DATA CENTER</p>
+  <h2 class="big rv">The hidden<br><em>engine room.</em></h2>
+  <p class="sub rv">5~7층 데이터센터를 이렇게 꾸미는 가상 구성입니다. 실제 배치는 N3N AI 검토 뒤에 정해집니다.</p>
+  <div class="step"><div class="img"><img src="/gasan/m4r9/img-dc1.webp" alt="서버 랙 통로 예시"><span class="badge l">AI 예시</span></div><div class="n">01</div><h3>서버 랙 열</h3><p>랙을 열로 세우고 찬 통로와 뜨거운 통로를 나눕니다.</p></div>
+  <div class="step"><div class="img"><img src="/gasan/m4r9/img-dc2.webp" alt="전력·UPS실 예시"><span class="badge l">AI 예시</span></div><div class="n">02</div><h3>전력 · UPS</h3><p>건물 수전 8,000kVA에서 UPS를 거쳐 랙마다 전원이 들어갑니다. 증설 용량은 확인 중입니다.</p></div>
+  <div class="step"><div class="img"><img src="/gasan/m4r9/img-dc3.webp" alt="옥상 냉각 설비 예시"><span class="badge l">AI 예시</span></div><div class="n">03</div><h3>냉각</h3><p>서버실 안에서는 열 옆 냉방기로 필요한 곳만 식히고, 모인 열은 옥상 냉각 설비로 내보냅니다.</p></div>
+  <div class="step"><div class="img"><img src="/gasan/m4r9/img-dc4.webp" alt="보안 출입 예시"><span class="badge l">AI 예시</span></div><div class="n">04</div><h3>보안 · 안전</h3><p>출입은 한곳에서 관리하고, 바닥 누수 센서로 물을 먼저 감지합니다.</p></div>
+</section>
+
+<section class="pad" id="two" style="background:linear-gradient(180deg,#22303d,#16202a)">
+  <p class="kick rv" style="color:var(--sub)">09 / GB LABS</p>
+  <h2 class="big rv">Two ways<br><em>in.</em></h2>
+  <p class="sub rv">GB LABS는 두 갈래로 이 건물에 들어갑니다.</p>
+  <div class="two">
+    <div class="card rv"><div class="im" style="position:relative"><img src="/gasan/m4r9/img-lab.webp" alt="GB LABS 의료 AI 연구실 (AI 예시)"><span class="badge" style="position:absolute;right:10px;bottom:10px">AI 예시</span></div><div class="bd"><span class="badge">A · 8–10F</span><h3>디지털헬스 R&amp;D 센터</h3><p>공장(지식산업센터) 구역에 연구개발 기업으로 입주합니다.</p><ul><li>원격진료·의료 빅데이터·AI 진단 보조</li><li>통증 의료기기 연구</li><li>연구과제·기술 라이선스·플랫폼 사용료</li></ul></div></div>
+    <div class="card rv"><div class="im" style="position:relative"><img src="/gasan/m4r9/img-clinic.webp" alt="1층 검진 클리닉 (AI 예시)"><span class="badge" style="position:absolute;right:10px;bottom:10px">AI 예시</span></div><div class="bd"><span class="badge">B · 1F</span><h3>직장인 헬스케어 클리닉</h3><p>근린생활 구역에서 G밸리 직장인을 맞습니다.</p><ul><li>검진 · 통증의학과 · 피부·에스테틱</li><li>기업 단체검진 계약</li><li>외국인 근로자·여행객 외래</li></ul></div></div>
+  </div>
+</section>
+
+<section class="paper pad" id="lease">
+  <p class="kick rv" style="color:#7a7466">10 / LEASE</p>
+  <h2 class="big rv">Every floor<br><em>earns.</em></h2>
+  <p class="sub rv">GB LABS와 데이터센터가 쓰는 층 외에, 11~17층(7개 층, 약 14,434㎡)을 AI·빅데이터 기업 임대 구역으로 채웁니다.</p>
+  <div class="dc" style="margin-top:26px"><div class="img rv" style="aspect-ratio:3/2;border-radius:22px"><img src="/gasan/m4r9/img-lease.webp" alt="11~17층 빅데이터 기업 사무실 (AI 예시)"><span class="badge l" style="position:absolute;left:14px;bottom:14px">AI 예시 · 11–17F</span></div></div>
+  <div class="lease2 rv" id="lease2"><svg viewBox="0 0 360 330" id="l2svg" aria-label="층별 수익원"></svg></div>
+  <div class="lw">
+    <div class="rv"><span class="serif">01</span><div><b>데이터센터 바로 옆 사무실</b><p>서버를 같은 건물에 두고 일할 수 있어 회선 거리가 짧고 지연이 적습니다. 일반 지식산업센터와 다른 임대료의 근거입니다.</p></div></div>
+    <div class="rv"><span class="serif">02</span><div><b>규제와 맞는 업종</b><p>공장(지식산업센터) 구역은 정보통신업 입주가 가능해, 빅데이터·AI 기업 임대가 원래 용도와 맞습니다.</p></div></div>
+    <div class="rv"><span class="serif">03</span><div><b>서로 고객이 되는 입주사</b><p>임대 기업은 데이터센터의 고객, GB LABS의 연구 파트너, 1층 클리닉의 단체검진 고객이 됩니다.</p></div></div>
+  </div>
+  <div class="l3">
+    <div class="rv" style="background:#2b7de9"><b>사용료</b><span>데이터센터 5~7F</span></div>
+    <div class="rv" style="background:#5d6b78"><b>임대료</b><span>빅데이터 기업 11~17F</span></div>
+    <div class="rv" style="background:#e3262f"><b>연구·진료</b><span>GB LABS 1F·8~10F</span></div>
+  </div>
+  <p class="mcap">면적은 층별면적표(2024.05) 기준. 임대료와 업종은 관계 기관 확인·시장 조사 후 확정합니다.</p>
+</section>
+
+<section class="nums2" id="nums">
+  <div class="liquid" style="right:-96px;top:40px;width:340px;height:340px;background:radial-gradient(circle at 35% 35%,#e3ecf7,#c9d8ea 60%,transparent 72%)"></div>
+  <div class="liquid" style="left:-110px;bottom:96px;width:300px;height:300px;animation-duration:14s;animation-direction:reverse;background:radial-gradient(circle at 60% 40%,#d6e6ff,#ffc2c6 55%,transparent 72%)"></div>
+  <div class="drift-wrap"><div class="drift serif outline">clinic · data · research · G-Valley · edge · care · clinic · data · research · G-Valley · edge · care · </div></div>
+  <div style="position:relative;padding:0 24px">
+    <p class="kick" style="margin-top:32px;color:#121212">11 / IN NUMBERS</p>
+    <h2 class="big" style="font-size:calc(clamp(32px,10vw,42px)*var(--k));margin-top:12px">Small numbers.<br><em>Big building.</em></h2>
+    <div style="margin-top:30px" id="stats"></div>
+    <div class="nbar"><div class="nbarrow"><span style="flex-grow:3;background:#5aa2ff"></span><span style="flex-grow:3;background:#ff5560"></span><span style="flex-grow:7;background:#c3ccd4"></span><span style="flex-grow:1;background:#fff8ea"></span></div><p>진료 1층 · 데이터 5~7층 · 연구 8~10층,<br>그리고 11~17층 빅데이터 기업 임대.</p></div>
+  </div>
+  <div class="drift-wrap" style="margin-top:46px"><div class="drift-r serif" style="font-size:calc(44px*var(--k));color:rgba(18,18,18,.8)">GASAN MEDICAL·AI BUILDING · GB LABS · GASAN MEDICAL·AI BUILDING · GB LABS · GASAN MEDICAL·AI BUILDING · GB LABS · </div></div>
+</section>
+
+<section class="closing">
+  <div class="blob" style="left:-60px;top:40px"></div><div class="blob" style="right:-80px;bottom:20px;animation-direction:reverse;animation-duration:14s"></div>
+  <p class="kick" style="color:var(--coral);position:relative">GASAN · GB LABS</p>
+  <h2 style="position:relative">Care below.<br><em>Discovery above.</em></h2>
+  <p style="position:relative">진료는 1층에서, 연구는 위층에서.<br>한 건물에서 이어지는 의료 AI의 첫 거점.</p>
+  <a href="#intro" class="pill glass" style="position:relative;display:inline-block;margin-top:28px;padding:12px 20px;color:#f3f3ec;text-decoration:none;font-size:13px;font-weight:700">처음으로 ↑</a>
+</section>
+
+<footer>입점 검토용 시안입니다. 층 배치와 사업 구성은 논의 방향을 보여 드리는 예시이며, 데이터센터는 별도 제안으로 확정된 시설이 아닙니다. 면적·전력은 건물 제원 자료 기준이고, 업종·용도는 관계 기관 확인 전입니다. 이미지와 영상은 AI로 만든 예시입니다.</footer>
+
+<div class="sheet" id="sheet"><div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><p class="serif" style="font-size:28px;font-style:italic;margin:0;color:#fff">Space, seen differently.</p><button id="closeInfo" class="pill" style="width:38px;height:38px;background:none;color:#fff;font-size:16px;cursor:pointer">×</button></div>
+  <p>첫 화면 영상과 실내 장면은 감정평가서 사진과 로드뷰를 참고해 AI로 만든 예시입니다. 실제 건물·실내와 다를 수 있습니다.</p>
+  <p>층별 쓰임과 데이터센터 구성은 입점 검토용 개략(안)이며, 지식산업센터 업종·용도 확인 전입니다.</p>
+  <p>GB LABS · 가산 메디컬·AI 빌딩(가칭) 입점 검토용 시안</p>
+</div></div>
+
+</main>
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],cl=v=>Math.max(0,Math.min(1,v));
+// 안내 시트
+$('#openInfo').onclick=()=>$('#sheet').classList.add('on');$('#closeInfo').onclick=()=>$('#sheet').classList.remove('on');
+// 지도
+{let s='';const sv=$('#msvg');
+for(let r=0;r<6;r++)for(let c=0;c<6;c++){const x=14+c*58,y=14+r*58;if((r==2||r==3)&&(c==2))continue;s+=`<rect x="${x}" y="${y}" width="46" height="46" rx="3" fill="#eaf4ef"/>`;}
+s+=`<path d="M0 132 H360 M246 0 V360" stroke="#fff" stroke-width="12"/><path d="M0 132 H360 M246 0 V360" stroke="#c9d4de" stroke-dasharray="6 6"/>`;
+s+=`<path d="M60 360 C 80 280, 30 200, 40 120 S 70 30, 80 0" fill="none" stroke="#16202a" stroke-width="4"/><path d="M60 360 C 80 280, 30 200, 40 120 S 70 30, 80 0" fill="none" stroke="#e3262f" stroke-width="2" stroke-dasharray="1 9"/>`;
+s+=`<circle cx="44" cy="96" r="9" fill="#fff" stroke="#16202a" stroke-width="3"/><text x="58" y="88" font-size="11" font-weight="700" fill="#24313f">가산디지털단지역</text><text x="58" y="102" font-size="10" fill="#4a4f55">1·7호선</text>`;
+const co=[[110,40],[170,30],[300,40],[330,90],[110,200],[310,220],[180,300],[300,310],[120,320],[330,170]];
+co.forEach((p,i)=>s+=`<circle class="co" cx="${p[0]}" cy="${p[1]}" r="4.5" fill="#22303d" style="transform-box:fill-box;transform-origin:center;transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1) ${(i*.06).toFixed(2)}s"/>`);
+for(let k=0;k<3;k++)s+=`<circle cx="180" cy="190" r="70" fill="none" stroke="#e3262f" stroke-width="1.4" style="transform-box:fill-box;transform-origin:center;animation:rg 3s ease-out ${k}s infinite"/>`;
+s+=`<path d="M162 168 h36 v44 h-12 v-30 h-12 v30 h-12z" fill="#16202a"/><text x="180" y="230" text-anchor="middle" font-size="12" font-weight="900" fill="#24313f">대상 건물</text>`;
+s+=`<rect x="268" y="160" width="30" height="40" fill="none" stroke="#24313f" stroke-width="2"/><text x="283" y="216" text-anchor="middle" font-size="10" font-weight="700" fill="#24313f">SK브로드밴드</text><text x="283" y="229" text-anchor="middle" font-size="10" font-weight="700" fill="#24313f">IDC</text>`;
+sv.innerHTML=s+`<style>@keyframes rg{from{transform:scale(.2);stroke-width:2}to{transform:scale(1);stroke-width:.2}}#mapbox.in .co{transform:scale(1)!important}</style>`;}
+
+// ---------- 오프닝: 한 점의 빛이 ㄷ자를 그린다 ----------
+const sp=$('#spark'),cv=$('#sparkc'),cx2=cv.getContext('2d');let spOn=false,spT0=0;
+const stars=Array.from({length:70},()=>[Math.random(),Math.random()*.8,Math.random()*1.2+.3]);
+function spark(){const r=sp.getBoundingClientRect();const vis=r.top<innerHeight*.7&&r.bottom>0;if(vis&&!spOn){spOn=true;sp.classList.add('on');spT0=performance.now();requestAnimationFrame(spDraw);}}
+function spDraw(now){const W=cv.clientWidth,H=cv.clientHeight,dpr=Math.min(2,devicePixelRatio||1);if(cv.width!==W*dpr){cv.width=W*dpr;cv.height=H*dpr;}const c=cx2;c.setTransform(dpr,0,0,dpr,0,0);
+ const g=c.createRadialGradient(W/2,H*.42,10,W/2,H*.42,H*.7);g.addColorStop(0,'#1b2c3d');g.addColorStop(1,'#0b1117');c.fillStyle=g;c.fillRect(0,0,W,H);
+ stars.forEach(([x,y,z],i)=>{c.fillStyle=`rgba(200,225,230,${.25+.25*Math.sin(now/900+i)})`;c.fillRect(x*W,y*H,z,z);});
+ // ㄷ자 평면 경로 (위에서 본 건물)
+ const s=Math.min(W*.78,H*.4),x0=(W-s)/2,y0=H*.24,h=s*.62,w=s,wing=s*.3,inset=h*.42;
+ const P=[[x0,y0+h],[x0,y0],[x0+w,y0],[x0+w,y0+h],[x0+w-wing,y0+h],[x0+w-wing,y0+inset],[x0+wing,y0+inset],[x0+wing,y0+h],[x0,y0+h]];
+ let L=[],tot=0;for(let i=1;i<P.length;i++){const d=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);L.push(d);tot+=d;}
+ const T=(now-spT0)/1000,dur=5.5,pr=Math.min(1,T/dur),ease=1-Math.pow(1-pr,3),len=ease*tot;
+ // 그려진 선 (청록→금색)
+ const gr=c.createLinearGradient(x0,0,x0+w,0);gr.addColorStop(0,'#5aa2ff');gr.addColorStop(1,'#ff5560');
+ for(let pass=0;pass<2;pass++){c.beginPath();c.moveTo(P[0][0],P[0][1]);let acc=0,hx=P[0][0],hy=P[0][1];
+  for(let i=1;i<P.length;i++){const d=L[i-1];if(acc+d<=len){c.lineTo(P[i][0],P[i][1]);acc+=d;hx=P[i][0];hy=P[i][1];}else{const t=(len-acc)/d;hx=P[i-1][0]+(P[i][0]-P[i-1][0])*t;hy=P[i-1][1]+(P[i][1]-P[i-1][1])*t;c.lineTo(hx,hy);break;}}
+  c.strokeStyle=gr;c.lineWidth=pass?1.4:7;c.globalAlpha=pass?1:.12;c.lineJoin='round';c.stroke();c.globalAlpha=1;
+  if(pass){// 빛 점
+   const glow=c.createRadialGradient(hx,hy,0,hx,hy,44);glow.addColorStop(0,'rgba(255,214,140,.55)');glow.addColorStop(1,'rgba(255,214,140,0)');c.fillStyle=glow;c.beginPath();c.arc(hx,hy,44,0,7);c.fill();
+   c.fillStyle='#fff3d6';c.beginPath();c.arc(hx,hy,3,0,7);c.fill();}}
+ // 완성 후: 층 선이 안쪽으로 채워지며 은은히 숨쉼
+ if(pr>=1){const k=Math.min(1,(T-dur)/2.4);c.strokeStyle='rgba(159,211,255,.35)';c.lineWidth=.8;for(let j=1;j<6;j++){const yy=y0+(inset)*(j/6);const cut=Math.min(1,k*1.4-j*.12);if(cut<=0)continue;c.beginPath();c.moveTo(x0,yy);c.lineTo(x0+w*cut,yy);c.stroke();}
+  for(let j=1;j<4;j++){const yy=y0+inset+(h-inset)*(j/4);const cut=Math.min(1,k*1.4-(j+5)*.12);if(cut<=0)continue;c.beginPath();c.moveTo(x0,yy);c.lineTo(x0+wing*cut,yy);c.moveTo(x0+w-wing,yy);c.lineTo(x0+w-wing+wing*cut,yy);c.stroke();}}
+ const r=sp.getBoundingClientRect();if(r.bottom>-50&&r.top<innerHeight+50)requestAnimationFrame(spDraw);else{spOn=false;sp.classList.remove('on');}}
+// ---------- 3D 여정 문구 ----------
+const CH=[{n:'01',en:'THE ARRIVAL',k:'01 / IMAGINE A NEW CHAPTER',a:'Form.',b:'In motion.',d:'선이 펼쳐지고, 층이 올라가고.\nG밸리 한가운데 ㄷ자 빌딩이 모습을 갖춥니다.'},
+{n:'02',en:'THE REVEAL',k:'02 / A DIFFERENT PERSPECTIVE',a:'See it',b:'differently.',d:'층별면적표 치수 그대로.\n지하 4층 · 지상 20층, 연면적 63,249㎡.'},
+{n:'03',en:'THE LAYERS',k:'03 / OPEN UP THE POSSIBILITIES',a:'Room for',b:'new work.',d:'층을 펼치면 쓰임이 보입니다.\n1층 클리닉 · 5~7층 데이터센터 · 8~10층 GB LABS.'},
+{n:'04',en:'THE HORIZON',k:'04 / ONE BUILDING',a:'One building.',b:'Wider care.',d:'진료는 1층에서,\n연구는 위층에서.'}];
+const jt=$('#jt'),story=$('#story');let curCh=-1;window.__jp=0;
+function jText(){const r=story.getBoundingClientRect(),p=cl(-r.top/Math.max(1,story.offsetHeight-innerHeight));window.__jp=p;const ch=p<.25?0:p<.5?1:p<.8?2:3;
+ if(ch!==curCh){curCh=ch;const c=CH[ch];jt.innerHTML=`<div class="c"><p class="kick" style="color:var(--sub)">${c.k}</p><h3>${c.a}<br><em>${c.b}</em></h3><p class="d">${c.d}</p></div>`;$('#jnum').textContent=c.n;$('#jen').textContent=c.en;}
+ $('#jbar').style.transform=`scaleX(${p})`;$('#flist').classList.toggle('on',ch===2);$('#legend').classList.toggle('on',ch>=2);$('#jhint').classList.toggle('off',p>.03);}
+// ---------- 숫자 ----------
+const K=(n)=>`<span class="roll" data-v="${n}">${String(n).split('').map(d=>`<span><span>${Array.from({length:20},(_,k)=>`<span>${k%10}</span>`).join('')}</span></span>`).join('')}</span>`;
+const ART={
+ring:()=>{let t='<svg viewBox="-60 -60 120 120"><circle r="34" fill="none" stroke="#121212" stroke-opacity=".25" stroke-width=".8"/>';for(let i=0;i<24;i++){const f=i-3;const a=i/24*Math.PI*2-Math.PI/2;const c=f>=5&&f<=7?'#2b7de9':f>=8&&f<=10?'#e3262f':f>=11&&f<=17?'#9aa9b6':f===1?'#c9a24a':i<4?'#cfd6dc':'#121212';const r1=c==='#121212'||c==='#9aa9ae'?48:54;t+=`<line class="tk" x1="${Math.cos(a)*39}" y1="${Math.sin(a)*39}" x2="${Math.cos(a)*r1}" y2="${Math.sin(a)*r1}" stroke="${c}" stroke-width="3" stroke-linecap="round" style="transition-delay:${(.3+i*.04).toFixed(2)}s"/>`;}return t+'<text y="-4" text-anchor="middle" font-size="8" font-weight="800">24개 층</text><text y="8" text-anchor="middle" font-size="6.5" font-weight="700">B4 – 20F</text></svg>';},
+dots:()=>{let t='<svg viewBox="0 0 100 80">';for(let i=0;i<80;i++){const cx=6+(i%10)*9.8,cy=6+Math.floor(i/10)*9.8;const c=i<14?'#2b7de9':'#ffffff';t+=`<circle class="dt" cx="${cx}" cy="${cy}" r="3.4" fill="${c}" ${i>=14?'stroke="#121212" stroke-opacity=".25" stroke-width=".5"':''} style="transform-box:fill-box;transform-origin:center;transition-delay:${(.2+i*.02).toFixed(2)}s"/>`;}return t+'</svg>';},
+map:()=>'<svg viewBox="0 0 120 112"><path class="ln1" d="M-4 30 C 30 40, 50 60, 60 74 S 90 100, 124 106" fill="none" stroke="#2b58a8" stroke-width="4" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path class="ln1" d="M10 -4 C 30 30, 46 56, 60 74 S 96 80, 124 70" fill="none" stroke="#5f8a3c" stroke-width="4" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><text x="2" y="24" font-size="6" font-weight="800" fill="#2b58a8">1호선</text><text x="18" y="8" font-size="6" font-weight="800" fill="#5f8a3c">7호선</text>'+[[92,40,'대상 건물'],[106,22,'IDC']].map(([x,y,n],i)=>`<line class="ln2" x1="60" y1="74" x2="${x}" y2="${y}" stroke="#121212" stroke-width=".8" stroke-dasharray="2 2"/><g class="pin" style="transform-box:fill-box;transform-origin:50% 100%;transition-delay:${1.2+i*.2}s"><path d="M${x} ${y} l-4.5 -7 a5.4 5.4 0 1 1 9 0 z" fill="#121212"/><circle cx="${x}" cy="${y-9.4}" r="2" fill="#eaf4ef"/><text x="${x}" y="${y+8}" text-anchor="middle" font-size="6.5" font-weight="800">${n}</text></g>`).join('')+'<circle cx="60" cy="74" r="10" fill="none" stroke="#fff8ea" stroke-width="1.2" class="ping"/><circle cx="60" cy="74" r="5" fill="#fff8ea" stroke="#121212" stroke-width="1.6"/><text x="60" y="92" text-anchor="middle" font-size="6.5" font-weight="800">가산디지털단지역</text></svg>',
+cal:()=>{let t='<svg viewBox="-60 -60 120 120"><circle r="46" fill="none" stroke="#121212" stroke-width="1.4"/>';for(let m=0;m<12;m++){const a=m/12*Math.PI*2-Math.PI/2+.08,b=a+Math.PI*2/12-.16;const on=m<7;t+=`<path class="mo" d="M${Math.cos(a)*40} ${Math.sin(a)*40} A40 40 0 0 1 ${Math.cos(b)*40} ${Math.sin(b)*40}" fill="none" stroke="${on?'#121212':'#fff8ea'}" stroke-width="7" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" style="transition-delay:${(.3+m*.1).toFixed(2)}s"/>`;}return t+'<text y="-2" text-anchor="middle" font-size="9" font-weight="800">2024</text><text y="10" text-anchor="middle" font-size="6.5" font-weight="700">7월 준공</text></svg>';}};
+const ST=[{n:24,u:'개 층',l:'지하 4층 ~ 지상 20층',d:'눈금 하나가 층 하나 — 청록 5~7층 데이터, 분홍 8~10층 GB LABS',a:'ring'},
+{n:8000,u:'kVA',l:'건물 수전 용량',d:'점 하나가 100kVA — 진한 점 14개가 5~7층 현재 공급(약 1.4MVA)',a:'dots'},
+{n:2,u:'개 노선',l:'1·7호선 가산디지털단지역',d:'역에서 대상 건물, 길 건너 SK브로드밴드 IDC까지',a:'map'},
+{n:2024,u:'년',l:'준공 신축 지식산업센터',d:'2024년 7월 준공 — 해당 층만 고치면 됩니다',a:'cal'}];
+$('#stats').innerHTML=ST.map((x,i)=>`<div class="srow${i%2?' rev':''}"><div class="art">${ART[x.a]()}</div><div style="flex:1;min-width:0"><p class="v">${K(x.n)}<small>${x.u}</small></p><p class="l">${x.l}</p><p class="d">${x.d}</p></div></div>`).join('');
+const stl=document.createElement('style');stl.textContent='.srow .tk{stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s}.srow.on .tk{stroke-dashoffset:0}.srow .dt{transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1)}.srow.on .dt{transform:scale(1)}.srow .ln1,.srow .mo{transition:stroke-dashoffset 1.4s cubic-bezier(.22,.8,.2,1)}.srow.on .ln1,.srow.on .mo{stroke-dashoffset:0}.srow .pin{transform:scale(0) translateY(-10px);transition:transform .6s cubic-bezier(.3,1.6,.5,1)}.srow.on .pin{transform:none}.srow .ln2{stroke-dashoffset:60;transition:stroke-dashoffset .6s 1s}.srow.on .ln2{stroke-dashoffset:0}';document.head.appendChild(stl);
+let srows=$$('.srow');
+function stats(){const vh=innerHeight;srows=srows.filter(r=>{const b=r.getBoundingClientRect();if(b.top<vh*.82&&b.bottom>0){r.classList.add('on');r.querySelectorAll('.roll').forEach(ro=>{const ds=String(ro.dataset.v).split('');[...ro.children].forEach((col,i)=>{const d=+ds[i];col.firstElementChild.style.transitionDelay=(.2+i*.12)+'s';col.firstElementChild.style.transitionDuration=(1.6+i*.25)+'s';col.firstElementChild.style.transform=`translateY(${-(d+10)}em)`;});});return false;}return true;});}
+
+// 임대 수익 그림
+{const v=$('#l2svg');let t='';const X=40,W=130,G=305,H=13.5;
+for(let i=1;i<=20;i++){const y=G-i*H;const z=i===1?'c':(i>=5&&i<=7)?'d':(i>=8&&i<=10)?'g':(i>=11&&i<=17)?'l':'n';const col={c:'#c9a24a',d:'#2b7de9',g:'#e3262f',l:'#7d8b98',n:'#eef1f4'}[z];
+ t+=`<rect class="lf" x="${X}" y="${y+1}" width="${W}" height="${H-2}" fill="${col}" stroke="#121212" stroke-width="${z==='n'?0:.6}" style="transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform .6s cubic-bezier(.22,.8,.2,1) ${(i*.05).toFixed(2)}s"/>`;}
+t+=`<line x1="14" y1="${G}" x2="350" y2="${G}" stroke="#121212" stroke-width="1.5"/>`;
+[[14,'11–17F','빅데이터 기업 임대 · 임대료','#5d6b78'],[9,'8–10F','GB LABS · 연구·라이선스','#e3262f'],[6,'5–7F','데이터센터 · 사용료','#2b7de9'],[1,'1F','클리닉 · 진료·검진','#a8821f']].forEach(([f,a,b,c],i)=>{const y=G-f*H+H/2;const d=`M${X+W+4} ${y} H346`;t+=`<path d="${d}" stroke="${c}" stroke-width="1.2" stroke-dasharray="3 4"/><text x="${X+W+10}" y="${y-5}" font-size="12" font-weight="900" fill="${c}" font-family="Instrument Serif,serif">${a}</text><text x="${X+W+10}" y="${y+14}" font-size="10.5" font-weight="700" fill="#24313f">${b}</text>`;for(let k=0;k<2;k++)t+=`<circle r="3.2" fill="${c}"><animateMotion dur="2.2s" begin="${(i*.3+k*1.1).toFixed(1)}s" repeatCount="indefinite" path="${d}"/></circle>`;});
+t+=`<text x="${X-6}" y="${G-20*H+10}" font-size="10" font-weight="700" fill="#24313f" text-anchor="end">20F</text><text x="${X-6}" y="${G-H+10}" font-size="10" font-weight="700" fill="#24313f" text-anchor="end">1F</text>`;
+v.innerHTML=t+'<style>#lease2.in .lf{transform:scaleX(1)!important}</style>';}
+// 영상 카드: 보이는 것만 재생
+const fl=$('#films'),fd=$$('#fdots i'),clips=$$('.clip');
+fl.addEventListener('scroll',()=>{const i=Math.round(fl.scrollLeft/(clips[0].offsetWidth+14));fd.forEach((d,j)=>d.classList.toggle('on',j===i));playVis();},{passive:true});
+function playVis(){clips.forEach(c=>{const r=c.getBoundingClientRect(),v=c.querySelector('video');const on=r.left<innerWidth*.8&&r.right>innerWidth*.2&&r.top<innerHeight&&r.bottom>0;if(on){c.classList.add('in');if(v)v.play().catch(()=>{});}else if(v)v.pause();});}
+// 층 펼침
+$$('.fl button').forEach(b=>b.onclick=()=>b.parentElement.classList.toggle('open'));
+// 숫자
+function count(el){const to=+el.dataset.c,t0=performance.now();const f=n=>{const q=Math.min(1,(n-t0)/1600);el.textContent=Math.round(to*(1-(1-q)**3)).toLocaleString('ko-KR');if(q<1)requestAnimationFrame(f);};requestAnimationFrame(f);}
+// 진입
+let pend=$$('.rv,.dc .img,#mapbox');
+function reveal(){const vh=innerHeight;pend=pend.filter(el=>{const r=el.getBoundingClientRect();if(r.top<vh*.88&&r.bottom>0){el.classList.add('in');el.querySelectorAll('[data-c]').forEach(count);return false;}return true;});}
+const tick=()=>{jText();reveal();playVis();stats();spark();};addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);requestAnimationFrame(tick);
+}
+</script><script type="importmap">{"imports":{"three":"/gasan/m4r9/three/build/three.module.js","three/addons/":"/gasan/m4r9/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {LineSegments2} from '/gasan/m4r9/three/examples/jsm/lines/LineSegments2.js';
+import {LineSegmentsGeometry} from '/gasan/m4r9/three/examples/jsm/lines/LineSegmentsGeometry.js';
+import {LineMaterial} from '/gasan/m4r9/three/examples/jsm/lines/LineMaterial.js';
+const el=document.getElementById('b3d');
+const sm=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)};
+// ㄷ자 평면(m): 왼날개·오른날개·가운데 몸체(앞쪽이 비어 있는 마당)
+const LW=[0,0,22,36],RW=[48,0,70,36],CB=[22,14,48,36],TOP=20,FH=3.4;
+const rl=(s,r,y)=>{const[x0,z0,x1,z1]=r;s.push(x0,y,z0,x1,y,z0,x1,y,z0,x1,y,z1,x1,y,z1,x0,y,z1,x0,y,z1,x0,y,z0)};
+const rp=(s,r,y0,y1)=>{const[x0,z0,x1,z1]=r;for(const[x,z]of[[x0,z0],[x1,z0],[x1,z1],[x0,z1]])s.push(x,y0,z,x,y1,z)};
+const mu=(s,r,y0,y1,st)=>{const[x0,z0,x1,z1]=r;const nx=Math.max(1,Math.round((x1-x0)/st)),nz=Math.max(1,Math.round((z1-z0)/st));for(let i=1;i<nx;i++){const x=x0+(x1-x0)*i/nx;s.push(x,y0,z0,x,y1,z0,x,y0,z1,x,y1,z1)}for(let i=1;i<nz;i++){const z=z0+(z1-z0)*i/nz;s.push(x0,y0,z,x0,y1,z,x1,y0,z,x1,y1,z)}};
+function fseg(){const s=[];for(const b of[LW,RW,CB]){rl(s,b,0);rp(s,b,0,FH);mu(s,b,.1,FH,3.4)}return s}
+let R;try{R=new THREE.WebGLRenderer({antialias:true,alpha:true})}catch(e){el.dataset.nogl=1}
+if(R){const dpr=Math.min(devicePixelRatio||1,2);R.setPixelRatio(dpr);R.setClearColor(0,0);el.appendChild(R.domElement);
+const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.5,900),root=new THREE.Group();scene.add(root);
+const CX=35,CZ=18,res=new THREE.Vector2(1,1),mats=[];
+const mk=(segs,w,glow,op)=>{const g=new LineSegmentsGeometry();g.setPositions(segs.map((v,i)=>i%3===0?v-CX:i%3===2?v-CZ:v));const m=new LineMaterial({color:0x9cc2ff,linewidth:w,transparent:true,opacity:op??(glow?.16:.95),depthWrite:false,blending:glow?THREE.AdditiveBlending:THREE.NormalBlending});m.resolution=res;mats.push(m);return new LineSegments2(g,m)};
+const FCOL=k=>k>=5&&k<=7?'#5aa2ff':k>=8&&k<=10?'#ff5560':k>=11&&k<=17?'#c3ccd4':k===1?'#fff8ea':null;
+const floors=[];const fs=fseg();
+for(let k=1;k<=TOP;k++){const g=new THREE.Group();g.add(mk(fs,1.2,false));g.add(mk(fs,5,true));const fills=[];const c=FCOL(k);
+ if(c){for(const b of[LW,RW,CB]){const[x0,z0,x1,z1]=b;const m=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0-.4,z1-z0-.4),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.set((x0+x1)/2-CX,.08,(z0+z1)/2-CZ);g.add(m);fills.push(m)}}
+ root.add(g);floors.push({g,k,fills})}
+const bs=[];for(let k=1;k<=4;k++){for(const b of[LW,RW,CB]){rl(bs,b,-k*FH);rp(bs,b,-k*FH,-(k-1)*FH)}}const base=mk(bs,.8,false,.25);root.add(base);
+const roof=new THREE.Group();const rs=[];for(const b of[LW,RW,CB]){rl(rs,b,0);rl(rs,b,1.2);rp(rs,b,0,1.2)}rl(rs,[8,10,16,22],0);rl(rs,[8,10,16,22],4);rp(rs,[8,10,16,22],0,4);rl(rs,[54,10,62,22],0);rl(rs,[54,10,62,22],4);rp(rs,[54,10,62,22],0,4);roof.add(mk(rs,1.2,false));roof.add(mk(rs,5,true));root.add(roof);
+const gr=[];for(let i=-7;i<=7;i++){gr.push(i*7+CX,0,-40+CZ,i*7+CX,0,48+CZ,-30+CX,0,i*6+CZ+4,100+CX,0,i*6+CZ+4)}const grid=mk(gr,.6,false,.18);root.add(grid);
+const cB=new THREE.Color('#7fb2ff'),cM=new THREE.Color('#a9c6ff'),cG=new THREE.Color('#dfe7ef'),cI=new THREE.Color('#ffffff'),tmp=new THREE.Color();
+let yaw=-.7,drag=0,vel=0,down=false,lx=0;R.domElement.style.touchAction='pan-y';
+R.domElement.addEventListener('pointerdown',e=>{down=true;lx=e.clientX});addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-lx;lx=e.clientX;drag+=dx*.008;vel=dx*.008},{passive:true});addEventListener('pointerup',()=>down=false);addEventListener('pointercancel',()=>down=false);
+const rsz=()=>{const w=el.clientWidth,h=el.clientHeight;R.setSize(w,h,false);R.domElement.style.width=w+'px';R.domElement.style.height=h+'px';cam.aspect=w/Math.max(1,h);cam.updateProjectionMatrix();res.set(w*dpr,h*dpr)};rsz();new ResizeObserver(rsz).observe(el);
+let last=performance.now(),vis=true,sp=0;new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(el);
+const tick=now=>{requestAnimationFrame(tick);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis)return;sp+=((window.__jp||0)-sp)*Math.min(1,dt*6);const p=sp;
+ const build=sm(0,.28,p)*1.0001,ex=sm(.5,.68,p),fill=sm(.56,.72,p);
+ floors.forEach(({g,k,fills})=>{const t=Math.min(1,Math.max(0,.35+build*(TOP+.6)-(k-1)));const e=t*t*(3-2*t);g.scale.y=Math.max(1e-4,e);g.position.y=(k-1)*FH+(1-e)*-1.2+ex*(k-1)*1.6;g.visible=t>.001;fills.forEach(m=>m.material.opacity=fill*.7)});
+ const rt=Math.min(1,Math.max(0,.35+build*(TOP+.6)-TOP));roof.visible=rt>.001;roof.scale.y=Math.max(1e-4,rt);roof.position.y=TOP*FH+ex*TOP*1.6;
+ if(p<.36)tmp.copy(cB).lerp(cM,sm(.22,.36,p));else if(p<.6)tmp.copy(cM).lerp(cG,sm(.36,.5,p));else tmp.copy(cG).lerp(cI,sm(.6,.72,p)*.55);mats.forEach(m=>m.color.copy(tmp));grid.material.color.set('#6f8399');base.material.color.set('#9fb6bd');
+ if(!down){drag+=vel;vel*=.92}yaw+=dt*.12;root.rotation.y=yaw+drag+sm(.24,.5,p)*Math.PI*.85;const side=sm(.5,.6,p)-sm(.78,.86,p);root.position.x=side*8;
+ const span=TOP*FH+ex*TOP*1.6,narrow=cam.aspect<.75,dist=(narrow?285:200)+ex*(narrow?210:130),ty=Math.max(14,span*.5*(.35+.65*build))+(narrow?span*.05:0),elev=.3+ex*.22-sm(.28,.48,p)*.08;
+ cam.position.set(0,ty+Math.sin(elev)*dist,Math.cos(elev)*dist);cam.lookAt(0,ty,0);R.render(scene,cam)};requestAnimationFrame(tick)}
+</script></body></html>

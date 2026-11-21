@@ -15,6 +15,7 @@ const nextConfig: NextConfig = {
       { source: "/dc7g2k9a/roadmap", destination: "/dc7g2k9a/roadmap/index.html" },
       { source: "/2f3xu9ud", destination: "/2f3xu9ud/index.html" },
       { source: "/pq7f5b79", destination: "/pq7f5b79/index.html" },
+      { source: "/gasan/m4r9", destination: "/gasan/m4r9/index.html" },
     ];
   },
 };
