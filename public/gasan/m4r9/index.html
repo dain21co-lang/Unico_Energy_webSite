@@ -94,8 +94,8 @@ header a,header button{font:inherit;font-size:calc(12px*var(--k));font-weight:70
 /* 층별 */
 .floors{margin-top:30px;border-top:1px solid rgba(255,255,255,.2)}
 .fl{border-bottom:1px solid rgba(255,255,255,.2)}
-.fl button{all:unset;box-sizing:border-box;width:100%;min-height:58px;display:grid;grid-template-columns:3.6em minmax(0,1fr) auto;gap:12px;align-items:center;cursor:pointer;padding:10px 0}
-.fl .no{font-family:"Instrument Serif",serif;font-size:calc(26px*var(--k));line-height:1;white-space:nowrap}
+.fl button{all:unset;box-sizing:border-box;width:100%;min-height:58px;display:grid;grid-template-columns:calc(76px*var(--k)) minmax(0,1fr) auto;gap:10px;align-items:center;cursor:pointer;padding:10px 0}
+.fl .no{font-family:"Instrument Serif",serif;font-size:calc(22px*var(--k));line-height:1;white-space:nowrap;min-width:calc(70px*var(--k))}
 .fl .nm{font-size:calc(15px*var(--k));font-weight:700}
 .fl .ar{transition:transform .3s}.fl.open .ar{transform:rotate(45deg)}
 .fl .det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s}
@@ -171,7 +171,7 @@ header a,header button{font:inherit;font-size:calc(12px*var(--k));font-weight:70
 .flist.on{clip-path:inset(0);transform:none}
 .flist div{display:flex;gap:8px;align-items:baseline;padding:2px 0;font-size:calc(10.5px*var(--k));color:#dfe7ee;font-weight:500}
 .flist i{font-family:"Instrument Serif",serif;font-size:calc(15px*var(--k));width:28px;color:var(--paper)}
-.flist .dc i{color:#5aa2ff}.flist .ls i{color:#c3ccd4;width:44px}.flist .cl i{color:#fff8ea}
+.flist .dc i{color:#5aa2ff}.flist .ls i{color:#c3ccd4;width:44px}.flist .cl i{color:#fff8ea}.flist .ho i{color:#ffb35c;width:44px}
 .legend{position:absolute;left:20px;right:20px;bottom:92px;border-radius:16px;padding:12px 14px;display:flex;justify-content:space-between;gap:6px;pointer-events:none;clip-path:inset(100% 0 0 0);transform:translateY(16px);transition:clip-path .7s,transform .7s}
 .legend.on{clip-path:inset(0);transform:none}
 .legend{flex-wrap:wrap}.legend span{display:flex;align-items:center;gap:6px;font-size:calc(10.5px*var(--k));font-weight:700;white-space:nowrap}
@@ -245,7 +245,7 @@ footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;colo
 
 <section class="lead" id="lead">
   <p class="kick rv" style="color:var(--coral)">가산 메디컬·AI 빌딩(가칭)</p>
-  <p class="l1 rv">진료는 1층에서, 데이터는 5~7층에서,<br>연구는 8~10층에서.</p>
+  <p class="l1 rv">진료는 3층에서, 데이터는 5~7층에서,<br>연구는 8~10층에서.</p>
   <p class="en rv">GASAN · GB LABS<br>MEDICAL AI &amp; EDGE DATA BUILDING</p>
   <p class="ai rv">입점 검토용 시안 · 이미지와 영상은 AI 예시</p>
   <div class="gifbox rv"><video src="/gasan/m4r9/gif-f1.mp4" poster="/gasan/m4r9/gif-f1.jpg" autoplay muted loop playsinline preload="metadata"></video><span class="badge">BLUE HOUR · 5–7F 데이터 · 8–10F 연구</span></div>
@@ -258,7 +258,7 @@ footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;colo
   <div class="body rv" style="margin-top:36px">
     <p>안녕하십니까, GB LABS 대표이사 임춘학입니다.</p>
     <p>마취통증의학을 전공한 의사로 오랜 시간 환자 곁을 지켜 왔습니다. 그동안 의료 현장에서 쌓이는 수많은 기록이 정작 다음 환자를 위한 연구로 이어지지 못하는 모습을 자주 보았습니다.</p>
-    <p>가산 빌딩은 그 거리를 좁히는 곳입니다. 1층 클리닉에서 생긴 진료 기록이 환자가 동의한 범위 안에서 같은 건물의 데이터센터로 안전하게 옮겨지고, 위층 연구소에서 더 나은 원격진료와 통증 치료로 다시 돌아옵니다.</p>
+    <p>가산 빌딩은 그 거리를 좁히는 곳입니다. 3층 클리닉센터에서 생긴 진료 기록이 환자가 동의한 범위 안에서 같은 건물의 데이터센터로 안전하게 옮겨지고, 위층 연구소에서 더 나은 원격진료와 통증 치료로 다시 돌아옵니다.</p>
     <p>G밸리의 기업과 사람들 곁에서, 진료와 데이터와 연구가 한 건물에서 이어지는 의료 AI의 첫 거점을 만들겠습니다.</p>
   </div>
   <div class="sign rv"><img src="/gasan/m4r9/gblabs-logo-dark.png" alt="GB LABS"><p style="margin:12px 0 0;font-size:14px;font-weight:900">대표이사 임춘학</p>
@@ -317,9 +317,9 @@ footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;colo
     <div id="b3d" class="b3d"></div>
     <div class="jt" id="jt"></div>
     <div class="flist glass" id="flist">
-      <div class="ls"><i>11–17F</i>빅데이터 임대</div><div><i>10F</i>협력 기업</div><div><i>9F</i>임상연구</div><div><i>8F</i>GB LABS 연구소</div><div class="dc"><i>7F</i>데이터센터</div><div class="dc"><i>6F</i>데이터센터</div><div class="dc"><i>5F</i>데이터센터</div><div><i>2F</i>검진 상담</div><div class="cl"><i>1F</i>클리닉 · 로비</div>
+      <div class="ho"><i>16–19F</i>호스텔 120실</div><div class="ls"><i>11–13F</i>연구소 · 사옥 임대</div><div><i>8–10F</i>GB LABS 연구소</div><div class="dc"><i>7F</i>데이터센터</div><div class="dc"><i>6F</i>데이터센터</div><div class="dc"><i>5F</i>데이터센터</div><div><i>4F</i>PBA · 테라피</div><div class="cl"><i>3F</i>클리닉센터</div><div><i>1–2F</i>리테일 · 쇼핑</div>
     </div>
-    <div class="legend glass" id="legend"><span><i style="background:#5aa2ff"></i>데이터 <em>5–7F</em></span><span><i style="background:#ff5560"></i>GB LABS <em>8–10F</em></span><span><i style="background:#c3ccd4"></i>임대 <em>11–17F</em></span><span><i style="background:#fff8ea"></i>클리닉 <em>1F</em></span></div>
+    <div class="legend glass" id="legend"><span><i style="background:#5aa2ff"></i>데이터 <em>5–7F</em></span><span><i style="background:#ff5560"></i>GB LABS <em>8–10F</em></span><span><i style="background:#c3ccd4"></i>연구·임대 <em>11–13F</em></span><span><i style="background:#ffb35c"></i>호스텔 <em>16–19F</em></span><span><i style="background:#fff8ea"></i>클리닉 <em>3F</em></span></div>
     <div class="jn"><span class="serif" id="jnum">01</span><div><p class="kick" id="jen" style="font-size:calc(10px*var(--k));color:#dfe7ee">THE ARRIVAL</p><div class="jbar"><b id="jbar"></b></div></div></div>
     <p class="jhint nudge" id="jhint">↓ 아래로 밀어 보세요 · 손가락으로 돌려 보세요</p>
   </div>
@@ -330,12 +330,18 @@ footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;colo
   <h2 class="big rv">Floor<br><em>by floor.</em></h2>
   <p class="sub rv">층을 누르면 쓰임이 펼쳐집니다. 면적은 층별면적표(2024.05) 바닥면적 기준입니다.</p>
   <div class="floors" id="floors">
-    <div class="fl"><button><span class="no">10F</span><span class="nm"><i class="tag" style="background:var(--coral)"></i>협력 기업 · 스타트업</span><span class="ar">+</span></button><div class="det"><div><p>헬스케어 스타트업이 모이는 클러스터 · 2,062.1㎡</p></div></div></div>
-    <div class="fl"><button><span class="no">9F</span><span class="nm"><i class="tag" style="background:var(--coral)"></i>임상연구 · 의료기기</span><span class="ar">+</span></button><div class="det"><div><p>통증 의료기기 등 임상연구·시험실 · 1,999.1㎡</p></div></div></div>
-    <div class="fl"><button><span class="no">8F</span><span class="nm"><i class="tag" style="background:var(--coral)"></i>GB LABS AI 연구소</span><span class="ar">+</span></button><div class="det"><div><p>AI·빅데이터 연구, 원격진료(DIGIDOC) 관제실 · 1,999.1㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">20F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>뷔페 · 레스토랑 · 재즈 와인바</span><span class="ar">+</span></button><div class="det"><div><p>G밸리 야경 위 스카이 다이닝 · 세계 맥주 페스티벌 · 2,152.2㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">16–19F</span><span class="nm"><i class="tag" style="background:#ffb35c"></i>호스텔 · 레지던스 · 비즈니스호텔</span><span class="ar">+</span></button><div class="det"><div><p>약 120실 · 관광객과 출장·장기체류 고객 · 지원시설 인허가 확인 후 확정</p></div></div></div>
+    <div class="fl"><button><span class="no">15F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>찜질방 · 연관 시설</span><span class="ar">+</span></button><div class="det"><div><p>야경 보며 쉬는 K-찜질방 · 2,062.1㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">14F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>피트니스 · 골프연습장</span><span class="ar">+</span></button><div class="det"><div><p>스크린골프 · 퍼팅 그린 · 2,062.1㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">11–13F</span><span class="nm"><i class="tag" style="background:#c3ccd4"></i>AI 연구소 · 사옥형 임대</span><span class="ar">+</span></button><div class="det"><div><p>데이터센터 바로 위 AI 데이터 기업 연구소와 사옥 개념 임대 · 층당 2,062.1㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">8–10F</span><span class="nm"><i class="tag" style="background:var(--coral)"></i>GB LABS · AI · 바이오 연구소</span><span class="ar">+</span></button><div class="det"><div><p>의료 AI 연구 · 원격진료(DIGIDOC) 관제 · AI·바이오 기업 유치 · 약 6,060㎡</p></div></div></div>
     <div class="fl"><button><span class="no">5–7F</span><span class="nm"><i class="tag" style="background:#9fd3ff"></i>엣지 데이터센터</span><span class="ar">+</span></button><div class="det"><div><p>세 개 층 약 6,088㎡ · 층간 높이 3.9m · 건물 수전 8,000kVA (별도 제안)</p></div></div></div>
-    <div class="fl"><button><span class="no">2F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>단체검진 상담 · 교육</span><span class="ar">+</span></button><div class="det"><div><p>G밸리 기업 단체검진 상담과 건강 교육 · 면적 협의</p></div></div></div>
-    <div class="fl"><button><span class="no">1F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>로비 · 클리닉</span><span class="ar">+</span></button><div class="det"><div><p>검진·통증·피부 클리닉과 로비 · 근린생활 면적 중 협의</p></div></div></div>
+    <div class="fl"><button><span class="no">4F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>PBA 당구 · 한의원 · 테라피</span><span class="ar">+</span></button><div class="det"><div><p>프로당구협회(PBA) 합작 브랜드 · 대회 · 아카데미 · 한의원 · 피부·마사지 테라피 · 2,139.4㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">3F</span><span class="nm"><i class="tag" style="background:#fff8ea"></i>클리닉센터존</span><span class="ar">+</span></button><div class="det"><div><p>성형외과 · 피부과 · 안과 · 치과 · GB LABS 검진·통증 클리닉(안) · 2,154.6㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">2F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>창고형 약국 · 화장품 · 카페</span><span class="ar">+</span></button><div class="det"><div><p>대형 할인 창고형 약국과 화장품 매장 · 1,771.1㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">1F</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>리테일 · 로비</span><span class="ar">+</span></button><div class="det"><div><p>올리브영 · 다이소 · 편의점 · 카페 · 베이커리 · 2,400.2㎡</p></div></div></div>
+    <div class="fl"><button><span class="no">B1</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>식당가 · 생활 편의</span><span class="ar">+</span></button><div class="det"><div><p>대형 식당가 · 다이소 · 도심형 창고</p></div></div></div>
   </div>
 </section>
 
@@ -355,25 +361,25 @@ footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;colo
   <p class="sub rv">GB LABS는 두 갈래로 이 건물에 들어갑니다.</p>
   <div class="two">
     <div class="card rv"><div class="im" style="position:relative"><img src="/gasan/m4r9/img-lab.webp" alt="GB LABS 의료 AI 연구실 (AI 예시)"><span class="badge" style="position:absolute;right:10px;bottom:10px">AI 예시</span></div><div class="bd"><span class="badge">A · 8–10F</span><h3>디지털헬스 R&amp;D 센터</h3><p>공장(지식산업센터) 구역에 연구개발 기업으로 입주합니다.</p><ul><li>원격진료·의료 빅데이터·AI 진단 보조</li><li>통증 의료기기 연구</li><li>연구과제·기술 라이선스·플랫폼 사용료</li></ul></div></div>
-    <div class="card rv"><div class="im" style="position:relative"><img src="/gasan/m4r9/img-clinic.webp" alt="1층 검진 클리닉 (AI 예시)"><span class="badge" style="position:absolute;right:10px;bottom:10px">AI 예시</span></div><div class="bd"><span class="badge">B · 1F</span><h3>직장인 헬스케어 클리닉</h3><p>근린생활 구역에서 G밸리 직장인을 맞습니다.</p><ul><li>검진 · 통증의학과 · 피부·에스테틱</li><li>기업 단체검진 계약</li><li>외국인 근로자·여행객 외래</li></ul></div></div>
+    <div class="card rv"><div class="im" style="position:relative"><img src="/gasan/m4r9/img-clinic.webp" alt="3층 클리닉센터 (AI 예시)"><span class="badge" style="position:absolute;right:10px;bottom:10px">AI 예시</span></div><div class="bd"><span class="badge">B · 3F</span><h3>직장인 헬스케어 클리닉</h3><p>3층 클리닉센터존에서 G밸리 직장인과 의료관광객을 맞습니다.</p><ul><li>검진 · 통증의학과 · 피부·에스테틱</li><li>기업 단체검진 계약</li><li>외국인 근로자·여행객 외래</li></ul></div></div>
   </div>
 </section>
 
 <section class="paper pad" id="lease">
   <p class="kick rv" style="color:#7a7466">10 / LEASE</p>
   <h2 class="big rv">Every floor<br><em>earns.</em></h2>
-  <p class="sub rv">GB LABS와 데이터센터가 쓰는 층 외에, 11~17층(7개 층, 약 14,434㎡)을 AI·빅데이터 기업 임대 구역으로 채웁니다.</p>
-  <div class="dc" style="margin-top:26px"><div class="img rv" style="aspect-ratio:3/2;border-radius:22px"><img src="/gasan/m4r9/img-lease.webp" alt="11~17층 빅데이터 기업 사무실 (AI 예시)"><span class="badge l" style="position:absolute;left:14px;bottom:14px">AI 예시 · 11–17F</span></div></div>
+  <p class="sub rv">데이터센터 바로 위 11~13층은 AI 데이터 기업 연구소와 사옥형 임대로, 나머지 층은 호스텔 · 생활 · 쇼핑 시설로 채워 층마다 임대 수입이 나옵니다.</p>
+  <div class="dc" style="margin-top:26px"><div class="img rv" style="aspect-ratio:3/2;border-radius:22px"><img src="/gasan/m4r9/img-lease.webp" alt="11~13층 AI 연구소 (AI 예시)"><span class="badge l" style="position:absolute;left:14px;bottom:14px">AI 예시 · 11–13F</span></div></div>
   <div class="lease2 rv" id="lease2"><svg viewBox="0 0 360 330" id="l2svg" aria-label="층별 수익원"></svg></div>
   <div class="lw">
     <div class="rv"><span class="serif">01</span><div><b>데이터센터 바로 옆 사무실</b><p>서버를 같은 건물에 두고 일할 수 있어 회선 거리가 짧고 지연이 적습니다. 일반 지식산업센터와 다른 임대료의 근거입니다.</p></div></div>
     <div class="rv"><span class="serif">02</span><div><b>규제와 맞는 업종</b><p>공장(지식산업센터) 구역은 정보통신업 입주가 가능해, 빅데이터·AI 기업 임대가 원래 용도와 맞습니다.</p></div></div>
-    <div class="rv"><span class="serif">03</span><div><b>서로 고객이 되는 입주사</b><p>임대 기업은 데이터센터의 고객, GB LABS의 연구 파트너, 1층 클리닉의 단체검진 고객이 됩니다.</p></div></div>
+    <div class="rv"><span class="serif">03</span><div><b>서로 고객이 되는 입주사</b><p>임대 기업은 데이터센터의 고객, GB LABS의 연구 파트너, 3층 클리닉센터의 단체검진 고객이 됩니다.</p></div></div>
   </div>
   <div class="l3">
     <div class="rv" style="background:#2b7de9"><b>사용료</b><span>데이터센터 5~7F</span></div>
-    <div class="rv" style="background:#5d6b78"><b>임대료</b><span>빅데이터 기업 11~17F</span></div>
-    <div class="rv" style="background:#e3262f"><b>연구·진료</b><span>GB LABS 1F·8~10F</span></div>
+    <div class="rv" style="background:#5d6b78"><b>임대료</b><span>연구소 · 사옥 11~13F · 호스텔 16~19F</span></div>
+    <div class="rv" style="background:#e3262f"><b>연구·진료</b><span>GB LABS 3F · 8~10F</span></div>
   </div>
   <p class="mcap">면적은 층별면적표(2024.05) 기준. 임대료와 업종은 관계 기관 확인·시장 조사 후 확정합니다.</p>
 </section>
@@ -395,7 +401,7 @@ footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;colo
     <p class="kick" style="margin-top:32px;color:#121212">11 / IN NUMBERS</p>
     <h2 class="big" style="font-size:calc(clamp(32px,10vw,42px)*var(--k));margin-top:12px">Small numbers.<br><em>Big building.</em></h2>
     <div style="margin-top:30px" id="stats"></div>
-    <div class="nbar"><div class="nbarrow"><span style="flex-grow:3;background:#5aa2ff"></span><span style="flex-grow:3;background:#ff5560"></span><span style="flex-grow:7;background:#c3ccd4"></span><span style="flex-grow:1;background:#fff8ea"></span></div><p>진료 1층 · 데이터 5~7층 · 연구 8~10층,<br>그리고 11~17층 빅데이터 기업 임대.</p></div>
+    <div class="nbar"><div class="nbarrow"><span style="flex-grow:3;background:#5aa2ff"></span><span style="flex-grow:3;background:#ff5560"></span><span style="flex-grow:3;background:#c3ccd4"></span><span style="flex-grow:4;background:#ffb35c"></span><span style="flex-grow:1;background:#fff8ea"></span></div><p>진료 3층 · 데이터 5~7층 · 연구 8~10층,<br>11~13층 연구소 임대 · 16~19층 호스텔.</p></div>
   </div>
   <div class="drift-wrap" style="margin-top:46px"><div class="drift-r serif" style="font-size:calc(44px*var(--k));color:rgba(18,18,18,.8)">GASAN MEDICAL·AI BUILDING · GB LABS · GASAN MEDICAL·AI BUILDING · GB LABS · GASAN MEDICAL·AI BUILDING · GB LABS · </div></div>
 </section>
@@ -404,7 +410,7 @@ footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;colo
   <div class="blob" style="left:-60px;top:40px"></div><div class="blob" style="right:-80px;bottom:20px;animation-direction:reverse;animation-duration:14s"></div>
   <p class="kick" style="color:var(--coral);position:relative">GASAN · GB LABS</p>
   <h2 style="position:relative">Care below.<br><em>Discovery above.</em></h2>
-  <p style="position:relative">진료는 1층에서, 연구는 위층에서.<br>한 건물에서 이어지는 의료 AI의 첫 거점.</p>
+  <p style="position:relative">진료는 3층에서, 연구는 위층에서.<br>한 건물에서 이어지는 의료 AI의 첫 거점.</p>
   <a href="#intro" class="pill glass" style="position:relative;display:inline-block;margin-top:28px;padding:12px 20px;color:#f3f3ec;text-decoration:none;font-size:13px;font-weight:700">처음으로 ↑</a>
 </section>
 
@@ -463,8 +469,8 @@ function spDraw(now){const W=cv.clientWidth,H=cv.clientHeight,dpr=Math.min(2,dev
 // ---------- 3D 여정 문구 ----------
 const CH=[{n:'01',en:'THE ARRIVAL',k:'01 / IMAGINE A NEW CHAPTER',a:'Form.',b:'In motion.',d:'선이 펼쳐지고, 층이 올라가고.\nG밸리 한가운데 ㄷ자 빌딩이 모습을 갖춥니다.'},
 {n:'02',en:'THE REVEAL',k:'02 / A DIFFERENT PERSPECTIVE',a:'See it',b:'differently.',d:'층별면적표 치수 그대로.\n지하 4층 · 지상 20층, 연면적 63,249㎡.'},
-{n:'03',en:'THE LAYERS',k:'03 / OPEN UP THE POSSIBILITIES',a:'Room for',b:'new work.',d:'층을 펼치면 쓰임이 보입니다.\n1층 클리닉 · 5~7층 데이터센터 · 8~10층 GB LABS.'},
-{n:'04',en:'THE HORIZON',k:'04 / ONE BUILDING',a:'One building.',b:'Wider care.',d:'진료는 1층에서,\n연구는 위층에서.'}];
+{n:'03',en:'THE LAYERS',k:'03 / OPEN UP THE POSSIBILITIES',a:'Room for',b:'new work.',d:'층을 펼치면 쓰임이 보입니다.\n3층 클리닉센터 · 5~7층 데이터센터 · 8~10층 GB LABS.'},
+{n:'04',en:'THE HORIZON',k:'04 / ONE BUILDING',a:'One building.',b:'Wider care.',d:'진료는 3층에서,\n연구는 위층에서.'}];
 const jt=$('#jt'),story=$('#story');let curCh=-1;window.__jp=0;
 function jText(){const r=story.getBoundingClientRect(),p=cl(-r.top/Math.max(1,story.offsetHeight-innerHeight));window.__jp=p;const ch=p<.25?0:p<.5?1:p<.8?2:3;
  if(ch!==curCh){curCh=ch;const c=CH[ch];jt.innerHTML=`<div class="c"><p class="kick" style="color:var(--sub)">${c.k}</p><h3>${c.a}<br><em>${c.b}</em></h3><p class="d">${c.d}</p></div>`;$('#jnum').textContent=c.n;$('#jen').textContent=c.en;}
@@ -472,7 +478,7 @@ function jText(){const r=story.getBoundingClientRect(),p=cl(-r.top/Math.max(1,st
 // ---------- 숫자 ----------
 const K=(n)=>`<span class="roll" data-v="${n}">${String(n).split('').map(d=>`<span><span>${Array.from({length:20},(_,k)=>`<span>${k%10}</span>`).join('')}</span></span>`).join('')}</span>`;
 const ART={
-ring:()=>{let t='<svg viewBox="-60 -60 120 120"><circle r="34" fill="none" stroke="#121212" stroke-opacity=".25" stroke-width=".8"/>';for(let i=0;i<24;i++){const f=i-3;const a=i/24*Math.PI*2-Math.PI/2;const c=f>=5&&f<=7?'#2b7de9':f>=8&&f<=10?'#e3262f':f>=11&&f<=17?'#9aa9b6':f===1?'#c9a24a':i<4?'#cfd6dc':'#121212';const r1=c==='#121212'||c==='#9aa9ae'?48:54;t+=`<line class="tk" x1="${Math.cos(a)*39}" y1="${Math.sin(a)*39}" x2="${Math.cos(a)*r1}" y2="${Math.sin(a)*r1}" stroke="${c}" stroke-width="3" stroke-linecap="round" style="transition-delay:${(.3+i*.04).toFixed(2)}s"/>`;}return t+'<text y="-4" text-anchor="middle" font-size="8" font-weight="800">24개 층</text><text y="8" text-anchor="middle" font-size="6.5" font-weight="700">B4 – 20F</text></svg>';},
+ring:()=>{let t='<svg viewBox="-60 -60 120 120"><circle r="34" fill="none" stroke="#121212" stroke-opacity=".25" stroke-width=".8"/>';for(let i=0;i<24;i++){const f=i-3;const a=i/24*Math.PI*2-Math.PI/2;const c=f>=5&&f<=7?'#2b7de9':f>=8&&f<=10?'#e3262f':f>=11&&f<=13?'#9aa9b6':f>=16&&f<=19?'#f0a043':f===3?'#c9a24a':i<4?'#cfd6dc':'#121212';const r1=c==='#121212'||c==='#9aa9ae'?48:54;t+=`<line class="tk" x1="${Math.cos(a)*39}" y1="${Math.sin(a)*39}" x2="${Math.cos(a)*r1}" y2="${Math.sin(a)*r1}" stroke="${c}" stroke-width="3" stroke-linecap="round" style="transition-delay:${(.3+i*.04).toFixed(2)}s"/>`;}return t+'<text y="-4" text-anchor="middle" font-size="8" font-weight="800">24개 층</text><text y="8" text-anchor="middle" font-size="6.5" font-weight="700">B4 – 20F</text></svg>';},
 dots:()=>{let t='<svg viewBox="0 0 100 80">';for(let i=0;i<80;i++){const cx=6+(i%10)*9.8,cy=6+Math.floor(i/10)*9.8;const c=i<14?'#2b7de9':'#ffffff';t+=`<circle class="dt" cx="${cx}" cy="${cy}" r="3.4" fill="${c}" ${i>=14?'stroke="#121212" stroke-opacity=".25" stroke-width=".5"':''} style="transform-box:fill-box;transform-origin:center;transition-delay:${(.2+i*.02).toFixed(2)}s"/>`;}return t+'</svg>';},
 map:()=>'<svg viewBox="0 0 120 112"><path class="ln1" d="M-4 30 C 30 40, 50 60, 60 74 S 90 100, 124 106" fill="none" stroke="#2b58a8" stroke-width="4" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path class="ln1" d="M10 -4 C 30 30, 46 56, 60 74 S 96 80, 124 70" fill="none" stroke="#5f8a3c" stroke-width="4" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><text x="2" y="24" font-size="6" font-weight="800" fill="#2b58a8">1호선</text><text x="18" y="8" font-size="6" font-weight="800" fill="#5f8a3c">7호선</text>'+[[92,40,'대상 건물'],[106,22,'IDC']].map(([x,y,n],i)=>`<line class="ln2" x1="60" y1="74" x2="${x}" y2="${y}" stroke="#121212" stroke-width=".8" stroke-dasharray="2 2"/><g class="pin" style="transform-box:fill-box;transform-origin:50% 100%;transition-delay:${1.2+i*.2}s"><path d="M${x} ${y} l-4.5 -7 a5.4 5.4 0 1 1 9 0 z" fill="#121212"/><circle cx="${x}" cy="${y-9.4}" r="2" fill="#eaf4ef"/><text x="${x}" y="${y+8}" text-anchor="middle" font-size="6.5" font-weight="800">${n}</text></g>`).join('')+'<circle cx="60" cy="74" r="10" fill="none" stroke="#fff8ea" stroke-width="1.2" class="ping"/><circle cx="60" cy="74" r="5" fill="#fff8ea" stroke="#121212" stroke-width="1.6"/><text x="60" y="92" text-anchor="middle" font-size="6.5" font-weight="800">가산디지털단지역</text></svg>',
 cal:()=>{let t='<svg viewBox="-60 -60 120 120"><circle r="46" fill="none" stroke="#121212" stroke-width="1.4"/>';for(let m=0;m<12;m++){const a=m/12*Math.PI*2-Math.PI/2+.08,b=a+Math.PI*2/12-.16;const on=m<7;t+=`<path class="mo" d="M${Math.cos(a)*40} ${Math.sin(a)*40} A40 40 0 0 1 ${Math.cos(b)*40} ${Math.sin(b)*40}" fill="none" stroke="${on?'#121212':'#fff8ea'}" stroke-width="7" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" style="transition-delay:${(.3+m*.1).toFixed(2)}s"/>`;}return t+'<text y="-2" text-anchor="middle" font-size="9" font-weight="800">2024</text><text y="10" text-anchor="middle" font-size="6.5" font-weight="700">7월 준공</text></svg>';}};
@@ -487,10 +493,10 @@ function stats(){const vh=innerHeight;srows=srows.filter(r=>{const b=r.getBoundi
 
 // 임대 수익 그림
 {const v=$('#l2svg');let t='';const X=40,W=130,G=305,H=13.5;
-for(let i=1;i<=20;i++){const y=G-i*H;const z=i===1?'c':(i>=5&&i<=7)?'d':(i>=8&&i<=10)?'g':(i>=11&&i<=17)?'l':'n';const col={c:'#c9a24a',d:'#2b7de9',g:'#e3262f',l:'#7d8b98',n:'#eef1f4'}[z];
+for(let i=1;i<=20;i++){const y=G-i*H;const z=i===3?'c':(i>=5&&i<=7)?'d':(i>=8&&i<=10)?'g':(i>=11&&i<=13)?'l':(i>=16&&i<=19)?'h':'n';const col={c:'#c9a24a',d:'#2b7de9',g:'#e3262f',l:'#7d8b98',h:'#f0a043',n:'#eef1f4'}[z];
  t+=`<rect class="lf" x="${X}" y="${y+1}" width="${W}" height="${H-2}" fill="${col}" stroke="#121212" stroke-width="${z==='n'?0:.6}" style="transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform .6s cubic-bezier(.22,.8,.2,1) ${(i*.05).toFixed(2)}s"/>`;}
 t+=`<line x1="14" y1="${G}" x2="350" y2="${G}" stroke="#121212" stroke-width="1.5"/>`;
-[[14,'11–17F','빅데이터 기업 임대 · 임대료','#5d6b78'],[9,'8–10F','GB LABS · 연구·라이선스','#e3262f'],[6,'5–7F','데이터센터 · 사용료','#2b7de9'],[1,'1F','클리닉 · 진료·검진','#a8821f']].forEach(([f,a,b,c],i)=>{const y=G-f*H+H/2;const d=`M${X+W+4} ${y} H346`;t+=`<path d="${d}" stroke="${c}" stroke-width="1.2" stroke-dasharray="3 4"/><text x="${X+W+10}" y="${y-5}" font-size="12" font-weight="900" fill="${c}" font-family="Instrument Serif,serif">${a}</text><text x="${X+W+10}" y="${y+14}" font-size="10.5" font-weight="700" fill="#24313f">${b}</text>`;for(let k=0;k<2;k++)t+=`<circle r="3.2" fill="${c}"><animateMotion dur="2.2s" begin="${(i*.3+k*1.1).toFixed(1)}s" repeatCount="indefinite" path="${d}"/></circle>`;});
+[[17.5,'16–19F','호스텔 · 객실 수입','#d98a2b'],[12,'11–13F','연구소 · 사옥 임대료','#5d6b78'],[9,'8–10F','GB LABS · 연구·라이선스','#e3262f'],[6,'5–7F','데이터센터 · 사용료','#2b7de9'],[3,'3F','클리닉센터 · 임대료','#a8821f']].forEach(([f,a,b,c],i)=>{const y=G-f*H+H/2;const d=`M${X+W+4} ${y} H346`;t+=`<path d="${d}" stroke="${c}" stroke-width="1.2" stroke-dasharray="3 4"/><text x="${X+W+10}" y="${y-5}" font-size="12" font-weight="900" fill="${c}" font-family="Instrument Serif,serif">${a}</text><text x="${X+W+10}" y="${y+14}" font-size="10.5" font-weight="700" fill="#24313f">${b}</text>`;for(let k=0;k<2;k++)t+=`<circle r="3.2" fill="${c}"><animateMotion dur="2.2s" begin="${(i*.3+k*1.1).toFixed(1)}s" repeatCount="indefinite" path="${d}"/></circle>`;});
 t+=`<text x="${X-6}" y="${G-20*H+10}" font-size="10" font-weight="700" fill="#24313f" text-anchor="end">20F</text><text x="${X-6}" y="${G-H+10}" font-size="10" font-weight="700" fill="#24313f" text-anchor="end">1F</text>`;
 v.innerHTML=t+'<style>#lease2.in .lf{transform:scaleX(1)!important}</style>';}
 // 영상 카드: 보이는 것만 재생
@@ -525,7 +531,7 @@ if(R){const dpr=Math.min(devicePixelRatio||1,2);R.setPixelRatio(dpr);R.setClearC
 const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.5,900),root=new THREE.Group();scene.add(root);
 const CX=35,CZ=18,res=new THREE.Vector2(1,1),mats=[];
 const mk=(segs,w,glow,op)=>{const g=new LineSegmentsGeometry();g.setPositions(segs.map((v,i)=>i%3===0?v-CX:i%3===2?v-CZ:v));const m=new LineMaterial({color:0x9cc2ff,linewidth:w,transparent:true,opacity:op??(glow?.16:.95),depthWrite:false,blending:glow?THREE.AdditiveBlending:THREE.NormalBlending});m.resolution=res;mats.push(m);return new LineSegments2(g,m)};
-const FCOL=k=>k>=5&&k<=7?'#5aa2ff':k>=8&&k<=10?'#ff5560':k>=11&&k<=17?'#c3ccd4':k===1?'#fff8ea':null;
+const FCOL=k=>k>=5&&k<=7?'#5aa2ff':k>=8&&k<=10?'#ff5560':k>=11&&k<=13?'#c3ccd4':k>=16&&k<=19?'#ffb35c':k===3?'#fff8ea':null;
 const floors=[];const fs=fseg();
 for(let k=1;k<=TOP;k++){const g=new THREE.Group();g.add(mk(fs,1.2,false));g.add(mk(fs,5,true));const fills=[];const c=FCOL(k);
  if(c){for(const b of[LW,RW,CB]){const[x0,z0,x1,z1]=b;const m=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0-.4,z1-z0-.4),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.set((x0+x1)/2-CX,.08,(z0+z1)/2-CZ);g.add(m);fills.push(m)}}
