@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>가산 메디컬·AI 빌딩 | 인수 사업계획서</title>
+<style>
+:root{color-scheme:dark;--ink:#101b2a;--gold:#d5b881;--ivory:#faf3e3}*{box-sizing:border-box}body{margin:0;min-height:100dvh;color:var(--ivory);background:radial-gradient(ellipse at 48% 5%,#243448 0,var(--ink) 52%,#090f18 100%);font:15px/1.45 system-ui,sans-serif}header,main{width:min(1440px,100% - 36px);margin:auto}header{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:22px 0 17px;border-bottom:1px solid #b59a6150}header strong{font-size:clamp(17px,2.7vw,26px);font-weight:650}header a{color:var(--gold);text-decoration:none;white-space:nowrap}nav,.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0}button{font:inherit;background:#172537;color:var(--ivory);border:1px solid #a98d5658;border-radius:7px;padding:7px 12px;cursor:pointer}button:hover,button[aria-current=true]{color:#fff5d9;border-color:var(--gold);background:#5b492b}button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}button:disabled{opacity:.4;cursor:default}.stage{position:relative;display:grid;place-items:center;isolation:isolate;border:1px solid #d5b8816b;border-radius:12px;background:#0b1320;overflow:hidden;box-shadow:0 22px 60px #0008;aspect-ratio:841.691/595.446;max-height:74dvh}.stage img{position:absolute;width:100%;height:100%;object-fit:contain}.intro-motion{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}.stage .cover{animation:cover-in .8s ease-out both}@keyframes cover-in{from{opacity:0;transform:scale(1.035)}to{opacity:1;transform:scale(1)}}.stage:has(.cover)::after{content:"";position:absolute;z-index:2;inset:0;pointer-events:none;background:linear-gradient(116deg,transparent 36%,#f7daa51a 50%,transparent 63%);transform:translateX(-110%);animation:cover-light 7s 1.2s infinite}@keyframes cover-light{0%{transform:translateX(-110%)}28%,100%{transform:translateX(110%)}}.progress{height:3px;background:#ffffff1f;margin-top:12px}.progress span{height:100%;display:block;background:linear-gradient(90deg,#8b672f,#ecd4a1);transition:width .42s ease}.controls{justify-content:space-between}.stepper,.display{display:flex;align-items:center;gap:8px}.stepper input{width:46px;background:#101b2a;border:1px solid #a98d5658;color:var(--ivory);padding:6px 2px;text-align:center;border-radius:5px}.status{color:#e4ceb0;min-height:1.4em}main:fullscreen{width:100%;padding:0 16px;background:#101b2a;overflow:auto}main:fullscreen .stage{max-height:80dvh}@media(max-width:600px){header,main{width:calc(100% - 24px)}header{padding-top:14px}nav{flex-wrap:nowrap;overflow:auto}nav button{flex:none;font-size:13px}.controls button{padding:7px 8px}.stage{border-radius:8px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><strong>가산 메디컬·AI 빌딩 인수 사업계획서</strong><a href="/gasan/m4r9">사이트로 돌아가기</a></header>
+<main id="reader"><nav aria-label="목차" id="chapters"></nav>
+<div class="stage" id="stage"><img class="cover" id="slide" src="brief-01.webp" alt="사업계획서 1쪽"></div>
+<div class="progress" aria-hidden="true"><span id="progress"></span></div>
+<div class="controls"><div class="stepper"><button id="prev" aria-label="이전 장">←</button><input id="page" type="number" min="1" max="53" value="1" aria-label="페이지 번호"><span>/ 53</span><button id="next" aria-label="다음 장">→</button></div><div class="display"><button id="replay">도입 다시 보기</button><button id="play" aria-pressed="false">자동 넘김</button><button id="full">전체화면</button></div></div>
+<p class="status" id="status" role="status"></p></main>
+<script>
+const sections=[[1,'표지'],[5,'자산'],[14,'시장'],[22,'층별 구성'],[34,'파트너·재무'],[44,'실행'],[48,'부록']];
+const by=id=>document.getElementById(id), total=53;
+const stage=by('stage'), tabs=by('chapters'), page=by('page');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+let index=1, intent=1, timer, slide=by('slide');
+const introAreas={
+  1:[[0,0,430,155,0,-12,0],[0,155,430,130,120,-18,0],[0,285,430,110,260,0,16],[0,395,430,312,400,0,19],[430,0,189,707,0,24,0],[619,0,185,707,130,24,0],[804,0,196,707,260,24,0]],
+  2:[[0,0,350,369,0,0,18],[350,0,300,369,130,0,18],[650,0,350,369,260,0,18],[0,369,1000,338,405,-18,0]],
+  3:[[0,0,655,175,0,-16,0],[0,175,655,532,290,0,18],[655,0,345,707,100,25,0]]
+};
+let intro;
+function animateIntro(img,n){
+  intro?.remove();
+  if(reduced.matches||!introAreas[n]||!img.animate)return;
+  const ns='http://www.w3.org/2000/svg';
+  const make=(tag,attrs)=>{const el=document.createElementNS(ns,tag);for(const [key,val] of Object.entries(attrs))el.setAttribute(key,val);return el};
+  const sheet=make('svg',{viewBox:'0 0 1000 707',class:'intro-motion','aria-hidden':'true'});
+  sheet.append(make('rect',{width:1000,height:707,fill:n===3?'#f8f5ee':'#f4e8e0'}));
+  intro=sheet;
+  const running=[];
+  introAreas[n].forEach(([x,y,w,h,delay,dx,dy],i)=>{
+    const id='gasan-clip-'+i;
+    const clip=make('clipPath',{id});
+    clip.append(make('rect',{x,y,width:w,height:h}));
+    sheet.append(clip);
+    const group=make('g',{'clip-path':'url(#'+id+')'});
+    const fragment=make('image',{href:img.currentSrc||img.src,width:1000,height:707,preserveAspectRatio:'none'});
+    group.append(fragment);sheet.append(group);
+    running.push(fragment.animate([{opacity:0,transform:'translate('+dx+'px,'+dy+'px)'},{opacity:1,transform:'translate(0,0)'}],{duration:780,delay,easing:'cubic-bezier(.18,.74,.23,1)',fill:'both'}).finished.catch(()=>{}));
+  });
+  stage.append(sheet);
+  Promise.all(running).then(()=>{sheet.remove();if(intro===sheet)intro=null});
+}
+
+const source=n=>'brief-'+String(n).padStart(2,'0')+'.webp';
+for(const [n,label] of sections){const el=document.createElement('button');el.textContent=label;el.dataset.page=n;el.onclick=()=>show(n);tabs.append(el)}
+function sync(){page.value=index;by('replay').hidden=index>3||reduced.matches;by('prev').disabled=index===1;by('next').disabled=index===total;by('progress').style.width=(100*index/total)+'%';const active=sections.filter(([n])=>n<=index).at(-1)[0];for(const el of tabs.children)el.setAttribute('aria-current',String(Number(el.dataset.page)===active))}
+async function show(n){n=Math.max(1,Math.min(total,Math.trunc(n)||index));intent=n;if(n===index){sync();return}const img=new Image();img.alt='사업계획서 '+n+'쪽';img.src=source(n);try{await img.decode()}catch{if(intent===n)by('status').textContent='페이지를 불러오지 못했습니다.';return}if(intent!==n)return;intro?.remove();const old=slide, direction=n>index?1:-1;if(n===1)img.className="cover";stage.append(img);slide=img;index=n;sync();by('status').textContent='';if(introAreas[n]&&!reduced.matches){old.remove();animateIntro(img,n)}else if(!reduced.matches&&img.animate){img.animate([{opacity:0,transform:'translateX('+direction*2+'%) scale(1.025)'},{opacity:1,transform:'translateX(0) scale(1)'}],{duration:420,easing:'cubic-bezier(.2,.7,.2,1)'}).finished.then(()=>old.remove(),()=>old.remove())}else old.remove();if(n<total){const preload=new Image();preload.src=source(n+1)}}
+by('prev').onclick=()=>show(intent-1);by('next').onclick=()=>show(intent+1);page.onchange=()=>show(Number(page.value));
+document.addEventListener('keydown',e=>{if(e.target===page)return;if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();show(intent+(e.key==='ArrowLeft'?-1:1))}});
+let x=0;stage.addEventListener('touchstart',e=>{x=e.touches[0].clientX},{passive:true});stage.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x;if(Math.abs(d)>60)show(intent+(d<0?1:-1))},{passive:true});
+by('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await by('reader').requestFullscreen()}catch{by('status').textContent='이 브라우저에서는 전체화면을 사용할 수 없습니다.'}};
+if(!by('reader').requestFullscreen)by('full').hidden=true;
+by('play').onclick=()=>{const btn=by('play');if(timer){clearInterval(timer);timer=undefined}else timer=setInterval(()=>show(index===total?1:index+1),9000);btn.setAttribute('aria-pressed',String(Boolean(timer)));btn.textContent=timer?'자동 넘김 정지':'자동 넘김'};
+by('replay').onclick=()=>animateIntro(slide,index);
+sync();
+slide.decode().then(()=>{if(index===1&&intent===1)animateIntro(slide,1)}).catch(()=>{});
+</script></body></html>
