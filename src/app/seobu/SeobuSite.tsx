@@ -339,6 +339,8 @@ export default function SeobuSite() {
   const [menu, setMenu] = useState(false);
   const [active, setActive] = useState("home");
   const [future, setFuture] = useState(true);
+  const [pastel, setPastel] = useState(false);
+  useEffect(() => { setPastel(new URLSearchParams(window.location.search).get("tone") === "pastel"); }, []);
   const [space, setSpace] = useState(0);
   const [floor, setFloor] = useState(0);
   const [cmp, setCmp] = useState(true);
@@ -371,7 +373,7 @@ export default function SeobuSite() {
   const sp = SPACES[space];
 
   return (
-    <div className="tk">
+    <div className={`tk${pastel ? " pastel" : ""}`}>
       <div className="relative mx-auto w-full max-w-[480px]">
         <div className="px-4 py-1.5 text-center text-[11px]" style={{ background: "var(--tk-deep)", color: "#a9c1bd" }}>임시 홈페이지 · 수치와 일정은 최신 자료와 대조 후 확정됩니다</div>
 

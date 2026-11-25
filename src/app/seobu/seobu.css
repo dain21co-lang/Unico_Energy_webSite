@@ -24,3 +24,10 @@
 @keyframes tk-drift { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
 .tk .tk-drift { animation: tk-drift 38s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .tk .tk-drift { animation: none; } }
+
+/* 파스텔 시안 (?tone=pastel) — 밝은 섹션만 파스텔, 영상이 들어간 어두운 섹션은 그대로 */
+.tk.pastel { background: #fbf7f2; --tk-sand: #eaf2ef; --tk-line: #e8e0d6; }
+.tk.pastel #about, .tk.pastel #station, .tk.pastel #history, .tk.pastel #contact { background: #fbf7f2; }
+.tk.pastel #plan { background: #e9f1ee !important; }
+.tk.pastel #media { background: #f5ebe6 !important; }
+.tk.pastel header { background: rgba(251,247,242,.95) !important; }
