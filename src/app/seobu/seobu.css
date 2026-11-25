@@ -11,6 +11,9 @@
   --tk-coral2: #f19a74;
   --tk-mint: #8fd3bf;
   --tk-glow: #ffcf86;
+  --tk-deep0: #0a201e; --tk-glowbg: #1d4a46; --tk-ink0: #081a18; --tk-dline: #24504b;
+  --tk-mute: #a9c1bd; --tk-mute2: #7f9e99; --tk-mute3: #8fb0ab; --tk-mute4: #5f7e79; --tk-pale: #c3d6d2; --tk-tint: #eef6f3;
+  --tk-ov: 10,32,30; --tk-ov2: 8,26,24;
   background: #fff;
   color: var(--tk-ink);
   min-height: 100vh;
@@ -31,3 +34,11 @@
 .tk.pastel #plan { background: #e9f1ee !important; }
 .tk.pastel #media { background: #f5ebe6 !important; }
 .tk.pastel header { background: rgba(251,247,242,.95) !important; }
+
+/* 청색 시안 (?tone=blue) — 짙은 청록을 미드나잇 블루로, 금빛·코랄 포인트는 유지 */
+.tk.blue {
+  --tk-deep: #0f2240; --tk-deep2: #16305a; --tk-deep0: #0a1730; --tk-glowbg: #1d3a6b; --tk-ink0: #08122a; --tk-dline: #233e68;
+  --tk-mute: #a9bcd8; --tk-mute2: #7f93b5; --tk-mute3: #8fa4c4; --tk-mute4: #5d7194; --tk-pale: #c6d4ea; --tk-tint: #edf2fa;
+  --tk-mint: #9ec4f2; --tk-sand: #eef2f8; --tk-line: #e0e5ee; --tk-char: #364152; --tk-sub: #69758a; --tk-ink: #151d2b;
+  --tk-ov: 10,23,48; --tk-ov2: 8,18,42;
+}

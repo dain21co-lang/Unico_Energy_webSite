@@ -64,7 +64,7 @@ function Head({ no, en, children, sub, dark = false }: { no: string; en: string;
         </div>
       </Rise>
       <h2 className="text-[26px] font-bold leading-[1.38] tracking-tight" style={{ color: dark ? "#fff" : "var(--tk-deep)" }}><Lift>{children}</Lift></h2>
-      {sub && <Rise delay={0.15}><p className="mt-3 text-[14.5px] leading-[1.8]" style={{ color: dark ? "#a9c1bd" : "var(--tk-sub)" }}>{sub}</p></Rise>}
+      {sub && <Rise delay={0.15}><p className="mt-3 text-[14.5px] leading-[1.8]" style={{ color: dark ? "var(--tk-mute)" : "var(--tk-sub)" }}>{sub}</p></Rise>}
     </div>
   );
 }
@@ -177,7 +177,7 @@ function HeroReel({ onStart }: { onStart: () => void }) {
   }, [i]);
   const h = HERO[i];
   return (
-    <section id="home" className="relative h-[86dvh] min-h-[600px] overflow-hidden" style={{ background: "#0a201e" }}>
+    <section id="home" className="relative h-[86dvh] min-h-[600px] overflow-hidden" style={{ background: "var(--tk-deep0)" }}>
       {HERO.map((x, k) => (
         <motion.div key={x.v} className="absolute inset-0" initial={false} animate={{ clipPath: k === i ? "inset(0% 0% 0% 0%)" : k < i ? "inset(0% 100% 0% 0%)" : "inset(0% 0% 0% 100%)" }} transition={{ duration: 0.9, ease: EASE }} style={{ zIndex: k === i ? 2 : 1 }}>
           <video ref={(el) => { refs.current[k] = el; }} src={VID(`${x.v}.mp4`)} poster={VID(`${x.v}.webp`)} muted playsInline preload={k === 0 ? "auto" : "metadata"} aria-hidden="true"
@@ -185,7 +185,7 @@ function HeroReel({ onStart }: { onStart: () => void }) {
             onEnded={() => { if (k === i) setI((i + 1) % HERO.length); }} className="h-full w-full object-cover" />
         </motion.div>
       ))}
-      <div className="pointer-events-none absolute inset-0 z-[3]" style={{ background: "linear-gradient(180deg,rgba(10,32,30,.78) 0%,rgba(10,32,30,.15) 34%,rgba(10,32,30,0) 55%,rgba(10,32,30,.7) 82%,#0a201e 100%)" }} />
+      <div className="pointer-events-none absolute inset-0 z-[3]" style={{ background: "linear-gradient(180deg,rgba(var(--tk-ov),.78) 0%,rgba(var(--tk-ov),.15) 34%,rgba(var(--tk-ov),0) 55%,rgba(var(--tk-ov),.7) 82%,var(--tk-deep0) 100%)" }} />
       <span className="absolute right-3 top-3 z-[4] bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 영상 · 예시</span>
       <div className="relative z-[4] px-6 pt-10 text-white">
         <div className="tk-en text-[11px] font-semibold" style={{ color: "var(--tk-mint)" }}>SEOUL SEOBU CENTRAL MARKET</div>
@@ -193,7 +193,7 @@ function HeroReel({ onStart }: { onStart: () => void }) {
           <motion.div key={h.no} initial={{ y: 24 }} animate={{ y: 0 }} exit={{ y: -16 }} transition={{ duration: 0.6, ease: EASE }}>
             <div className="tk-en mt-4 text-[10.5px] font-bold" style={{ color: "var(--tk-coral2)" }}>{h.no} · {h.en}</div>
             <h1 className="mt-2 text-[34px] font-bold leading-[1.22] tracking-tight">{h.a}<br /><span style={{ color: "var(--tk-glow)" }}>{h.b}</span></h1>
-            <p className="mt-3 text-[14.5px] leading-[1.7]" style={{ color: "#c3d6d2" }}>{h.d}</p>
+            <p className="mt-3 text-[14.5px] leading-[1.7]" style={{ color: "var(--tk-pale)" }}>{h.d}</p>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -204,8 +204,8 @@ function HeroReel({ onStart }: { onStart: () => void }) {
               <div className="h-[2px] w-full" style={{ background: "rgba(255,255,255,.25)" }}>
                 <div className="h-full origin-left" style={{ background: "var(--tk-coral)", transform: `scaleX(${k < i ? 1 : k === i ? p : 0})` }} />
               </div>
-              <div className="tk-en mt-2 text-[10px] font-bold" style={{ color: k === i ? "#fff" : "#7f9e99" }}>{x.no}</div>
-              <div className="text-[12px] font-bold" style={{ color: k === i ? "#fff" : "#7f9e99" }}>{x.tab}</div>
+              <div className="tk-en mt-2 text-[10px] font-bold" style={{ color: k === i ? "#fff" : "var(--tk-mute2)" }}>{x.no}</div>
+              <div className="text-[12px] font-bold" style={{ color: k === i ? "#fff" : "var(--tk-mute2)" }}>{x.tab}</div>
             </button>
           ))}
         </div>
@@ -256,14 +256,14 @@ function OneTake() {
       </div>
       <div className="tk-noscroll mt-4 flex gap-1.5 overflow-x-auto px-6">
         {CHAPTERS.map(([s, l], k) => (
-          <button key={s} onClick={() => seek(s)} className="relative shrink-0 border px-3 py-2 text-left" style={{ borderColor: k === cur ? "var(--tk-coral)" : "#24504b" }}>
+          <button key={s} onClick={() => seek(s)} className="relative shrink-0 border px-3 py-2 text-left" style={{ borderColor: k === cur ? "var(--tk-coral)" : "var(--tk-dline)" }}>
             {k === cur && <motion.span layoutId="sb-ch" className="absolute inset-0" style={{ background: "var(--tk-coral)" }} transition={{ duration: 0.3, ease: EASE }} />}
-            <span className="tk-en relative z-10 block text-[9.5px] font-bold" style={{ color: k === cur ? "#ffe3d6" : "#7f9e99" }}>{mmss(s)}</span>
+            <span className="tk-en relative z-10 block text-[9.5px] font-bold" style={{ color: k === cur ? "#ffe3d6" : "var(--tk-mute2)" }}>{mmss(s)}</span>
             <span className="relative z-10 block text-[12.5px] font-bold" style={{ color: "#fff" }}>{l}</span>
           </button>
         ))}
       </div>
-      <p className="mt-3 px-6 text-[11px] leading-[1.6]" style={{ color: "#7f9e99" }}>버튼을 누르면 그 장면으로 이동합니다. 화면을 누르면 멈춤·재생. AI로 만든 예시 영상으로 실제 설계와 다를 수 있습니다.</p>
+      <p className="mt-3 px-6 text-[11px] leading-[1.6]" style={{ color: "var(--tk-mute2)" }}>버튼을 누르면 그 장면으로 이동합니다. 화면을 누르면 멈춤·재생. AI로 만든 예시 영상으로 실제 설계와 다를 수 있습니다.</p>
     </section>
   );
 }
@@ -275,7 +275,7 @@ function StationMap() {
   const dr = (delay: number, dur = 1.4) => ({ initial: { pathLength: 0 }, animate: { pathLength: seen ? 1 : 0 }, transition: { duration: dur, delay, ease: EASE } });
   const pop = (delay: number) => ({ initial: { scale: 0 }, animate: { scale: seen ? 1 : 0 }, transition: { duration: 0.6, delay, ease: EASE } });
   return (
-    <div ref={ref} className="relative overflow-hidden" style={{ background: "linear-gradient(160deg,#143a37,#0a201e)" }}>
+    <div ref={ref} className="relative overflow-hidden" style={{ background: "linear-gradient(160deg,var(--tk-deep2),var(--tk-deep0))" }}>
       <svg viewBox="0 0 360 440" className="block w-full" role="img" aria-label="증산역·새절역과 사업지 위치 개념도">
         <defs><pattern id="sbg" width="18" height="18" patternUnits="userSpaceOnUse"><path d="M18 0H0V18" fill="none" stroke="#ffffff10" /></pattern></defs>
         <rect width="360" height="440" fill="url(#sbg)" />
@@ -325,10 +325,10 @@ function ClipCard({ v, en, t, s }: { v: string; en: string; t: string; s: string
     <div ref={box} className="w-[74%] shrink-0 snap-center">
       <div className="relative overflow-hidden bg-black" style={{ aspectRatio: "9 / 14" }}>
         <video ref={ref} src={near ? VID(`${v}.mp4`) : undefined} poster={VID(`${v}.webp`)} muted loop playsInline preload="none" className="h-full w-full object-cover" />
-        <div className="absolute inset-x-0 bottom-0 p-3" style={{ background: "linear-gradient(0deg,rgba(8,26,24,.9),rgba(8,26,24,0))" }}>
+        <div className="absolute inset-x-0 bottom-0 p-3" style={{ background: "linear-gradient(0deg,rgba(var(--tk-ov2),.9),rgba(var(--tk-ov2),0))" }}>
           <div className="tk-en text-[9.5px] font-bold" style={{ color: "var(--tk-coral2)" }}>{en} · AI 예시</div>
           <div className="text-[17px] font-bold text-white">{t}</div>
-          <p className="mt-0.5 text-[12px] leading-[1.5]" style={{ color: "#c3d6d2" }}>{s}</p>
+          <p className="mt-0.5 text-[12px] leading-[1.5]" style={{ color: "var(--tk-pale)" }}>{s}</p>
         </div>
       </div>
     </div>
@@ -339,8 +339,8 @@ export default function SeobuSite() {
   const [menu, setMenu] = useState(false);
   const [active, setActive] = useState("home");
   const [future, setFuture] = useState(true);
-  const [pastel, setPastel] = useState(false);
-  useEffect(() => { setPastel(new URLSearchParams(window.location.search).get("tone") === "pastel"); }, []);
+  const [tone, setTone] = useState("");
+  useEffect(() => { setTone(new URLSearchParams(window.location.search).get("tone") ?? ""); }, []);
   const [space, setSpace] = useState(0);
   const [floor, setFloor] = useState(0);
   const [cmp, setCmp] = useState(true);
@@ -373,9 +373,9 @@ export default function SeobuSite() {
   const sp = SPACES[space];
 
   return (
-    <div className={`tk${pastel ? " pastel" : ""}`}>
+    <div className={`tk${tone === "pastel" || tone === "blue" ? ` ${tone}` : ""}`}>
       <div className="relative mx-auto w-full max-w-[480px]">
-        <div className="px-4 py-1.5 text-center text-[11px]" style={{ background: "var(--tk-deep)", color: "#a9c1bd" }}>임시 홈페이지 · 수치와 일정은 최신 자료와 대조 후 확정됩니다</div>
+        <div className="px-4 py-1.5 text-center text-[11px]" style={{ background: "var(--tk-deep)", color: "var(--tk-mute)" }}>임시 홈페이지 · 수치와 일정은 최신 자료와 대조 후 확정됩니다</div>
 
         {/* 헤더 */}
         <header className="sticky top-0 z-40 border-b" style={{ background: "rgba(255,255,255,.95)", borderColor: "var(--tk-line)", backdropFilter: "blur(10px)" }}>
@@ -411,13 +411,13 @@ export default function SeobuSite() {
               </div>
               <div className="px-6 pt-2 pb-10">
                 {NAV.map(([id, l, ko], i) => (
-                  <motion.button key={id} onClick={() => go(id)} className="flex w-full items-baseline justify-between border-b py-3.5 text-left" style={{ borderColor: "#24504b" }} initial={{ x: 40 }} animate={{ x: 0 }} transition={{ duration: 0.5, delay: 0.08 + i * 0.04, ease: EASE }}>
+                  <motion.button key={id} onClick={() => go(id)} className="flex w-full items-baseline justify-between border-b py-3.5 text-left" style={{ borderColor: "var(--tk-dline)" }} initial={{ x: 40 }} animate={{ x: 0 }} transition={{ duration: 0.5, delay: 0.08 + i * 0.04, ease: EASE }}>
                     <span className="text-[19px] font-bold tracking-wide text-white">{l}</span>
                     <span className="text-[12px]" style={{ color: "var(--tk-mint)" }}>{ko}</span>
                   </motion.button>
                 ))}
                 <button onClick={() => go("contact")} className="mt-7 w-full py-3.5 text-[15px] font-bold text-white" style={{ background: "var(--tk-coral)" }}>사업 문의</button>
-                <p className="mt-6 text-[12px] leading-[1.7]" style={{ color: "#86a39f" }}>{PROJECT.nameKo}<br />{PROJECT.address} ({PROJECT.roadAddress})</p>
+                <p className="mt-6 text-[12px] leading-[1.7]" style={{ color: "var(--tk-mute3)" }}>{PROJECT.nameKo}<br />{PROJECT.address} ({PROJECT.roadAddress})</p>
               </div>
             </motion.div>
           )}
@@ -427,9 +427,9 @@ export default function SeobuSite() {
         <HeroReel onStart={() => go("onetake")} />
 
         {/* 핵심 숫자 */}
-        <section className="grid grid-cols-3 gap-px" style={{ background: "#24504b" }}>
+        <section className="grid grid-cols-3 gap-px" style={{ background: "var(--tk-dline)" }}>
           {[[`B${SCALE.floors.below} / ${SCALE.floors.above}F`, "지하·지상"], [`${SCALE.households.value}세대`, "공동주택"], ["6호선 2역", "증산·새절 사이"]].map(([v, l]) => (
-            <div key={l} className="py-4 text-center" style={{ background: "#0a201e" }}><div className="text-[17px] font-bold text-white">{v}</div><div className="text-[10.5px]" style={{ color: "#8fb0ab" }}>{l}</div></div>
+            <div key={l} className="py-4 text-center" style={{ background: "var(--tk-deep0)" }}><div className="text-[17px] font-bold text-white">{v}</div><div className="text-[10.5px]" style={{ color: "var(--tk-mute3)" }}>{l}</div></div>
           ))}
         </section>
 
@@ -440,7 +440,7 @@ export default function SeobuSite() {
           <Head no="01" en="PROJECT OVERVIEW" sub="오래된 시장을 정비해, 시장이 머물던 자리에 사람이 사는 집과 지역의 상업공간을 함께 짓는 복합개발 사업입니다.">시장이 머무는 곳에,<br />사람이 사는 집을</Head>
           <div className="space-y-2.5">
             {[[I.tool, "RENEWAL", "정비", "노후한 시장 건물을 정비해 안전하고 쾌적한 공간으로."], [I.home, "RESIDENCE", "주거", "공동주택 110세대 공급으로 주거환경을 개선합니다."], [I.shop, "RETAIL", "상업", "시장의 상업기능을 새 판매시설로 잇고 복합화합니다."], [I.users, "COMMUNITY", "지역", "지역 주민과 함께하는 공간으로 동네를 살립니다."]].map(([ic, en, t, d], i) => (
-              <motion.div key={en} className="flex gap-4 p-4" style={{ background: i % 2 ? "#eef6f3" : "var(--tk-sand)" }} initial={{ x: -30 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.06, ease: EASE }}>
+              <motion.div key={en} className="flex gap-4 p-4" style={{ background: i % 2 ? "var(--tk-tint)" : "var(--tk-sand)" }} initial={{ x: -30 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.06, ease: EASE }}>
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center" style={{ background: "var(--tk-deep)", color: "var(--tk-glow)" }}><Icon d={ic} size={22} /></span>
                 <div>
                   <div className="tk-en text-[10px] font-bold" style={{ color: "var(--tk-coral)" }}>{en}</div>
@@ -558,7 +558,7 @@ export default function SeobuSite() {
           <div className="tk-noscroll flex snap-x snap-mandatory gap-3 overflow-x-auto px-6">
             {CLIPS.map((c) => <ClipCard key={c.v} {...c} />)}
           </div>
-          <p className="mt-3 px-6 text-[11px] leading-[1.6]" style={{ color: "#7f9e99" }}>AI로 만든 예시 영상입니다. 실제 공간 구성·마감은 설계에 따라 달라집니다.</p>
+          <p className="mt-3 px-6 text-[11px] leading-[1.6]" style={{ color: "var(--tk-mute2)" }}>AI로 만든 예시 영상입니다. 실제 공간 구성·마감은 설계에 따라 달라집니다.</p>
         </section>
 
         {/* PLAN */}
@@ -638,36 +638,36 @@ export default function SeobuSite() {
         {/* SCALE */}
         <section id="scale" className="px-6 pt-16 pb-14" style={{ background: "var(--tk-deep)" }}>
           <Head no="05" en="PROJECT SCALE" dark sub="기존 검토자료(설계변경안) 기준이며, 최신 인허가 자료와 대조 후 확정됩니다.">숫자로 보는<br />사업 규모</Head>
-          <div className="grid grid-cols-2 gap-px" style={{ background: "#24504b" }}>
+          <div className="grid grid-cols-2 gap-px" style={{ background: "var(--tk-dline)" }}>
             {[[SCALE.site, 1], [SCALE.households, 0], [SCALE.parking, 0], [SCALE.gfa, 1], [SCALE.far, 2], [SCALE.bcr, 2]].map(([s, dec]) => {
               const x = s as { value: number; unit: string; label: string };
               return (
                 <div key={x.label} className="p-4" style={{ background: "var(--tk-deep)" }}>
                   <div className="text-[24px] font-bold text-white"><Roll to={x.value} decimals={dec as number} /><span className="ml-0.5 text-[13px]" style={{ color: "var(--tk-glow)" }}>{x.unit}</span></div>
-                  <div className="text-[11.5px]" style={{ color: "#a9c1bd" }}>{x.label}</div>
+                  <div className="text-[11.5px]" style={{ color: "var(--tk-mute)" }}>{x.label}</div>
                 </div>
               );
             })}
           </div>
-          <div className="mt-8 flex border p-1" style={{ borderColor: "#24504b" }}>
+          <div className="mt-8 flex border p-1" style={{ borderColor: "var(--tk-dline)" }}>
             {[false, true].map((v) => (
               <button key={String(v)} onClick={() => setCmp(v)} className="relative flex-1 py-2 text-[12.5px] font-bold">
                 {cmp === v && <motion.span layoutId="sb-cmp" className="absolute inset-0" style={{ background: "var(--tk-coral)" }} transition={{ duration: 0.35, ease: EASE }} />}
-                <span className="relative z-10" style={{ color: cmp === v ? "#fff" : "#a9c1bd" }}>{v ? "변경안" : "당초 (사업시행인가)"}</span>
+                <span className="relative z-10" style={{ color: cmp === v ? "#fff" : "var(--tk-mute)" }}>{v ? "변경안" : "당초 (사업시행인가)"}</span>
               </button>
             ))}
           </div>
           <div className="mt-2">
             {COMPARE.map((c, i) => (
-              <div key={c.k} className="flex items-center justify-between border-b py-3 text-[13.5px]" style={{ borderColor: "#24504b" }}>
-                <span style={{ color: "#a9c1bd" }}>{c.k}</span>
+              <div key={c.k} className="flex items-center justify-between border-b py-3 text-[13.5px]" style={{ borderColor: "var(--tk-dline)" }}>
+                <span style={{ color: "var(--tk-mute)" }}>{c.k}</span>
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span key={String(cmp)} className="font-bold text-white" initial={{ y: 10 }} animate={{ y: 0 }} exit={{ y: -10 }} transition={{ duration: 0.25, delay: i * 0.03 }}>{cmp ? c.b : c.a}</motion.span>
                 </AnimatePresence>
               </div>
             ))}
           </div>
-          <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "#7f9e99" }}>감정평가서 DRAFT 기재 수치입니다.</p>
+          <p className="mt-3 text-[11px] leading-[1.6]" style={{ color: "var(--tk-mute2)" }}>감정평가서 DRAFT 기재 수치입니다.</p>
         </section>
 
         {/* HISTORY */}
@@ -731,20 +731,20 @@ export default function SeobuSite() {
         {/* 엔딩 */}
         <section className="relative overflow-hidden bg-black" style={{ aspectRatio: "9 / 14" }}>
           <video src={VID("s-roof.mp4")} poster={VID("s-roof.webp")} autoPlay muted loop playsInline preload="none" aria-label="옥상 정원에서 내려다본 하천과 동네 (AI 영상 예시)" className="absolute inset-0 h-full w-full object-cover" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(8,26,24,.82) 0%,rgba(8,26,24,.25) 38%,rgba(8,26,24,0) 60%,#081a18 100%)" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,rgba(var(--tk-ov2),.82) 0%,rgba(var(--tk-ov2),.25) 38%,rgba(var(--tk-ov2),0) 60%,var(--tk-ink0) 100%)" }} />
           <div className="absolute inset-x-0 top-0 flex flex-col items-center px-6 pt-12 text-center">
             <div className="tk-en text-[11px] font-semibold" style={{ color: "var(--tk-mint)" }}>SEOUL SEOBU CENTRAL MARKET</div>
-            <Rise delay={0.2}><p className="mt-5 text-[15px] leading-[1.7]" style={{ color: "#c3d6d2" }}>시장이 머물던 자리에,</p></Rise>
+            <Rise delay={0.2}><p className="mt-5 text-[15px] leading-[1.7]" style={{ color: "var(--tk-pale)" }}>시장이 머물던 자리에,</p></Rise>
             <Rise delay={0.35}><p className="text-[21px] font-bold leading-[1.6] text-white">사람이 사는 집과 동네의 내일을.</p></Rise>
           </div>
           <span className="absolute bottom-3 left-3 bg-white/85 px-1.5 py-0.5 text-[10px]" style={{ color: "var(--tk-char)" }}>AI 영상 · 예시</span>
         </section>
 
-        <footer className="px-6 pt-10 pb-12" style={{ background: "#081a18", color: "#86a39f" }}>
+        <footer className="px-6 pt-10 pb-12" style={{ background: "var(--tk-ink0)", color: "var(--tk-mute3)" }}>
           <div className="tk-en text-[11px] font-semibold" style={{ color: "var(--tk-coral2)" }}>SEOUL SEOBU CENTRAL MARKET</div>
           <div className="mt-1 text-[16px] font-bold text-white">{PROJECT.nameKo}</div>
           <p className="mt-4 text-[12px] leading-[1.8]">{PROJECT.operators.join(" · ")}<br />{PROJECT.address}</p>
-          <p className="mt-5 text-[11px] leading-[1.7]" style={{ color: "#5f7e79" }}>
+          <p className="mt-5 text-[11px] leading-[1.7]" style={{ color: "var(--tk-mute4)" }}>
             이 페이지는 사업 소개를 위한 임시 홈페이지입니다. 조감도·입면도·현황사진은 사업계획서(2025.02)에 수록된 자료이며 설계에 따라 변경될 수 있습니다. &lsquo;AI 이미지·영상&rsquo; 표시가 있는 자료는 이해를 돕기 위한 예시로 실제와 다를 수 있습니다. 규모·주택형·일정은 최신 인허가 자료와 대조 후 확정됩니다.
           </p>
           <p className="tk-en mt-5 text-[10.5px]">© 2026 SEOUL SEOBU CENTRAL MARKET</p>
@@ -752,7 +752,7 @@ export default function SeobuSite() {
 
         <AnimatePresence>
           {lightbox !== null && (
-            <motion.div key="lb" className="fixed inset-0 z-50 flex flex-col items-center justify-center px-3" style={{ background: "rgba(8,26,24,.95)" }} initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ duration: 0.45, ease: EASE }} onClick={() => setLightbox(null)}>
+            <motion.div key="lb" className="fixed inset-0 z-50 flex flex-col items-center justify-center px-3" style={{ background: "rgba(var(--tk-ov2),.95)" }} initial={{ y: "100%" }} animate={{ y: 0 }} exit={{ y: "100%" }} transition={{ duration: 0.45, ease: EASE }} onClick={() => setLightbox(null)}>
               <img src={IMG(GALLERY[lightbox].f)} alt={GALLERY[lightbox].t} className="max-h-[78vh] w-full max-w-[480px] object-contain" />
               <div className="mt-3 text-center text-[13px] text-white">{GALLERY[lightbox].t} · <span className="text-white/60">{GALLERY[lightbox].s}</span></div>
               <div className="mt-2 text-[12px] text-white/50">화면을 누르면 닫힙니다</div>
