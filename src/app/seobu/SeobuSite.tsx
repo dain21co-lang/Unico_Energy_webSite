@@ -107,7 +107,7 @@ const HERO = [
 ];
 
 /* 원테이크 영상 챕터 (통합본 기준 초) */
-const CHAPTERS: [number, string][] = [[0, "증산역"], [12, "하천·건물"], [22, "옥상 정원"], [46, "새절역"], [59, "다시 건물로"], [68, "정문·로비"], [84, "라운지·아트리움"], [114, "복도·세대"], [134, "하늘에서 본 건물"]];
+const CHAPTERS: [number, string][] = [[0, "증산역"], [12, "하천·건물"], [22, "옥상 정원"], [46, "새절역"], [59, "다시 건물로"], [68, "정문·로비"], [84, "라운지·아트리움"], [114, "복도·세대"], [134, "하늘에서 본 건물"], [144, "시장 거리"], [154, "실내 시장"], [167, "밤의 엔딩"]];
 
 /* 공간 미리보기 — 영상 카드 */
 const CLIPS = [
@@ -210,7 +210,7 @@ function HeroReel({ onStart }: { onStart: () => void }) {
           ))}
         </div>
         <button onClick={onStart} className="mt-5 flex w-full items-center justify-center gap-2 py-3 text-[14px] font-bold text-white" style={{ background: "var(--tk-coral)" }}>
-          끊김 없는 2분, 원테이크 영상 보기 <Icon d={I.arrow} size={17} />
+          끊김 없는 3분, 원테이크 영상 보기 <Icon d={I.arrow} size={17} />
         </button>
       </div>
     </section>
@@ -236,7 +236,7 @@ function OneTake() {
   return (
     <section id="onetake" className="pt-16 pb-14" style={{ background: "var(--tk-deep)" }}>
       <div className="px-6">
-        <Head no="00" en="ONE TAKE" dark sub="증산역 입구에서 하천을 건너 건물로, 새절역을 돌아 현관을 지나 거실 창가까지. 장면 전환 없이 한 번에 이어지는 드론 영상입니다.">끊김 없이 이어지는<br />2분 24초</Head>
+        <Head no="00" en="ONE TAKE" dark sub="증산역 입구에서 하천을 건너 건물로, 새절역을 돌아 현관을 지나 거실 창가로, 다시 하늘로 나와 시장 거리와 실내 시장까지. 장면 전환 없이 한 번에 이어지는 드론 영상입니다.">끊김 없이 이어지는<br />2분 54초</Head>
       </div>
       <div ref={box} className="relative mx-6 overflow-hidden bg-black" style={{ aspectRatio: "9 / 16", maxHeight: "80vh" }} onClick={() => setPaused((x) => !x)}>
         <video ref={ref} src={near ? VID("onetake.mp4") : undefined} poster={VID("onetake.webp")} muted playsInline loop preload={near ? "auto" : "none"}

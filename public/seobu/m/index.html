@@ -297,7 +297,7 @@ header .logo small{display:block;font-family:"Noto Sans KR",sans-serif;font-size
     <h1>시장이 머물던 자리,<br><span>사람이 사는 집으로.</span></h1>
     <p>6호선 증산역과 새절역 사이, 불광천 옆</p>
     <p class="ai">AI 영상 · 예시</p>
-    <a href="#onetake" class="cta">끊김 없는 2분, 원테이크 영상 ↓</a>
+    <a href="#onetake" class="cta">끊김 없는 3분, 원테이크 영상 ↓</a>
   </div>
 </section>
 
@@ -332,7 +332,7 @@ header .logo small{display:block;font-family:"Noto Sans KR",sans-serif;font-size
 <section class="pad" id="onetake" style="background:#16202a">
   <p class="kick rv" style="color:var(--sub)">01 / ONE TAKE</p>
   <h2 class="big rv">One take.<br><em>No cuts.</em></h2>
-  <p class="sub rv">증산역에서 하천을 건너 건물로, 새절역을 돌아 현관을 지나 거실 창가까지. 장면 전환 없이 한 번에 이어집니다.</p>
+  <p class="sub rv">증산역에서 하천을 건너 건물로, 새절역을 돌아 현관을 지나 거실 창가로, 다시 하늘로 나와 시장 거리와 실내 시장까지. 장면 전환 없이 한 번에 이어집니다.</p>
   <div class="ot" id="ot"><video id="otv" muted playsinline loop preload="none" poster="/seobu/video/onetake.webp"></video><span class="badge tc" id="otc">0:00 · 증산역</span><span class="play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="badge l" style="position:absolute;left:14px;bottom:16px">AI 영상 · 예시</span><div class="bar"><b id="otb"></b></div></div>
   <div class="chs" id="chs"></div>
   <p class="mcap" style="color:var(--soft)">버튼을 누르면 그 장면으로 이동합니다. 화면을 누르면 멈춤·재생.</p>
@@ -517,7 +517,7 @@ function spDraw(now){const W=cv.clientWidth,H=cv.clientHeight,dpr=Math.min(2,dev
  const r=sp.getBoundingClientRect();if(r.bottom>-50&&r.top<innerHeight+50)requestAnimationFrame(spDraw);else{spOn=false;sp.classList.remove('on');}}
 
 // 원테이크
-const CHS=[[0,'증산역'],[12,'하천·건물'],[22,'옥상 정원'],[46,'새절역'],[59,'다시 건물로'],[68,'정문·로비'],[84,'라운지·아트리움'],[114,'복도·세대'],[134,'하늘에서 본 건물']];
+const CHS=[[0,'증산역'],[12,'하천·건물'],[22,'옥상 정원'],[46,'새절역'],[59,'다시 건물로'],[68,'정문·로비'],[84,'라운지·아트리움'],[114,'복도·세대'],[134,'하늘에서 본 건물'],[144,'시장 거리'],[154,'실내 시장'],[167,'밤의 엔딩']];
 const ot=$('#ot'),otv=$('#otv'),mm=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;let otPaused=false,otCur=-1;
 $('#chs').innerHTML=CHS.map(([s,l],i)=>`<button data-s="${s}"><i>${mm(s)}</i><b>${l}</b></button>`).join('');
 $$('#chs button').forEach(b=>b.onclick=()=>{if(!otv.src)otv.src='/seobu/video/onetake.mp4';otv.currentTime=+b.dataset.s;otPaused=false;ot.classList.remove('paused');otv.play().catch(()=>{});});
