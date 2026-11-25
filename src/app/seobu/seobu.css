@@ -1,26 +1,26 @@
-/* 서울서부중앙시장 재개발사업 — 네이비 · 화이트 · 차콜 · 샴페인 골드 */
-.sb {
-  --sb-navy: #0d1a2e;
-  --sb-navy2: #15253d;
-  --sb-ink: #1d2430;
-  --sb-char: #3b4250;
-  --sb-sub: #6b7280;
-  --sb-line: #e3e5ea;
-  --sb-paper: #f6f5f1;
-  --sb-gold: #b89b62;
-  --sb-gold2: #d8c08f;
+/* 서울서부중앙시장 재개발사업 — THE K와 같은 디자인 시스템: 딥 틸 · 샌드 · 코랄 · 웜 라이트 */
+.tk {
+  --tk-deep: #0e2b29;
+  --tk-deep2: #143a37;
+  --tk-ink: #17201f;
+  --tk-char: #3a4644;
+  --tk-sub: #6b7775;
+  --tk-line: #e2e0d9;
+  --tk-sand: #f4efe6;
+  --tk-coral: #e2734a;
+  --tk-coral2: #f19a74;
+  --tk-mint: #8fd3bf;
+  --tk-glow: #ffcf86;
   background: #fff;
-  color: var(--sb-ink);
+  color: var(--tk-ink);
   min-height: 100vh;
   width: 100%;
   word-break: keep-all;
   overflow-x: hidden;
 }
-.sb .sb-en { letter-spacing: 0.18em; }
-.sb .sb-noscroll { scrollbar-width: none; }
-.sb .sb-noscroll::-webkit-scrollbar { display: none; }
-@keyframes sb-kb { 0% { transform: scale(1.06); } 100% { transform: scale(1.18) translate3d(-2%, -1%, 0); } }
-.sb .sb-kb { animation: sb-kb 24s ease-in-out infinite alternate; }
-@keyframes sb-cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
-.sb .sb-cue { animation: sb-cue 1.8s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) { .sb .sb-kb, .sb .sb-cue { animation: none; } }
+.tk .tk-en { letter-spacing: 0.18em; }
+.tk .tk-noscroll { scrollbar-width: none; }
+.tk .tk-noscroll::-webkit-scrollbar { display: none; }
+@keyframes tk-drift { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-50%, 0, 0); } }
+.tk .tk-drift { animation: tk-drift 38s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .tk .tk-drift { animation: none; } }
