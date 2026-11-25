@@ -107,7 +107,7 @@ const HERO = [
 ];
 
 /* 원테이크 영상 챕터 (통합본 기준 초) */
-const CHAPTERS: [number, string][] = [[0, "증산역"], [12, "하천·건물"], [22, "옥상 정원"], [46, "새절역"], [59, "다시 건물로"], [68, "정문·로비"], [84, "라운지·아트리움"], [114, "복도·세대"]];
+const CHAPTERS: [number, string][] = [[0, "증산역"], [12, "하천·건물"], [22, "옥상 정원"], [46, "새절역"], [59, "다시 건물로"], [68, "정문·로비"], [84, "라운지·아트리움"], [114, "복도·세대"], [134, "하늘에서 본 건물"]];
 
 /* 공간 미리보기 — 영상 카드 */
 const CLIPS = [
@@ -236,7 +236,7 @@ function OneTake() {
   return (
     <section id="onetake" className="pt-16 pb-14" style={{ background: "var(--tk-deep)" }}>
       <div className="px-6">
-        <Head no="00" en="ONE TAKE" dark sub="증산역 입구에서 하천을 건너 건물로, 새절역을 돌아 현관을 지나 거실 창가까지. 장면 전환 없이 한 번에 이어지는 드론 영상입니다.">끊김 없이 이어지는<br />2분 14초</Head>
+        <Head no="00" en="ONE TAKE" dark sub="증산역 입구에서 하천을 건너 건물로, 새절역을 돌아 현관을 지나 거실 창가까지. 장면 전환 없이 한 번에 이어지는 드론 영상입니다.">끊김 없이 이어지는<br />2분 24초</Head>
       </div>
       <div ref={box} className="relative mx-6 overflow-hidden bg-black" style={{ aspectRatio: "9 / 16", maxHeight: "80vh" }} onClick={() => setPaused((x) => !x)}>
         <video ref={ref} src={near ? VID("onetake.mp4") : undefined} poster={VID("onetake.webp")} muted playsInline loop preload={near ? "auto" : "none"}

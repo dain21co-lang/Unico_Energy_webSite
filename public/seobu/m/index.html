@@ -517,7 +517,7 @@ function spDraw(now){const W=cv.clientWidth,H=cv.clientHeight,dpr=Math.min(2,dev
  const r=sp.getBoundingClientRect();if(r.bottom>-50&&r.top<innerHeight+50)requestAnimationFrame(spDraw);else{spOn=false;sp.classList.remove('on');}}
 
 // 원테이크
-const CHS=[[0,'증산역'],[12,'하천·건물'],[22,'옥상 정원'],[46,'새절역'],[59,'다시 건물로'],[68,'정문·로비'],[84,'라운지·아트리움'],[114,'복도·세대']];
+const CHS=[[0,'증산역'],[12,'하천·건물'],[22,'옥상 정원'],[46,'새절역'],[59,'다시 건물로'],[68,'정문·로비'],[84,'라운지·아트리움'],[114,'복도·세대'],[134,'하늘에서 본 건물']];
 const ot=$('#ot'),otv=$('#otv'),mm=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;let otPaused=false,otCur=-1;
 $('#chs').innerHTML=CHS.map(([s,l],i)=>`<button data-s="${s}"><i>${mm(s)}</i><b>${l}</b></button>`).join('');
 $$('#chs button').forEach(b=>b.onclick=()=>{if(!otv.src)otv.src='/seobu/video/onetake.mp4';otv.currentTime=+b.dataset.s;otPaused=false;ot.classList.remove('paused');otv.play().catch(()=>{});});
