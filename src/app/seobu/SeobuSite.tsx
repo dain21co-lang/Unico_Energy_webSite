@@ -339,8 +339,8 @@ export default function SeobuSite() {
   const [menu, setMenu] = useState(false);
   const [active, setActive] = useState("home");
   const [future, setFuture] = useState(true);
-  const [tone, setTone] = useState("");
-  useEffect(() => { setTone(new URLSearchParams(window.location.search).get("tone") ?? ""); }, []);
+  const [tone, setTone] = useState("blue");
+  useEffect(() => { setTone(new URLSearchParams(window.location.search).get("tone") ?? "blue"); }, []);
   const [space, setSpace] = useState(0);
   const [floor, setFloor] = useState(0);
   const [cmp, setCmp] = useState(true);
