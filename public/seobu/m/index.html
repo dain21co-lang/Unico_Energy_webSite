@@ -305,17 +305,42 @@ footer{background:#e9e2d5;color:#6b6457}
 .lead{background:#f7f4ee;color:#121212}.lead .l1{color:#1d2630}.lead .en{color:#8f6f3e}.lead .ai{color:#6b6457}
 .sheet>div{background:#f7f4ee}.sheet p{color:#4a4f55}.sheet .serif{color:#121212!important}.sheet #closeInfo{color:#121212!important;border-color:rgba(18,18,18,.3)}
 
+
+/* hero motion (opacity 애니메이션 없음: clip-path·transform·background-position만) */
+.hero video.hv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;animation:hvz 20s ease-in-out infinite alternate}
+@keyframes hvz{from{transform:scale(1.02)}to{transform:scale(1.08)}}
+.hstreak{position:absolute;z-index:1;top:-20%;bottom:-20%;left:-60%;width:45%;pointer-events:none;background:linear-gradient(100deg,rgba(255,214,150,0) 0%,rgba(255,226,170,.28) 45%,rgba(255,244,214,.5) 50%,rgba(255,226,170,.28) 55%,rgba(255,214,150,0) 100%);mix-blend-mode:screen;transform:translateX(0) skewX(-14deg);animation:hst 9s cubic-bezier(.45,.05,.3,1) 2.6s infinite}
+@keyframes hst{0%{transform:translateX(0) skewX(-14deg)}38%,100%{transform:translateX(420%) skewX(-14deg)}}
+.hdust{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.hdust i{position:absolute;bottom:-12px;width:3px;height:3px;border-radius:50%;background:#ffe2a6;box-shadow:0 0 8px 2px rgba(255,205,120,.75);mix-blend-mode:screen;animation:hdu 11s linear infinite}
+.hdust i:nth-child(1){left:8%;animation-delay:-1s;animation-duration:12s}.hdust i:nth-child(2){left:17%;animation-delay:-6s;width:2px;height:2px}.hdust i:nth-child(3){left:26%;animation-delay:-3s;animation-duration:14s}.hdust i:nth-child(4){left:35%;animation-delay:-9s;width:2px;height:2px}.hdust i:nth-child(5){left:44%;animation-delay:-4.5s;animation-duration:10s}.hdust i:nth-child(6){left:53%;animation-delay:-7.5s}.hdust i:nth-child(7){left:62%;animation-delay:-2s;width:2px;height:2px;animation-duration:13s}.hdust i:nth-child(8){left:71%;animation-delay:-10s}.hdust i:nth-child(9){left:80%;animation-delay:-5s;animation-duration:15s}.hdust i:nth-child(10){left:89%;animation-delay:-8s;width:2px;height:2px}.hdust i:nth-child(11){left:58%;animation-delay:-11s;animation-duration:16s}.hdust i:nth-child(12){left:22%;animation-delay:-12.5s;animation-duration:12.5s}
+@keyframes hdu{from{transform:translate(0,0)}50%{transform:translate(14px,-55vh)}to{transform:translate(-8px,-110vh)}}
+.hero .hk{display:flex;align-items:center;gap:10px}
+.hero .hk .hln{display:block;width:34px;height:1.5px;background:linear-gradient(90deg,#f3dc98,#c9a24f);transform-origin:0 50%;transform:scaleX(0);animation:hln 1.1s cubic-bezier(.22,.8,.2,1) .3s forwards}
+@keyframes hln{to{transform:scaleX(1)}}
+.hero .hk span{display:inline-block;clip-path:inset(0 100% 0 0);animation:hwipe 1.2s cubic-bezier(.22,.8,.2,1) .6s forwards}
+@keyframes hwipe{to{clip-path:inset(0 0 0 0)}}
+.hero h1 .hl{display:inline-block;overflow:hidden;vertical-align:bottom;padding-bottom:.06em}
+.hero h1 .hl>span{display:inline-block;transform:translateY(110%);animation:hup 1.1s cubic-bezier(.22,.8,.2,1) .9s forwards}
+.hero h1 .hl.d2>span{animation-delay:1.15s}
+@keyframes hup{to{transform:translateY(0)}}
+.hero h1 .hl>span.hgold{background:linear-gradient(100deg,#e9c97f 0%,#f7e6b4 18%,#fff8e2 24%,#f1d48e 30%,#c9973f 55%,#f3dc98 80%,#d8ad55 100%);background-size:250% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;animation:hup 1.1s cubic-bezier(.22,.8,.2,1) 1.15s forwards,hsh 6s ease-in-out 2.4s infinite}
+@keyframes hsh{0%{background-position:100% 0}45%,100%{background-position:0% 0}}
+.hero .hsub span{display:inline-block;clip-path:inset(0 100% 0 0);animation:hwipe 1.4s cubic-bezier(.22,.8,.2,1) 1.5s forwards}
+.hero .cta{transform:translateY(160%);animation:hup .9s cubic-bezier(.22,.8,.2,1) 1.9s forwards}
 </style><script>(function(){try{var t=document.createElement('div');t.style.cssText='position:absolute;visibility:hidden;left:-999px;font-size:100px;line-height:1;white-space:nowrap';t.textContent='가';document.documentElement.appendChild(t);var f=t.getBoundingClientRect().height/100;var c=parseFloat(getComputedStyle(t).fontSize)/100;t.remove();var z=Math.max(f,c);var k=z>1.04?Math.max(.55,1/z):1;document.documentElement.style.setProperty('--k',(k*0.94).toFixed(3));}catch(e){}})();</script></head><body><main>
 
 <header><a class="logo" href="#intro" aria-label="헤리티지포레"><svg viewBox="0 0 260 92" width="100" style="display:block;margin:0;overflow:visible" role="img" aria-label="HERITAGE FORÊT"><defs><linearGradient id="hfs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8834a"/><stop offset=".45" stop-color="#f3e3bd"/><stop offset=".7" stop-color="#c9a96e"/><stop offset="1" stop-color="#8f6f3e"/></linearGradient></defs><path d="M130 4 c-7 6 -10 12 -10 18 c0 6 4 10 10 12 c6 -2 10 -6 10 -12 c0 -6 -3 -12 -10 -18z M130 14 v26" fill="none" stroke="url(#hfs)" stroke-width="1.6" stroke-linecap="round"/><text x="130" y="60" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="22" letter-spacing="7" fill="url(#hfs)">HERITAGE</text><line x1="64" y1="68" x2="196" y2="68" stroke="url(#hfs)" stroke-width=".8"/><text x="130" y="90" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="url(#hfs)">Forêt</text></svg></a><nav><a href="#onetake" class="pill glass">브랜드 필름</a><button class="pill glass" id="openInfo">안내</button></nav></header>
 
 <section class="hero" id="intro">
-  <img src="/seobu/img/cd-aerial.webp" alt="헤리티지포레 조감도 (AI 이미지 예시)" class="hkb">
+  <video class="hv" src="/seobu/video/hero-loop.mp4" poster="/seobu/video/hero-loop.webp" autoplay muted loop playsinline preload="auto" aria-label="헤리티지포레 외관 (AI 영상 예시)"></video>
+  <div class="hstreak" aria-hidden="true"></div>
+  <div class="hdust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
   <div class="tx">
-    <p class="en">HERITAGE FORÊT · SEOUL</p>
-    <h1>물빛이 머무는 곳,<br><span>헤리티지포레.</span></h1>
-    <p>6호선 두 역 사이 · 불광천 물빛 곁의 프라이빗 레지던스</p>
-    <p class="ai">AI 이미지 · 예시</p>
+    <p class="en hk"><b class="hln"></b><span>HERITAGE FORÊT · SEOUL</span></p>
+    <h1><span class="hl"><span>물빛이 머무는 곳,</span></span><br><span class="hl d2"><span class="hgold">헤리티지포레.</span></span></h1>
+    <p class="hsub"><span>6호선 두 역 사이 · 불광천 물빛 곁의 프라이빗 레지던스</span></p>
+    <p class="ai">AI 영상 · 예시</p>
     <a href="#onetake" class="cta">3분 38초, 끊김 없는 브랜드 필름 ↓</a>
   </div>
 </section>
