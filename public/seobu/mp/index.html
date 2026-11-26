@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>헤리티지포레(가칭) · 서울서부중앙시장 재개발사업</title>
+<meta property="og:title" content="헤리티지포레(가칭) · 서울서부중앙시장 재개발사업"><meta property="og:description" content="6호선 두 역 사이, 불광천 물빛 곁의 프라이빗 레지던스"><meta property="og:image" content="/seobu/img/og-hf.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400&display=swap" rel="stylesheet">
+<style>
+/* VOICE: 신촌 케어 사이트와 같은 말투 — 짧은 영문 세리프 제목 + 한글 한두 줄
+   IDEA: 신촌 케어(ORBIT) 틀을 그대로, 그림만 가산 빌딩으로
+   PICTURE: 62초 드론 영상(외관→정문→로비→엘리베이터→데이터센터→연구실), 고정 단면도, 가산 지도
+   COLOUR and TYPE: 나이트 블루 #16202a · 실버 #f6f8f9 · GB 레드 #e3262f · 데이터 블루 #2b7de9 / Instrument Serif + Noto Sans KR
+   LAYOUT: 모바일 480px 한 줄, 장면 단위 */
+:root{--k:1;--ink:#16202a;--night:#22303d;--slate:#24313f;--coral:#e3262f;--paper:#f6f8f9;--sub:#e9eef2;--soft:#aab6c1;--blue:#2b7de9}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:#0f161d;font-family:"Noto Sans KR",system-ui,sans-serif;word-break:keep-all;overflow-x:clip;-webkit-tap-highlight-color:transparent}
+main{max-width:480px;margin:0 auto;background:var(--ink);color:#f3f3ec;position:relative}
+.serif{font-family:"Instrument Serif",Georgia,serif;font-weight:400}
+.kick{font-size:calc(11px*var(--k));letter-spacing:.28em;font-weight:700;text-transform:uppercase;margin:0}
+.glass{background:rgba(22,32,42,.62);border:1px solid rgba(215,231,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.pill{border:1px solid rgba(215,231,255,.35);border-radius:999px}
+.paper{background:var(--paper);color:#121212}
+section{position:relative}
+.pad{padding:88px 24px 72px}
+h2.big{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:calc(clamp(32px,10vw,44px)*var(--k));overflow-wrap:anywhere;line-height:.98;letter-spacing:-.01em;margin:16px 0 0}
+.sub{margin:18px 0 0;font-size:calc(15px*var(--k));font-weight:500;line-height:1.75;color:var(--soft)}
+.paper .sub{color:#4a4f55}
+.rv{clip-path:inset(0 0 100% 0);transform:translateY(26px);transition:clip-path .9s cubic-bezier(.22,.8,.2,1),transform .9s cubic-bezier(.22,.8,.2,1)}
+.rv.in{clip-path:inset(0 0 -12% 0);transform:none}
+.badge{display:inline-block;border-radius:999px;padding:4px 10px;font-size:calc(10px*var(--k));font-weight:700;letter-spacing:.06em;background:rgba(22,32,42,.72);color:#e8eef4}
+.badge.l{background:rgba(255,255,255,.86);color:#121212}
+/* 헤더 */
+header{position:fixed;top:0;left:0;right:0;z-index:40;max-width:480px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 20px 18px;background:linear-gradient(180deg,rgba(22,32,42,.85),rgba(22,32,42,0))}
+header img{height:20px;flex:none}
+header nav{display:flex;gap:8px}
+header a,header button{font:inherit;font-size:calc(12px*var(--k));font-weight:700;color:#f3f3ec;text-decoration:none;padding:7px 11px;cursor:pointer;white-space:nowrap}
+/* 히어로 */
+.hero{height:100svh;min-height:600px;overflow:hidden;background:var(--ink)}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(22,32,42,.45) 0%,rgba(22,32,42,0) 20%,rgba(22,32,42,0) 72%,rgba(22,32,42,.75) 100%)}
+.hero .tx{position:absolute;z-index:2;left:24px;right:24px;bottom:34px}
+.hero h1{margin:12px 0 0;font-size:calc(clamp(28px,9vw,36px)*var(--k));font-weight:900;line-height:1.2;letter-spacing:-.02em}
+.hero h1 span{color:#ffffff}
+.hero p{margin:12px 0 0;font-size:calc(15px*var(--k));font-weight:700;color:var(--sub)}
+.hero .en{font-size:calc(11px*var(--k));letter-spacing:.18em;color:rgba(255,255,255,.8);font-weight:700}
+.hero .ai{font-size:calc(11px*var(--k));color:rgba(255,255,255,.7);font-weight:500;margin-top:8px}
+.nudge{display:inline-block;margin-top:22px;font-size:calc(12px*var(--k));font-weight:700;letter-spacing:.2em;color:var(--sub);text-decoration:none;animation:nd 1.8s ease-in-out infinite}
+@keyframes nd{50%{transform:translateY(6px)}}
+/* 대표 인사말 */
+.ceo .ph{position:relative;margin-top:32px}
+.ceo .ph::before{content:"";position:absolute;inset:0;transform:translate(12px,12px);border:3px solid #121212;background:#2b7de9}
+.ceo .ph img{position:relative;display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top;border:3px solid #121212}
+.ceo .body p{font-size:calc(15px*var(--k));line-height:1.9;color:#1d2630;margin:0 0 14px}
+.ceo .sign{margin-top:30px;border-top:3px solid #121212;padding-top:16px}
+.ceo .sign img{height:24px}
+.ceo ul{list-style:none;padding:0;margin:12px 0 0;font-size:calc(12px*var(--k));line-height:1.6;color:#4a4f55}
+/* 영상 카드 */
+.films{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:36px -24px 0;padding:0 24px 8px;scrollbar-width:none}
+.films::-webkit-scrollbar{display:none}
+.clip{flex:0 0 78%;scroll-snap-align:center;position:relative;aspect-ratio:9/16;border-radius:26px;overflow:hidden;background:#000;clip-path:inset(8% 8% 8% 8% round 40px);transform:scale(.96);transition:clip-path 1.1s cubic-bezier(.22,.8,.2,1),transform 1.1s}
+.clip.in{clip-path:inset(0 round 26px);transform:none}
+.clip video,.clip img{width:100%;height:100%;object-fit:cover;display:block}
+.clip img.kb{animation:kb2 14s ease-in-out infinite alternate;transform-origin:50% 60%}
+@keyframes kb2{from{transform:scale(1.02) translateY(0)}to{transform:scale(1.14) translateY(-3%)}}
+.clip .cap{position:absolute;left:0;right:0;bottom:0;padding:60px 20px 20px;background:linear-gradient(180deg,transparent,rgba(22,32,42,.85))}
+.clip .cap b{display:block;margin-top:4px;font-size:calc(17px*var(--k));font-weight:900}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.3);transition:all .3s}.dots i.on{background:var(--coral);transform:scale(1.3)}
+/* 지도 */
+.map{margin-top:28px;border:3px solid #121212;background:#fff;aspect-ratio:1/1;position:relative}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.mcap{margin-top:14px;font-size:calc(13px*var(--k));color:#4a4f55}
+.near{display:grid;gap:10px;margin-top:22px}
+.near div{display:grid;grid-template-columns:48px minmax(0,1fr);gap:12px;align-items:center;border-top:2px solid #121212;padding-top:12px}
+.near b{font-family:"Instrument Serif",serif;font-weight:400;font-size:calc(30px*var(--k));line-height:1}
+.near span{font-size:calc(14px*var(--k));color:#333}
+/* 고정 장면 */
+.story{height:500svh}
+.stage{position:sticky;top:0;height:100svh;overflow:hidden;background:radial-gradient(120% 70% at 50% 38%,#2c4a66 0%,#1a2633 52%,#111920 100%)}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:3px 3px}
+.stage svg{position:absolute;left:0;right:0;top:11svh;width:100%;height:46svh}
+.chap{position:absolute;left:24px;right:24px;top:59svh;bottom:3svh;overflow:hidden}
+.chap .s{display:none}
+.chap .s.on{display:block;animation:cin .6s cubic-bezier(.22,.8,.2,1) both}
+@keyframes cin{from{clip-path:inset(0 0 100% 0);transform:translateY(24px)}to{clip-path:inset(-10% 0 -10% 0);transform:none}}
+.chap h3{font-family:"Instrument Serif",serif;font-weight:400;font-size:calc(clamp(28px,8.6vw,38px)*var(--k));line-height:.98;margin:10px 0 0}
+.chap p{margin:10px 0 0;font-size:calc(14px*var(--k));line-height:1.7;color:var(--sub);white-space:pre-line}
+.prog{position:absolute;top:70px;left:24px;right:24px;display:flex;gap:6px;z-index:3}
+.prog i{flex:1;height:2px;background:rgba(255,255,255,.25);position:relative;overflow:hidden}
+.prog i b{position:absolute;inset:0;background:var(--paper);transform:scaleX(0);transform-origin:left}
+.lbl{font:700 11px "Noto Sans KR",sans-serif;fill:#e9eef2;letter-spacing:.04em}
+/* 층별 */
+.floors{margin-top:30px;border-top:1px solid rgba(255,255,255,.2)}
+.fl{border-bottom:1px solid rgba(255,255,255,.2)}
+.fl button{all:unset;box-sizing:border-box;width:100%;min-height:58px;display:grid;grid-template-columns:calc(76px*var(--k)) minmax(0,1fr) auto;gap:10px;align-items:center;cursor:pointer;padding:10px 0}
+.fl .no{font-family:"Instrument Serif",serif;font-size:calc(22px*var(--k));line-height:1;white-space:nowrap;min-width:calc(70px*var(--k))}
+.fl .nm{font-size:calc(15px*var(--k));font-weight:700}
+.fl .ar{transition:transform .3s}.fl.open .ar{transform:rotate(45deg)}
+.fl .det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s}
+.fl.open .det{grid-template-rows:1fr}
+.fl .det>div{overflow:hidden}
+.fl .det p{margin:0;padding:0 0 16px 5.2em;font-size:calc(14px*var(--k));line-height:1.7;color:var(--soft)}
+.fl .tag{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px}
+/* 데이터센터 단계 */
+.dc .step{margin-top:34px}
+.dc .img{position:relative;border-radius:999px 999px 22px 22px;overflow:hidden;aspect-ratio:4/5;clip-path:inset(10% 10% 10% 10% round 120px);transition:clip-path 1.1s cubic-bezier(.22,.8,.2,1)}
+.dc .img.in{clip-path:inset(0 round 0)}
+.dc .img img{width:100%;height:100%;object-fit:cover;display:block}
+.dc .img .badge{position:absolute;left:14px;bottom:14px}
+.dc .n{font-family:"Instrument Serif",serif;font-size:calc(44px*var(--k));line-height:1;margin-top:16px;color:var(--ink)}
+.dc h3{margin:4px 0 6px;font-size:calc(20px*var(--k));font-weight:900}
+.dc p{margin:0;font-size:calc(14.5px*var(--k));line-height:1.75;color:#3b4853}
+/* 두 갈래 */
+.two{display:grid;gap:16px;margin-top:30px}
+.card{border-radius:22px;overflow:hidden;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
+.card .im{aspect-ratio:16/10;overflow:hidden}
+.card .im video,.card .im img{width:100%;height:100%;object-fit:cover;display:block}
+.card .bd{padding:18px 20px 22px}
+.card h3{margin:8px 0 6px;font-size:calc(21px*var(--k));font-weight:900}
+.card p{margin:0;font-size:calc(14px*var(--k));line-height:1.7;color:var(--soft)}
+.card ul{margin:12px 0 0;padding-left:18px;font-size:calc(14px*var(--k));line-height:1.8;color:#e4eef2}
+/* 숫자 */
+.nums{background:var(--paper);color:#121212}
+.nrow{display:block;border-top:3px solid #121212;padding:18px 0}
+.nrow .v{font-family:"Instrument Serif",serif;font-size:calc(clamp(44px,14vw,64px)*var(--k));line-height:.95;white-space:nowrap}
+.nrow .v small{font-family:"Noto Sans KR",sans-serif;font-size:calc(15px*var(--k));font-weight:700;margin-left:6px}
+.nrow .k{font-size:calc(13px*var(--k));color:#4a4f55;margin-top:6px}
+/* 마무리 */
+.closing{text-align:center;padding:110px 24px 56px;background:radial-gradient(120% 70% at 50% 38%,#2c4a66 0%,#1a2633 52%,#111920 100%);overflow:hidden}
+.closing h2{font-family:"Instrument Serif",serif;font-weight:400;font-size:calc(clamp(34px,11vw,48px)*var(--k));line-height:.98;margin:18px 0 0}
+.closing p{color:var(--sub);font-size:calc(15px*var(--k));line-height:1.75;margin:18px 0 0}
+.blob{position:absolute;width:260px;height:260px;background:rgba(234,244,239,.18);animation:lq 11s ease-in-out infinite}
+@keyframes lq{0%,100%{border-radius:58% 42% 38% 62%/52% 44% 56% 48%;transform:rotate(0) scale(1)}33%{border-radius:40% 60% 62% 38%/44% 58% 42% 56%;transform:rotate(40deg) scale(1.08)}66%{border-radius:50% 50% 34% 66%/60% 40% 60% 40%;transform:rotate(-30deg) scale(.94)}}
+.lead{padding:34px 24px 40px;background:var(--ink)}
+.lead .l1{margin:12px 0 0;font-size:calc(16px*var(--k));font-weight:700;line-height:1.6;color:var(--sub)}
+.lead .en{margin:14px 0 0;font-size:calc(11px*var(--k));letter-spacing:.18em;font-weight:700;color:rgba(255,255,255,.8)}
+.gifbox{position:relative;margin-top:22px;aspect-ratio:1/1;border-radius:22px;overflow:hidden}.gifbox video{width:100%;height:100%;object-fit:cover;display:block}.gifbox .badge{position:absolute;left:12px;bottom:12px}
+.lead .ai{margin:8px 0 0;font-size:calc(11px*var(--k));color:rgba(255,255,255,.65)}
+
+/* 오프닝(그늘막 대응) */
+.shade{background:#0b1117;height:100svh;max-height:880px;overflow:hidden}
+.shade canvas{position:absolute;inset:0;width:100%;height:100%}
+.shade .stx{position:absolute;left:0;right:0;bottom:16%;text-align:center}
+.shade .sh{font-family:"Noto Serif KR","Instrument Serif",serif;font-weight:400;color:#eef3f1;font-size:calc(34px*var(--k));line-height:1.5;margin:22px 0 0;clip-path:inset(0 0 100% 0);transition:clip-path 1.4s cubic-bezier(.22,.8,.2,1) .6s}
+.shade.on .sh{clip-path:inset(0 0 -10% 0)}
+.shade .ln{display:block;width:44px;height:1px;background:#e3262f;margin:26px auto 0;transform:scaleX(0);transition:transform 1s 1.6s}
+.shade.on .ln{transform:scaleX(1)}
+/* Who */
+.who{display:grid;gap:12px;margin-top:30px}
+.wc{border-radius:22px;padding:20px}
+.wt{display:flex;justify-content:space-between;align-items:baseline}
+.wn{font-size:calc(30px*var(--k));font-style:italic;color:#2b7de9;line-height:1}
+.wb{border-radius:999px;background:rgba(255,255,255,.8);padding:4px 12px;font-size:calc(11.5px*var(--k));font-weight:700;color:#16202a}
+.wc b{display:block;margin-top:12px;font-size:calc(18px*var(--k));font-weight:900}
+.wc p{margin:4px 0 0;font-size:calc(13.5px*var(--k));line-height:1.6;color:#4a4f55}
+.chips3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:28px;text-align:center}
+.chips3 div{border-radius:16px;padding:16px 6px;color:#fff}
+.chips3 b{display:block;font-size:calc(16px*var(--k));font-weight:900}
+.chips3 span{display:block;margin-top:4px;font-size:calc(11px*var(--k));line-height:1.35}
+/* 3D 여정 */
+.story{height:440svh}
+.b3d{position:absolute;left:0;right:0;bottom:0;top:25%}
+.b3d canvas{display:block;touch-action:pan-y}
+.jt{position:absolute;left:24px;right:24px;top:78px;pointer-events:none}
+.jt .c{animation:cin .7s cubic-bezier(.22,.8,.2,1) both}
+.jt h3{font-family:"Instrument Serif",serif;font-weight:400;font-size:calc(clamp(38px,12vw,54px)*var(--k));line-height:.94;margin:12px 0 0}
+.jt p.d{margin:14px 0 0;font-size:calc(14.5px*var(--k));line-height:1.7;color:#d3dce5;white-space:pre-line;font-weight:500}
+.flist{position:absolute;right:10px;top:40%;width:132px;border-radius:16px;padding:10px 12px;pointer-events:none;clip-path:inset(0 0 0 100%);transform:translateX(20px);transition:clip-path .7s,transform .7s}
+.flist.on{clip-path:inset(0);transform:none}
+.flist div{display:flex;gap:8px;align-items:baseline;padding:2px 0;font-size:calc(10.5px*var(--k));color:#dfe7ee;font-weight:500}
+.flist i{font-family:"Instrument Serif",serif;font-size:calc(15px*var(--k));width:28px;color:var(--paper)}
+.flist .dc i{color:#5aa2ff}.flist .ls i{color:#c3ccd4;width:44px}.flist .cl i{color:#fff8ea}.flist .ho i{color:#ffb35c;width:44px}
+.legend{position:absolute;left:20px;right:20px;bottom:92px;border-radius:16px;padding:12px 14px;display:flex;justify-content:space-between;gap:6px;pointer-events:none;clip-path:inset(100% 0 0 0);transform:translateY(16px);transition:clip-path .7s,transform .7s}
+.legend.on{clip-path:inset(0);transform:none}
+.legend{flex-wrap:wrap}.legend span{display:flex;align-items:center;gap:6px;font-size:calc(10.5px*var(--k));font-weight:700;white-space:nowrap}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend em{font-family:"Instrument Serif",serif;font-size:calc(14px*var(--k))}
+.jn{position:absolute;left:24px;right:96px;bottom:28px;display:flex;align-items:flex-end;gap:12px;pointer-events:none}
+.jn .serif{font-size:calc(44px*var(--k));font-style:italic;line-height:1}
+.jn>div{flex:1;margin-bottom:6px}
+.jbar{margin-top:8px;height:1px;background:rgba(255,255,255,.15)}
+.jbar b{display:block;height:1px;background:var(--paper);transform:scaleX(0);transform-origin:left}
+.jhint{position:absolute;left:0;right:0;bottom:150px;text-align:center;font-size:calc(11px*var(--k));font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.7);pointer-events:none;transition:clip-path .5s,transform .5s}
+.jhint.off{clip-path:inset(0 0 100% 0);transform:translateY(60px)}
+/* 숫자 (신촌 케어 방식) */
+.nums2{position:relative;overflow:hidden;padding:80px 0 64px;background:var(--paper);color:#121212}
+.liquid{position:absolute;pointer-events:none;animation:lq 11s ease-in-out infinite}
+.drift-wrap{position:relative;overflow:hidden;white-space:nowrap;pointer-events:none}
+.drift{display:inline-block;animation:dr 38s linear infinite}.drift-r{display:inline-block;animation:dr 46s linear infinite reverse}
+@keyframes dr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.outline{font-size:calc(64px*var(--k));font-style:italic;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(29,38,48,.35)}
+.srow{position:relative;display:flex;align-items:center;gap:16px;border-top:1px solid rgba(18,18,18,.2);padding:24px 0}
+.srow.rev{flex-direction:row-reverse;text-align:right}
+.srow .art{width:124px;height:124px;flex:none;transform:rotate(-20deg) scale(.6);transition:transform 1.1s cubic-bezier(.22,.8,.2,1)}
+.srow.rev .art{transform:rotate(20deg) scale(.6)}
+.srow.on .art{transform:none}
+.srow .art svg{width:100%;height:100%}
+.srow .v{font-family:"Instrument Serif",serif;font-style:italic;font-size:calc(62px*var(--k));line-height:1;margin:0;white-space:nowrap}
+.srow .v small{font-family:"Noto Sans KR",sans-serif;font-style:normal;font-weight:900;font-size:calc(17px*var(--k));margin-left:4px}
+.srow .l{margin:8px 0 0;font-size:calc(15px*var(--k));font-weight:900;clip-path:inset(0 100% 0 0);transition:clip-path .8s .6s}
+.srow .d{margin:4px 0 0;font-size:calc(12.5px*var(--k));font-weight:500;line-height:1.45;color:#4b4232;clip-path:inset(0 100% 0 0);transition:clip-path .9s .8s}
+.srow.rev .l,.srow.rev .d{clip-path:inset(0 0 0 100%)}
+.srow.on .l,.srow.on .d{clip-path:inset(0)}
+.roll{display:inline-flex;overflow:hidden;height:1em;line-height:1}
+.roll>span{display:inline-block;height:1em}
+.roll>span>span{display:flex;flex-direction:column;transition:transform 1.6s cubic-bezier(.2,.9,.25,1)}
+.roll>span>span>span{height:1em;line-height:1}
+.ani{transition:all .5s}
+.nbar{margin-top:16px;border-radius:22px;background:#121212;color:#eaf4ef;padding:20px}
+.nbarrow{display:flex;gap:6px}.nbarrow span{height:10px;border-radius:99px}
+.nbar p{margin:12px 0 0;font-size:calc(14px*var(--k));font-weight:700;line-height:1.6}
+@keyframes ping{0%{transform:scale(.6)}100%{transform:scale(2.4);stroke-width:0}}
+.ping{animation:ping 1.8s ease-out infinite;transform-box:fill-box;transform-origin:center}
+.lease2{margin-top:26px;background:#fff;border:3px solid #121212}
+.lease2 svg{display:block;width:100%;height:auto}
+.lw{margin-top:18px}
+.lw>div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;border-top:2px solid #121212;padding:14px 0}
+.lw .serif{font-size:calc(30px*var(--k));font-style:italic;color:#e3262f;line-height:1}
+.lw b{display:block;font-size:calc(17px*var(--k));font-weight:900}
+.lw p{margin:4px 0 0;font-size:calc(14px*var(--k));line-height:1.65;color:#3b4853}
+.l3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px;text-align:center}
+.l3 div{border-radius:16px;padding:16px 6px;color:#fff}
+.l3 b{display:block;font-size:calc(17px*var(--k));font-weight:900}
+.l3 span{display:block;margin-top:4px;font-size:calc(11px*var(--k));line-height:1.35}
+footer{padding:26px 24px 40px;font-size:calc(12px*var(--k));line-height:1.7;color:var(--soft);background:#0f161d}
+/* 안내 시트 */
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;max-width:480px;margin:0 auto;transform:translateY(105%);transition:transform .5s cubic-bezier(.22,.8,.2,1)}
+.sheet.on{transform:none}
+.sheet>div{border-radius:26px 26px 0 0;background:#22303d;padding:24px 24px 36px}
+.sheet p{font-size:calc(13.5px*var(--k));line-height:1.75;color:var(--soft)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.clip,.dc .img,.chap .s{clip-path:none;transform:none}}
+.mdstack{margin-top:26px;border-top:1px solid rgba(255,255,255,.16)}.mdrow{display:flex;gap:14px;align-items:baseline;padding:11px 2px;border-bottom:1px solid rgba(255,255,255,.12)}.mdrow i{font-style:normal;font-family:"Instrument Serif",serif;font-size:calc(18px*var(--k));color:#ff6b73;min-width:64px}.mdrow span{font-size:calc(14px*var(--k));font-weight:700;color:#eef2f5}.card .im.mdim{aspect-ratio:4/5;position:relative}@media(max-width:390px){header{padding-inline:10px;gap:5px}header nav{gap:4px}header nav a,header nav button{font-size:11px;padding:6px 7px}}
+/* 서부 전용 */
+:root{--coral:#b8925a;--gold:#e9c27a}
+.hero .cta{display:inline-block;margin-top:18px;padding:12px 18px;border-radius:999px;background:var(--coral);color:#fff;font-size:calc(13px*var(--k));font-weight:900;text-decoration:none}
+header .logo{font-family:"Instrument Serif",serif;font-size:calc(22px*var(--k));color:#fff;letter-spacing:.02em;text-decoration:none;line-height:1}
+header .logo small{display:block;font-family:"Noto Sans KR",sans-serif;font-size:calc(8.5px*var(--k));letter-spacing:.24em;font-weight:700;color:rgba(255,255,255,.75);margin-top:3px}
+.ot{position:relative;margin-top:30px;border-radius:26px;overflow:hidden;background:#000;aspect-ratio:9/16;max-height:82svh;clip-path:inset(6% 6% 6% 6% round 40px);transform:scale(.97);transition:clip-path 1.1s cubic-bezier(.22,.8,.2,1),transform 1.1s}
+.ot.in{clip-path:inset(0 round 26px);transform:none}
+.ot video{width:100%;height:100%;object-fit:cover;display:block}
+.ot .tc{position:absolute;left:14px;top:14px}
+.ot .bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.2)}.ot .bar b{display:block;height:100%;background:var(--coral);transform-origin:left;transform:scaleX(0)}
+.ot .play{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(184,146,90,.92);display:flex;align-items:center;justify-content:center;transform:scale(0);transition:transform .25s}
+.ot.paused .play{transform:scale(1)}
+.chs{display:flex;gap:8px;overflow-x:auto;margin:16px -24px 0;padding:0 24px 4px;scrollbar-width:none}.chs::-webkit-scrollbar{display:none}
+.chs button{all:unset;flex:none;cursor:pointer;border:1px solid rgba(215,231,255,.25);border-radius:16px;padding:9px 13px;transition:background .3s,border-color .3s}
+.chs button i{display:block;font-style:normal;font-family:"Instrument Serif",serif;font-size:calc(15px*var(--k));color:var(--soft);line-height:1}
+.chs button b{display:block;margin-top:3px;font-size:calc(12.5px*var(--k));font-weight:700;color:#fff}
+.chs button.on{background:var(--coral);border-color:var(--coral)}.chs button.on i{color:#ffe3d6}
+.ba{position:relative;margin-top:28px;border-radius:22px;overflow:hidden;aspect-ratio:9/14;background:#000;touch-action:pan-y}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{clip-path:inset(0 0 0 50%)}
+.ba .hd{position:absolute;top:0;bottom:0;left:50%;width:2px;background:#fff;transform:translateX(-1px)}
+.ba .hd i{position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:#fff;color:#16202a;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:900;font-size:16px;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.ba .lb{position:absolute;bottom:14px}.ba .lb.l{left:14px}.ba .lb.r{right:14px}
+.ba input{position:absolute;inset:0;width:100%;height:100%;margin:0;appearance:none;-webkit-appearance:none;background:transparent;cursor:ew-resize}
+.ba input::-webkit-slider-thumb{-webkit-appearance:none;width:60px;height:400px;background:transparent}
+.cmp{margin-top:28px;border-top:3px solid #121212}
+.cr{border-bottom:1px solid rgba(18,18,18,.15);padding:14px 0}
+.cr .t{display:flex;justify-content:space-between;align-items:baseline}
+.cr .t b{font-size:calc(14px*var(--k));font-weight:900}
+.cr .t span{font-size:calc(13px*var(--k));color:#4a4f55}.cr .t span em{font-style:normal;font-family:"Instrument Serif",serif;font-size:calc(22px*var(--k));color:#121212;margin-left:6px}
+.cr .bs{margin-top:8px;display:grid;gap:4px}
+.cr .bs i{display:block;height:8px;border-radius:99px;transform-origin:left;transform:scaleX(0);transition:transform 1.1s cubic-bezier(.22,.8,.2,1)}
+.cmp.in .cr .bs i{transform:scaleX(var(--w))}
+.units{margin-top:28px;border-top:1px solid rgba(255,255,255,.2)}
+.ur{display:grid;grid-template-columns:calc(46px*var(--k)) calc(70px*var(--k)) minmax(0,1fr) calc(52px*var(--k));gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.ur .serif{font-size:calc(24px*var(--k));line-height:1}
+.ur span{font-size:calc(12.5px*var(--k));color:var(--soft)}
+.ur .tr{height:10px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.ur .tr b{display:block;height:100%;border-radius:99px;transform-origin:left;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.22,.8,.2,1)}
+.units.in .ur .tr b{transform:scaleX(var(--w))}
+.ur em{font-style:normal;text-align:right;font-weight:900;font-size:calc(13px*var(--k))}
+.tl{margin-top:30px;position:relative;padding-left:26px}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:#121212;transform-origin:top;transform:scaleY(0);transition:transform 1.6s cubic-bezier(.22,.8,.2,1)}
+.tl.in::before{transform:scaleY(1)}
+.tl>div{position:relative;padding-bottom:22px}
+.tl>div::before{content:"";position:absolute;left:-25px;top:8px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid #121212}
+.tl>div:last-child::before{background:var(--coral);border-color:var(--coral)}
+.tl .y{font-family:"Instrument Serif",serif;font-size:calc(30px*var(--k));line-height:1}
+.tl b{display:block;margin-top:4px;font-size:calc(16px*var(--k));font-weight:900}
+.tl p{margin:2px 0 0;font-size:calc(13px*var(--k));color:#4a4f55}
+.addr{margin-top:28px;position:relative;text-align:left;border-top:1px solid rgba(255,255,255,.2)}
+.addr div{display:grid;grid-template-columns:76px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:calc(13.5px*var(--k));line-height:1.6}
+.addr div b{color:var(--soft);font-weight:700}
+/* 헤리티지포레 — 밝은 아이보리·샴페인 톤 */
+.hero img.hkb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:88% 35%;animation:hkb 22s ease-in-out infinite alternate;transform-origin:30% 45%}
+@keyframes hkb{from{transform:scale(1)}to{transform:scale(1.05) translateY(-1%)}}
+.paper{background:#f7f4ee}
+.lite .chs button{border-color:rgba(18,18,18,.18)}.lite .chs button b{color:#121212}.lite .chs button i{color:#8f6f3e}
+.lite .chs button.on{background:#b8925a;border-color:#b8925a}.lite .chs button.on b{color:#fff}.lite .chs button.on i{color:#fbf3e3}
+.lite .dots i{background:rgba(18,18,18,.2)}
+.lite .floors{border-color:rgba(18,18,18,.18)}.lite .fl{border-color:rgba(18,18,18,.14)}.lite .fl .det p{color:#4a4f55}
+.lite .fl .tag[style*="var(--paper)"]{background:#d8ccb5!important}
+.lite .units{border-color:rgba(18,18,18,.18)}.lite .ur{border-color:rgba(18,18,18,.1)}.lite .ur span{color:#5a5f66}.lite .ur .tr{background:rgba(18,18,18,.08)}
+.closing{background:radial-gradient(120% 70% at 50% 38%,#fbf8f2 0%,#efe7da 60%,#e4d8c4 100%);color:#121212}
+.closing p{color:#4a4f55}.closing .blob{background:rgba(184,146,90,.16)}
+.closing .addr{border-color:rgba(18,18,18,.2)}.closing .addr div{border-color:rgba(18,18,18,.1)}.closing .addr div b{color:#8f6f3e}
+.closing .pill{color:#121212!important;border-color:rgba(18,18,18,.3);background:rgba(255,255,255,.5)}
+footer{background:#e9e2d5;color:#6b6457}
+.hero::after{background:linear-gradient(180deg,rgba(22,32,42,.35) 0%,rgba(22,32,42,0) 20%,rgba(22,32,42,0) 66%,rgba(22,32,42,.62) 100%)}
+.lead{background:#f7f4ee;color:#121212}.lead .l1{color:#1d2630}.lead .en{color:#8f6f3e}.lead .ai{color:#6b6457}
+.sheet>div{background:#f7f4ee}.sheet p{color:#4a4f55}.sheet .serif{color:#121212!important}.sheet #closeInfo{color:#121212!important;border-color:rgba(18,18,18,.3)}
+
+</style><script>(function(){try{var t=document.createElement('div');t.style.cssText='position:absolute;visibility:hidden;left:-999px;font-size:100px;line-height:1;white-space:nowrap';t.textContent='가';document.documentElement.appendChild(t);var f=t.getBoundingClientRect().height/100;var c=parseFloat(getComputedStyle(t).fontSize)/100;t.remove();var z=Math.max(f,c);var k=z>1.04?Math.max(.55,1/z):1;document.documentElement.style.setProperty('--k',(k*0.94).toFixed(3));}catch(e){}})();</script></head><body><main>
+
+<header><a class="logo" href="#intro" aria-label="헤리티지포레"><svg viewBox="0 0 260 92" width="100" style="display:block;margin:0;overflow:visible" role="img" aria-label="HERITAGE FORÊT"><defs><linearGradient id="hfs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a8834a"/><stop offset=".45" stop-color="#f3e3bd"/><stop offset=".7" stop-color="#c9a96e"/><stop offset="1" stop-color="#8f6f3e"/></linearGradient></defs><path d="M130 4 c-7 6 -10 12 -10 18 c0 6 4 10 10 12 c6 -2 10 -6 10 -12 c0 -6 -3 -12 -10 -18z M130 14 v26" fill="none" stroke="url(#hfs)" stroke-width="1.6" stroke-linecap="round"/><text x="130" y="60" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="22" letter-spacing="7" fill="url(#hfs)">HERITAGE</text><line x1="64" y1="68" x2="196" y2="68" stroke="url(#hfs)" stroke-width=".8"/><text x="130" y="90" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="url(#hfs)">Forêt</text></svg></a><nav><a href="#onetake" class="pill glass">브랜드 필름</a><button class="pill glass" id="openInfo">안내</button></nav></header>
+
+<section class="hero" id="intro">
+  <img src="/seobu/img/cd-aerial.webp" alt="헤리티지포레 조감도 (AI 이미지 예시)" class="hkb">
+  <div class="tx">
+    <p class="en">HERITAGE FORÊT · SEOUL</p>
+    <h1>물빛이 머무는 곳,<br><span>헤리티지포레.</span></h1>
+    <p>6호선 두 역 사이 · 불광천 물빛 곁의 프라이빗 레지던스</p>
+    <p class="ai">AI 이미지 · 예시</p>
+    <a href="#onetake" class="cta">3분 38초, 끊김 없는 브랜드 필름 ↓</a>
+  </div>
+</section>
+
+<section class="lead" id="lead">
+  <p class="kick rv" style="color:var(--coral)">HERITAGE FORÊT (가칭)</p>
+  <p class="l1 rv">거리에는 취향이 머무는 스트리트몰,<br>그 위로 110세대만을 위한 레지던스.</p>
+  <p class="en rv">HERITAGE FORÊT<br>RESIDENCE · STREET MALL · SKY GARDEN</p>
+  <p class="ai rv">사업 소개용 시안 · 이미지와 영상은 AI 예시</p>
+  <div class="gifbox rv"><video src="/seobu/video/g-morning.mp4" poster="/seobu/video/g-morning.webp" autoplay muted loop playsinline preload="metadata"></video><span class="badge">MORNING STREET · AI 예시</span></div>
+</section>
+
+<section class="shade" id="spark"><canvas id="sparkc"></canvas>
+  <div class="stx"><p class="kick" style="letter-spacing:.42em;font-size:calc(10px*var(--k));color:#9fb6bd">HERITAGE&nbsp;&nbsp;/&nbsp;&nbsp;FORÊT</p><p class="sh">한 줄기 빛이<br>우리동네의 새 이름을 그리다</p><i class="ln" style="background:var(--coral)"></i></div>
+</section>
+
+<section class="paper pad" id="who">
+  <p class="kick rv" style="color:#7a7466">WHO IT'S FOR</p>
+  <h2 class="big rv">Rooted in heritage.<br><em>Rising in green.</em></h2>
+  <p class="sub rv">오랜 시간 이 땅이 지켜 온 가치 위에,<br>서북권이 기다려 온 품격의 주거와 상업을 더합니다.</p>
+  <div class="who">
+    <div class="wc rv" style="background:#fbe9e1"><div class="wt"><span class="serif wn" style="color:var(--coral)">01</span><span class="wb">헤리티지</span></div><b>이 땅의 시간을 지켜 온 분들께</b><p>세월이 깃든 자리가 서북권의 새로운 랜드마크로 다시 태어납니다.</p></div>
+    <div class="wc rv" style="background:#f6efe1"><div class="wt"><span class="serif wn" style="color:#b8892f">02</span><span class="wb">스트리트몰</span></div><b>이곳에서 내일을 여는 분들께</b><p>지하 2층부터 지상 1층까지, 거리의 격을 높이는 프리미엄 스트리트몰.</p></div>
+    <div class="wc rv" style="background:#e6eef7"><div class="wt"><span class="serif wn">03</span><span class="wb">레지던스</span></div><b>이곳에 머물게 될 110세대께</b><p>지상 2~12층, 두 역과 물길을 곁에 둔 하이엔드 레지던스.</p></div>
+  </div>
+  <div class="chips3">
+    <div class="rv" style="background:#8f6f3e"><b>6호선 2역</b><span>증산역 · 새절역</span></div>
+    <div class="rv" style="background:var(--coral)"><b>110세대</b><span>레지던스</span></div>
+    <div class="rv" style="background:#3a3d42"><b>B4 / 12F</b><span>지하 4층 · 지상 12층</span></div>
+  </div>
+</section>
+
+<section class="paper pad lite" id="onetake" style="background:#f7f4ee">
+  <p class="kick rv" style="color:#8f6f3e">01 / BRAND FILM</p>
+  <h2 class="big rv">One take.<br><em>No cuts.</em></h2>
+  <p class="sub rv">우리동네 하늘에서 시작해 증산역과 물길을 지나, 스카이 가든과 그랜드 로비, 레지던스와 나이트 뷰까지. 단 한 번의 호흡으로 이어지는 헤리티지포레의 하루입니다.</p>
+  <div class="ot" id="ot"><video id="otv" muted playsinline loop preload="none" poster="/seobu/video/onetake.webp"></video><span class="badge tc" id="otc">0:00 · 증산역</span><span class="play"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span class="badge l" style="position:absolute;left:14px;bottom:16px">AI 영상 · 예시</span><div class="bar"><b id="otb"></b></div></div>
+  <div class="chs" id="chs"></div>
+  <p class="mcap">버튼을 누르면 그 장면으로 이동합니다. 화면을 누르면 멈춤·재생.</p>
+</section>
+
+<section class="paper pad lite" id="film" style="background:#efe9df">
+  <p class="kick rv" style="color:#8f6f3e">02 / THE WAY IN</p>
+  <h2 class="big rv">Step inside.<br><em>Scene by scene.</em></h2>
+  <p class="sub rv">스카이 가든에서 스트리트몰로, 아트리움을 지나 레지던스의 문 앞까지. 옆으로 넘기며 머물러 보세요.</p>
+  <div class="films" id="films">
+    <div class="clip"><video src="/seobu/video/g-roof.mp4" poster="/seobu/video/g-roof.webp" muted loop playsinline preload="metadata"></video><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">SKY GARDEN · AI 예시</p><b>주말 오후, 하늘 정원의 여유</b></div></div>
+    <div class="clip"><video src="/seobu/video/g-market.mp4" poster="/seobu/video/g-market.webp" muted loop playsinline preload="metadata"></video><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">MORNING STREET · AI 예시</p><b>햇살로 아침을 여는 스트리트몰</b></div></div>
+    <div class="clip"><video src="/seobu/video/g-foodhall.mp4" poster="/seobu/video/g-foodhall.webp" muted loop playsinline preload="metadata"></video><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">GOURMET HALL · AI 예시</p><b>미식이 모이는 고메 홀</b></div></div>
+    <div class="clip"><video src="/seobu/video/s-corridor.mp4" poster="/seobu/video/s-corridor.webp" muted loop playsinline preload="metadata"></video><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">CORRIDOR · AI 예시</p><b>입주민만을 위한 고요한 복도</b></div></div>
+    <div class="clip"><video src="/seobu/video/s-home.mp4" poster="/seobu/video/s-home.webp" muted loop playsinline preload="metadata"></video><div class="cap"><p class="kick" style="font-size:10px;color:#dfe7ee">RESIDENCE · AI 예시</p><b>창 너머로 물빛이 흐르는 거실</b></div></div>
+  </div>
+  <div class="dots" id="fdots"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+</section>
+
+<section class="paper pad" id="place">
+  <p class="kick rv">03 / THE PLACE</p>
+  <h2 class="big rv">Between<br><em>two stations.</em></h2>
+  <p class="sub rv">6호선 증산역과 새절역 사이, 불광천의 물빛을 곁에 둔 서북권의 더블 역세권 어드레스.</p>
+  <div class="map rv" id="mapbox"><svg viewBox="0 0 360 360" id="msvg" aria-label="증산역·새절역과 사업지 개념 지도"></svg></div>
+  <p class="mcap">개념도입니다. 실제 거리·방향과 다를 수 있습니다.</p>
+  <div class="near">
+    <div class="rv"><b style="color:#c9792b">6</b><span>증산역 · 사업지 남서측 (자료 표현 &lsquo;3분 거리&rsquo;)</span></div>
+    <div class="rv"><b style="color:#c9792b">6</b><span>새절역 · 사업지 북측, 불광천 상류 방향</span></div>
+    <div class="rv"><b style="color:#4f9cc0">≈</b><span>불광천 수변 산책로 — 은평구 불광동에서 북가좌동을 지나 마포구 성산동으로 이어지는 물길. 물가 스탠드와 분수, 공공 미술이 산책의 품격을 더합니다.</span></div>
+    <div class="rv"><b style="font-size:calc(19px*var(--k))">DMC</b><span>상암 DMC 인접 · 증산 재개발구역과 함께 새로워지는 생활권</span></div>
+  </div>
+</section>
+
+
+<section class="pad lite" id="water" style="background:#f7f4ee;color:#121212">
+  <p class="kick rv" style="color:#8f6f3e">WATERFRONT · 불광천</p>
+  <h2 class="big rv">A stream by home.<br><em>Seasons at your door.</em></h2>
+  <p class="sub rv" style="color:#4a4f55">우리동네 앞을 흐르는 실개천, 불광천. 봄이면 새절역에 벚꽃이 흐드러지고, 증산교 위에서는 북한산 자락이 한 폭의 풍경이 됩니다.</p>
+  <div class="dc" style="margin-top:26px"><div class="img rv" style="aspect-ratio:4/5;border-radius:22px"><img src="/seobu/img/ai-stream.webp" alt="불광천 수변 산책로 (AI 예시)"><span class="badge l" style="position:absolute;left:14px;bottom:14px">AI 예시 · 불광천 산책로</span></div></div>
+  <div class="lw">
+    <div class="rv"><span class="serif">01</span><div><b>새절역의 벚꽃 길</b><p>봄이 오면 벚꽃과 개나리가 응암역에서 새절역, 증산역, 디지털미디어시티역을 지나 월드컵경기장역까지 하나의 꽃길로 이어집니다.</p></div></div>
+    <div class="rv"><span class="serif">02</span><div><b>서울둘레길이 지나는 물길</b><p>서울둘레길 15코스(노을·하늘공원)는 월드컵경기장을 지나 불광천을 따라 증산역에 닿고, 16코스(봉산·앵봉산)는 바로 이곳 증산역에서 시작됩니다.</p></div></div>
+    <div class="rv"><span class="serif">03</span><div><b>서울물빛나루와 북한산 자락</b><p>서울시 수변감성도시 브랜드 &lsquo;서울물빛나루&rsquo;. 불광천의 &lsquo;해담는 마당&rsquo;과 &lsquo;쉼표&rsquo;에서는 물을 바라보며 쉬어 가고 문화를 누립니다. 증산교 위로는 북한산 백운대가 가까이 다가옵니다.</p></div></div>
+    <div class="rv"><span class="serif">04</span><div><b>한강까지 이어지는 산책</b><p>2002년 월드컵을 계기로 생태 물길로 되살아나, 보행로와 자전거길이 홍제천을 만나 한강까지 이어집니다.</p></div></div>
+  </div>
+  <div class="chips3" style="margin-top:26px">
+    <div class="rv" style="background:#8f6f3e"><b>월드컵경기장</b><span>상암 · 6호선 두 정거장</span></div>
+    <div class="rv" style="background:#b8925a"><b>상암 공원</b><span>하늘·노을·난지한강공원 등</span></div>
+    <div class="rv" style="background:#3a3d42"><b>상암 DMC</b><span>방송·미디어 타운</span></div>
+  </div>
+  <p class="mcap">출처: 서울 테마산책길(마포구), 서울시 내 손안에 서울 &lsquo;서울둘레길 15코스&rsquo;, 서울물빛나루 소개 기사, 서울의 공원(월드컵공원) 안내 내용 정리.</p>
+</section>
+
+<section class="story" id="story">
+  <div class="stage">
+    <div id="b3d" class="b3d"></div>
+    <div class="jt" id="jt"></div>
+    <div class="flist glass" id="flist">
+      <div class="ho"><i>3–12F</i>레지던스</div><div class="ho"><i>2F</i>레지던스</div><div class="cl"><i>1F</i>스트리트몰</div><div class="cl"><i>B1–B2</i>스트리트몰</div><div class="ls"><i>B3–B4</i>지하층</div>
+    </div>
+    <div class="legend glass" id="legend"><span><i style="background:#f3e6c8"></i>레지던스 <em>2–12F</em></span><span><i style="background:#c9a46a"></i>스트리트몰 <em>B2–1F</em></span><span><i style="background:#c3ccd4"></i>지하 <em>B3–B4</em></span></div>
+    <div class="jn"><span class="serif" id="jnum">01</span><div><p class="kick" id="jen" style="font-size:calc(10px*var(--k));color:#dfe7ee">THE ARRIVAL</p><div class="jbar"><b id="jbar"></b></div></div></div>
+    <p class="jhint nudge" id="jhint">↓ 아래로 밀어 보세요 · 손가락으로 돌려 보세요</p>
+  </div>
+</section>
+
+<section class="paper pad lite" id="plans" style="background:#f7f4ee">
+  <p class="kick rv" style="color:#8f6f3e">04 / THE FLOORS</p>
+  <h2 class="big rv">Floor<br><em>by floor.</em></h2>
+  <p class="sub rv">층을 누르면 각 층의 이야기가 펼쳐집니다. 사업계획서 개요 기준입니다.</p>
+  <div class="floors">
+    <div class="fl"><button><span class="no">ROOF</span><span class="nm"><i class="tag" style="background:var(--paper)"></i>스카이 가든 (예시)</span><span class="ar">+</span></button><div class="det"><div><p>퍼골라 아래 정원에서 물길과 서북권 스카이라인을 내려다보는 하늘 정원 · AI 예시 연출</p></div></div></div>
+    <div class="fl"><button><span class="no">3–12F</span><span class="nm"><i class="tag" style="background:#cdb17c"></i>레지던스</span><span class="ar">+</span></button><div class="det"><div><p>공동주택(아파트) · 지상 2~12층 총 110세대 · 8개 주택형(검토안)</p></div></div></div>
+    <div class="fl"><button><span class="no">2F</span><span class="nm"><i class="tag" style="background:#cdb17c"></i>레지던스</span><span class="ar">+</span></button><div class="det"><div><p>레지던스의 첫 페이지가 시작되는 층</p></div></div></div>
+    <div class="fl"><button><span class="no">1F</span><span class="nm"><i class="tag" style="background:#8f6f3e"></i>스트리트몰</span><span class="ar">+</span></button><div class="det"><div><p>거리와 맞닿은 스트리트몰의 얼굴 · 지하 2층~지상 1층 판매시설</p></div></div></div>
+    <div class="fl"><button><span class="no">B1–B2</span><span class="nm"><i class="tag" style="background:#8f6f3e"></i>스트리트몰</span><span class="ar">+</span></button><div class="det"><div><p>미식과 라이프스타일 브랜드가 모이는 지하 갤러리 몰</p></div></div></div>
+    <div class="fl"><button><span class="no">B3–B4</span><span class="nm"><i class="tag" style="background:#c3ccd4"></i>지하층</span><span class="ar">+</span></button><div class="det"><div><p>주차장 등 · 주차 145대 (용도 확인 필요)</p></div></div></div>
+  </div>
+</section>
+
+<section class="paper pad" id="uses">
+  <p class="kick rv" style="color:#7a7466">05 / THREE USES</p>
+  <h2 class="big rv">Three uses.<br><em>One building.</em></h2>
+  <p class="sub rv">레지던스와 스트리트몰, 웰니스가 하나의 건물 안에서 조화를 이룹니다.</p>
+  <div class="dc">
+    <div class="step"><div class="img"><img src="/seobu/img/ai-home.webp" alt="공동주택 거실 (AI 예시)"><span class="badge l">AI 예시</span></div><div class="n">01</div><h3>레지던스 110세대</h3><p>지상 2~12층. 두 역과 물길 곁에서 누리는 하이엔드 주거를 지향합니다.</p></div>
+    <div class="step"><div class="img"><img src="/seobu/img/ai-retail2.webp" alt="판매시설 (AI 예시)"><span class="badge l">AI 예시</span></div><div class="n">02</div><h3>스트리트몰</h3><p>지하 2층~지상 1층. 일상을 한층 우아하게 만드는 미식·리테일 공간입니다.</p></div>
+    <div class="step"><div class="img"><img src="/seobu/img/ai-fitness.webp" alt="운동시설 (AI 예시)"><span class="badge l">AI 예시</span></div><div class="n">03</div><h3>웰니스 센터</h3><p>몸과 마음을 가꾸는 부대복리시설(운동시설). 위치와 규모는 확인 중입니다.</p></div>
+  </div>
+</section>
+
+<section class="paper pad lite" id="market" style="background:#efe9df">
+  <p class="kick rv" style="color:#8f6f3e">06 / BEFORE &amp; AFTER</p>
+  <h2 class="big rv">Same corner.<br><em>New standard.</em></h2>
+  <p class="sub rv">가운데 손잡이를 밀어, 오늘의 거리와 헤리티지포레가 그려 갈 내일을 비교해 보세요.</p>
+  <div class="ba rv" id="ba"><img src="/seobu/img/ai-oldmarket.webp" alt="오늘의 거리 (AI 예시)"><img class="after" id="baa" src="/seobu/img/ai-retail.webp" alt="헤리티지포레 이후의 거리 (AI 예시)"><div class="hd" id="bah"><i>↔</i></div><span class="badge lb l">오늘</span><span class="badge lb r" style="background:var(--coral)">헤리티지포레 · AI 예시</span><input type="range" min="0" max="100" value="50" id="bai" aria-label="지금과 정비 후 비교"></div>
+</section>
+
+<section class="paper pad" id="revised">
+  <p class="kick rv" style="color:#7a7466">07 / REVISED PLAN</p>
+  <h2 class="big rv">Revised.<br><em>More homes.</em></h2>
+  <p class="sub rv">사업시행인가 당초안과 변경안을 나란히 펼쳤습니다. 더 많은 가족을 위해 세대수는 78세대에서 110세대로 늘었습니다.</p>
+  <div class="cmp" id="cmp"></div>
+  <p class="mcap"><i style="display:inline-block;width:10px;height:6px;border-radius:9px;background:#c3ccd4;margin-right:5px"></i>당초 &nbsp; <i style="display:inline-block;width:10px;height:6px;border-radius:9px;background:var(--coral);margin:0 5px 0 8px"></i>변경안 · 감정평가서 DRAFT 기재 수치, 최신 인허가 자료와 대조 후 확정</p>
+</section>
+
+<section class="paper pad lite" id="homes" style="background:#efe9df">
+  <p class="kick rv" style="color:#8f6f3e">08 / THE HOMES</p>
+  <h2 class="big rv">Eight ways<br><em>to live.</em></h2>
+  <p class="sub rv">67㎡부터 99㎡까지, 삶의 방식에 맞춘 8개 주택형 110세대. 막대는 세대수입니다.</p>
+  <div class="units" id="units"></div>
+  <p class="mcap">분양조견표(검토안) 기준 세대별 면적이며 확정된 주택형이 아닙니다.</p>
+</section>
+
+<section class="paper pad" id="since">
+  <p class="kick rv">09 / SINCE 2004</p>
+  <h2 class="big rv">Twenty years<br><em>in the making.</em></h2>
+  <p class="sub rv">2004년 조합 인가에서 2022년 사업시행계획 변경인가 고시까지, 이 땅이 걸어온 시간입니다. 기존 자료에 기재된 추진 이력입니다.</p>
+  <div class="tl" id="tl">
+    <div class="rv"><span class="y">2004</span><b>조합 인가</b><p>01.08 · 서부중앙시장 정비사업조합 인가</p></div>
+    <div class="rv"><span class="y">2007</span><b>사업시행인가</b><p>05.29</p></div>
+    <div class="rv"><span class="y">2008</span><b>관리처분인가</b><p>02.05</p></div>
+    <div class="rv"><span class="y">2020</span><b>사업시행변경인가</b><p>11.10</p></div>
+    <div class="rv"><span class="y">2022</span><b>사업시행계획 변경인가 고시</b><p>12.28</p></div>
+  </div>
+  <p class="mcap">최신 행정 상태를 뜻하지 않습니다.</p>
+</section>
+
+<section class="nums2" id="nums">
+  <div class="liquid" style="right:-96px;top:40px;width:340px;height:340px;background:radial-gradient(circle at 35% 35%,#fbe3d8,#f5d0bd 60%,transparent 72%)"></div>
+  <div class="liquid" style="left:-110px;bottom:96px;width:300px;height:300px;animation-duration:14s;animation-direction:reverse;background:radial-gradient(circle at 60% 40%,#d6e6ff,#ffe0b8 55%,transparent 72%)"></div>
+  <div class="drift-wrap"><div class="drift serif outline">heritage · forêt · residence · waterfront · double station · heritage · forêt · residence · waterfront · double station · </div></div>
+  <div style="position:relative;padding:0 24px">
+    <p class="kick" style="margin-top:32px;color:#121212">10 / IN NUMBERS</p>
+    <h2 class="big" style="font-size:calc(clamp(32px,10vw,42px)*var(--k));margin-top:12px">Small numbers.<br><em>New standard.</em></h2>
+    <div style="margin-top:30px" id="stats"></div>
+    <div class="nbar"><div class="nbarrow"><span style="flex-grow:2;background:#c3ccd4"></span><span style="flex-grow:3;background:#c9a46a"></span><span style="flex-grow:11;background:#f3e6c8"></span></div><p>지하 2층~지상 1층 스트리트몰,<br>지상 2~12층 레지던스 110세대.</p></div>
+  </div>
+  <div class="drift-wrap" style="margin-top:46px"><div class="drift-r serif" style="font-size:calc(44px*var(--k));color:rgba(18,18,18,.8)">HERITAGE FORÊT · ROOTED IN HERITAGE, RISING IN GREEN · HERITAGE FORÊT · ROOTED IN HERITAGE, RISING IN GREEN · </div></div>
+</section>
+
+<section class="closing">
+  <div class="blob" style="left:-60px;top:40px"></div><div class="blob" style="right:-80px;bottom:20px;animation-direction:reverse;animation-duration:14s"></div>
+  <div style="position:relative"><svg viewBox="0 0 260 92" width="200" style="display:block;margin:0 auto;overflow:visible" role="img" aria-label="HERITAGE FORÊT"><defs><linearGradient id="hfl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a5c2e"/><stop offset=".45" stop-color="#c9a96e"/><stop offset=".7" stop-color="#9c7a45"/><stop offset="1" stop-color="#6b4f26"/></linearGradient></defs><path d="M130 4 c-7 6 -10 12 -10 18 c0 6 4 10 10 12 c6 -2 10 -6 10 -12 c0 -6 -3 -12 -10 -18z M130 14 v26" fill="none" stroke="url(#hfl)" stroke-width="1.6" stroke-linecap="round"/><text x="130" y="60" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-size="22" letter-spacing="7" fill="url(#hfl)">HERITAGE</text><line x1="64" y1="68" x2="196" y2="68" stroke="url(#hfl)" stroke-width=".8"/><text x="130" y="90" text-anchor="middle" font-family="Instrument Serif,Georgia,serif" font-style="italic" font-size="26" fill="url(#hfl)">Forêt</text></svg></div>
+  <h2 style="position:relative">Rooted in heritage.<br><em>Rising in green.</em></h2>
+  <p style="position:relative">물빛 곁에 세운 서북의 새로운 품격,<br>헤리티지포레.</p>
+  <div class="addr">
+    <div><b>사업명</b><span>서울서부중앙시장 재개발사업</span></div>
+    <div><b>시행 주체</b><span>서울서부중앙시장정비사업조합 · 주식회사 공명</span></div>
+    <div><b>위치</b><span>서울특별시 서대문구 북가좌동 338-19번지 일원<br>(증가로32안길 31-10)</span></div>
+  </div>
+  <a href="https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EC%84%9C%EB%8C%80%EB%AC%B8%EA%B5%AC%20%EB%B6%81%EA%B0%80%EC%A2%8C%EB%8F%99%20338-19" target="_blank" rel="noopener" class="pill glass" style="position:relative;display:inline-block;margin-top:24px;padding:12px 20px;color:#f3f3ec;text-decoration:none;font-size:13px;font-weight:700">지도에서 보기</a>
+  <a href="#intro" class="pill glass" style="position:relative;display:inline-block;margin:24px 0 0 8px;padding:12px 20px;color:#f3f3ec;text-decoration:none;font-size:13px;font-weight:700">처음으로 ↑</a>
+</section>
+
+<footer>사업 소개를 위한 임시 페이지입니다. &lsquo;헤리티지포레&rsquo;는 가칭입니다. 규모·주택형·일정은 기존 검토자료(사업계획서 2025.02, 감정평가서 DRAFT, 분양조견표 검토안) 기준이며 최신 인허가 자료와 대조 후 확정됩니다. &lsquo;AI 예시&rsquo; 표시 이미지와 영상은 이해를 돕기 위한 연출로 실제 설계와 다를 수 있습니다. 지도는 개념도입니다.</footer>
+
+<div class="sheet" id="sheet"><div>
+  <div style="display:flex;justify-content:space-between;align-items:center"><p class="serif" style="font-size:28px;font-style:italic;margin:0;color:#fff">Heritage Forêt.</p><button id="closeInfo" class="pill" style="width:38px;height:38px;background:none;color:#fff;font-size:16px;cursor:pointer">×</button></div>
+  <p>원테이크 영상과 실내 장면은 사업계획서 조감도를 바탕으로 AI로 만든 예시입니다. 실제 건물·실내와 다를 수 있습니다.</p>
+  <p>규모·주택형은 기존 검토자료 기준이며, 공지사항과 연락처는 조합·시행사 확인 후 게시됩니다.</p>
+  <p>서울서부중앙시장 재개발사업 · 사업 소개용 시안</p>
+</div></div>
+
+</main>
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],cl=v=>Math.max(0,Math.min(1,v));
+$('#openInfo').onclick=()=>$('#sheet').classList.add('on');$('#closeInfo').onclick=()=>$('#sheet').classList.remove('on');
+// 지도 (증산역·새절역·불광천·사업지)
+{let s='';const sv=$('#msvg');
+for(let r=0;r<6;r++)for(let c=0;c<6;c++){const x=14+c*58,y=14+r*58;s+=`<rect x="${x}" y="${y}" width="46" height="46" rx="3" fill="#f3efe8"/>`;}
+s+=`<path d="M70 360 C 120 290, 150 250, 172 200 S 220 90, 250 0" fill="none" stroke="#bfe0ee" stroke-width="22"/><path d="M70 360 C 120 290, 150 250, 172 200 S 220 90, 250 0" fill="none" stroke="#4f9cc0" stroke-width="1.2" stroke-dasharray="3 6"/>`;
+s+=`<path d="M48 360 C 98 290, 128 250, 150 200 S 198 90, 228 0" fill="none" stroke="#16202a" stroke-width="5"/><path d="M48 360 C 98 290, 128 250, 150 200 S 198 90, 228 0" fill="none" stroke="#c9792b" stroke-width="2.4" stroke-dasharray="1 8"/>`;
+s+=`<circle cx="104" cy="285" r="10" fill="#fff" stroke="#c9792b" stroke-width="4"/><text x="118" y="306" font-size="13" font-weight="900" fill="#24313f">증산역</text><text x="118" y="320" font-size="10" fill="#4a4f55">6호선</text>`;
+s+=`<circle cx="205" cy="70" r="10" fill="#fff" stroke="#c9792b" stroke-width="4"/><text x="132" y="62" font-size="13" font-weight="900" fill="#24313f">새절역</text><text x="148" y="77" font-size="10" fill="#4a4f55">6호선</text>`;
+s+=`<text x="232" y="150" font-size="10" font-weight="700" fill="#4f9cc0" transform="rotate(-62 232 150)">불광천</text>`;
+for(let k=0;k<3;k++)s+=`<circle cx="214" cy="232" r="64" fill="none" stroke="#b8925a" stroke-width="1.4" style="transform-box:fill-box;transform-origin:center;animation:rg 3s ease-out ${k}s infinite"/>`;
+s+=`<path d="M200 214 h28 v10 h-14 v26 h-14z" fill="#16202a"/><text x="214" y="270" text-anchor="middle" font-size="12" font-weight="900" fill="#24313f">헤리티지포레</text>`;
+s+=`<path class="rt" d="M104 285 C 140 270, 180 246, 214 232 C 230 170, 212 110, 205 70" fill="none" stroke="#b8925a" stroke-width="2" stroke-dasharray="5 5" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s cubic-bezier(.22,.8,.2,1) .6s"/>`;
+sv.innerHTML=s+`<style>@keyframes rg{from{transform:scale(.2);stroke-width:2}to{transform:scale(1);stroke-width:.2}}#mapbox.in .rt{stroke-dashoffset:0!important}</style>`;}
+
+// 오프닝: 한 점의 빛이 ㄱ자 건물을 그린다
+const sp=$('#spark'),cv=$('#sparkc'),cx2=cv.getContext('2d');let spOn=false,spT0=0;
+const stars=Array.from({length:70},()=>[Math.random(),Math.random()*.8,Math.random()*1.2+.3]);
+function spark(){const r=sp.getBoundingClientRect();const vis=r.top<innerHeight*.7&&r.bottom>0;if(vis&&!spOn){spOn=true;sp.classList.add('on');spT0=performance.now();requestAnimationFrame(spDraw);}}
+function spDraw(now){const W=cv.clientWidth,H=cv.clientHeight,dpr=Math.min(2,devicePixelRatio||1);if(cv.width!==W*dpr){cv.width=W*dpr;cv.height=H*dpr;}const c=cx2;c.setTransform(dpr,0,0,dpr,0,0);
+ const g=c.createRadialGradient(W/2,H*.42,10,W/2,H*.42,H*.7);g.addColorStop(0,'#1b2c3d');g.addColorStop(1,'#0b1117');c.fillStyle=g;c.fillRect(0,0,W,H);
+ stars.forEach(([x,y,z],i)=>{c.fillStyle=`rgba(200,225,230,${.25+.25*Math.sin(now/900+i)})`;c.fillRect(x*W,y*H,z,z);});
+ const s=Math.min(W*.78,H*.4),x0=(W-s)/2,y0=H*.22,h=s*.78,w=s,wing=s*.32,arm=h*.34;
+ const P=[[x0,y0+h],[x0,y0],[x0+w,y0],[x0+w,y0+arm],[x0+wing,y0+arm],[x0+wing,y0+h],[x0,y0+h]];
+ let L=[],tot=0;for(let i=1;i<P.length;i++){const d=Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]);L.push(d);tot+=d;}
+ const T=(now-spT0)/1000,dur=5,pr=Math.min(1,T/dur),ease=1-Math.pow(1-pr,3),len=ease*tot;
+ const gr=c.createLinearGradient(x0,0,x0+w,0);gr.addColorStop(0,'#ffd28a');gr.addColorStop(1,'#b8925a');
+ for(let pass=0;pass<2;pass++){c.beginPath();c.moveTo(P[0][0],P[0][1]);let acc=0,hx=P[0][0],hy=P[0][1];
+  for(let i=1;i<P.length;i++){const d=L[i-1];if(acc+d<=len){c.lineTo(P[i][0],P[i][1]);acc+=d;hx=P[i][0];hy=P[i][1];}else{const t=(len-acc)/d;hx=P[i-1][0]+(P[i][0]-P[i-1][0])*t;hy=P[i-1][1]+(P[i][1]-P[i-1][1])*t;c.lineTo(hx,hy);break;}}
+  c.strokeStyle=gr;c.lineWidth=pass?1.4:7;c.globalAlpha=pass?1:.12;c.lineJoin='round';c.stroke();c.globalAlpha=1;
+  if(pass){const glow=c.createRadialGradient(hx,hy,0,hx,hy,44);glow.addColorStop(0,'rgba(255,214,140,.55)');glow.addColorStop(1,'rgba(255,214,140,0)');c.fillStyle=glow;c.beginPath();c.arc(hx,hy,44,0,7);c.fill();c.fillStyle='#fff3d6';c.beginPath();c.arc(hx,hy,3,0,7);c.fill();}}
+ if(pr>=1){const k=Math.min(1,(T-dur)/2.4);c.strokeStyle='rgba(255,210,138,.35)';c.lineWidth=.8;
+  for(let j=1;j<4;j++){const yy=y0+arm*(j/4);const cut=Math.min(1,k*1.4-j*.12);if(cut<=0)continue;c.beginPath();c.moveTo(x0,yy);c.lineTo(x0+w*cut,yy);c.stroke();}
+  for(let j=1;j<7;j++){const yy=y0+arm+(h-arm)*(j/7);const cut=Math.min(1,k*1.4-(j+3)*.1);if(cut<=0)continue;c.beginPath();c.moveTo(x0,yy);c.lineTo(x0+wing*cut,yy);c.stroke();}}
+ const r=sp.getBoundingClientRect();if(r.bottom>-50&&r.top<innerHeight+50)requestAnimationFrame(spDraw);else{spOn=false;sp.classList.remove('on');}}
+
+// 원테이크
+const CHS=[[0,'우리동네'],[6,'증산역'],[12,'수변 산책로'],[27,'헤리티지포레'],[41,'스카이 가든'],[54,'불광천'],[78,'새절역'],[90,'다시 타워로'],[96,'그랜드 로비'],[105,'라운지·아트리움'],[141,'레지던스'],[162,'스카이 뷰'],[180,'스트리트몰'],[192,'마켓 갤러리'],[201,'나이트 뷰'],[209,'엔딩']];
+const ot=$('#ot'),otv=$('#otv'),mm=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;let otPaused=false,otCur=-1;
+$('#chs').innerHTML=CHS.map(([s,l],i)=>`<button data-s="${s}"><i>${mm(s)}</i><b>${l}</b></button>`).join('');
+$$('#chs button').forEach(b=>b.onclick=()=>{if(!otv.src)otv.src='/seobu/video/onetake.mp4';otv.currentTime=+b.dataset.s;otPaused=false;ot.classList.remove('paused');otv.play().catch(()=>{});});
+ot.onclick=()=>{otPaused=!otPaused;ot.classList.toggle('paused',otPaused);otPaused?otv.pause():otv.play().catch(()=>{});};
+otv.addEventListener('timeupdate',()=>{const t=otv.currentTime;$('#otb').style.transform=`scaleX(${otv.duration?t/otv.duration:0})`;const k=CHS.reduce((a,c,i)=>t>=c[0]?i:a,0);$('#otc').textContent=`${mm(t)} · ${CHS[k][1]}`;if(k!==otCur){otCur=k;$$('#chs button').forEach((b,i)=>b.classList.toggle('on',i===k));const bb=$$('#chs button')[k];const box=$('#chs');box.scrollTo({left:bb.offsetLeft-24,behavior:'smooth'});}});
+function otVis(){const r=ot.getBoundingClientRect();if(r.top<innerHeight+400&&!otv.src)otv.src='/seobu/video/onetake.mp4';const on=r.top<innerHeight*.6&&r.bottom>innerHeight*.4;if(on&&!otPaused){otv.play().catch(()=>{});}else if(!on)otv.pause();}
+
+// 3D 여정 문구
+const CH=[{n:'01',en:'THE ARRIVAL',k:'01 / A NEW CHAPTER',a:'Form.',b:'In motion.',d:'한 줄의 선이 펼쳐지고, 층이 차오르고.\n교차로의 모서리에 헤리티지포레가 모습을 드러냅니다.'},
+{n:'02',en:'THE REVEAL',k:'02 / A DIFFERENT PERSPECTIVE',a:'See it',b:'differently.',d:'지하 4층에서 지상 12층까지.\n연면적 18,315㎡ · 대지면적 2,531.9㎡.'},
+{n:'03',en:'THE LAYERS',k:'03 / OPEN UP THE LAYERS',a:'Street',b:'below.',d:'지하 2층~지상 1층, 거리의 품격이 되는 스트리트몰.\n지상 2~12층, 110세대 레지던스.'},
+{n:'04',en:'THE HOME',k:'04 / ONE BUILDING',a:'Residence',b:'above.',d:'물빛 곁에 세운 서북의 새로운 품격,\n헤리티지포레.'}];
+const jt=$('#jt'),story=$('#story');let curCh=-1;window.__jp=0;
+function jText(){const r=story.getBoundingClientRect(),p=cl(-r.top/Math.max(1,story.offsetHeight-innerHeight));window.__jp=p;const ch=p<.25?0:p<.5?1:p<.8?2:3;
+ if(ch!==curCh){curCh=ch;const c=CH[ch];jt.innerHTML=`<div class="c"><p class="kick" style="color:var(--sub)">${c.k}</p><h3>${c.a}<br><em>${c.b}</em></h3><p class="d">${c.d}</p></div>`;$('#jnum').textContent=c.n;$('#jen').textContent=c.en;}
+ $('#jbar').style.transform=`scaleX(${p})`;$('#flist').classList.toggle('on',ch===2);$('#legend').classList.toggle('on',ch>=2);$('#jhint').classList.toggle('off',p>.03);}
+
+// 당초 vs 변경
+const CMP=[['공동주택',78,110,'세대'],['주차대수',155,145,'대'],['용적률',449.69,430.61,'%'],['건폐율',59.54,69.06,'%'],['연면적',18356.79,18315,'㎡'],['건축면적',1427.24,1644.47,'㎡']];
+$('#cmp').innerHTML=CMP.map(([k,a,b,u])=>{const m=Math.max(a,b);const f=v=>v.toLocaleString('ko-KR',{maximumFractionDigits:2});return `<div class="cr"><div class="t"><b>${k}</b><span>${f(a)} → <em>${f(b)}</em>${u}</span></div><div class="bs"><i style="--w:${(a/m).toFixed(3)};background:#c3ccd4"></i><i style="--w:${(b/m).toFixed(3)};background:var(--coral);transition-delay:.25s"></i></div></div>`}).join('');
+// 주택형
+const UN=[['A',67.04,22],['B1',68.35,2],['B2',69.6,20],['C',88.93,11],['D',90.51,11],['E',92.7,11],['F',96.75,22],['G',98.7,11]];
+$('#units').innerHTML=UN.map(([t,a,n],i)=>`<div class="ur"><span class="serif">${t}</span><span>${a}㎡</span><div class="tr"><b style="--w:${(n/22).toFixed(3)};background:${a>=85?'#cdb17c':'#8f6f3e'};transition-delay:${(i*.06).toFixed(2)}s"></b></div><em>${n}세대</em></div>`).join('');
+// 전후 비교
+{const inp=$('#bai'),af=$('#baa'),hd=$('#bah');const set=v=>{af.style.clipPath=`inset(0 0 0 ${v}%)`;hd.style.left=v+'%';};inp.oninput=()=>set(inp.value);set(50);}
+
+// 숫자
+const K=(n)=>`<span class="roll" data-v="${n}">${String(n).split('').map(d=>`<span><span>${Array.from({length:20},(_,k)=>`<span>${k%10}</span>`).join('')}</span></span>`).join('')}</span>`;
+const ART={
+ring:()=>{let t='<svg viewBox="-60 -60 120 120"><circle r="34" fill="none" stroke="#121212" stroke-opacity=".25" stroke-width=".8"/>';for(let i=0;i<16;i++){const a=i/16*Math.PI*2-Math.PI/2;const c=i<2?'#9aa9b6':i<5?'#b8925a':'#d9a441';t+=`<line class="tk" x1="${Math.cos(a)*39}" y1="${Math.sin(a)*39}" x2="${Math.cos(a)*54}" y2="${Math.sin(a)*54}" stroke="${c}" stroke-width="4" stroke-linecap="round" style="transition-delay:${(.3+i*.06).toFixed(2)}s"/>`;}return t+'<text y="-4" text-anchor="middle" font-size="8" font-weight="800">16개 층</text><text y="8" text-anchor="middle" font-size="6.5" font-weight="700">B4 – 12F</text></svg>';},
+dots:()=>{let t='<svg viewBox="0 0 100 92">';for(let i=0;i<110;i++){const cx=5+(i%11)*9,cy=5+Math.floor(i/11)*9;const c=i<44?'#b8925a':'#d9a441';t+=`<circle class="dt" cx="${cx}" cy="${cy}" r="3.3" fill="${c}" style="transform-box:fill-box;transform-origin:center;transition-delay:${(.2+i*.015).toFixed(2)}s"/>`;}return t+'</svg>';},
+map:()=>'<svg viewBox="0 0 120 112"><path class="ln1" d="M14 112 C 40 80, 52 62, 62 46 S 84 14, 96 -2" fill="none" stroke="#4f9cc0" stroke-width="7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" opacity=".5"/><path class="ln1" d="M4 112 C 30 80, 42 62, 52 46 S 74 14, 86 -2" fill="none" stroke="#c9792b" stroke-width="4" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><text x="0" y="100" font-size="6" font-weight="800" fill="#c9792b">6호선</text>'+[[22,86,'증산역'],[78,14,'새절역']].map(([x,y,n],i)=>`<g class="pin" style="transform-box:fill-box;transform-origin:50% 100%;transition-delay:${1+i*.2}s"><circle cx="${x}" cy="${y}" r="5" fill="#fff" stroke="#c9792b" stroke-width="2.5"/><text x="${x+8}" y="${y+3}" font-size="7" font-weight="800">${n}</text></g>`).join('')+'<g class="pin" style="transform-box:fill-box;transform-origin:50% 100%;transition-delay:1.6s"><path d="M70 62 l-5 -8 a6 6 0 1 1 10 0z" fill="#b8925a"/><text x="78" y="62" font-size="6.5" font-weight="800">사업지</text></g></svg>',
+tl:()=>{let t='<svg viewBox="0 0 120 120"><line class="ln1" x1="10" y1="60" x2="110" y2="60" stroke="#121212" stroke-width="2" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>';[[10,'04'],[28,'07'],[34,'08'],[86,'20'],[100,'22']].forEach(([x,y],i)=>{t+=`<g class="pin" style="transform-box:fill-box;transform-origin:50% 100%;transition-delay:${(.6+i*.2).toFixed(1)}s"><circle cx="${x}" cy="60" r="${i===4?6:4.5}" fill="${i===4?'#b8925a':'#fff'}" stroke="#121212" stroke-width="2"/><text x="${x}" y="${i%2?82:46}" text-anchor="middle" font-size="9" font-weight="800">${y}</text></g>`;});return t+'</svg>';}};
+const ST=[{n:16,u:'개 층',l:'지하 4층 ~ 지상 12층',d:'눈금 하나가 층 하나 — 브론즈 스트리트몰, 골드 레지던스',a:'ring'},
+{n:110,u:'세대',l:'레지던스 8개 타입',d:'점 하나가 한 세대 — 금색은 85㎡ 이상 66세대',a:'dots'},
+{n:2,u:'개 역',l:'6호선 증산역 · 새절역',d:'불광천 물길을 따라, 두 역 사이에 자리합니다',a:'map'},
+{n:2004,u:'년',l:'조합 인가',d:'2022년 사업시행계획 변경인가 고시까지',a:'tl'}];
+$('#stats').innerHTML=ST.map((x,i)=>`<div class="srow${i%2?' rev':''}"><div class="art">${ART[x.a]()}</div><div style="flex:1;min-width:0"><p class="v">${K(x.n)}<small>${x.u}</small></p><p class="l">${x.l}</p><p class="d">${x.d}</p></div></div>`).join('');
+const stl=document.createElement('style');stl.textContent='.srow .tk{stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .35s}.srow.on .tk{stroke-dashoffset:0}.srow .dt{transform:scale(0);transition:transform .5s cubic-bezier(.3,1.6,.5,1)}.srow.on .dt{transform:scale(1)}.srow .ln1{transition:stroke-dashoffset 1.4s cubic-bezier(.22,.8,.2,1)}.srow.on .ln1{stroke-dashoffset:0}.srow .pin{transform:scale(0) translateY(-10px);transition:transform .6s cubic-bezier(.3,1.6,.5,1)}.srow.on .pin{transform:none}';document.head.appendChild(stl);
+let srows=$$('.srow');
+function stats(){const vh=innerHeight;srows=srows.filter(r=>{const b=r.getBoundingClientRect();if(b.top<vh*.82&&b.bottom>0){r.classList.add('on');r.querySelectorAll('.roll').forEach(ro=>{const ds=String(ro.dataset.v).split('');[...ro.children].forEach((col,i)=>{const d=+ds[i];col.firstElementChild.style.transitionDelay=(.2+i*.12)+'s';col.firstElementChild.style.transitionDuration=(1.6+i*.25)+'s';col.firstElementChild.style.transform=`translateY(${-(d+10)}em)`;});});return false;}return true;});}
+// 영상 카드
+const fl=$('#films'),fd=$$('#fdots i'),clips=$$('.clip');
+fl.addEventListener('scroll',()=>{const i=Math.round(fl.scrollLeft/(clips[0].offsetWidth+14));fd.forEach((d,j)=>d.classList.toggle('on',j===i));playVis();},{passive:true});
+function playVis(){clips.forEach(c=>{const r=c.getBoundingClientRect(),v=c.querySelector('video');const on=r.left<innerWidth*.8&&r.right>innerWidth*.2&&r.top<innerHeight&&r.bottom>0;if(on){c.classList.add('in');if(v)v.play().catch(()=>{});}else if(v)v.pause();});}
+$$('.fl button').forEach(b=>b.onclick=()=>b.parentElement.classList.toggle('open'));
+let pend=$$('.rv,.dc .img,#mapbox,#ot,#cmp,#units,#tl');
+function reveal(){const vh=innerHeight;pend=pend.filter(el=>{const r=el.getBoundingClientRect();if(r.top<vh*.88&&r.bottom>0){el.classList.add('in');return false;}return true;});}
+const tick=()=>{jText();reveal();playVis();stats();spark();otVis();};addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);requestAnimationFrame(tick);
+}
+</script><script type="importmap">{"imports":{"three":"/gasan/m4r9/three/build/three.module.js","three/addons/":"/gasan/m4r9/three/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {LineSegments2} from '/gasan/m4r9/three/examples/jsm/lines/LineSegments2.js';
+import {LineSegmentsGeometry} from '/gasan/m4r9/three/examples/jsm/lines/LineSegmentsGeometry.js';
+import {LineMaterial} from '/gasan/m4r9/three/examples/jsm/lines/LineMaterial.js';
+const el=document.getElementById('b3d');
+const sm=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t)};
+// ㄱ자 평면(m): 긴 날개 + 모서리 동
+const WG=[0,0,52,15],TW=[0,15,17,32],TOP=12,FH=3.3;
+const rl=(s,r,y)=>{const[x0,z0,x1,z1]=r;s.push(x0,y,z0,x1,y,z0,x1,y,z0,x1,y,z1,x1,y,z1,x0,y,z1,x0,y,z1,x0,y,z0)};
+const rp=(s,r,y0,y1)=>{const[x0,z0,x1,z1]=r;for(const[x,z]of[[x0,z0],[x1,z0],[x1,z1],[x0,z1]])s.push(x,y0,z,x,y1,z)};
+const mu=(s,r,y0,y1,st)=>{const[x0,z0,x1,z1]=r;const nx=Math.max(1,Math.round((x1-x0)/st)),nz=Math.max(1,Math.round((z1-z0)/st));for(let i=1;i<nx;i++){const x=x0+(x1-x0)*i/nx;s.push(x,y0,z0,x,y1,z0,x,y0,z1,x,y1,z1)}for(let i=1;i<nz;i++){const z=z0+(z1-z0)*i/nz;s.push(x0,y0,z,x0,y1,z,x1,y0,z,x1,y1,z)}};
+function fseg(){const s=[];for(const b of[WG,TW]){rl(s,b,0);rp(s,b,0,FH);mu(s,b,.1,FH,3.3)}return s}
+let R;try{R=new THREE.WebGLRenderer({antialias:true,alpha:true})}catch(e){el.dataset.nogl=1}
+if(R){const dpr=Math.min(devicePixelRatio||1,2);R.setPixelRatio(dpr);R.setClearColor(0,0);el.appendChild(R.domElement);
+const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.5,900),root=new THREE.Group();scene.add(root);
+const CX=26,CZ=16,res=new THREE.Vector2(1,1),mats=[];
+const mk=(segs,w,glow,op)=>{const g=new LineSegmentsGeometry();g.setPositions(segs.map((v,i)=>i%3===0?v-CX:i%3===2?v-CZ:v));const m=new LineMaterial({color:0xffd9a8,linewidth:w,transparent:true,opacity:op??(glow?.16:.95),depthWrite:false,blending:glow?THREE.AdditiveBlending:THREE.NormalBlending});m.resolution=res;mats.push(m);return new LineSegments2(g,m)};
+const FCOL=k=>k===1?'#c9a46a':'#f3e6c8';
+const floors=[];const fs=fseg();
+for(let k=1;k<=TOP;k++){const g=new THREE.Group();g.add(mk(fs,1.2,false));g.add(mk(fs,5,true));const fills=[];const c=FCOL(k);
+ for(const b of[WG,TW]){const[x0,z0,x1,z1]=b;const m=new THREE.Mesh(new THREE.PlaneGeometry(x1-x0-.4,z1-z0-.4),new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:0,side:THREE.DoubleSide,depthWrite:false}));m.rotation.x=-Math.PI/2;m.position.set((x0+x1)/2-CX,.08,(z0+z1)/2-CZ);g.add(m);fills.push(m)}
+ root.add(g);floors.push({g,k,fills})}
+const bs=[];for(let k=1;k<=4;k++){for(const b of[WG,TW]){rl(bs,b,-k*FH);rp(bs,b,-k*FH,-(k-1)*FH)}}const base=mk(bs,.8,false,.25);root.add(base);
+const roof=new THREE.Group();const rs=[];rl(rs,TW,0);rl(rs,[0,15,17,32],5);rp(rs,[0,15,17,32],0,5);rl(rs,WG,0);rl(rs,WG,1.1);rp(rs,WG,0,1.1);roof.add(mk(rs,1.2,false));roof.add(mk(rs,5,true));root.add(roof);
+const gr=[];for(let i=-7;i<=7;i++){gr.push(i*7+CX,0,-34+CZ,i*7+CX,0,52+CZ,-28+CX,0,i*6+CZ+4,82+CX,0,i*6+CZ+4)}const grid=mk(gr,.6,false,.18);root.add(grid);
+const cB=new THREE.Color('#ffb98a'),cM=new THREE.Color('#ffd9a8'),cG=new THREE.Color('#f3e6d4'),cI=new THREE.Color('#ffffff'),tmp=new THREE.Color();
+let yaw=-.7,drag=0,vel=0,down=false,lx=0;R.domElement.style.touchAction='pan-y';
+R.domElement.addEventListener('pointerdown',e=>{down=true;lx=e.clientX});addEventListener('pointermove',e=>{if(!down)return;const dx=e.clientX-lx;lx=e.clientX;drag+=dx*.008;vel=dx*.008},{passive:true});addEventListener('pointerup',()=>down=false);addEventListener('pointercancel',()=>down=false);
+const rsz=()=>{const w=el.clientWidth,h=el.clientHeight;R.setSize(w,h,false);R.domElement.style.width=w+'px';R.domElement.style.height=h+'px';cam.aspect=w/Math.max(1,h);cam.updateProjectionMatrix();res.set(w*dpr,h*dpr)};rsz();new ResizeObserver(rsz).observe(el);
+let last=performance.now(),vis=true,sp=0;new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(el);
+const tick=now=>{requestAnimationFrame(tick);const dt=Math.min(.05,(now-last)/1000);last=now;if(!vis)return;sp+=((window.__jp||0)-sp)*Math.min(1,dt*6);const p=sp;
+ const build=sm(0,.28,p)*1.0001,ex=sm(.5,.68,p),fill=sm(.56,.72,p);
+ floors.forEach(({g,k,fills})=>{const t=Math.min(1,Math.max(0,.35+build*(TOP+.6)-(k-1)));const e=t*t*(3-2*t);g.scale.y=Math.max(1e-4,e);g.position.y=(k-1)*FH+(1-e)*-1.2+ex*(k-1)*1.8;g.visible=t>.001;fills.forEach(m=>m.material.opacity=fill*.7)});
+ const rt=Math.min(1,Math.max(0,.35+build*(TOP+.6)-TOP));roof.visible=rt>.001;roof.scale.y=Math.max(1e-4,rt);roof.position.y=TOP*FH+ex*TOP*1.8;
+ if(p<.36)tmp.copy(cB).lerp(cM,sm(.22,.36,p));else if(p<.6)tmp.copy(cM).lerp(cG,sm(.36,.5,p));else tmp.copy(cG).lerp(cI,sm(.6,.72,p)*.55);mats.forEach(m=>m.color.copy(tmp));grid.material.color.set('#6f8399');base.material.color.set('#9fb6bd');
+ if(!down){drag+=vel;vel*=.92}yaw+=dt*.12;root.rotation.y=yaw+drag+sm(.24,.5,p)*Math.PI*.85;const side=sm(.5,.6,p)-sm(.78,.86,p);root.position.x=side*6;
+ const span=TOP*FH+ex*TOP*1.8,narrow=cam.aspect<.75,dist=(narrow?200:150)+ex*(narrow?130:90),ty=Math.max(10,span*.5*(.35+.65*build))+(narrow?span*.05:0),elev=.32+ex*.22-sm(.28,.48,p)*.08;
+ cam.position.set(0,ty+Math.sin(elev)*dist,Math.cos(elev)*dist);cam.lookAt(0,ty,0);R.render(scene,cam)};requestAnimationFrame(tick)}
+</script></body></html>
