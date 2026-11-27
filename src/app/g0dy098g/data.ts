@@ -67,6 +67,7 @@ export const IMAGES: Record<string, string> = {
   case4: "case4.webp", // 사례 카드 — 상장사 담보 자금조달
   ma: "ma.webp", // 상장사 M&A — 계약 체결 악수 (ChatGPT, 2026-11-28)
   rwa1: "rwa1.webp", // RWA 부동산 개발 — 개발 부지 항공뷰
+  rwa2: "rwa2.webp", // RWA 엣지 AI 데이터센터 — 서버실 점검
 };
 
 /* 움직이는 사진(GIF→MP4) — 같은 이름의 사진 위에 영상이 겹쳐 재생됩니다. 비우면 사진만 */
