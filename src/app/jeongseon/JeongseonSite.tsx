@@ -6,6 +6,8 @@ import { motion, animate, useInView, AnimatePresence } from "framer-motion";
 
 /* 원칙: 투명도는 움직이지 않는다 (갤럭시 빈 화면 방지) — 위치·크기·마스크·모양만 움직인다 */
 const IMG = (f: string) => `/jeongseon/img/${f}.webp`;
+/* 리모델링 후 예시 중 영상이 있는 장면 (제미나이, 반복용) */
+const STORY_VID: Record<string, string> = { "after-lobby": "/jeongseon/video/after-lobby.mp4" };
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 function Rise({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
@@ -517,6 +519,7 @@ export default function JeongseonSite() {
                 transition={{ duration: 1, delay: Math.min(i, 2) * 0.12, ease: EASE }}>
                 <motion.img src={IMG(s.img)} alt={`${s.t} — 리모델링 후 예시 (AI 이미지)`} className="h-full w-full object-cover"
                   animate={{ scale: storyIdx === i ? 1.04 : 1.14 }} transition={{ duration: 1.4, ease: EASE }} loading="lazy" />
+                {STORY_VID[s.img] && storySeen && <video src={STORY_VID[s.img]} poster={IMG(s.img)} autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />}
                 <div className="absolute inset-x-0 bottom-0 p-4 pt-16" style={{ background: "linear-gradient(180deg, transparent, rgba(8,17,15,.92))" }}>
                   <div className="text-[11px] font-semibold tracking-[0.15em]" style={{ color: "var(--js-gold)" }}>{String(i + 1).padStart(2, "0")}</div>
                   <div className="js-serif text-[19px] font-bold">{s.t}</div>
