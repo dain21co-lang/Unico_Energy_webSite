@@ -477,6 +477,7 @@ const SOLUTIONS = [
       ["서부중앙시장 재개발", "Seobu market redevelopment", "주거·상업 재개발", "Redevelopment", "/seobu/m", "d", "seobu"],
       ["가산 메디컬·AI 빌딩(가칭)", "Gasan Medical·AI Building", "오피스 리포지셔닝", "Office repositioning", "/gasan/m4r9", "d", "gasan"],
       ["평생주치의 케어하우스", "Lifelong-care house", "헬스케어 · 돌봄", "Healthcare", "/sinchon/orbit-care", "d", "care"],
+      ["신촌 AI 스마트호스텔", "Sinchon AI Smart Hostel", "숙박 · 리모델링", "Hospitality · remodeling", "/sinchon", "d", "hostel"],
       ["정선 AI 스마트호텔", "Jeongseon AI smart hotel", "호텔 · 관광", "Hotel", "/jeongseon", "d", "jeongseon"],
       ["옥수 복합 개발", "Oksu mixed-use", "개발 · 환경", "Development", "/oksu", "d", "oksu"],
       ["강화 광산 인프라 소재", "Ganghwa mine materials", "자원 · 인프라", "Resources", "/r4d7k2xq", "d", "ganghwa"],
@@ -495,9 +496,8 @@ function SolIcon({ i, c }: { i: number; c: string }) {
   return <g {...p}><path d={paths[i]} /></g>;
 }
 
-function Solutions() {
+function Solutions({ open, setOpen }: { open: number; setOpen: (index: number) => void }) {
   const lang = useLang();
-  const [open, setOpen] = useState(0);
   return (
     <section id="solutions" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
       <Kicker>ADVISORY SIDE · SOLUTIONS</Kicker>
@@ -516,7 +516,7 @@ function Solutions() {
         {SOLUTIONS.map((s, i) => {
           const on = open === i;
           return (
-            <div key={s.no} className="border-b" style={{ borderColor: "var(--gi-line)" }}>
+            <div key={s.no} id={s.links ? "work" : undefined} className="border-b" style={{ borderColor: "var(--gi-line)" }}>
               <button onClick={() => setOpen(on ? -1 : i)} className="flex w-full items-baseline gap-4 py-6 text-left">
                 <span className="gi-en w-6 shrink-0 text-[11px] font-bold" style={{ color: "var(--gi-copper)" }}>{s.no}</span>
                 <span className="flex-1">
@@ -562,6 +562,7 @@ function Solutions() {
                           </ul>
                         </div>
                       ))}
+                      {s.links && <ProjectMaterials />}
                     </div>
                   </motion.div>
                 )}
@@ -818,27 +819,13 @@ function Rwa() {
 }
 
 type WorkItem = { k: string; ko: string; en: string; tko: string; ten: string; href: string };
-const WORK: { id: string; ko: string; en: string; items: WorkItem[] }[] = [
-  { id: "site", ko: "사업 사이트", en: "Deal Sites", items: [
-    { k: "seobu", ko: "재개발 브랜딩 · 원테이크 필름", en: "Redevelopment branding · one-take film", tko: "주거·상업 재개발", ten: "Redevelopment", href: "/seobu/m" },
-    { k: "gasan", ko: "메디컬·AI 빌딩 리포지셔닝", en: "Medical·AI building repositioning", tko: "오피스 리포지셔닝", ten: "Repositioning", href: "/gasan/m4r9" },
-    { k: "care", ko: "평생주치의 케어하우스", en: "Lifelong-care house", tko: "헬스케어 · 돌봄", ten: "Healthcare", href: "/sinchon/orbit-care" },
-    { k: "hostel", ko: "AI 스마트호스텔", en: "AI smart hostel", tko: "숙박 · 리모델링", ten: "Hospitality", href: "/sinchon" },
-    { k: "jeongseon", ko: "관광호텔 AI 스마트호텔", en: "Tourist hotel → AI smart hotel", tko: "호텔 · 관광", ten: "Hotel", href: "/jeongseon" },
-    { k: "oksu", ko: "복합 개발사업", en: "Mixed-use development", tko: "개발 · 환경", ten: "Development", href: "/oksu" },
-    { k: "ganghwa", ko: "광산 기반 인프라 소재", en: "Mine-based infrastructure materials", tko: "자원 · 인프라", ten: "Resources", href: "/r4d7k2xq" },
-    { k: "solumix", ko: "상장사 기업 사이트", en: "Listed-company website", tko: "기업 브랜딩", ten: "Corporate", href: "/xxrhbd2" },
-    { k: "haeyeon", ko: "기업 홈페이지", en: "Company website", tko: "기업 브랜딩", ten: "Corporate", href: "/pqw8nt7" },
-    { k: "unico", ko: "에너지·원자재 그룹 사이트", en: "Energy & commodities group", tko: "그룹 사이트", ten: "Group site", href: "/" },
-  ] },
-  { id: "doc", ko: "사업계획서 · IR", en: "Plans · IR", items: [
+const PROJECT_MATERIALS: WorkItem[] = [
     { k: "scplan", ko: "스마트호스텔 IR", en: "Smart hostel IR", tko: "IR 자료", ten: "IR deck", href: "/scplan" },
     { k: "scprofile", ko: "스마트호스텔 사업소개서", en: "Smart hostel profile", tko: "사업소개서", ten: "Profile", href: "/scprofile" },
     { k: "ghplan", ko: "광산 사업 기획(안)", en: "Mine business plan", tko: "사업계획서", ten: "Business plan", href: "/p5c9h2mj" },
     { k: "hnl", ko: "투자회사 회사소개서", en: "Investment firm profile", tko: "회사소개서", ten: "Company profile", href: "/f6b1y4ds" },
     { k: "deck", ko: "그룹 사업소개서", en: "Group business proposal", tko: "사업소개서", ten: "Proposal", href: "/deck" },
-  ] },
-];
+ ];
 
 /* 작업물 한 건: 화면 폭 가득 이미지가 마스크로 열리고, 아래에 제목만 (The Boundary식 피드) */
 function WorkEntry({ w, lang, i }: { w: WorkItem; lang: string; i: number }) {
@@ -846,7 +833,7 @@ function WorkEntry({ w, lang, i }: { w: WorkItem; lang: string; i: number }) {
   const seen = useInView(ref, { once: true, margin: "-40px" });
   return (
     <a ref={ref} href={w.href} target="_blank" rel="noopener" className="block">
-      <div className="relative -mx-5 aspect-[4/5] overflow-hidden" style={{ background: "#1c2414" }}>
+      <div className="relative aspect-[4/5] overflow-hidden" style={{ background: "#1c2414" }}>
         <motion.div className="absolute inset-0" initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }} transition={{ duration: 1.1, ease: EASE }}>
           <motion.img src={`/g0dy098g/work/${w.k}.webp`} alt="" loading="lazy" className="h-full w-full object-cover object-top" initial={{ scale: 1.12 }} animate={{ scale: seen ? 1 : 1.12 }} transition={{ duration: 1.6, ease: EASE }} />
         </motion.div>
@@ -863,39 +850,21 @@ function WorkEntry({ w, lang, i }: { w: WorkItem; lang: string; i: number }) {
   );
 }
 
-function Work() {
+function ProjectMaterials() {
   const lang = useLang();
-  const [tab, setTab] = useState(0);
   const [all, setAll] = useState(false);
-  const total = WORK.reduce((a, g) => a + g.items.length, 0);
-  const g = WORK[tab];
-  const shown = all ? g.items : g.items.slice(0, 4);
+  const shown = all ? PROJECT_MATERIALS : PROJECT_MATERIALS.slice(0, 4);
   return (
-    <section id="work" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
-      <Kicker>DEAL SHOWCASE</Kicker>
-      <div className="flex items-end justify-between gap-3">
-        <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "Real work," : "말보다,"}</Lift><Lift delay={0.08}>{lang === "en" ? "one tap away." : "만든 것으로."}</Lift></h2>
-        <div className="text-right leading-none"><div className="text-[44px] font-extrabold tracking-[-0.04em]" style={{ color: "var(--gi-black)" }}><Count to={total} /></div><div className="mt-1 text-[11px]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "제작 사례", "projects")}</div></div>
-      </div>
-      <p className="mt-5 text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "딜 쇼케이스 — 딜마다 직접 만든 사이트와 문서입니다. 누르면 바로 열립니다.", "Deal showcase — sites and documents we built for each deal. Tap to open.")}</p>
-      {/* 분류: 밑줄만 움직이는 텍스트 탭 */}
-      <div className="mt-8 flex gap-6 border-b" style={{ borderColor: "var(--gi-line)" }}>
-        {WORK.map((w, i) => (
-          <button key={w.id} onClick={() => { setTab(i); setAll(false); }} className="relative pb-3 text-[15px] font-bold" style={{ color: tab === i ? "var(--gi-black)" : "#a3a7ad" }}>
-            {lang === "en" ? w.en : w.ko}<span className="ml-1 text-[11px]">{w.items.length}</span>
-            {tab === i && <motion.span layoutId="gi-work-ul" className="absolute inset-x-0 -bottom-px h-[2px]" style={{ background: "var(--gi-black)" }} transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
-          </button>
-        ))}
-      </div>
-      <div key={g.id} className="mt-8 space-y-8">
+    <section className="mt-10">
+      <h3 className="border-b pb-2 text-[16px] font-extrabold" style={{ borderColor: "var(--gi-black)", color: "var(--gi-black)" }}>
+        {pick(lang, "사업계획서 · IR", "Business Plans · IR")}
+      </h3>
+      <div className="mt-5 space-y-6">
         {shown.map((w, i) => <WorkEntry key={w.k} w={w} lang={lang} i={i} />)}
       </div>
-      {g.items.length > 4 && (
-        <button onClick={() => setAll(!all)} className="mt-8 flex w-full items-center justify-between border-y py-4 text-[14.5px] font-bold" style={{ borderColor: "var(--gi-black)", color: "var(--gi-black)" }}>
-          {all ? pick(lang, "접기", "Show less") : pick(lang, `전체 보기 (${g.items.length})`, `View all (${g.items.length})`)}
-          <motion.span animate={{ rotate: all ? 180 : 0 }} transition={{ duration: 0.3 }}>⌄</motion.span>
-        </button>
-      )}
+      <button type="button" aria-expanded={all} onClick={() => setAll(!all)} className="mt-5 w-full border-y py-3 text-left text-[14px] font-bold" style={{ borderColor: "var(--gi-line)", color: "var(--gi-black)" }}>
+        {all ? pick(lang, "접기", "Show less") : pick(lang, `전체 보기 (${PROJECT_MATERIALS.length})`, `View all (${PROJECT_MATERIALS.length})`)}
+      </button>
       <div className="mt-10 border-l-2 pl-4" style={{ borderColor: "var(--gi-copper)" }}>
         <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>PRIVATE DEAL ROOM</div>
         <div className="mt-1.5 text-[16px] font-extrabold" style={{ color: "var(--gi-black)" }}>{pick(lang, "검토보고서 · 투자자 전용 페이지", "Review reports · investor-only pages")}</div>
@@ -1051,7 +1020,7 @@ const MENU: [string, string, string[]][] = [
   ["ma", "상장사 M&A", []],
   ["solutions", "자문 솔루션", ["상장사 M&A·투자유치", "구조조정", "사업계획서·IR", "검토보고서·가치평가", "투자유치 진행 프로젝트"]],
   ["rwa", "RWA 사업", ["부동산 개발", "엣지 AI 데이터센터", "NPL"]],
-  ["work", "딜 쇼케이스", []],
+  ["work", "투자유치 진행 프로젝트", []],
   ["approach", "투자 접근", ["4단계 프로세스", "원칙"]],
   ["fee", "보수 구조", []],
   ["contact", "문의", []],
@@ -1075,7 +1044,7 @@ export default function GiibPlus() {
     if (l === "en") setLangRaw("en");
   }, []);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation", "Live Deals"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Deal Showcase", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
+  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation", "Live Deals"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Live Deals", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
   const menuList: [string, string, string[]][] = MENU.map(([id, l, k]) => (lang === "en" ? [id, MENU_EN2[id][0], MENU_EN2[id][1]] : [id, l, k]));
   const proc_ = PROCESS.map((p, i) => (lang === "en" ? { ...p, ...PROCESS_EN[i] } : p));
   const prin_ = PRINCIPLES.map((p, i) => (lang === "en" ? { ...p, ...PRINCIPLES_EN[i] } : p));
@@ -1094,7 +1063,9 @@ export default function GiibPlus() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const [openSolution, setOpenSolution] = useState(0);
   const go = (id: string) => {
+    if (id === "work") setOpenSolution(SOLUTIONS.length - 1);
     setMenu(false);
     const el = document.getElementById(id);
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56, behavior: "smooth" });
@@ -1144,7 +1115,7 @@ export default function GiibPlus() {
                       {sub === i && (
                         <motion.div key="s" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.3, ease: EASE }}>
                           <div className="pb-4">
-                            {kids.map((k) => <button key={k} onClick={() => go(id)} className="block py-2 text-[15px]" style={{ color: "var(--gi-sub)" }}>{k}</button>)}
+                            {kids.map((k, j) => <button key={k} onClick={() => go(id === "solutions" && j === SOLUTIONS.length - 1 ? "work" : id)} className="block py-2 text-[15px]" style={{ color: "var(--gi-sub)" }}>{k}</button>)}
                           </div>
                         </motion.div>
                       )}
@@ -1222,9 +1193,8 @@ export default function GiibPlus() {
 
         <Pillars onGo={go} />
         <ListedMA />
-        <Solutions />
+        <Solutions open={openSolution} setOpen={setOpenSolution} />
         <Rwa />
-        <Work />
 
         {/* 투자 접근 — 번호 목록 */}
         <section id="approach" className="px-5 pt-14 pb-14">
