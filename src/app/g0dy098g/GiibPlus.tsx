@@ -802,10 +802,18 @@ const COMPANY_LINKS: ProjectLink[] = [
 
 function ProjectShowcase() {
   const lang = useLang();
+  const video = useRef<HTMLVideoElement>(null);
+  const inView = useInView(video);
+  useEffect(() => {
+    const element = video.current;
+    if (!element) return;
+    if (inView) element.play().catch(() => {});
+    else element.pause();
+  }, [inView]);
   return (
     <section id="work" style={{ background: "var(--gi-ink)", color: "#fff" }}>
-      <div className="relative flex aspect-[4/3] items-end overflow-hidden px-5 pb-6">
-        <img src="/g0dy098g/intro-seoul.webp" alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+      <div className="relative flex aspect-[16/9] items-end overflow-hidden px-5 pb-6">
+        <video ref={video} src="/g0dy098g/video/film.mp4" poster="/g0dy098g/video/film-poster.webp" muted loop playsInline preload="metadata" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
         <div className="relative">
           <div className="gi-en text-[11px] font-bold text-[#ead2a2]">05 · LIVE DEALS</div>
