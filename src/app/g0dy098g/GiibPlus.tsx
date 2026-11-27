@@ -6,6 +6,7 @@ import { motion, AnimatePresence, useInView, animate, useScroll, useTransform } 
 import { CO, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS, HERO_VIDEO, VIDEOS } from "./data";
 import { LangCtx, useLang, pick, CO_EN, PROCESS_EN, PRINCIPLES_EN, RECORD_STATS_EN, CASES_EN, SECTORS_EN, MENU_EN } from "./i18n";
 import type { Lang } from "./i18n";
+import GiibLogo, { GiibMini } from "./GiibLogo";
 
 /*
  * 벤치마킹: BlackRock(흑백 타이포·여백) · Brookfield(큰 사진 + 사진 아래 문장) · Macquarie(사업부 목록)
@@ -109,7 +110,7 @@ function Logo({ dark = false, size = 32 }: { dark?: boolean; size?: number }) {
   const lang = useLang();
   return (
     <span className="flex items-center gap-2.5">
-      <img src="/g0dy098g/logo-mark-olive.svg" alt="" width={size} height={size} />
+      <GiibMini size={size} />
       <span className="leading-none">
         <span className="block text-[17px] font-extrabold tracking-[0.12em]" style={{ color: dark ? "#fff" : "var(--gi-black)" }}>GIIB</span>
         <span className="mt-1 block text-[10.5px] font-semibold" style={{ color: dark ? "var(--gi-sand)" : "var(--gi-sub)" }}>{pick(lang, "글로벌인프라허브", "Global Infra Hub")}</span>
@@ -1022,8 +1023,7 @@ function Intro({ onNext, onWork }: { onNext: () => void; onWork: () => void }) {
       </motion.div>
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(17,21,12,.35) 0%, rgba(17,21,12,0) 30%, rgba(17,21,12,0) 52%, rgba(17,21,12,.78) 100%)" }} />
       <motion.div className="absolute inset-x-0 bottom-[19%] px-6 text-white" style={{ y: ty }}>
-        <div className="text-[64px] font-extrabold leading-none tracking-[0.16em]"><Lift delay={0.2}>GIIB</Lift></div>
-        <motion.div className="mt-5 h-px w-16 origin-left" style={{ background: "var(--gi-sand)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.9, delay: 0.5, ease: EASE }} />
+        <GiibLogo className="-ml-4 block w-[290px]" style={{ filter: "drop-shadow(0 8px 22px rgba(10,12,6,.55))" }} />
         <div className="mt-5 text-[24px] font-bold leading-[1.35] tracking-[-0.01em]"><Lift delay={0.6}>{pick(lang, "기업과 자산의 가치를", "We design the value")}</Lift><Lift delay={0.72}>{pick(lang, "설계합니다.", "of companies and assets.")}</Lift></div>
         <div className="mt-3 text-[12.5px] font-semibold tracking-[0.02em] text-white/75"><Lift delay={0.85}>{pick(lang, "상장사 M&A · 구조조정 · RWA · IR", "Listed-company M&A · Restructuring · RWA · IR")}</Lift></div>
       </motion.div>
