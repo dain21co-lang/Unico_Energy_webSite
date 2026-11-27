@@ -166,7 +166,7 @@ function Visual({ k, className, variant = 0, tag }: { k: string; className?: str
 }
 
 /* 화면 폭 가득 영상: 막이 옆으로 걷히며 등장, 화면에 보일 때만 재생 */
-const FILM_VIDEO = ""; // 딜 룸 반복 영상 — 받으면 "video/dealroom.mp4"
+const FILM_VIDEO = "video/dealroom.mp4"; // 딜 룸 반복 영상(Flow 시작·끝 같은 프레임)
 function Film() {
   const lang = useLang();
   const ref = useRef<HTMLDivElement>(null);
