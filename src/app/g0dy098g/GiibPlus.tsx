@@ -694,7 +694,7 @@ function Intro({ onNext }: { onNext: () => void }) {
   const ty = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
   return (
     <section ref={ref} className="relative h-[calc(100svh-56px)] min-h-[520px] overflow-hidden" style={{ background: "#161d10" }}>
-      <motion.img src="/g0dy098g/city.webp" alt={pick(lang, "서울 석양 항공 전경", "Seoul at sunset, aerial view")} className="absolute inset-0 h-full w-full object-cover" style={{ scale, objectPosition: "62% 50%", transformOrigin: "62% 55%" }} />
+      <motion.img src="/g0dy098g/intro-seoul.webp" alt={pick(lang, "서울 석양 항공 전경", "Seoul at sunset, aerial view")} className="absolute inset-0 h-full w-full object-cover" style={{ scale, objectPosition: "50% 50%", transformOrigin: "60% 60%" }} />
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(17,21,12,.35) 0%, rgba(17,21,12,0) 30%, rgba(17,21,12,0) 52%, rgba(17,21,12,.78) 100%)" }} />
       <motion.div className="absolute inset-x-0 bottom-[19%] px-6 text-white" style={{ y: ty }}>
         <div className="text-[64px] font-extrabold leading-none tracking-[0.16em]"><Lift delay={0.2}>GIIB</Lift></div>
