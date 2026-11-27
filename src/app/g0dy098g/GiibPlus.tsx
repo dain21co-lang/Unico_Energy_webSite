@@ -992,7 +992,7 @@ function Intro({ onNext, onWork }: { onNext: () => void; onWork: () => void }) {
     <section ref={ref} className="relative h-[calc(100svh-56px)] min-h-[520px] overflow-hidden" style={{ background: "#161d10" }}>
       <motion.div className="absolute inset-0" style={{ scale, transformOrigin: "60% 60%" }}>
         <img src="/g0dy098g/intro-seoul.webp" alt={pick(lang, "서울 석양 항공 전경", "Seoul at sunset, aerial view")} className="absolute inset-0 h-full w-full object-cover" />
-        <video src="/g0dy098g/video/intro-seoul.mp4" poster="/g0dy098g/intro-seoul.webp" autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
+        <video src="/g0dy098g/video/intro-seoul2.mp4" poster="/g0dy098g/intro-seoul.webp" autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
       </motion.div>
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(17,21,12,.35) 0%, rgba(17,21,12,0) 30%, rgba(17,21,12,0) 52%, rgba(17,21,12,.78) 100%)" }} />
       <motion.div className="absolute inset-x-0 top-[8%] flex justify-center" style={{ y: ty }}>
