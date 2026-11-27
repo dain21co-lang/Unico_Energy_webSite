@@ -166,6 +166,7 @@ function Visual({ k, className, variant = 0, tag }: { k: string; className?: str
 }
 
 /* 화면 폭 가득 영상: 막이 옆으로 걷히며 등장, 화면에 보일 때만 재생 */
+const FILM_VIDEO = ""; // 딜 룸 반복 영상 — 받으면 "video/dealroom.mp4"
 function Film() {
   const lang = useLang();
   const ref = useRef<HTMLDivElement>(null);
@@ -179,11 +180,12 @@ function Film() {
   return (
     <section ref={ref} className="relative" style={{ background: "#11150c" }}>
       <motion.div className="relative aspect-[16/9] w-full overflow-hidden" initial={{ clipPath: "inset(0% 100% 0% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 100% 0% 0%)" }} transition={{ duration: 1.2, ease: EASE }}>
-        <video ref={vid} src="/g0dy098g/video/film.mp4" poster="/g0dy098g/video/film-poster.webp" muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
+        <img src="/g0dy098g/dealroom.webp" alt={pick(lang, "딜 룸에서 거래 구조를 검토하는 팀", "Team reviewing a deal structure in the deal room")} className="absolute inset-0 h-full w-full object-cover" />
+        {FILM_VIDEO && <video ref={vid} src={`/g0dy098g/${FILM_VIDEO}`} poster="/g0dy098g/dealroom.webp" muted loop playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />}
         <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(17,21,12,0) 55%, rgba(17,21,12,.85) 100%)" }} />
         <div className="absolute bottom-3 left-5 right-5 flex items-end justify-between text-white">
-          <span className="gi-en text-[10px] font-semibold" style={{ color: "var(--gi-sand)" }}>SEOUL · REAL ESTATE</span>
-          <span className="text-[12px] text-white/75">{pick(lang, "도시의 가치를 구조로 담습니다", "Structuring the value of the city")}</span>
+          <span className="gi-en text-[10px] font-semibold" style={{ color: "var(--gi-sand)" }}>ASSET × ADVISORY</span>
+          <span className="text-[12px] text-white/75">{pick(lang, "자산과 기업을 하나의 딜로", "Assets and companies, one deal")}</span>
         </div>
       </motion.div>
     </section>
