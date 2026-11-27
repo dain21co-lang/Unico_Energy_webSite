@@ -75,6 +75,7 @@ export const VIDEOS: Record<string, string> = {
   advisory: "video/advisory.mp4", // 사업영역 '투자자문' — 제미나이 10초 영상(회의실)
   approach: "video/approach.mp4", // '투자 접근' — 제미나이 10초 영상(현장 실사)
   city: "video/city.mp4", // 사업실적 아래 한강 야경
+  ma: "video/ma.mp4", // 상장사 M&A — 악수 장면(제미나이 10초, 워터마크 흐림 처리)
 };
 
 /* 첫 화면 배경 영상 — 비우면 hero 사진만 보입니다 (영상이 뜨기 전에도 사진이 먼저 보임) */
