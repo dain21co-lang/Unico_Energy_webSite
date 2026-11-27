@@ -17,6 +17,16 @@ const tower = (x: number, h: number) => `${x},${BASE} ${x + GL_TW},${BASE} ${x +
 const TAG_S = (GL_W * 0.86) / GL_TAGW;
 const TAG_X = (GL_W - GL_TAGW * TAG_S) / 2;
 const TAG_Y = 1268;
+/* 글자별 모래가 차는 범위 [왼쪽, 오른쪽, 꼭대기, 시작시각] */
+const GB = [35, 849];
+const SAND: [number, number, number, number][] = [
+  [GL_T1, GL_T1 + GL_TW, BASE - T1H - 60, 0.55],
+  [GL_T2, GL_T2 + GL_TW, BASE - T2H - 60, 0.7],
+  [GB[0], GB[1], 200, 0.85],
+  [GL_XB + 30, GL_XB + 707, 200, 1.0],
+];
+const mound = (x0: number, x1: number, y: number) => `M ${x0 - 40} ${y + 40} Q ${(x0 + x1) / 2} ${y - 60} ${x1 + 40} ${y + 40} L ${x1 + 40} ${BASE + 60} L ${x0 - 40} ${BASE + 60} Z`;
+const GRAINS = [-30, 12, -8, 26, -18, 4, 34, -2, 20, -26, 8, -12];
 
 export default function GiibLogo({ animate = true, className, style, tagline = true, dark = true }: { animate?: boolean; className?: string; style?: React.CSSProperties; tagline?: boolean; dark?: boolean }) {
   const id = useId().replace(/:/g, "");
@@ -56,10 +66,13 @@ export default function GiibLogo({ animate = true, className, style, tagline = t
           <stop offset=".35" stopColor="#fff2c4" />
           <stop offset="1" stopColor="#e2bd6c" stopOpacity="0" />
         </radialGradient>
-        {/* 금박이 아래에서 위로 차오르는 창 */}
+        {/* 모래시계처럼 — 글자마다 금모래가 쌓여 봉긋하게 차오름 */}
         <clipPath id={`${id}fill`} clipPathUnits="userSpaceOnUse">
-          <motion.rect x="-100" width={GL_W + 200} height="900" initial={{ y: a ? BASE + 20 : 260 }} animate={{ y: 260 }} transition={T(1.25, 1.1)} />
+          {SAND.map(([x0, x1, top, d]) => (
+            <motion.path key={x0} initial={{ d: a ? mound(x0, x1, BASE + 80) : mound(x0, x1, top) }} animate={{ d: mound(x0, x1, top) }} transition={a ? { duration: 2.4, delay: d, ease: [0.4, 0.1, 0.6, 1] } : { duration: 0 }} />
+          ))}
         </clipPath>
+        <clipPath id={`${id}above`} clipPathUnits="userSpaceOnUse"><rect x="-300" y="-400" width={GL_W + 600} height={BASE - 10 + 400} /></clipPath>
         {/* 반짝임이 지나갈 글자 모양 */}
         <clipPath id={`${id}shape`} clipPathUnits="userSpaceOnUse">
           {letters}
@@ -80,20 +93,34 @@ export default function GiibLogo({ animate = true, className, style, tagline = t
           initial={{ pathLength: a ? 0 : 1 }} animate={{ pathLength: 1 }} transition={T(1.6, 0.9)} />
       </g>
 
-      {/* 두 기둥(타워) — 아래에서 솟아오름 */}
-      {[[GL_T1, T1H, 0.2], [GL_T2, T2H, 0.38]].map(([x, h, d]) => (
-        <motion.g key={x} style={{ transformBox: "fill-box", transformOrigin: "50% 100%" }} initial={{ scaleY: a ? 0 : 1 }} animate={{ scaleY: 1 }} transition={T(d, 1.1)}>
-          <polygon points={tower(x, h)} fill={gold2} />
-          <line x1={x + GL_TW / 2} x2={x + GL_TW / 2} y1={BASE - h + 150} y2={BASE - 40} stroke="#7a5418" strokeWidth="6" />
-        </motion.g>
-      ))}
+      {/* 금모래 줄기 — 글자 위에서 떨어져 내림 */}
+      {a && (
+        <g clipPath={`url(#${id}above)`} fill="#f3d892">
+          {SAND.map(([x0, x1, , d]) => GRAINS.map((j, k) => (
+            <circle key={`${x0}-${k}`} className="gi-sand" cx={(x0 + x1) / 2 + j} cy="0" r={k % 3 ? 15 : 21}
+              style={{ animationDelay: `${d + k * 0.05}s`, animationDuration: `${0.4 + (k % 4) * 0.05}s` }} />
+          )))}
+        </g>
+      )}
 
+      {/* 두 기둥(타워) — 금선 윤곽 */}
+      {[[GL_T1, T1H, 0.2], [GL_T2, T2H, 0.32]].map(([x, h, d]) => (
+        <motion.polygon key={x} points={tower(x, h)} fill="none" stroke={gold2} strokeWidth="7" initial={{ pathLength: a ? 0 : 1 }} animate={{ pathLength: 1 }} transition={T(d, 1)} />
+      ))}
       {/* G · B — 금선으로 그린 뒤 금박이 차오름 */}
       <g fill="none" stroke={gold} strokeWidth="7">
         <motion.path d={GL_G} transform={`translate(0 ${BASE}) scale(1 -1)`} initial={{ pathLength: a ? 0 : 1 }} animate={{ pathLength: 1 }} transition={T(0.45, 1.3)} />
         <motion.path d={GL_B} transform={`translate(${GL_XB} ${BASE}) scale(1 -1)`} initial={{ pathLength: a ? 0 : 1 }} animate={{ pathLength: 1 }} transition={T(0.6, 1.3)} />
       </g>
-      <g clipPath={`url(#${id}fill)`}><g fill={gold}>{letters}</g></g>
+      <g clipPath={`url(#${id}fill)`}>
+        <g fill={gold}>{letters}</g>
+        {[[GL_T1, T1H], [GL_T2, T2H]].map(([x, h]) => (
+          <g key={x}>
+            <polygon points={tower(x, h)} fill={gold2} />
+            <line x1={x + GL_TW / 2} x2={x + GL_TW / 2} y1={BASE - h + 150} y2={BASE - 40} stroke="#7a5418" strokeWidth="6" />
+          </g>
+        ))}
+      </g>
 
       {/* 반짝임 띠 — 주기적으로 글자 위를 지나감 */}
       <g clipPath={`url(#${id}shape)`}>

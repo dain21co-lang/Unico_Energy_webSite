@@ -1022,8 +1022,10 @@ function Intro({ onNext, onWork }: { onNext: () => void; onWork: () => void }) {
         <video src="/g0dy098g/video/intro-seoul.mp4" poster="/g0dy098g/intro-seoul.webp" autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" />
       </motion.div>
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(17,21,12,.35) 0%, rgba(17,21,12,0) 30%, rgba(17,21,12,0) 52%, rgba(17,21,12,.78) 100%)" }} />
-      <motion.div className="absolute inset-x-0 bottom-[19%] px-6 text-white" style={{ y: ty }}>
-        <GiibLogo className="-ml-4 block w-[290px]" style={{ filter: "drop-shadow(0 8px 22px rgba(10,12,6,.55))" }} />
+      <motion.div className="absolute inset-x-0 top-[8%] flex justify-center" style={{ y: ty }}>
+        <GiibLogo className="block w-[250px]" style={{ filter: "drop-shadow(0 8px 22px rgba(10,12,6,.5))" }} />
+      </motion.div>
+      <motion.div className="absolute inset-x-0 bottom-[12%] px-6 text-white" style={{ y: ty }}>
         <div className="mt-5 text-[24px] font-bold leading-[1.35] tracking-[-0.01em]"><Lift delay={0.6}>{pick(lang, "기업과 자산의 가치를", "We design the value")}</Lift><Lift delay={0.72}>{pick(lang, "설계합니다.", "of companies and assets.")}</Lift></div>
         <div className="mt-3 text-[12.5px] font-semibold tracking-[0.02em] text-white/75"><Lift delay={0.85}>{pick(lang, "상장사 M&A · 구조조정 · RWA · IR", "Listed-company M&A · Restructuring · RWA · IR")}</Lift></div>
       </motion.div>
