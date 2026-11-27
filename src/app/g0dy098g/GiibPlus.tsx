@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode, CSSProperties } from "react";
 import { motion, AnimatePresence, useInView, animate, useScroll, useTransform } from "framer-motion";
-import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS, HERO_VIDEO, VIDEOS } from "./data";
-import { LangCtx, useLang, pick, CO_EN, BUSINESS_EN, PROCESS_EN, PRINCIPLES_EN, RECORD_STATS_EN, CASES_EN, SECTORS_EN, MENU_EN } from "./i18n";
+import { CO, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS, HERO_VIDEO, VIDEOS } from "./data";
+import { LangCtx, useLang, pick, CO_EN, PROCESS_EN, PRINCIPLES_EN, RECORD_STATS_EN, CASES_EN, SECTORS_EN, MENU_EN } from "./i18n";
 import type { Lang } from "./i18n";
 
 /*
@@ -442,16 +442,16 @@ function LangSwitch({ lang, set, dark = false }: { lang: Lang; set: (l: Lang) =>
 
 /* ───────── 통합 솔루션 · 포트폴리오 · 보수 구조 (2026-11 확장) ───────── */
 const SOLUTIONS = [
-  { no: "01", en: "RESTRUCTURING", ko: "기업 구조조정", eko: "Corporate Restructuring", c: "#f0a45a",
-    dko: "재무구조를 진단하고, 상장적격성 실질심사·개선계획처럼 시간이 걸린 문제를 서류와 구조로 풀어 갑니다.",
-    den: "We diagnose capital structure and resolve long-running issues — listing-eligibility reviews, improvement plans — with documents and structure.",
-    iko: ["재무구조·부채 진단", "개선계획·소명 자료 작성 지원", "자산 매각·부채 재조정 구조", "경영 정상화 로드맵"],
-    ien: ["Capital & debt diagnosis", "Improvement-plan support documents", "Asset sale & debt rescheduling", "Normalization roadmap"] },
-  { no: "02", en: "M&A · CAPITAL", ko: "인수합병 · 투자유치", eko: "M&A · Capital Raising", c: "#5b9cf0",
+  { no: "01", en: "LISTED-CO M&A · CAPITAL", ko: "상장사 M&A · 투자유치", eko: "Listed-Company M&A · Capital", c: "#5b9cf0",
     dko: "상장사 네트워크를 바탕으로 인수·매각과 투자유치를 연결하고, 거래 구조와 조건을 설계합니다.",
     den: "Backed by a network of listed companies, we connect acquisitions, sales and investment, and design deal structures and terms.",
     iko: ["인수·매각 자문 및 상대방 발굴", "상장사 투자유치 연계", "메자닌(CB·BW)·유상증자 구조 검토", "실사·계약 구조 자문"],
     ien: ["Buy/sell-side advisory & counterpart sourcing", "Listed-company investment links", "Mezzanine (CB·BW) & rights-issue review", "DD & contract structuring"] },
+  { no: "02", en: "RESTRUCTURING", ko: "기업 구조조정", eko: "Corporate Restructuring", c: "#f0a45a",
+    dko: "재무구조를 진단하고, 상장적격성 실질심사·개선계획처럼 시간이 걸린 문제를 서류와 구조로 풀어 갑니다.",
+    den: "We diagnose capital structure and resolve long-running issues — listing-eligibility reviews, improvement plans — with documents and structure.",
+    iko: ["재무구조·부채 진단", "개선계획·소명 자료 작성 지원", "자산 매각·부채 재조정 구조", "경영 정상화 로드맵"],
+    ien: ["Capital & debt diagnosis", "Improvement-plan support documents", "Asset sale & debt rescheduling", "Normalization roadmap"] },
   { no: "03", en: "BUSINESS PLAN · IR", ko: "사업계획서 · IR", eko: "Business Plan · IR", c: "#3cc3a8",
     dko: "투자자가 숫자로 납득할 수 있는 사업계획서와 IR 자료를 국문·영문으로 만듭니다.",
     den: "Business plans and IR materials — in Korean and English — that investors can verify in numbers.",
@@ -486,7 +486,7 @@ function Solutions() {
   const [open, setOpen] = useState(0);
   return (
     <section id="solutions" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
-      <Kicker>ONE-STOP DEAL SOLUTION</Kicker>
+      <Kicker>ADVISORY SIDE · SOLUTIONS</Kicker>
       <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "From assets" : "자산에서"}</Lift><Lift delay={0.08}>{lang === "en" ? "to companies." : "기업까지."}</Lift></h2>
       <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "부동산 투자·개발에 더해 기업 구조조정과 M&A, 사업계획서·IR·검토보고서·가치평가, 사업 사이트까지 한 팀이 끝까지 맡습니다.", "Beyond real estate, one team carries restructuring, M&A, business plans, IR, review reports, valuation and deal sites through to the end.")}</p>
       {/* 서비스 바로가기 — 이름만 한 줄로 (The Boundary식) */}
@@ -534,6 +534,174 @@ function Solutions() {
   );
 }
 
+/* ───────── 사업 구조: 자산 쪽 + 자문 쪽 → 딜 클로징 (2026-11-27 재구성) ───────── */
+const PILLARS = [
+  { side: "ASSET SIDE", ko: "자산 쪽", en: "Asset side", c: "#9fc46a", go: "rwa",
+    dko: "실물자산을 발굴·검증하고, 투자할 수 있는 구조로 만듭니다.", den: "We source and verify real assets and turn them into investable structures.",
+    items: [["부동산 개발 RWA", "Real estate development RWA"], ["엣지 AI 데이터센터 RWA", "Edge AI data center RWA"], ["NPL 부실채권 RWA", "NPL RWA"]] },
+  { side: "ADVISORY SIDE", ko: "자문 쪽", en: "Advisory side", c: "#5b9cf0", go: "ma",
+    dko: "상장사의 경영권과 자본 구조를 설계하고, 딜을 성사시킵니다.", den: "We design control and capital structures for listed companies and get deals done.",
+    items: [["상장사 M&A · 투자유치", "Listed-company M&A · capital"], ["기업 구조조정", "Corporate restructuring"], ["사업계획서 · IR · 가치평가", "Plans · IR · valuation"]] },
+];
+const CLOSE_FLOW = [["발굴", "Source"], ["구조화", "Structure"], ["자본 연결", "Capital"], ["클로징", "Close"], ["사후관리", "After-care"]];
+
+function Pillars({ onGo }: { onGo: (id: string) => void }) {
+  const lang = useLang();
+  return (
+    <section id="business" className="px-5 pt-16 pb-16" style={{ background: "var(--gi-paper)" }}>
+      <Kicker>HOW WE WORK</Kicker>
+      <h2 className="mt-4 text-[30px] font-extrabold leading-[1.25] tracking-[-0.025em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "From sourcing assets" : "자산 발굴부터"}</Lift><Lift delay={0.08}><span style={{ color: "var(--gi-copper)" }}>{lang === "en" ? "to deal closing." : "딜 클로징까지."}</span></Lift></h2>
+      <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "자산 쪽에서 찾은 실물자산을 자문 쪽이 상장사의 신사업·자본 구조와 연결합니다. 한 회사가 처음부터 끝까지 맡기 때문에 딜이 중간에 끊기지 않습니다.", "Assets sourced on one side are connected by the advisory side to listed companies' new businesses and capital structures. One firm carries the deal end to end, so nothing falls through the gaps.")}</p>
+
+      <div className="mt-9 space-y-3">
+        {PILLARS.map((p, i) => (
+          <Rise key={p.side} delay={i * 0.08}>
+            <div className="bg-white">
+              <motion.div className="h-[3px] origin-left" style={{ background: p.c }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.15 + i * 0.1, ease: EASE }} />
+              <div className="p-5">
+                <div className="flex items-baseline justify-between">
+                  <span className="gi-en text-[10px] font-bold" style={{ color: p.c }}>{p.side}</span>
+                  <span className="gi-en text-[10px] font-bold" style={{ color: "#b4b7bc" }}>0{i + 1}</span>
+                </div>
+                <div className="mt-2 text-[23px] font-extrabold tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>{lang === "en" ? p.en : p.ko}</div>
+                <p className="mt-2 text-[14px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{lang === "en" ? p.den : p.dko}</p>
+                <ul className="mt-4">
+                  {p.items.map(([k, e]) => (
+                    <li key={k} className="flex items-center gap-3 border-t py-3 text-[14.5px] font-semibold" style={{ borderColor: "var(--gi-line)", color: "var(--gi-text)" }}><span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: p.c }} />{lang === "en" ? e : k}</li>
+                  ))}
+                </ul>
+                <button onClick={() => onGo(p.go)} className="mt-3 inline-flex items-center gap-2 text-[13.5px] font-bold" style={{ color: "var(--gi-black)" }}>{pick(lang, "자세히 보기", "Learn more")} <Arrow size={15} /></button>
+              </div>
+            </div>
+          </Rise>
+        ))}
+      </div>
+
+      {/* 두 줄기가 하나로 모이는 그림 */}
+      <svg viewBox="0 0 350 120" className="mt-2 block w-full" aria-hidden="true">
+        <path d="M70 0 C70 60, 175 50, 175 96" fill="none" stroke="#9fc46a" strokeWidth="2" strokeDasharray="6 6" className="gi-flow" />
+        <path d="M280 0 C280 60, 175 50, 175 96" fill="none" stroke="#5b9cf0" strokeWidth="2" strokeDasharray="6 6" className="gi-flow" />
+        <circle cx="175" cy="104" r="9" fill="var(--gi-copper)" className="gi-node" />
+        <circle cx="175" cy="104" r="4" fill="#fff" />
+      </svg>
+      <div className="text-center">
+        <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-copper)" }}>DEAL CLOSING</div>
+        <div className="mt-1 text-[19px] font-extrabold" style={{ color: "var(--gi-black)" }}>{pick(lang, "하나의 딜로 완성", "Completed as one deal")}</div>
+      </div>
+      <ol className="mt-7 grid grid-cols-5 gap-1.5">
+        {CLOSE_FLOW.map(([k, e], i) => (
+          <li key={k}>
+            <div className="h-[3px] overflow-hidden" style={{ background: "var(--gi-line)" }}>
+              <motion.div className="h-full origin-left" style={{ background: "var(--gi-black)" }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.2 * i, ease: EASE }} />
+            </div>
+            <div className="gi-en mt-2 text-[9px] font-bold" style={{ color: "var(--gi-sub)" }}>0{i + 1}</div>
+            <div className="mt-0.5 text-[12.5px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? e : k}</div>
+          </li>
+        ))}
+      </ol>
+
+      {/* GIIB만의 연결 */}
+      <Rise>
+        <div className="mt-10 p-5 text-white" style={{ background: "#1c2414" }}>
+          <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-sand)" }}>THE GIIB LINK</div>
+          <div className="mt-3 text-[20px] font-extrabold leading-[1.4]">{lang === "en" ? <>Real assets <span style={{ color: "var(--gi-sand)" }}>×</span> listed-company M&amp;A</> : <>실물자산 <span style={{ color: "var(--gi-sand)" }}>×</span> 상장사 M&amp;A</>}</div>
+          <p className="mt-3 text-[14px] leading-[1.75] text-white/75">{pick(lang, "발굴한 데이터센터·부동산·NPL 자산을 상장사의 신사업으로 편입하면, 상장사는 성장 스토리를 얻고 자산은 확실한 출구를 얻습니다. 두 쪽을 함께 가진 회사만 할 수 있는 딜입니다.", "When sourced data-center, real-estate and NPL assets are folded into a listed company's new business, the company gains a growth story and the asset gains a clear exit — a deal only a firm with both sides can do.")}</p>
+        </div>
+      </Rise>
+    </section>
+  );
+}
+
+/* ───────── 상장사 M&A — 특화 섹션 ───────── */
+const MA_SERVICES = [
+  ["경영권 인수·매각", "Control acquisitions & sales", "인수 후보·매각 상대 발굴, 가격·조건 협상"],
+  ["제3자배정 유상증자", "Third-party rights issues", "투자자 연결, 납입·보호예수 구조 설계"],
+  ["CB · BW 메자닌", "CB · BW mezzanine", "전환·상환 조건, 담보·리픽싱 구조 검토"],
+  ["상장적격성 · 개선계획", "Listing review · improvement plans", "실질심사 대응 자료, 개선계획 이행 설계"],
+  ["신사업 · 실물자산 편입", "New business & asset injection", "RWA 자산을 상장사 신사업으로 연결"],
+  ["공시 · IR · 주주 소통", "Disclosure · IR · shareholders", "공시 일정, IR 자료, 주주 설명 자료"],
+] as const;
+const MA_SERVICES_EN_D = ["Sourcing buyers and targets, negotiating price and terms", "Investor introductions, payment and lock-up structuring", "Conversion, redemption, collateral and refixing review", "Review-response materials, improvement-plan design", "Linking RWA assets to a listed company's new business", "Disclosure calendar, IR decks, shareholder materials"];
+const MA_STEPS = [
+  ["타깃 · 밸류에이션", "Target · valuation", "인수·매각 대상과 상대방을 찾고, 재무·지분 구조를 분석해 적정 가치를 잡습니다.", "We find targets and counterparties, analyze financials and shareholding, and set a fair value."],
+  ["거래 구조 설계", "Deal structure", "구주 인수, 유상증자, 메자닌을 조합해 자금 부담과 경영권 안정성을 함께 맞춥니다.", "We combine share purchases, rights issues and mezzanine to balance funding and control."],
+  ["자금 · 투자자 연결", "Capital · investors", "상장사 네트워크와 금융기관을 연결해 인수 자금과 투자자를 확보합니다.", "We line up acquisition funding and investors through our listed-company and financial network."],
+  ["실사 · 계약", "Due diligence · contracts", "등기부·재무제표·계약서를 원본과 대조해 숨은 위험을 찾고 계약에 반영합니다.", "Registries, financials and contracts are checked against originals; hidden risks go into the contract."],
+  ["이사회 · 공시 · 클로징", "Board · disclosure · closing", "이사회·주총 결의와 공시 일정을 맞춰 잔금과 경영권 이전을 마무리합니다.", "Board and shareholder resolutions and the disclosure calendar are aligned to close payment and control transfer."],
+  ["PMI · 신사업 정착", "PMI · new business", "인수 후 신사업과 실물자산을 실제 매출로 연결해 기업가치를 끌어올립니다.", "After closing, new businesses and assets are turned into real revenue to lift corporate value."],
+];
+
+function ListedMA() {
+  const lang = useLang();
+  const [step, setStep] = useState(0);
+  const S = MA_STEPS[step];
+  return (
+    <section id="ma" className="px-5 pt-20 pb-16 text-white" style={{ background: "#141a0e" }}>
+      <Kicker light>LISTED-COMPANY M&amp;A</Kicker>
+      <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]"><Lift>{lang === "en" ? "Listed-company M&A," : "상장사 M&A,"}</Lift><Lift delay={0.08}><span style={{ color: "var(--gi-sand)" }}>{lang === "en" ? "structure to disclosure." : "구조부터 공시까지."}</span></Lift></h2>
+      <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8] text-white/70">{pick(lang, "코스피·코스닥 상장사와 직접 연결된 네트워크로 경영권 거래, 자본 조달, 신사업 편입을 한 흐름으로 설계합니다.", "Through a network directly connected to KOSPI and KOSDAQ companies, we design control deals, capital raising and new-business injection as one flow.")}</p>
+
+      <div className="mt-9 grid grid-cols-3 border-t" style={{ borderColor: "rgba(233,210,173,.35)" }}>
+        {([[<><Count to={10} />+</>, pick(lang, "직접 연결된 상장사", "Listed companies, direct")], ["2", pick(lang, "코스피 · 코스닥", "KOSPI · KOSDAQ")], ["6", pick(lang, "단계 전 과정 수행", "Steps, end to end")]] as [ReactNode, string][]).map(([a, b], i) => (
+          <div key={b} className="pt-4" style={{ borderLeft: i ? "1px solid rgba(255,255,255,.12)" : "none", paddingLeft: i ? 12 : 0 }}>
+            <div className="text-[34px] font-extrabold leading-none tracking-[-0.03em]" style={{ color: i === 0 ? "var(--gi-sand)" : "#fff" }}>{a}</div>
+            <div className="mt-2 text-[11.5px] leading-[1.4] text-white/60">{b}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* 서비스 6칸 */}
+      <div className="mt-10 grid grid-cols-2 gap-px" style={{ background: "rgba(255,255,255,.1)" }}>
+        {MA_SERVICES.map(([k, e, d], i) => (
+          <Rise key={k} delay={(i % 2) * 0.06}>
+            <div className="h-full p-4" style={{ background: "#141a0e" }}>
+              <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-sand)" }}>0{i + 1}</div>
+              <div className="mt-2 text-[15px] font-bold leading-[1.35]">{lang === "en" ? e : k}</div>
+              <div className="mt-1.5 text-[12px] leading-[1.55] text-white/55">{lang === "en" ? MA_SERVICES_EN_D[i] : d}</div>
+            </div>
+          </Rise>
+        ))}
+      </div>
+
+      {/* 딜 진행 6단계 — 눌러서 보기 */}
+      <div className="mt-12">
+        <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-sand)" }}>DEAL TIMELINE</div>
+        <div className="mt-4 flex gap-1.5">
+          {MA_STEPS.map((s, i) => (
+            <button key={s[0]} onClick={() => setStep(i)} className="flex-1 text-left" aria-label={lang === "en" ? s[1] : s[0]}>
+              <div className="h-[4px] overflow-hidden" style={{ background: "rgba(255,255,255,.14)" }}>
+                <motion.div className="h-full origin-left" style={{ background: "var(--gi-sand)" }} animate={{ scaleX: i <= step ? 1 : 0 }} transition={{ duration: 0.4, ease: EASE }} />
+              </div>
+              <div className="gi-en mt-2 text-[10px] font-bold" style={{ color: i === step ? "var(--gi-sand)" : "rgba(255,255,255,.4)" }}>0{i + 1}</div>
+            </button>
+          ))}
+        </div>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div key={step} initial={{ x: 20 }} animate={{ x: 0 }} exit={{ x: -20 }} transition={{ duration: 0.3, ease: EASE }} className="mt-4 min-h-[118px]">
+            <div className="text-[21px] font-extrabold">{lang === "en" ? S[1] : S[0]}</div>
+            <p className="mt-2 text-[14px] leading-[1.75] text-white/75">{lang === "en" ? S[3] : S[2]}</p>
+          </motion.div>
+        </AnimatePresence>
+        <div className="mt-2 flex gap-2">
+          <button onClick={() => setStep((s) => Math.max(0, s - 1))} className="border px-4 py-2.5 text-[13px] font-bold" style={{ borderColor: "rgba(255,255,255,.3)" }}>←</button>
+          <button onClick={() => setStep((s) => Math.min(MA_STEPS.length - 1, s + 1))} className="flex-1 border px-4 py-2.5 text-[13px] font-bold" style={{ borderColor: "var(--gi-sand)", color: "var(--gi-sand)" }}>{pick(lang, "다음 단계 →", "Next step →")}</button>
+        </div>
+      </div>
+
+      {/* 왜 GIIB */}
+      <ul className="mt-12 border-t" style={{ borderColor: "rgba(255,255,255,.14)" }}>
+        {[[pick(lang, "상장사 네트워크", "Listed-company network"), pick(lang, "매수자·매도자·투자자를 직접 연결합니다.", "We connect buyers, sellers and investors directly.")], [pick(lang, "원본 대조 검증", "Source-verified"), pick(lang, "등기부·재무제표·계약서를 원본과 맞춰 봅니다.", "Registries, financials and contracts checked against originals.")], [pick(lang, "자산 파이프라인", "Asset pipeline"), pick(lang, "RWA 자산이 상장사 신사업의 재료가 됩니다.", "RWA assets become material for listed companies' new businesses.")]].map(([k, v]) => (
+          <li key={k} className="flex gap-4 border-b py-4" style={{ borderColor: "rgba(255,255,255,.14)" }}>
+            <span className="w-[104px] shrink-0 text-[14px] font-bold" style={{ color: "var(--gi-sand)" }}>{k}</span>
+            <span className="flex-1 text-[13.5px] leading-[1.65] text-white/75">{v}</span>
+          </li>
+        ))}
+      </ul>
+      <button onClick={() => { const el = document.getElementById("contact"); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56, behavior: "smooth" }); }} className="mt-9 flex w-full items-center justify-between px-5 py-4 text-[15px] font-bold" style={{ background: "var(--gi-sand)", color: "#141a0e" }}>{pick(lang, "상장사 M&A 상담하기", "Discuss a listed-company deal")} <Arrow /></button>
+    </section>
+  );
+}
+
 /* ───────── RWA(실물자산 디지털 증권화) — 한 섹션 (2026-11-27) ───────── */
 const RWA_LINES = [
   { no: "01", ko: "부동산 개발", en: "Real Estate Development", c: "#e9d2ad",
@@ -557,7 +725,7 @@ function Rwa() {
   const L = RWA_LINES[tab];
   return (
     <section id="rwa" className="px-5 pt-20 pb-16" style={{ background: "#1c2414", color: "#f1f0e8" }}>
-      <Kicker light>REAL-WORLD ASSETS</Kicker>
+      <Kicker light>ASSET SIDE · REAL-WORLD ASSETS</Kicker>
       <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]"><Lift>{lang === "en" ? "Real assets," : "실물자산을,"}</Lift><Lift delay={0.08}><span style={{ color: "var(--gi-sand)" }}>{lang === "en" ? "made investable." : "투자 기회로."}</span></Lift></h2>
       <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8]" style={{ color: "#c9cbbd" }}>{pick(lang, "검증된 데이터를 바탕으로 부동산 개발, 엣지 AI 데이터센터, 부실채권을 디지털 증권(RWA) 형태의 투자 기회로 구조화합니다.", "Built on verified data, we structure real estate development, edge AI data centers and NPLs into digital-security (RWA) opportunities.")}</p>
 
@@ -819,7 +987,7 @@ function Intro({ onNext, onWork }: { onNext: () => void; onWork: () => void }) {
         <div className="text-[64px] font-extrabold leading-none tracking-[0.16em]"><Lift delay={0.2}>GIIB</Lift></div>
         <motion.div className="mt-5 h-px w-16 origin-left" style={{ background: "var(--gi-sand)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.9, delay: 0.5, ease: EASE }} />
         <div className="mt-5 text-[24px] font-bold leading-[1.35] tracking-[-0.01em]"><Lift delay={0.6}>{pick(lang, "기업과 자산의 가치를", "We design the value")}</Lift><Lift delay={0.72}>{pick(lang, "설계합니다.", "of companies and assets.")}</Lift></div>
-        <div className="mt-3 text-[12.5px] font-semibold tracking-[0.02em] text-white/75"><Lift delay={0.85}>{pick(lang, "구조조정 · M&A · 부동산 · IR · 사업 사이트", "Restructuring · M&A · Real estate · IR · Deal sites")}</Lift></div>
+        <div className="mt-3 text-[12.5px] font-semibold tracking-[0.02em] text-white/75"><Lift delay={0.85}>{pick(lang, "상장사 M&A · 구조조정 · RWA · IR", "Listed-company M&A · Restructuring · RWA · IR")}</Lift></div>
       </motion.div>
       <div className="absolute inset-x-0 bottom-7 flex justify-center gap-7">
         <button onClick={onNext} className="flex items-center gap-2 border-b border-white/70 pb-1 text-[14px] font-bold text-white">
@@ -834,8 +1002,9 @@ function Intro({ onNext, onWork }: { onNext: () => void; onWork: () => void }) {
 
 const MENU: [string, string, string[]][] = [
   ["about", "회사소개", ["개요", "인사말"]],
-  ["business", "사업영역", ["부동산 투자", "부동산 개발", "투자자문"]],
-  ["solutions", "통합 솔루션", ["구조조정", "M&A·투자유치", "사업계획서·IR", "검토보고서·가치평가", "사업 사이트"]],
+  ["business", "사업 구조", ["자산 쪽", "자문 쪽", "딜 클로징"]],
+  ["ma", "상장사 M&A", []],
+  ["solutions", "자문 솔루션", ["상장사 M&A·투자유치", "구조조정", "사업계획서·IR", "검토보고서·가치평가", "사업 사이트"]],
   ["rwa", "RWA 사업", ["부동산 개발", "엣지 AI 데이터센터", "NPL"]],
   ["work", "포트폴리오", []],
   ["approach", "투자 접근", ["4단계 프로세스", "원칙"]],
@@ -861,9 +1030,8 @@ export default function GiibPlus() {
     if (l === "en") setLangRaw("en");
   }, []);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: MENU_EN[1], solutions: ["Solutions", ["Restructuring", "M&A · Capital", "Plans · IR", "Review · Valuation", "Deal Sites"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Our Work", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
+  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation", "Deal Sites"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Our Work", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
   const menuList: [string, string, string[]][] = MENU.map(([id, l, k]) => (lang === "en" ? [id, MENU_EN2[id][0], MENU_EN2[id][1]] : [id, l, k]));
-  const biz_ = BUSINESS.map((b, i) => (lang === "en" ? { ...b, ...BUSINESS_EN[i] } : b));
   const proc_ = PROCESS.map((p, i) => (lang === "en" ? { ...p, ...PROCESS_EN[i] } : p));
   const prin_ = PRINCIPLES.map((p, i) => (lang === "en" ? { ...p, ...PRINCIPLES_EN[i] } : p));
   const stats_ = lang === "en" ? RECORD_STATS_EN : RECORD_STATS;
@@ -871,8 +1039,6 @@ export default function GiibPlus() {
   const coAddr = lang === "en" ? CO_EN.address : CO.address;
   const [menu, setMenu] = useState(false);
   const [sub, setSub] = useState<number | null>(null);
-  const [biz, setBiz] = useState(0); // 모핑 아이콘이 따라가는 항목
-  const [open, setOpen] = useState<number[]>([0, 1, 2]); // 세 사업 모두 펼친 채 시작 (영상이 바로 보이게)
   const [prin, setPrin] = useState(0);
   const [sent, setSent] = useState(false);
   const [showTop, setShowTop] = useState(false);
@@ -958,19 +1124,19 @@ export default function GiibPlus() {
           {/* 문장은 하늘 쪽(위)에 두고 버튼만 아래에 둬서 도심이 가려지지 않게 */}
           <div className="absolute inset-0 flex flex-col justify-between px-5 pt-9 pb-8 text-white">
             <div>
-            <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>RESTRUCTURING · M&amp;A · REAL ESTATE · ADVISORY</Lift></div>
+            <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>LISTED-COMPANY M&amp;A · RWA · ADVISORY</Lift></div>
             <h1 className={`mt-3 font-extrabold tracking-[-0.02em] ${lang === "en" ? "text-[29px] leading-[1.22]" : "text-[31px] leading-[1.3]"}`}>
-              <Lift delay={1.05}>{T("구조조정·M&A부터 자산까지,", "From restructuring and M&A to assets,")}</Lift>
-              <Lift delay={1.2}><span style={{ color: "var(--gi-sand)" }}>{T("기업의 가치를 다시 설계합니다.", "we redesign corporate value.")}</span></Lift>
+              <Lift delay={1.05}>{T("상장사 M&A부터 실물자산까지,", "From listed-company M&A to real assets,")}</Lift>
+              <Lift delay={1.2}><span style={{ color: "var(--gi-sand)" }}>{T("딜의 처음과 끝을 맡습니다.", "we carry the deal end to end.")}</span></Lift>
             </h1>
-            <Rise delay={1.4}><p className="mt-4 text-[14.5px] leading-[1.75] text-white/75">{T("글로벌인프라허브는 기업 구조조정·M&A와 투자유치, 부동산 투자·개발 자문, 사업계획서·IR·가치평가, 사업 사이트 제작까지 딜의 처음과 끝을 함께합니다.", "GIIB carries the whole deal — restructuring, M&A and capital raising, real estate advisory, business plans, IR, valuation and deal sites.")}</p></Rise>
+            <Rise delay={1.4}><p className="mt-4 text-[14.5px] leading-[1.75] text-white/75">{T("자산 쪽(부동산 개발·엣지 AI 데이터센터·NPL)과 자문 쪽(상장사 M&A·구조조정·IR)을 한 회사가 함께 움직여, 자산 발굴부터 딜 클로징까지 끊김 없이 이어 갑니다.", "GIIB runs an asset side (real estate, edge AI data centers, NPL) and an advisory side (listed-company M&A, restructuring, IR) together — from sourcing to closing, without gaps.")}</p></Rise>
             </div>
             <Rise delay={1.55}>
               <div className="mt-6">
                 <div className="mb-3 flex items-baseline justify-end gap-2 leading-none"><span className="gi-en text-[10px] text-white/60">SINCE</span><span className="text-[26px] font-extrabold tracking-[-0.03em]"><Count to={2015} /></span></div>
                 <div className="flex gap-2.5">
-                  <button onClick={() => go("business")} className="flex flex-1 items-center justify-between px-4 py-3.5 text-[14px] font-bold" style={{ background: "#fff", color: "var(--gi-black)" }}>{T("사업영역 살펴보기", "Our Business")} <Arrow /></button>
-                  <button onClick={() => go("work")} className="flex flex-1 items-center justify-between border px-4 py-3.5 text-[14px] font-bold text-white" style={{ borderColor: "rgba(255,255,255,.75)" }}>{T("사례 보기", "View Work")} <Arrow /></button>
+                  <button onClick={() => go("ma")} className="flex flex-1 items-center justify-between px-4 py-3.5 text-[14px] font-bold" style={{ background: "#fff", color: "var(--gi-black)" }}>{T("상장사 M&A", "Listed M&A")} <Arrow /></button>
+                  <button onClick={() => go("business")} className="flex flex-1 items-center justify-between border px-4 py-3.5 text-[14px] font-bold text-white" style={{ borderColor: "rgba(255,255,255,.75)" }}>{T("사업 구조", "How we work")} <Arrow /></button>
                 </div>
               </div>
             </Rise>
@@ -988,10 +1154,10 @@ export default function GiibPlus() {
             </p>
           </Rise>
           <div className="mt-10 grid grid-cols-3 border-t" style={{ borderColor: "var(--gi-black)" }}>
-            {([[2015, T("설립", "Founded")], [8, T("통합 솔루션", "Solutions")], [15, T("제작 사례", "Projects built")]] as [number, string][]).map(([a, b], i) => (
+            {([[10, T("직접 연결된 상장사", "Listed cos., direct")], [2, T("사업 축 · 자산·자문", "Pillars · asset & advisory")], [15, T("제작 사례", "Projects built")]] as [number, string][]).map(([a, b], i) => (
               <Rise key={b} delay={i * 0.08}>
                 <div className="pt-4" style={{ borderLeft: i ? "1px solid var(--gi-line)" : "none", paddingLeft: i ? 12 : 0 }}>
-                  <div className="text-[36px] font-extrabold leading-none tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Count to={a} /></div>
+                  <div className="text-[36px] font-extrabold leading-none tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Count to={a} />{i === 0 && <span style={{ color: "var(--gi-copper)" }}>+</span>}</div>
                   <div className="mt-2 text-[12px]" style={{ color: "var(--gi-sub)" }}>{b}</div>
                 </div>
               </Rise>
@@ -1009,47 +1175,8 @@ export default function GiibPlus() {
         {/* 영상 띠 — 서울 스카이라인 드론 */}
         <Film />
 
-        {/* 사업영역 — Macquarie식 사업부 목록 (눌러서 펼침) */}
-        <section id="business" className="pt-14 pb-14" style={{ background: "var(--gi-paper)" }}>
-          <div className="px-5">
-            <Kicker>OUR BUSINESS</Kicker>
-            <div className="flex items-end justify-between gap-3">
-              <h2 className="mt-4 text-[28px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? <>Three businesses,<br />one flow</> : <>세 개의 사업,<br />하나의 흐름</>}</Lift></h2>
-              <div className="h-[110px] w-[110px] shrink-0"><ShapeMorph index={biz} /></div>
-            </div>
-          </div>
-          <div className="mt-8 border-t" style={{ borderColor: "var(--gi-black)" }}>
-            {biz_.map((b, i) => (
-              <div key={b.no} className="border-b bg-white" style={{ borderColor: "var(--gi-line)" }}>
-                <PrinWatch onSeen={() => setBiz(i)} />
-                <button onClick={() => { setOpen((o) => (o.includes(i) ? o.filter((x) => x !== i) : [...o, i])); setBiz(i); }} className="flex w-full items-center gap-4 px-5 py-6 text-left">
-                  <span className="text-[13px] font-bold" style={{ color: "var(--gi-copper)" }}>{b.no}</span>
-                  <span className="flex-1">
-                    <span className="block text-[21px] font-extrabold" style={{ color: "var(--gi-black)" }}>{b.t}</span>
-                    {lang === "ko" && <span className="gi-en mt-1 block text-[10px] font-semibold" style={{ color: "var(--gi-sub)" }}>{b.en}</span>}
-                  </span>
-                  <motion.span animate={{ rotate: open.includes(i) ? 45 : 0 }} transition={{ duration: 0.3 }} className="text-[28px] font-light leading-none" style={{ color: "var(--gi-black)" }}>+</motion.span>
-                </button>
-                <AnimatePresence initial={false}>
-                  {open.includes(i) && (
-                    <motion.div key="d" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.45, ease: EASE }}>
-                      <div className="px-5 pb-7">
-                        <Visual k={["invest", "develop", "advisory"][i]} variant={i + 1} className="h-[200px]" />
-                        <p className="mt-5 text-[15px] leading-[1.8]" style={{ color: "var(--gi-text)" }}>{b.d}</p>
-                        <ul className="mt-4">
-                          {b.items.map((it) => (
-                            <li key={it} className="flex items-center justify-between border-t py-3 text-[14px]" style={{ borderColor: "var(--gi-line)" }}>{it}<span style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span></li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
-        </section>
-
+        <Pillars onGo={go} />
+        <ListedMA />
         <Solutions />
         <Rwa />
         <Work />
