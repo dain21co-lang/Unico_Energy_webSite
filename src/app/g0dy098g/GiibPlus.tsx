@@ -534,6 +534,77 @@ function Solutions() {
   );
 }
 
+/* ───────── RWA(실물자산 디지털 증권화) — 한 섹션 (2026-11-27) ───────── */
+const RWA_LINES = [
+  { no: "01", ko: "부동산 개발", en: "Real Estate Development", c: "#e9d2ad",
+    dko: "인허가·부지 확보를 마친 개발 프로젝트를 SPV 단위로 구조화하고, 지분·수익권을 작은 단위로 나눠 적격 투자자에게 제공합니다.",
+    den: "Permitted development projects are structured as SPVs, with equity and revenue rights split into smaller units for qualified investors.",
+    rows: [["기초자산", "Underlying", "오피스 · 물류 · 주거·복합", "Office · logistics · residential & mixed-use"], ["수익원", "Returns", "분양·매각 차익, 준공 후 임대", "Sale gains, post-completion rent"], ["공시", "Disclosure", "공정률·자금 집행을 마일스톤별 공개", "Progress & spending by milestone"]] },
+  { no: "02", ko: "엣지 AI 데이터센터", en: "Edge AI Data Center", c: "#9fc46a",
+    dko: "AI 수요지 가까이 모듈형 데이터센터를 세우고, GPU 임대와 코로케이션 계약에서 나오는 수익을 투자 단위로 나눕니다.",
+    den: "Modular data centers near AI demand, with income from GPU leasing and colocation contracts divided into investment units.",
+    rows: [["기초자산", "Underlying", "모듈형 설비 · GPU 서버 · 전력·냉각", "Modular facilities · GPU servers · power & cooling"], ["수익원", "Returns", "GPU 임대, 코로케이션, 장기 용량 계약", "GPU leasing, colocation, long-term capacity"], ["검증", "Verification", "전력 사용량·가동률·PUE 정기 보고", "Power use, uptime and PUE reported regularly"]] },
+  { no: "03", ko: "NPL 부실채권", en: "Non-Performing Loans", c: "#5b9cf0",
+    dko: "담보가 확보된 부실채권을 풀 단위로 매입하고, 회수 현금흐름을 선순위·후순위로 나눠 위험과 수익을 고를 수 있게 합니다.",
+    den: "Secured NPL pools are acquired and their recovery cash flows split into senior and subordinated tranches.",
+    rows: [["기초자산", "Underlying", "부동산 담보 중심 NPL 풀", "Real-estate-backed NPL pools"], ["수익원", "Returns", "경매·공매 배당, 상환·재조정, 담보 처분", "Auction proceeds, repayment, collateral sale"], ["구조", "Structure", "선순위(안정) · 후순위(수익) 트랜치", "Senior (stability) · subordinated (upside)"]] },
+];
+const RWA_FLOW = [["자산 데이터", "Asset data"], ["독립 검증", "Independent check"], ["디지털 증권화", "Digital securities"], ["정산·보고", "Settlement · reports"]];
+
+function Rwa() {
+  const lang = useLang();
+  const [tab, setTab] = useState(0);
+  const L = RWA_LINES[tab];
+  return (
+    <section id="rwa" className="px-5 pt-20 pb-16" style={{ background: "#1c2414", color: "#f1f0e8" }}>
+      <Kicker light>REAL-WORLD ASSETS</Kicker>
+      <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]"><Lift>{lang === "en" ? "Real assets," : "실물자산을,"}</Lift><Lift delay={0.08}><span style={{ color: "var(--gi-sand)" }}>{lang === "en" ? "made investable." : "투자 기회로."}</span></Lift></h2>
+      <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8]" style={{ color: "#c9cbbd" }}>{pick(lang, "검증된 데이터를 바탕으로 부동산 개발, 엣지 AI 데이터센터, 부실채권을 디지털 증권(RWA) 형태의 투자 기회로 구조화합니다.", "Built on verified data, we structure real estate development, edge AI data centers and NPLs into digital-security (RWA) opportunities.")}</p>
+
+      {/* 3대 자산 탭 */}
+      <div className="mt-9 flex border-b" style={{ borderColor: "rgba(241,240,232,.18)" }}>
+        {RWA_LINES.map((r, i) => (
+          <button key={r.no} onClick={() => setTab(i)} className="relative flex-1 pb-3 text-left">
+            <span className="gi-en block text-[10px] font-bold" style={{ color: tab === i ? r.c : "#7d826f" }}>{r.no}</span>
+            <span className="mt-1 block text-[13.5px] font-bold leading-[1.3]" style={{ color: tab === i ? "#fff" : "#9a9e8d" }}>{lang === "en" ? r.en : r.ko}</span>
+            {tab === i && <motion.span layoutId="gi-rwa-bar" className="absolute bottom-[-1px] left-0 h-[2px] w-full" style={{ background: r.c }} transition={{ duration: 0.45, ease: EASE }} />}
+          </button>
+        ))}
+      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div key={tab} initial={{ x: 24 }} animate={{ x: 0 }} exit={{ x: -24 }} transition={{ duration: 0.35, ease: EASE }} className="pt-7">
+          <p className="text-[15px] leading-[1.8]" style={{ color: "#e4e5da" }}>{lang === "en" ? L.den : L.dko}</p>
+          <dl className="mt-6">
+            {L.rows.map(([k, ke, v, ve]) => (
+              <div key={k} className="flex gap-4 border-t py-3.5 text-[14px]" style={{ borderColor: "rgba(241,240,232,.14)" }}>
+                <dt className="w-[72px] shrink-0 font-bold" style={{ color: L.c }}>{lang === "en" ? ke : k}</dt>
+                <dd className="flex-1" style={{ color: "#e4e5da" }}>{lang === "en" ? ve : v}</dd>
+              </div>
+            ))}
+          </dl>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* 데이터 → 증권화 흐름 */}
+      <div className="mt-10 border p-5" style={{ borderColor: "rgba(241,240,232,.16)" }}>
+        <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-sand)" }}>VERIFIED DATA FIRST</div>
+        <ol className="mt-4 grid grid-cols-4 gap-1.5">
+          {RWA_FLOW.map(([k, e], i) => (
+            <li key={k} className="relative">
+              <div className="h-[3px] w-full overflow-hidden" style={{ background: "rgba(241,240,232,.12)" }}>
+                <motion.div className="h-full origin-left" style={{ background: "var(--gi-sand)" }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.25 * i, ease: EASE }} />
+              </div>
+              <div className="gi-en mt-2 text-[9px] font-bold" style={{ color: "#7d826f" }}>0{i + 1}</div>
+              <div className="mt-0.5 text-[12px] font-bold leading-[1.35]">{lang === "en" ? e : k}</div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p className="mt-6 text-[11.5px] leading-[1.7]" style={{ color: "#8e9282" }}>{pick(lang, "토큰증권의 발행·유통은 관련 법령과 인가 범위 안에서 적격 파트너와 함께 진행합니다. 본 내용은 사업 소개이며 투자 권유가 아닙니다.", "Token securities are issued and traded only within applicable law and licensing, with qualified partners. This is a business overview, not an investment solicitation.")}</p>
+    </section>
+  );
+}
+
 type WorkItem = { k: string; ko: string; en: string; tko: string; ten: string; href: string };
 const WORK: { id: string; ko: string; en: string; items: WorkItem[] }[] = [
   { id: "site", ko: "사업 사이트", en: "Deal Sites", items: [
@@ -765,6 +836,7 @@ const MENU: [string, string, string[]][] = [
   ["about", "회사소개", ["개요", "인사말"]],
   ["business", "사업영역", ["부동산 투자", "부동산 개발", "투자자문"]],
   ["solutions", "통합 솔루션", ["구조조정", "M&A·투자유치", "사업계획서·IR", "검토보고서·가치평가", "사업 사이트"]],
+  ["rwa", "RWA 사업", ["부동산 개발", "엣지 AI 데이터센터", "NPL"]],
   ["work", "포트폴리오", []],
   ["approach", "투자 접근", ["4단계 프로세스", "원칙"]],
   ["fee", "보수 구조", []],
@@ -789,7 +861,7 @@ export default function GiibPlus() {
     if (l === "en") setLangRaw("en");
   }, []);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: MENU_EN[1], solutions: ["Solutions", ["Restructuring", "M&A · Capital", "Plans · IR", "Review · Valuation", "Deal Sites"]], work: ["Our Work", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
+  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: MENU_EN[1], solutions: ["Solutions", ["Restructuring", "M&A · Capital", "Plans · IR", "Review · Valuation", "Deal Sites"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Our Work", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
   const menuList: [string, string, string[]][] = MENU.map(([id, l, k]) => (lang === "en" ? [id, MENU_EN2[id][0], MENU_EN2[id][1]] : [id, l, k]));
   const biz_ = BUSINESS.map((b, i) => (lang === "en" ? { ...b, ...BUSINESS_EN[i] } : b));
   const proc_ = PROCESS.map((p, i) => (lang === "en" ? { ...p, ...PROCESS_EN[i] } : p));
@@ -979,6 +1051,7 @@ export default function GiibPlus() {
         </section>
 
         <Solutions />
+        <Rwa />
         <Work />
 
         {/* 투자 접근 — 번호 목록 */}
