@@ -466,21 +466,28 @@ const SOLUTIONS = [
     iko: ["원본 대조 검토보고서", "담보·권리관계 분석", "가치평가 가정·자료 준비", "외부 평가기관 연계 발행"],
     ien: ["Source-verified review reports", "Collateral & title analysis", "Valuation assumptions & data prep", "Issued with licensed firms"] },
   { no: "05", en: "LIVE DEALS", ko: "투자유치 진행 프로젝트", eko: "Live Deals · Now Raising", c: "#ef7f74",
-    dko: "투자유치 자문을 진행 중인 기업과 사업을 소개합니다. 각 카드에서 기업 홈페이지 또는 프로젝트 소개 페이지를 확인하실 수 있습니다.",
-    den: "Explore the companies and projects we advise on fundraising. Each card opens the company website or the project overview.",
+    dko: "프로젝트 소개 페이지와 관련 기업의 홈페이지를 한곳에서 확인하실 수 있습니다.",
+    den: "Explore project overviews and related company websites.",
     iko: [], ien: [],
     links: [
-      ["유니코에너지그룹", "UNICO ENERGY GROUP", "에너지·원자재 · 공식", "Energy & commodities · official", "/", "r", "unico"],
-      ["GB LABS", "GB LABS", "AI 디지털 헬스케어 · 공식", "AI digital health · official", "https://gblabs.co.kr", "r", "gblabs"],
-      ["솔루믹스", "SOLUMIX", "코넥스 상장사", "KONEX-listed", "/xxrhbd2", "r", "solumix"],
-      ["해연에프엔지", "Haeyeon F&G", "기업 홈페이지", "Corporate", "/pqw8nt7", "r", "haeyeon"],
-      ["서부중앙시장 재개발", "Seobu market redevelopment", "주거·상업 재개발", "Redevelopment", "/seobu/m", "d", "seobu"],
-      ["가산 메디컬·AI 빌딩(가칭)", "Gasan Medical·AI Building", "오피스 리포지셔닝", "Office repositioning", "/gasan/m4r9", "d", "gasan"],
-      ["평생주치의 케어하우스", "Lifelong-care house", "헬스케어 · 돌봄", "Healthcare", "/sinchon/orbit-care", "d", "care"],
-      ["신촌 AI 스마트호스텔", "Sinchon AI Smart Hostel", "숙박 · 리모델링", "Hospitality · remodeling", "/sinchon", "d", "hostel"],
-      ["정선 AI 스마트호텔", "Jeongseon AI smart hotel", "호텔 · 관광", "Hotel", "/jeongseon", "d", "jeongseon"],
-      ["옥수 복합 개발", "Oksu mixed-use", "개발 · 환경", "Development", "/oksu", "d", "oksu"],
-      ["강화 광산 인프라 소재", "Ganghwa mine materials", "자원 · 인프라", "Resources", "/r4d7k2xq", "d", "ganghwa"],
+      ["대양금속","Daeyang Metal","기업 사이트 샘플","Corporate website sample","https://daeyang-metal-sample.vercel.app","","https://daeyang-metal-sample.vercel.app/en"],
+      ["GB LABS","GB LABS","AI 디지털 헬스케어 · 공식","AI digital health · official","https://gblabs.co.kr","gblabs"],
+      ["유니코에너지그룹","UNICO ENERGY GROUP","에너지·원자재 · 공식","Energy & commodities · official","/","unico"],
+      ["서부중앙시장 재개발","Seobu market redevelopment","주거·상업 재개발","Redevelopment","/seobu/m","seobu"],
+      ["평생주치의 케어하우스","Lifelong-care house","헬스케어 · 돌봄","Healthcare","/sinchon/orbit-care","care"],
+      ["가산 메디컬·AI 빌딩(가칭)","Gasan Medical·AI Building","오피스 리포지셔닝","Office repositioning","/gasan/m4r9","gasan"],
+      ["더케이 AI 스마트호스텔","The K AI Smart Hostel","숙박 · 리모델링","Hospitality · remodeling","/sinchon","hostel"],
+      ["정선 AI 스마트호텔","Jeongseon AI smart hotel","호텔 · 관광","Hotel","/jeongseon","jeongseon"],
+      ["솔루믹스","SOLUMIX","코넥스 상장사","KONEX-listed","/xxrhbd2","solumix"],
+      ["해연에프엔지","Haeyeon F&G","기업 홈페이지","Corporate","/pqw8nt7","haeyeon"],
+      ["옥수 복합 개발","Oksu mixed-use","개발 · 환경","Development","/oksu","oksu"],
+      ["강화 광산 인프라 소재","Ganghwa mine materials","자원 · 인프라","Resources","/r4d7k2xq","ganghwa"],
+      ["크라우드웍스","Crowdworks","기업 홈페이지","Corporate website","https://www.crowdworks.ai/"],
+      ["대호에이엘","Daeho AL","기업 홈페이지","Corporate website","https://daeho-al.com/"],
+      ["제이케이시냅스(구 소니드)","JK Synapse (formerly Sonid)","기업 홈페이지","Corporate website","http://www.jksynapse.co.kr/"],
+      ["스피어","Sphere","기업 홈페이지","Corporate website","https://spherecorp.kr/"],
+      ["캐리(구 윌링스)","Carry (formerly Willings)","기업 홈페이지","Corporate website","https://www.willings.co.kr/"],
+      ["삼아알미늄","Sama Aluminium","기업 홈페이지","Corporate website","https://www.sama-al.com/kor/"],
     ] },
 ];
 
@@ -535,14 +542,9 @@ function Solutions({ open, setOpen }: { open: number; setOpen: (index: number) =
                           <li key={it} className="flex items-center justify-between border-t py-3 text-[14px]" style={{ borderColor: "var(--gi-line)" }}>{it}<span style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span></li>
                         ))}
                       </ul>
-                      {"links" in s && s.links && ([["r", "투자 라운드 진행 기업", "NOW RAISING"], ["d", "진행 중인 딜", "DEALS IN PROGRESS"]] as const).map(([gk, gko, gen]) => (
-                        <div key={gk} className="mt-6">
-                          <div className="flex items-baseline justify-between border-b pb-2" style={{ borderColor: "var(--gi-black)" }}>
-                            <span className="text-[14px] font-extrabold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? gen : gko}</span>
-                            {lang === "ko" && <span className="gi-en text-[9.5px] font-bold" style={{ color: s.c }}>{gen}</span>}
-                          </div>
+                      {s.links && (
                           <ul className="mt-3 grid grid-cols-1 gap-4 min-[520px]:grid-cols-2">
-                            {s.links.filter((l) => l[5] === gk).map(([k, e, t, te, href, , image]) => (
+                            {s.links.map(([k, e, t, te, href, image, englishHref]) => (
                               <li key={href} className="border" style={{ borderColor: "var(--gi-line)" }}>
                                 <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="group flex h-full flex-col focus-visible:outline-2 focus-visible:outline-offset-2">
                                   <span className="flex flex-1 items-center gap-3 px-4 py-3.5">
@@ -552,16 +554,19 @@ function Solutions({ open, setOpen }: { open: number; setOpen: (index: number) =
                                     </span>
                                     <span aria-hidden="true" style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span>
                                   </span>
-                                  <span className="block aspect-[16/9] overflow-hidden bg-[#f1f0ea]">
+                                  {image && <span className="block aspect-[16/9] overflow-hidden bg-[#f1f0ea]">
                                     {/* eslint-disable-next-line @next/next/no-img-element -- reuse existing static previews */}
                                     <img src={image === "gblabs" ? "/gasan/m4r9/gblabs-logo-dark.png" : `/g0dy098g/work/${image}.webp`} alt="" loading="lazy" decoding="async" className={image === "gblabs" ? "h-full w-full object-contain p-[12%]" : "h-full w-full object-cover"} />
-                                  </span>
+                                  </span>}
                                 </a>
+                                {englishHref && <div className="flex gap-4 border-t px-4 py-3 text-[13px] font-bold" style={{ borderColor: "var(--gi-line)" }}>
+                                  <a href={href} target="_blank" rel="noopener">한국어 ↗</a>
+                                  <a href={englishHref} target="_blank" rel="noopener">English ↗</a>
+                                </div>}
                               </li>
                             ))}
                           </ul>
-                        </div>
-                      ))}
+                      )}
                       {s.links && <ProjectMaterials />}
                     </div>
                   </motion.div>
