@@ -25,3 +25,5 @@
 @keyframes gi-kb { 0% { transform: scale(1.04); } 100% { transform: scale(1.14) translate3d(-2%, -1%, 0); } }
 .gi .gi-kb { animation: gi-kb 22s ease-in-out infinite alternate; }
 @media (prefers-reduced-motion: reduce) { .gi .gi-flow, .gi .gi-node, .gi .gi-kb { animation: none; } }
+.gi .gi-work-img { transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.gi a:active .gi-work-img { transform: scale(1.04); }
