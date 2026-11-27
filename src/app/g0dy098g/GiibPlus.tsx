@@ -462,11 +462,22 @@ const SOLUTIONS = [
     den: "Review reports cross-checked against registries, financial statements and contracts; valuations issued with licensed accounting and appraisal firms.",
     iko: ["원본 대조 검토보고서", "담보·권리관계 분석", "가치평가 가정·자료 준비", "외부 평가기관 연계 발행"],
     ien: ["Source-verified review reports", "Collateral & title analysis", "Valuation assumptions & data prep", "Issued with licensed firms"] },
-  { no: "05", en: "DIGITAL DEAL ROOM", ko: "사업 사이트 · 브랜드 필름", eko: "Deal Sites · Brand Films", c: "#ef7f74",
-    dko: "주소 하나로 사업을 보여주는 모바일 사이트와 원테이크 브랜드 필름, 투자자 전용 비공개 검토 페이지를 만듭니다.",
-    den: "Mobile deal sites that tell the story in one link, one-take brand films, and private review pages for investors.",
-    iko: ["모바일 사업소개 사이트", "원테이크 브랜드 필름 · AI 비주얼", "투자자 전용 비공개 검토 페이지", "국문·영문 동시 제작"],
-    ien: ["Mobile project sites", "One-take brand films · AI visuals", "Private investor review pages", "Korean & English together"] },
+  { no: "05", en: "LIVE DEALS", ko: "투자유치 진행 프로젝트", eko: "Live Deals · Now Raising", c: "#ef7f74",
+    dko: "투자유치를 의뢰받아 지금 진행 중인 기업과 프로젝트입니다. 공식 사이트부터 맛보기 사이트까지, 누르면 바로 열립니다.",
+    den: "Companies and projects we are currently raising capital for — from official sites to preview sites. Tap to open.",
+    iko: [], ien: [],
+    links: [
+      ["유니코에너지그룹", "UNICO ENERGY GROUP", "에너지·원자재 · 공식", "Energy & commodities · official", "/"],
+      ["GB LABS", "GB LABS", "AI 디지털 헬스케어 · 공식", "AI digital health · official", "https://gblabs.co.kr"],
+      ["서부중앙시장 재개발", "Seobu market redevelopment", "주거·상업 재개발", "Redevelopment", "/seobu/m"],
+      ["가산 메디컬·AI 빌딩(가칭)", "Gasan Medical·AI Building", "오피스 리포지셔닝", "Office repositioning", "/gasan/m4r9"],
+      ["평생주치의 케어하우스", "Lifelong-care house", "헬스케어 · 돌봄", "Healthcare", "/sinchon/orbit-care"],
+      ["정선 AI 스마트호텔", "Jeongseon AI smart hotel", "호텔 · 관광", "Hotel", "/jeongseon"],
+      ["옥수 복합 개발", "Oksu mixed-use", "개발 · 환경", "Development", "/oksu"],
+      ["강화 광산 인프라 소재", "Ganghwa mine materials", "자원 · 인프라", "Resources", "/r4d7k2xq"],
+      ["솔루믹스", "SOLUMIX", "코넥스 상장사", "KONEX-listed", "/xxrhbd2"],
+      ["해연에프엔지", "Haeyeon F&G", "기업 홈페이지", "Corporate", "/pqw8nt7"],
+    ] },
 ];
 
 function SolIcon({ i, c }: { i: number; c: string }) {
@@ -488,7 +499,7 @@ function Solutions() {
     <section id="solutions" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
       <Kicker>ADVISORY SIDE · SOLUTIONS</Kicker>
       <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "From assets" : "자산에서"}</Lift><Lift delay={0.08}>{lang === "en" ? "to companies." : "기업까지."}</Lift></h2>
-      <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "부동산 투자·개발에 더해 기업 구조조정과 M&A, 사업계획서·IR·검토보고서·가치평가, 사업 사이트까지 한 팀이 끝까지 맡습니다.", "Beyond real estate, one team carries restructuring, M&A, business plans, IR, review reports, valuation and deal sites through to the end.")}</p>
+      <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "상장사 M&A와 구조조정, 사업계획서·IR·검토보고서·가치평가까지 한 팀이 끝까지 맡습니다. 지금 투자유치 중인 프로젝트도 직접 열어 보실 수 있습니다.", "One team carries listed-company M&A, restructuring, business plans, IR, review reports and valuation through to the end — and you can open the projects we are raising for right now.")}</p>
       {/* 서비스 바로가기 — 이름만 한 줄로 (The Boundary식) */}
       <div className="mt-8 text-[17px] font-bold leading-[1.9]" style={{ color: "#b4b7bc" }}>
         {SOLUTIONS.map((s, i) => (
@@ -521,6 +532,22 @@ function Solutions() {
                           <li key={it} className="flex items-center justify-between border-t py-3 text-[14px]" style={{ borderColor: "var(--gi-line)" }}>{it}<span style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span></li>
                         ))}
                       </ul>
+                      {"links" in s && s.links && (
+                        <ul className="mt-4">
+                          {s.links.map(([k, e, t, te, href]) => (
+                            <li key={href} className="border-t" style={{ borderColor: "var(--gi-line)" }}>
+                              <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="flex items-center gap-3 py-3.5">
+                                <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: s.c }} />
+                                <span className="flex-1">
+                                  <span className="block text-[15px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? e : k}</span>
+                                  <span className="mt-0.5 block text-[12px]" style={{ color: "var(--gi-sub)" }}>{lang === "en" ? te : t}</span>
+                                </span>
+                                <span style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </motion.div>
                 )}
@@ -1004,7 +1031,7 @@ const MENU: [string, string, string[]][] = [
   ["about", "회사소개", ["개요", "인사말"]],
   ["business", "사업 구조", ["자산 쪽", "자문 쪽", "딜 클로징"]],
   ["ma", "상장사 M&A", []],
-  ["solutions", "자문 솔루션", ["상장사 M&A·투자유치", "구조조정", "사업계획서·IR", "검토보고서·가치평가", "사업 사이트"]],
+  ["solutions", "자문 솔루션", ["상장사 M&A·투자유치", "구조조정", "사업계획서·IR", "검토보고서·가치평가", "투자유치 진행 프로젝트"]],
   ["rwa", "RWA 사업", ["부동산 개발", "엣지 AI 데이터센터", "NPL"]],
   ["work", "포트폴리오", []],
   ["approach", "투자 접근", ["4단계 프로세스", "원칙"]],
@@ -1030,7 +1057,7 @@ export default function GiibPlus() {
     if (l === "en") setLangRaw("en");
   }, []);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation", "Deal Sites"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Our Work", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
+  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation", "Live Deals"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Our Work", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
   const menuList: [string, string, string[]][] = MENU.map(([id, l, k]) => (lang === "en" ? [id, MENU_EN2[id][0], MENU_EN2[id][1]] : [id, l, k]));
   const proc_ = PROCESS.map((p, i) => (lang === "en" ? { ...p, ...PROCESS_EN[i] } : p));
   const prin_ = PRINCIPLES.map((p, i) => (lang === "en" ? { ...p, ...PRINCIPLES_EN[i] } : p));
