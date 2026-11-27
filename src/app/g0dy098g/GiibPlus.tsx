@@ -465,30 +465,6 @@ const SOLUTIONS = [
     den: "Review reports cross-checked against registries, financial statements and contracts; valuations issued with licensed accounting and appraisal firms.",
     iko: ["원본 대조 검토보고서", "담보·권리관계 분석", "가치평가 가정·자료 준비", "외부 평가기관 연계 발행"],
     ien: ["Source-verified review reports", "Collateral & title analysis", "Valuation assumptions & data prep", "Issued with licensed firms"] },
-  { no: "05", en: "LIVE DEALS", ko: "투자유치 진행 프로젝트", eko: "Live Deals · Now Raising", c: "#ef7f74",
-    dko: "프로젝트 소개 페이지와 관련 기업의 홈페이지를 한곳에서 확인하실 수 있습니다.",
-    den: "Explore project overviews and related company websites.",
-    iko: [], ien: [],
-    links: [
-      ["대양금속","Daeyang Metal","기업 사이트 샘플","Corporate website sample","https://daeyang-metal-sample.vercel.app","","https://daeyang-metal-sample.vercel.app/en"],
-      ["GB LABS","GB LABS","AI 디지털 헬스케어 · 공식","AI digital health · official","https://gblabs.co.kr","gblabs"],
-      ["유니코에너지그룹","UNICO ENERGY GROUP","에너지·원자재 · 공식","Energy & commodities · official","/","unico"],
-      ["서부중앙시장 재개발","Seobu market redevelopment","주거·상업 재개발","Redevelopment","/seobu/m","seobu"],
-      ["평생주치의 케어하우스","Lifelong-care house","헬스케어 · 돌봄","Healthcare","/sinchon/orbit-care","care"],
-      ["가산 메디컬·AI 빌딩(가칭)","Gasan Medical·AI Building","오피스 리포지셔닝","Office repositioning","/gasan/m4r9","gasan"],
-      ["더케이 AI 스마트호스텔","The K AI Smart Hostel","숙박 · 리모델링","Hospitality · remodeling","/sinchon","hostel"],
-      ["정선 AI 스마트호텔","Jeongseon AI smart hotel","호텔 · 관광","Hotel","/jeongseon","jeongseon"],
-      ["솔루믹스","SOLUMIX","코넥스 상장사","KONEX-listed","/xxrhbd2","solumix"],
-      ["해연에프엔지","Haeyeon F&G","기업 홈페이지","Corporate","/pqw8nt7","haeyeon"],
-      ["옥수 복합 개발","Oksu mixed-use","개발 · 환경","Development","/oksu","oksu"],
-      ["강화 광산 인프라 소재","Ganghwa mine materials","자원 · 인프라","Resources","/r4d7k2xq","ganghwa"],
-      ["크라우드웍스","Crowdworks","기업 홈페이지","Corporate website","https://www.crowdworks.ai/"],
-      ["대호에이엘","Daeho AL","기업 홈페이지","Corporate website","https://daeho-al.com/"],
-      ["제이케이시냅스(구 소니드)","JK Synapse (formerly Sonid)","기업 홈페이지","Corporate website","http://www.jksynapse.co.kr/"],
-      ["스피어","Sphere","기업 홈페이지","Corporate website","https://spherecorp.kr/"],
-      ["캐리(구 윌링스)","Carry (formerly Willings)","기업 홈페이지","Corporate website","https://www.willings.co.kr/"],
-      ["삼아알미늄","Sama Aluminium","기업 홈페이지","Corporate website","https://www.sama-al.com/kor/"],
-    ] },
 ];
 
 function SolIcon({ i, c }: { i: number; c: string }) {
@@ -503,8 +479,9 @@ function SolIcon({ i, c }: { i: number; c: string }) {
   return <g {...p}><path d={paths[i]} /></g>;
 }
 
-function Solutions({ open, setOpen }: { open: number; setOpen: (index: number) => void }) {
+function Solutions() {
   const lang = useLang();
+  const [open, setOpen] = useState(0);
   return (
     <section id="solutions" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
       <Kicker>ADVISORY SIDE · SOLUTIONS</Kicker>
@@ -523,7 +500,7 @@ function Solutions({ open, setOpen }: { open: number; setOpen: (index: number) =
         {SOLUTIONS.map((s, i) => {
           const on = open === i;
           return (
-            <div key={s.no} id={s.links ? "work" : undefined} className="border-b" style={{ borderColor: "var(--gi-line)" }}>
+            <div key={s.no} className="border-b" style={{ borderColor: "var(--gi-line)" }}>
               <button onClick={() => setOpen(on ? -1 : i)} className="flex w-full items-baseline gap-4 py-6 text-left">
                 <span className="gi-en w-6 shrink-0 text-[11px] font-bold" style={{ color: "var(--gi-copper)" }}>{s.no}</span>
                 <span className="flex-1">
@@ -535,39 +512,13 @@ function Solutions({ open, setOpen }: { open: number; setOpen: (index: number) =
               <AnimatePresence initial={false}>
                 {on && (
                   <motion.div key="d" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.45, ease: EASE }}>
-                    <div className={s.links ? "pb-7" : "pb-7 pl-10"}>
+                    <div className="pb-7 pl-10">
                       <p className="text-[15px] leading-[1.8]" style={{ color: "var(--gi-text)" }}>{lang === "en" ? s.den : s.dko}</p>
                       <ul className="mt-4">
                         {(lang === "en" ? s.ien : s.iko).map((it) => (
                           <li key={it} className="flex items-center justify-between border-t py-3 text-[14px]" style={{ borderColor: "var(--gi-line)" }}>{it}<span style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span></li>
                         ))}
                       </ul>
-                      {s.links && (
-                          <ul className="mt-3 grid grid-cols-1 gap-4 min-[520px]:grid-cols-2">
-                            {s.links.map(([k, e, t, te, href, image, englishHref]) => (
-                              <li key={href} className="border" style={{ borderColor: "var(--gi-line)" }}>
-                                <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="group flex h-full flex-col focus-visible:outline-2 focus-visible:outline-offset-2">
-                                  <span className="flex flex-1 items-center gap-3 px-4 py-3.5">
-                                    <span className="flex-1">
-                                      <span className="block text-[15px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? e : k}</span>
-                                      <span className="mt-0.5 block text-[12px]" style={{ color: "var(--gi-sub)" }}>{lang === "en" ? te : t}</span>
-                                    </span>
-                                    <span aria-hidden="true" style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span>
-                                  </span>
-                                  {image && <span className="block aspect-[16/9] overflow-hidden bg-[#f1f0ea]">
-                                    {/* eslint-disable-next-line @next/next/no-img-element -- reuse existing static previews */}
-                                    <img src={image === "gblabs" ? "/gasan/m4r9/gblabs-logo-dark.png" : `/g0dy098g/work/${image}.webp`} alt="" loading="lazy" decoding="async" className={image === "gblabs" ? "h-full w-full object-contain p-[12%]" : "h-full w-full object-cover"} />
-                                  </span>}
-                                </a>
-                                {englishHref && <div className="flex gap-4 border-t px-4 py-3 text-[13px] font-bold" style={{ borderColor: "var(--gi-line)" }}>
-                                  <a href={href} target="_blank" rel="noopener">한국어 ↗</a>
-                                  <a href={englishHref} target="_blank" rel="noopener">English ↗</a>
-                                </div>}
-                              </li>
-                            ))}
-                          </ul>
-                      )}
-                      {s.links && <ProjectMaterials />}
                     </div>
                   </motion.div>
                 )}
@@ -823,57 +774,79 @@ function Rwa() {
   );
 }
 
-type WorkItem = { k: string; ko: string; en: string; tko: string; ten: string; href: string };
-const PROJECT_MATERIALS: WorkItem[] = [
-    { k: "scplan", ko: "스마트호스텔 IR", en: "Smart hostel IR", tko: "IR 자료", ten: "IR deck", href: "/scplan" },
-    { k: "scprofile", ko: "스마트호스텔 사업소개서", en: "Smart hostel profile", tko: "사업소개서", ten: "Profile", href: "/scprofile" },
-    { k: "ghplan", ko: "광산 사업 기획(안)", en: "Mine business plan", tko: "사업계획서", ten: "Business plan", href: "/p5c9h2mj" },
-    { k: "hnl", ko: "투자회사 회사소개서", en: "Investment firm profile", tko: "회사소개서", ten: "Company profile", href: "/f6b1y4ds" },
-    { k: "deck", ko: "그룹 사업소개서", en: "Group business proposal", tko: "사업소개서", ten: "Proposal", href: "/deck" },
- ];
+type ProjectLink = [ko: string, en: string, detailKo: string, detailEn: string, href: string, image?: string, englishHref?: string];
 
-/* 작업물 한 건: 화면 폭 가득 이미지가 마스크로 열리고, 아래에 제목만 (The Boundary식 피드) */
-function WorkEntry({ w, lang, i }: { w: WorkItem; lang: string; i: number }) {
-  const ref = useRef<HTMLAnchorElement>(null);
-  const seen = useInView(ref, { once: true, margin: "-40px" });
-  return (
-    <a ref={ref} href={w.href} target="_blank" rel="noopener" className="block">
-      <div className="relative aspect-[4/5] overflow-hidden" style={{ background: "#1c2414" }}>
-        <motion.div className="absolute inset-0" initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }} transition={{ duration: 1.1, ease: EASE }}>
-          <motion.img src={`/g0dy098g/work/${w.k}.webp`} alt="" loading="lazy" className="h-full w-full object-cover object-top" initial={{ scale: 1.12 }} animate={{ scale: seen ? 1 : 1.12 }} transition={{ duration: 1.6, ease: EASE }} />
-        </motion.div>
-        <span className="gi-en absolute left-5 top-4 text-[10px] font-bold text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,.5)" }}>{String(i + 1).padStart(2, "0")}</span>
-      </div>
-      <div className="flex items-end justify-between gap-3 border-b pt-4 pb-6" style={{ borderColor: "var(--gi-line)" }}>
-        <div>
-          <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>{lang === "en" ? w.ten : w.tko}</div>
-          <div className="mt-1.5 text-[20px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>{lang === "en" ? w.en : w.ko}</div>
-        </div>
-        <span className="flex shrink-0 items-center gap-1.5 pb-1 text-[12.5px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? "Open" : "열어보기"}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7 M9 7h8v8" /></svg></span>
-      </div>
-    </a>
-  );
-}
+const PROJECT_LINKS: ProjectLink[] = [
+      ["대양금속","Daeyang Metal","기업 사이트 샘플","Corporate website sample","https://daeyang-metal-sample.vercel.app","","https://daeyang-metal-sample.vercel.app/en"],
+      ["GB LABS","GB LABS","AI 디지털 헬스케어 · 공식","AI digital health · official","https://gblabs.co.kr","gblabs"],
+      ["유니코에너지그룹","UNICO ENERGY GROUP","에너지·원자재 · 공식","Energy & commodities · official","/","unico"],
+      ["서부중앙시장 재개발","Seobu market redevelopment","주거·상업 재개발","Redevelopment","/seobu/m","seobu"],
+      ["평생주치의 케어하우스","Lifelong-care house","헬스케어 · 돌봄","Healthcare","/sinchon/orbit-care","care"],
+      ["가산 메디컬·AI 빌딩(가칭)","Gasan Medical·AI Building","오피스 리포지셔닝","Office repositioning","/gasan/m4r9","gasan"],
+      ["더케이 AI 스마트호스텔","The K AI Smart Hostel","숙박 · 리모델링","Hospitality · remodeling","/sinchon","hostel"],
+      ["정선 AI 스마트호텔","Jeongseon AI smart hotel","호텔 · 관광","Hotel","/jeongseon","jeongseon"],
+      ["해연에프엔지","Haeyeon F&G","기업 홈페이지","Corporate","/pqw8nt7","haeyeon"],
+      ["옥수 복합 개발","Oksu mixed-use","개발 · 환경","Development","/oksu","oksu"],
+      ["강화 광산 인프라 소재","Ganghwa mine materials","자원 · 인프라","Resources","/r4d7k2xq","ganghwa"],
+];
 
-function ProjectMaterials() {
+const COMPANY_LINKS: ProjectLink[] = [
+      ["솔루믹스","SOLUMIX","코넥스 상장사","KONEX-listed","/xxrhbd2","solumix"],
+      ["크라우드웍스","Crowdworks","기업 홈페이지","Corporate website","https://www.crowdworks.ai/"],
+      ["대호에이엘","Daeho AL","기업 홈페이지","Corporate website","https://daeho-al.com/"],
+      ["제이케이시냅스(구 소니드)","JK Synapse (formerly Sonid)","기업 홈페이지","Corporate website","http://www.jksynapse.co.kr/"],
+      ["스피어","Sphere","기업 홈페이지","Corporate website","https://spherecorp.kr/"],
+      ["캐리(구 윌링스)","Carry (formerly Willings)","기업 홈페이지","Corporate website","https://www.willings.co.kr/"],
+      ["삼아알미늄","Sama Aluminium","기업 홈페이지","Corporate website","https://www.sama-al.com/kor/"],
+];
+
+function ProjectShowcase() {
   const lang = useLang();
-  const [all, setAll] = useState(false);
-  const shown = all ? PROJECT_MATERIALS : PROJECT_MATERIALS.slice(0, 4);
   return (
-    <section className="mt-10">
-      <h3 className="border-b pb-2 text-[16px] font-extrabold" style={{ borderColor: "var(--gi-black)", color: "var(--gi-black)" }}>
-        {pick(lang, "사업계획서 · IR", "Business Plans · IR")}
-      </h3>
-      <div className="mt-5 space-y-6">
-        {shown.map((w, i) => <WorkEntry key={w.k} w={w} lang={lang} i={i} />)}
+    <section id="work" style={{ background: "var(--gi-ink)", color: "#fff" }}>
+      <div className="relative flex aspect-[4/3] items-end overflow-hidden px-5 pb-6">
+        <img src="/g0dy098g/intro-seoul.webp" alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+        <div className="relative">
+          <div className="gi-en text-[11px] font-bold text-[#ead2a2]">05 · LIVE DEALS</div>
+          <h2 className="mt-2 text-[clamp(24px,7vw,32px)] font-extrabold leading-tight tracking-tight">
+            {pick(lang, "투자유치 진행 프로젝트", "Investment Projects")}
+          </h2>
+        </div>
       </div>
-      <button type="button" aria-expanded={all} onClick={() => setAll(!all)} className="mt-5 w-full border-y py-3 text-left text-[14px] font-bold" style={{ borderColor: "var(--gi-line)", color: "var(--gi-black)" }}>
-        {all ? pick(lang, "접기", "Show less") : pick(lang, `전체 보기 (${PROJECT_MATERIALS.length})`, `View all (${PROJECT_MATERIALS.length})`)}
-      </button>
-      <div className="mt-10 border-l-2 pl-4" style={{ borderColor: "var(--gi-copper)" }}>
-        <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>PRIVATE DEAL ROOM</div>
-        <div className="mt-1.5 text-[16px] font-extrabold" style={{ color: "var(--gi-black)" }}>{pick(lang, "검토보고서 · 투자자 전용 페이지", "Review reports · investor-only pages")}</div>
-        <p className="mt-1.5 text-[13px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "거래 정보가 담긴 자료는 비밀번호로 보호하며, 요청 시 별도로 열람을 안내합니다.", "Materials with deal information are password-protected and shared on request.")}</p>
+      <div className="px-3 pt-4 pb-9">
+        <ul className="grid grid-cols-4 gap-x-2 gap-y-4">
+          {PROJECT_LINKS.map(([ko, en, detailKo, detailEn, href, image, englishHref]) => (
+            <li key={href} className="min-w-0">
+              <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="block focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`${pick(lang, ko, en)} · ${pick(lang, detailKo, detailEn)}`}>
+                <span className="relative flex aspect-[3/4] items-center justify-center overflow-hidden rounded-sm bg-[#36452a]">
+                  {image ? <img src={image === "gblabs" ? "/gasan/m4r9/gblabs-logo-dark.png" : `/g0dy098g/work/${image}.webp`} alt="" loading="lazy" className={image === "gblabs" ? "h-full w-full bg-[#eeeee7] object-contain p-2" : "h-full w-full object-cover object-top"} /> : <span aria-hidden="true" className="px-1 text-center text-[10px] font-bold tracking-wider text-[#ead2a2]">DAEYANG<br />METAL</span>}
+                </span>
+                <span className="mt-2 block break-words text-[11px] font-semibold leading-snug">{pick(lang, ko, en)}</span>
+              </a>
+              {englishHref && <div className="mt-1 flex flex-wrap gap-x-2 text-[10px] text-[#ead2a2]">
+                <a href={href} target="_blank" rel="noopener" className="py-1" aria-label="대양금속 한국어">KO ↗</a>
+                <a href={englishHref} target="_blank" rel="noopener" className="py-1" aria-label="Daeyang Metal English">EN ↗</a>
+              </div>}
+            </li>
+          ))}
+        </ul>
+        <section className="mt-9 border-t border-white/20 pt-5">
+          <h3 className="px-2 text-[18px] font-extrabold">{pick(lang, "상장사 관련 기업 소개", "Related Company Profiles")}</h3>
+          <ul className="mt-3 grid grid-cols-2 gap-2">
+            {COMPANY_LINKS.map(([ko, en, detailKo, detailEn, href]) => (
+              <li key={href}>
+                <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="flex h-full items-center justify-between gap-2 rounded-sm border border-white/20 px-2.5 py-3 focus-visible:outline-2">
+                  <span className="min-w-0">
+                    <span className="block break-words text-[13px] font-bold leading-snug">{pick(lang, ko, en)}</span>
+                    <span className="mt-1 block text-[10px] text-white/70">{pick(lang, detailKo, detailEn)}</span>
+                  </span>
+                  <span aria-hidden="true" className="shrink-0 text-[#ead2a2]">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     </section>
   );
@@ -1023,7 +996,7 @@ const MENU: [string, string, string[]][] = [
   ["about", "회사소개", ["개요", "인사말"]],
   ["business", "사업 구조", ["자산 쪽", "자문 쪽", "딜 클로징"]],
   ["ma", "상장사 M&A", []],
-  ["solutions", "자문 솔루션", ["상장사 M&A·투자유치", "구조조정", "사업계획서·IR", "검토보고서·가치평가", "투자유치 진행 프로젝트"]],
+  ["solutions", "자문 솔루션", ["상장사 M&A·투자유치", "구조조정", "사업계획서·IR", "검토보고서·가치평가"]],
   ["rwa", "RWA 사업", ["부동산 개발", "엣지 AI 데이터센터", "NPL"]],
   ["work", "투자유치 진행 프로젝트", []],
   ["approach", "투자 접근", ["4단계 프로세스", "원칙"]],
@@ -1049,7 +1022,7 @@ export default function GiibPlus() {
     if (l === "en") setLangRaw("en");
   }, []);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation", "Live Deals"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Live Deals", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
+  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Live Deals", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
   const menuList: [string, string, string[]][] = MENU.map(([id, l, k]) => (lang === "en" ? [id, MENU_EN2[id][0], MENU_EN2[id][1]] : [id, l, k]));
   const proc_ = PROCESS.map((p, i) => (lang === "en" ? { ...p, ...PROCESS_EN[i] } : p));
   const prin_ = PRINCIPLES.map((p, i) => (lang === "en" ? { ...p, ...PRINCIPLES_EN[i] } : p));
@@ -1068,9 +1041,7 @@ export default function GiibPlus() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const [openSolution, setOpenSolution] = useState(0);
   const go = (id: string) => {
-    if (id === "work") setOpenSolution(SOLUTIONS.length - 1);
     setMenu(false);
     const el = document.getElementById(id);
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56, behavior: "smooth" });
@@ -1120,7 +1091,7 @@ export default function GiibPlus() {
                       {sub === i && (
                         <motion.div key="s" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.3, ease: EASE }}>
                           <div className="pb-4">
-                            {kids.map((k, j) => <button key={k} onClick={() => go(id === "solutions" && j === SOLUTIONS.length - 1 ? "work" : id)} className="block py-2 text-[15px]" style={{ color: "var(--gi-sub)" }}>{k}</button>)}
+                            {kids.map((k) => <button key={k} onClick={() => go(id)} className="block py-2 text-[15px]" style={{ color: "var(--gi-sub)" }}>{k}</button>)}
                           </div>
                         </motion.div>
                       )}
@@ -1198,7 +1169,8 @@ export default function GiibPlus() {
 
         <Pillars onGo={go} />
         <ListedMA />
-        <Solutions open={openSolution} setOpen={setOpenSolution} />
+        <Solutions />
+        <ProjectShowcase />
         <Rwa />
 
         {/* 투자 접근 — 번호 목록 */}
