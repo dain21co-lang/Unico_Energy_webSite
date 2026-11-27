@@ -485,47 +485,51 @@ function Solutions() {
   const lang = useLang();
   const [open, setOpen] = useState(0);
   return (
-    <section id="solutions" className="relative overflow-hidden pt-14 pb-14" style={{ background: "linear-gradient(180deg, #0b1828 0%, #10284a 100%)" }}>
-      <LiveBlob fill="rgba(240,164,90,.14)" seeds={[2, 6, 9, 4]} dur={12} className="pointer-events-none absolute -right-24 -top-16 h-[260px] w-[260px]" />
-      <LiveBlob fill="rgba(91,156,240,.14)" seeds={[5, 8, 1, 7]} dur={14} r={76} className="pointer-events-none absolute -left-24 top-1/2 h-[240px] w-[240px]" />
-      <div className="relative px-5">
-        <Kicker light>ONE-STOP DEAL SOLUTION</Kicker>
-        <h2 className="mt-4 text-[28px] font-extrabold leading-[1.3] tracking-[-0.02em] text-white"><Lift>{lang === "en" ? <>From assets to companies,<br />the whole deal</> : <>자산에서 기업까지,<br />딜의 처음과 끝</>}</Lift></h2>
-        <p className="mt-3 text-[14px] leading-[1.75]" style={{ color: "#a9b6c8" }}>{pick(lang, "부동산 투자·개발에 더해 기업 구조조정과 M&A, 사업계획서·IR·검토보고서·가치평가, 사업 사이트까지 한 팀이 끝까지 맡습니다.", "Beyond real estate, one team carries restructuring, M&A, business plans, IR, review reports, valuation and deal sites through to the end.")}</p>
+    <section id="solutions" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
+      <Kicker>ONE-STOP DEAL SOLUTION</Kicker>
+      <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "From assets" : "자산에서"}</Lift><Lift delay={0.08}>{lang === "en" ? "to companies." : "기업까지."}</Lift></h2>
+      <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "부동산 투자·개발에 더해 기업 구조조정과 M&A, 사업계획서·IR·검토보고서·가치평가, 사업 사이트까지 한 팀이 끝까지 맡습니다.", "Beyond real estate, one team carries restructuring, M&A, business plans, IR, review reports, valuation and deal sites through to the end.")}</p>
+      {/* 서비스 바로가기 — 이름만 한 줄로 (The Boundary식) */}
+      <div className="mt-8 text-[17px] font-bold leading-[1.9]" style={{ color: "#b4b7bc" }}>
+        {SOLUTIONS.map((s, i) => (
+          <span key={s.no}>
+            <button onClick={() => setOpen(i)} className="transition-colors" style={{ color: open === i ? "var(--gi-black)" : undefined }}>{lang === "en" ? s.eko : s.ko}</button>
+            {i < SOLUTIONS.length - 1 && <span className="mx-2 font-light">/</span>}
+          </span>
+        ))}
       </div>
-      <div className="relative mt-8 space-y-2.5 px-5">
+      <div className="mt-8 border-t" style={{ borderColor: "var(--gi-black)" }}>
         {SOLUTIONS.map((s, i) => {
           const on = open === i;
           return (
-            <motion.div key={s.no} className="overflow-hidden rounded-[14px] border" style={{ borderColor: on ? s.c : "#28405f", background: on ? "#132a46" : "rgba(19,42,70,.55)" }}
-              initial={{ x: 36 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: i * 0.06, ease: EASE }}>
-              <button onClick={() => setOpen(on ? -1 : i)} className="flex w-full items-center gap-3.5 px-4 py-4 text-left">
-                <svg viewBox="-14 -14 28 28" className="h-10 w-10 shrink-0"><circle r="13" fill={s.c} fillOpacity=".16" stroke={s.c} strokeOpacity=".5" /><SolIcon i={i} c={s.c} /></svg>
+            <div key={s.no} className="border-b" style={{ borderColor: "var(--gi-line)" }}>
+              <button onClick={() => setOpen(on ? -1 : i)} className="flex w-full items-baseline gap-4 py-6 text-left">
+                <span className="gi-en w-6 shrink-0 text-[11px] font-bold" style={{ color: "var(--gi-copper)" }}>{s.no}</span>
                 <span className="flex-1">
-                  <span className="gi-en block text-[10px] font-bold" style={{ color: s.c }}>{s.no} · {s.en}</span>
-                  <span className="mt-1 block text-[18px] font-extrabold text-white">{lang === "en" ? s.eko : s.ko}</span>
+                  <span className="block text-[22px] font-extrabold tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>{lang === "en" ? s.eko : s.ko}</span>
+                  {lang === "ko" && <span className="gi-en mt-1 block text-[10px] font-semibold" style={{ color: "var(--gi-sub)" }}>{s.en}</span>}
                 </span>
-                <motion.span animate={{ rotate: on ? 45 : 0 }} transition={{ duration: 0.3 }} className="text-[26px] font-light leading-none text-white">+</motion.span>
+                <motion.span animate={{ rotate: on ? 45 : 0 }} transition={{ duration: 0.3 }} className="text-[26px] font-light leading-none" style={{ color: "var(--gi-black)" }}>+</motion.span>
               </button>
               <AnimatePresence initial={false}>
                 {on && (
-                  <motion.div key="d" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.4, ease: EASE }}>
-                    <div className="px-4 pb-5">
-                      <p className="text-[14px] leading-[1.75]" style={{ color: "#c3cede" }}>{lang === "en" ? s.den : s.dko}</p>
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {(lang === "en" ? s.ien : s.iko).map((it, j) => (
-                          <motion.span key={it} className="rounded-full border px-2.5 py-1 text-[12px] font-semibold" style={{ borderColor: s.c, color: "#fff" }}
-                            initial={{ y: 12 }} animate={{ y: 0 }} transition={{ duration: 0.4, delay: 0.08 + j * 0.05, ease: EASE }}>{it}</motion.span>
+                  <motion.div key="d" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.45, ease: EASE }}>
+                    <div className="pb-7 pl-10">
+                      <p className="text-[15px] leading-[1.8]" style={{ color: "var(--gi-text)" }}>{lang === "en" ? s.den : s.dko}</p>
+                      <ul className="mt-4">
+                        {(lang === "en" ? s.ien : s.iko).map((it) => (
+                          <li key={it} className="flex items-center justify-between border-t py-3 text-[14px]" style={{ borderColor: "var(--gi-line)" }}>{it}<span style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span></li>
                         ))}
-                      </div>
+                      </ul>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           );
         })}
       </div>
+      <button onClick={() => { const el = document.getElementById("contact"); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 56, behavior: "smooth" }); }} className="mt-10 inline-flex items-center gap-3 border px-5 py-3.5 text-[14.5px] font-bold" style={{ borderColor: "var(--gi-black)", color: "var(--gi-black)" }}>{pick(lang, "딜 상담하기", "Discuss your deal")} <Arrow /></button>
     </section>
   );
 }
@@ -553,48 +557,66 @@ const WORK: { id: string; ko: string; en: string; items: WorkItem[] }[] = [
   ] },
 ];
 
+/* 작업물 한 건: 화면 폭 가득 이미지가 마스크로 열리고, 아래에 제목만 (The Boundary식 피드) */
+function WorkEntry({ w, lang, i }: { w: WorkItem; lang: string; i: number }) {
+  const ref = useRef<HTMLAnchorElement>(null);
+  const seen = useInView(ref, { once: true, margin: "-40px" });
+  return (
+    <a ref={ref} href={w.href} target="_blank" rel="noopener" className="block">
+      <div className="relative -mx-5 aspect-[4/5] overflow-hidden" style={{ background: "#0b1828" }}>
+        <motion.div className="absolute inset-0" initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }} transition={{ duration: 1.1, ease: EASE }}>
+          <motion.img src={`/g0dy098g/work/${w.k}.webp`} alt="" loading="lazy" className="h-full w-full object-cover object-top" initial={{ scale: 1.12 }} animate={{ scale: seen ? 1 : 1.12 }} transition={{ duration: 1.6, ease: EASE }} />
+        </motion.div>
+        <span className="gi-en absolute left-5 top-4 text-[10px] font-bold text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,.5)" }}>{String(i + 1).padStart(2, "0")}</span>
+      </div>
+      <div className="flex items-end justify-between gap-3 border-b pt-4 pb-6" style={{ borderColor: "var(--gi-line)" }}>
+        <div>
+          <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>{lang === "en" ? w.ten : w.tko}</div>
+          <div className="mt-1.5 text-[20px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>{lang === "en" ? w.en : w.ko}</div>
+        </div>
+        <span className="flex shrink-0 items-center gap-1.5 pb-1 text-[12.5px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? "Open" : "열어보기"}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7 M9 7h8v8" /></svg></span>
+      </div>
+    </a>
+  );
+}
+
 function Work() {
   const lang = useLang();
   const [tab, setTab] = useState(0);
+  const [all, setAll] = useState(false);
   const total = WORK.reduce((a, g) => a + g.items.length, 0);
   const g = WORK[tab];
+  const shown = all ? g.items : g.items.slice(0, 4);
   return (
-    <section id="work" className="pt-14 pb-14" style={{ background: "var(--gi-paper)" }}>
-      <div className="px-5">
-        <Kicker>OUR WORK</Kicker>
-        <div className="flex items-end justify-between gap-3">
-          <h2 className="mt-4 text-[28px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? <>Real work,<br />one tap away</> : <>말보다,<br />만든 것으로</>}</Lift></h2>
-          <div className="text-right leading-none"><div className="text-[40px] font-extrabold tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Count to={total} /></div><div className="mt-1 text-[11px]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "제작 사례", "projects")}</div></div>
-        </div>
-        <p className="mt-3 text-[14px] leading-[1.75]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "실제로 만들어 운영 중인 사이트와 문서입니다. 카드를 누르면 바로 열립니다.", "Live sites and documents we built. Tap a card to open it.")}</p>
-        <div className="relative mt-6 inline-flex rounded-full border p-1" style={{ borderColor: "var(--gi-line)", background: "#fff" }}>
-          {WORK.map((w, i) => (
-            <button key={w.id} onClick={() => setTab(i)} className="relative z-10 rounded-full px-4 py-2 text-[13px] font-bold" style={{ color: tab === i ? "#fff" : "var(--gi-sub)" }}>
-              {tab === i && <motion.span layoutId="gi-work-tab" className="absolute inset-0 -z-10 rounded-full" style={{ background: "var(--gi-ink)" }} transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
-              {lang === "en" ? w.en : w.ko} <span className="ml-0.5 text-[11px]">{w.items.length}</span>
-            </button>
-          ))}
-        </div>
+    <section id="work" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
+      <Kicker>OUR WORK</Kicker>
+      <div className="flex items-end justify-between gap-3">
+        <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "Real work," : "말보다,"}</Lift><Lift delay={0.08}>{lang === "en" ? "one tap away." : "만든 것으로."}</Lift></h2>
+        <div className="text-right leading-none"><div className="text-[44px] font-extrabold tracking-[-0.04em]" style={{ color: "var(--gi-black)" }}><Count to={total} /></div><div className="mt-1 text-[11px]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "제작 사례", "projects")}</div></div>
       </div>
-      <div key={g.id} className="gi-noscroll mt-6 flex snap-x snap-mandatory scroll-pl-5 gap-3 overflow-x-auto px-5 pb-2">
-        {g.items.map((w, i) => (
-          <motion.a key={w.k} href={w.href} target="_blank" rel="noopener" className="block w-[58%] shrink-0 snap-start overflow-hidden rounded-[14px] border bg-white" style={{ borderColor: "var(--gi-line)" }}
-            initial={{ y: 28 }} animate={{ y: 0 }} transition={{ duration: 0.6, delay: i * 0.05, ease: EASE }}>
-            <div className="relative h-[260px] overflow-hidden" style={{ background: "#0b1828" }}>
-              <img src={`/g0dy098g/work/${w.k}.webp`} alt="" loading="lazy" className="gi-work-img h-full w-full object-cover object-top" />
-              <span className="absolute left-2 top-2 rounded-full bg-white px-2 py-0.5 text-[10.5px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? w.ten : w.tko}</span>
-            </div>
-            <div className="flex items-center justify-between gap-2 px-3.5 py-3">
-              <span className="text-[13.5px] font-extrabold leading-[1.35]" style={{ color: "var(--gi-black)" }}>{lang === "en" ? w.en : w.ko}</span>
-              <span className="shrink-0" style={{ color: "var(--gi-copper)" }}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7 M9 7h8v8" /></svg></span>
-            </div>
-          </motion.a>
+      <p className="mt-5 text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "실제로 만들어 운영 중인 사이트와 문서입니다. 누르면 바로 열립니다.", "Live sites and documents we built. Tap to open.")}</p>
+      {/* 분류: 밑줄만 움직이는 텍스트 탭 */}
+      <div className="mt-8 flex gap-6 border-b" style={{ borderColor: "var(--gi-line)" }}>
+        {WORK.map((w, i) => (
+          <button key={w.id} onClick={() => { setTab(i); setAll(false); }} className="relative pb-3 text-[15px] font-bold" style={{ color: tab === i ? "var(--gi-black)" : "#a3a7ad" }}>
+            {lang === "en" ? w.en : w.ko}<span className="ml-1 text-[11px]">{w.items.length}</span>
+            {tab === i && <motion.span layoutId="gi-work-ul" className="absolute inset-x-0 -bottom-px h-[2px]" style={{ background: "var(--gi-black)" }} transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+          </button>
         ))}
-        <div className="flex w-[58%] shrink-0 snap-start flex-col justify-center rounded-[14px] border border-dashed p-5" style={{ borderColor: "var(--gi-copper)" }}>
-          <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>PRIVATE DEAL ROOM</div>
-          <div className="mt-2 text-[16px] font-extrabold leading-[1.4]" style={{ color: "var(--gi-black)" }}>{pick(lang, "검토보고서 · 투자자 전용 페이지", "Review reports · investor-only pages")}</div>
-          <p className="mt-2 text-[12.5px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "거래 정보가 담긴 자료는 비밀번호로 보호하며, 요청 시 별도로 열람을 안내합니다.", "Materials with deal information are password-protected and shared on request.")}</p>
-        </div>
+      </div>
+      <div key={g.id} className="mt-8 space-y-8">
+        {shown.map((w, i) => <WorkEntry key={w.k} w={w} lang={lang} i={i} />)}
+      </div>
+      {g.items.length > 4 && (
+        <button onClick={() => setAll(!all)} className="mt-8 flex w-full items-center justify-between border-y py-4 text-[14.5px] font-bold" style={{ borderColor: "var(--gi-black)", color: "var(--gi-black)" }}>
+          {all ? pick(lang, "접기", "Show less") : pick(lang, `전체 보기 (${g.items.length})`, `View all (${g.items.length})`)}
+          <motion.span animate={{ rotate: all ? 180 : 0 }} transition={{ duration: 0.3 }}>⌄</motion.span>
+        </button>
+      )}
+      <div className="mt-10 border-l-2 pl-4" style={{ borderColor: "var(--gi-copper)" }}>
+        <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>PRIVATE DEAL ROOM</div>
+        <div className="mt-1.5 text-[16px] font-extrabold" style={{ color: "var(--gi-black)" }}>{pick(lang, "검토보고서 · 투자자 전용 페이지", "Review reports · investor-only pages")}</div>
+        <p className="mt-1.5 text-[13px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "거래 정보가 담긴 자료는 비밀번호로 보호하며, 요청 시 별도로 열람을 안내합니다.", "Materials with deal information are password-protected and shared on request.")}</p>
       </div>
     </section>
   );
