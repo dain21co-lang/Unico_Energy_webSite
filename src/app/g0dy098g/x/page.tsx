@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   icons: { icon: "/g0dy098g/logo-mark.svg" },
   openGraph: {
     title: "글로벌인프라허브 GIIB",
-    description: "자산에서 기업까지, 딜의 처음과 끝. 선수금 없이 결과로 받습니다.",
+    description: "자산에서 기업까지, 딜의 처음과 끝. 실비는 먼저, 보수는 결과로.",
     locale: "ko_KR",
     type: "website",
     images: [{ url: "/g0dy098g/og.png", width: 1200, height: 630 }],

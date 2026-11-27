@@ -624,44 +624,60 @@ function Work() {
 
 const FEE_STEPS = [
   { ko: "무료 진단", en: "Free diagnosis", c: "#3cc3a8" },
-  { ko: "구조 설계 · 자료 제작", en: "Structuring · materials", c: "#5b9cf0" },
+  { ko: "실비 견적", en: "Cost estimate", c: "#9fc46a" },
+  { ko: "구조 설계·실행", en: "Structure & execute", c: "#5b9cf0" },
   { ko: "딜 클로징", en: "Deal closing", c: "#f0a45a" },
-  { ko: "성공보수 정산", en: "Success fee", c: "#e9d2ad" },
+  { ko: "성공보수", en: "Success fee", c: "#e9d2ad" },
 ];
 const FEE_CARDS = [
-  { n: "0", ko: ["착수금 없음", "초기 진단과 구조 검토, 자료 제작 착수까지 선수금을 받지 않습니다."], en: ["No retainer", "No upfront fee for diagnosis, structuring or starting the materials."] },
-  { n: "%", ko: ["결과에 연동", "거래 성사·자금 집행·인가 확정 등 약속한 결과가 나온 시점에 정산합니다."], en: ["Tied to results", "Settled only when the agreed result — closing, funding, approval — is achieved."] },
-  { n: "L", ko: ["규모별 차등 요율", "거래 규모 구간에 따라 요율이 달라지는 레만(Lehman) 방식을 기본으로 합니다."], en: ["Tiered rates", "Based on the Lehman formula, with rates varying by deal-size bracket."] },
-  { n: "+", ko: ["외부 수수료는 실비", "회계법인·감정평가법인·법무법인 수수료는 실비로 정산합니다."], en: ["Third-party fees at cost", "Accounting, appraisal and legal fees are passed through at cost."] },
+  { n: "0", ko: ["진단은 무료", "첫 미팅과 거래 구조 검토, 실행 가능성 판단까지 비용을 받지 않습니다."], en: ["Free diagnosis", "First meeting, structure review and feasibility check at no cost."] },
+  { n: "실비", ko: ["실비만 먼저", "회계법인·감정평가·법무법인 수수료 등 외부 비용만 견적과 영수증 그대로 먼저 받습니다. 저희 마진은 붙이지 않습니다."], en: ["Costs only, upfront", "Only third-party costs — accounting, appraisal, legal — are paid first, at quote and receipt, with no markup."] },
+  { n: "%", ko: ["보수는 결과 후", "거래 성사·자금 집행·인가 확정처럼 약속한 결과가 나온 뒤에 성공보수를 받습니다."], en: ["Fee after results", "Our success fee is paid only after the agreed result — closing, funding, approval."] },
+  { n: "L", ko: ["규모별 차등 요율", "거래 규모가 커질수록 요율이 낮아지는 레만(Lehman) 방식을 기본으로 합니다."], en: ["Tiered rates", "Lehman-style rates that decline as the deal grows."] },
+];
+const FEE_ROWS = [
+  { ko: "처음 내는 돈", en: "Paid upfront", a: ["큰 착수금", "Large retainer"], b: ["외부 기관 실비만", "Third-party costs only"] },
+  { ko: "딜이 무산되면", en: "If the deal fails", a: ["착수금은 돌려받기 어려움", "Retainer rarely refunded"], b: ["성공보수 0원", "Success fee: zero"] },
+  { ko: "자문사의 관심", en: "Advisor's incentive", a: ["수임 자체", "Winning the mandate"], b: ["거래 성사", "Closing the deal"] },
+  { ko: "비용 투명성", en: "Cost transparency", a: ["총액 위주 청구", "Lump-sum billing"], b: ["견적·영수증 공개", "Quotes & receipts shared"] },
+];
+const FEE_TRUST = [
+  { ko: ["비밀유지계약(NDA) 먼저", "상장사 거래는 NDA를 맺은 뒤 시작하고, 미공개 정보는 담당자 외에 공유하지 않습니다."], en: ["NDA first", "Listed-company work starts only after an NDA; non-public information stays with the deal team."] },
+  { ko: ["계약서에 모두 적습니다", "실비 항목, 성공보수 요율, 지급 시점과 조건을 계약서에 명시합니다."], en: ["Everything in the contract", "Cost items, success-fee rates, timing and conditions are written into the contract."] },
+  { ko: ["분쟁 소지 있는 거래는 사절", "법적 분쟁 위험이 있는 거래는 보수와 관계없이 맡지 않습니다."], en: ["No risky deals", "We decline any deal with legal-dispute risk, regardless of the fee."] },
 ];
 
 function Fee() {
   const lang = useLang();
   const ref = useRef<HTMLDivElement>(null);
   const seen = useInView(ref, { once: true, margin: "-60px" });
+  const n = FEE_STEPS.length;
   return (
-    <section id="fee" className="px-5 pt-14 pb-14">
-      <Kicker>SUCCESS-BASED FEE</Kicker>
-      <h2 className="mt-4 text-[28px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? <>No upfront fee.<br /><span style={{ color: "var(--gi-copper)" }}>Paid on results.</span></> : <>선수금 없이,<br /><span style={{ color: "var(--gi-copper)" }}>결과로 받습니다</span></>}</Lift></h2>
-      <p className="mt-3 text-[14px] leading-[1.75]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "저희 보수는 고객의 성과와 같은 방향을 봅니다. 사이트·사업계획서·IR·검토보고서 제작까지 성공보수 안에서 함께 진행합니다.", "Our fee moves in the same direction as your result. Sites, plans, IR and review reports are all carried within the success fee.")}</p>
-      <div ref={ref} className="relative mt-8 rounded-[16px] p-5" style={{ background: "#1c2414" }}>
+    <section id="fee" className="px-5 pt-16 pb-16">
+      <Kicker>FEE STRUCTURE</Kicker>
+      <h2 className="mt-4 text-[30px] font-extrabold leading-[1.25] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "Costs first," : "실비는 먼저,"}</Lift><Lift delay={0.08}><span style={{ color: "var(--gi-copper)" }}>{lang === "en" ? "fees on results." : "보수는 결과로."}</span></Lift></h2>
+      <p className="mt-4 text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "외부 기관에 실제로 나가는 비용만 먼저 받고, 저희 보수는 거래가 성사된 뒤에 받습니다. 자문사와 고객이 같은 결과를 바라보게 하는 구조입니다.", "We take only real third-party costs upfront and earn our fee after the deal closes — so advisor and client aim for the same result.")}</p>
+      <div ref={ref} className="relative mt-8 rounded-[16px] px-4 py-5" style={{ background: "#1c2414" }}>
         <svg viewBox="0 0 320 70" className="w-full" aria-hidden="true">
-          <motion.path d="M20 35 H300" stroke="#44523a" strokeWidth="3" strokeLinecap="round" fill="none" />
-          <motion.path d="M20 35 H300" stroke="url(#gi-fee-g)" strokeWidth="3" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 2.4, ease: EASE }} />
-          <defs><linearGradient id="gi-fee-g" x1="0" x2="1"><stop offset="0" stopColor="#3cc3a8" /><stop offset=".5" stopColor="#5b9cf0" /><stop offset=".8" stopColor="#f0a45a" /><stop offset="1" stopColor="#e9d2ad" /></linearGradient></defs>
-          {seen && <circle r="4" fill="#fff"><animateMotion dur="2.6s" repeatCount="indefinite" path="M20 35 H300" /></circle>}
-          {FEE_STEPS.map((s, i) => {
-            const x = 20 + i * (280 / 3);
+          <path d="M20 35 H300" stroke="#44523a" strokeWidth="3" strokeLinecap="round" fill="none" />
+          <motion.path d="M20 35 H300" stroke="url(#gi-fee-g)" strokeWidth="3" strokeLinecap="round" fill="none" initial={{ pathLength: 0 }} animate={{ pathLength: seen ? 1 : 0 }} transition={{ duration: 2.6, ease: EASE }} />
+          <defs><linearGradient id="gi-fee-g" x1="0" x2="1"><stop offset="0" stopColor="#3cc3a8" /><stop offset=".25" stopColor="#9fc46a" /><stop offset=".5" stopColor="#5b9cf0" /><stop offset=".75" stopColor="#f0a45a" /><stop offset="1" stopColor="#e9d2ad" /></linearGradient></defs>
+          {seen && <circle r="4" fill="#fff"><animateMotion dur="2.8s" repeatCount="indefinite" path="M20 35 H300" /></circle>}
+          {FEE_STEPS.map((st, i) => {
+            const x = 20 + i * (280 / (n - 1));
             return (
-              <motion.g key={s.ko} initial={{ scale: 0 }} animate={{ scale: seen ? 1 : 0 }} transition={{ duration: 0.5, delay: 0.3 + i * 0.5, ease: EASE }} style={{ transformOrigin: `${x}px 35px`, transformBox: "view-box" }}>
-                <circle cx={x} cy="35" r="11" fill="#1c2414" stroke={s.c} strokeWidth="2.4" />
-                <text x={x} y="39" textAnchor="middle" fontSize="10" fontWeight="800" fill={s.c}>{i + 1}</text>
+              <motion.g key={st.ko} initial={{ scale: 0 }} animate={{ scale: seen ? 1 : 0 }} transition={{ duration: 0.5, delay: 0.3 + i * 0.45, ease: EASE }} style={{ transformOrigin: `${x}px 35px`, transformBox: "view-box" }}>
+                <circle cx={x} cy="35" r="11" fill="#1c2414" stroke={st.c} strokeWidth="2.4" />
+                <text x={x} y="39" textAnchor="middle" fontSize="10" fontWeight="800" fill={st.c}>{i + 1}</text>
               </motion.g>
             );
           })}
         </svg>
-        <div className="mt-1 grid grid-cols-4 gap-1 text-center text-[11px] font-bold leading-[1.35] text-white">
-          {FEE_STEPS.map((s) => <span key={s.ko}>{lang === "en" ? s.en : s.ko}</span>)}
+        <div className="mt-1 grid grid-cols-5 gap-0.5 text-center text-[10.5px] font-bold leading-[1.35] text-white">
+          {FEE_STEPS.map((st) => <span key={st.ko}>{lang === "en" ? st.en : st.ko}</span>)}
+        </div>
+        <div className="mt-3 grid grid-cols-5 text-center text-[10px] font-semibold" style={{ color: "#b3bca3" }}>
+          <span>{pick(lang, "무료", "Free")}</span><span style={{ color: "#c9de9b" }}>{pick(lang, "실비 선지급", "Costs first")}</span><span>—</span><span>—</span><span style={{ color: "#e9d2ad" }}>{pick(lang, "보수 후지급", "Fee after")}</span>
         </div>
       </div>
       <div className="mt-5 grid grid-cols-2 gap-2.5">
@@ -670,7 +686,7 @@ function Fee() {
           return (
             <Rise key={i} delay={i * 0.06}>
               <div className="h-full rounded-[14px] border p-4" style={{ borderColor: "var(--gi-line)", background: "#fff" }}>
-                <div className="text-[30px] font-extrabold leading-none" style={{ color: "var(--gi-copper)" }}>{c.n}</div>
+                <div className="text-[26px] font-extrabold leading-none" style={{ color: "var(--gi-copper)" }}>{c.n}</div>
                 <div className="mt-3 text-[15px] font-extrabold" style={{ color: "var(--gi-black)" }}>{t}</div>
                 <p className="mt-1.5 text-[12.5px] leading-[1.65]" style={{ color: "var(--gi-sub)" }}>{d}</p>
               </div>
@@ -678,8 +694,37 @@ function Fee() {
           );
         })}
       </div>
-      <div className="mt-4 border-l-2 pl-3 text-[13px] leading-[1.7]" style={{ borderColor: "var(--gi-copper)", color: "var(--gi-text)" }}>
-        {pick(lang, "법적 분쟁 소지가 있는 거래는 보수와 관계없이 맡지 않습니다. 구체적인 요율과 정산 시점은 거래별로 협의해 계약서에 명시합니다.", "We decline any deal with risk of legal dispute, regardless of the fee. Exact rates and settlement timing are agreed per deal and written into the contract.")}
+
+      {/* 일반 착수금 방식과 비교 */}
+      <h3 className="mt-12 text-[20px] font-extrabold" style={{ color: "var(--gi-black)" }}>{pick(lang, "무엇이 다른가요", "How it compares")}</h3>
+      <div className="mt-4 overflow-hidden rounded-[14px] border" style={{ borderColor: "var(--gi-line)" }}>
+        <div className="grid grid-cols-[88px_1fr_1fr] text-[12px] font-bold">
+          <span className="px-3 py-2.5" style={{ background: "var(--gi-paper)" }} />
+          <span className="px-3 py-2.5" style={{ background: "var(--gi-paper)", color: "var(--gi-sub)" }}>{pick(lang, "일반 착수금 방식", "Typical retainer")}</span>
+          <span className="px-3 py-2.5 text-white" style={{ background: "var(--gi-ink)" }}>GIIB {pick(lang, "혼합형", "hybrid")}</span>
+        </div>
+        {FEE_ROWS.map((r, i) => (
+          <motion.div key={r.ko} className="grid grid-cols-[88px_1fr_1fr] border-t text-[12.5px] leading-[1.5]" style={{ borderColor: "var(--gi-line)" }} initial={{ x: 24 }} whileInView={{ x: 0 }} viewport={{ once: true }} transition={{ duration: 0.55, delay: i * 0.06, ease: EASE }}>
+            <span className="px-3 py-3 font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? r.en : r.ko}</span>
+            <span className="px-3 py-3" style={{ color: "var(--gi-sub)" }}>{lang === "en" ? r.a[1] : r.a[0]}</span>
+            <span className="px-3 py-3 font-bold" style={{ color: "var(--gi-ink)", background: "rgba(43,54,32,.05)" }}>{lang === "en" ? r.b[1] : r.b[0]}</span>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* 신뢰 장치 */}
+      <div className="mt-10 space-y-4">
+        {FEE_TRUST.map((t, i) => {
+          const [h, d] = lang === "en" ? t.en : t.ko;
+          return (
+            <Rise key={i} delay={i * 0.05}>
+              <div className="flex gap-3 border-t pt-4" style={{ borderColor: "var(--gi-line)" }}>
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[12px] font-extrabold text-white" style={{ background: "var(--gi-ink)" }}>✓</span>
+                <div><div className="text-[15.5px] font-extrabold" style={{ color: "var(--gi-black)" }}>{h}</div><p className="mt-1 text-[13px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{d}</p></div>
+              </div>
+            </Rise>
+          );
+        })}
       </div>
     </section>
   );
@@ -723,7 +768,6 @@ const MENU: [string, string, string[]][] = [
   ["work", "포트폴리오", []],
   ["approach", "투자 접근", ["4단계 프로세스", "원칙"]],
   ["fee", "보수 구조", []],
-  ["record", "사업실적", []],
   ["contact", "문의", []],
 ];
 
@@ -990,6 +1034,8 @@ export default function GiibPlus() {
 
         <Fee />
 
+        {/* 사업실적(예시) — 가상 숫자라 미리보기에서는 숨김. 실제 실적이 오면 SAMPLE=false 후 다시 표시 */}
+        {!SAMPLE && (<>
         {/* 사업실적 — 코람코식 숫자 + 사례 카드 + 섹터 비중 */}
         <section id="record" className="px-5 pt-14 pb-14">
           <Kicker>TRACK RECORD</Kicker>
@@ -1012,6 +1058,8 @@ export default function GiibPlus() {
           {SAMPLE && <p className="mt-3 text-[11px]" style={{ color: "var(--gi-sub)" }}>{T("※ 이 영역의 숫자와 사례는 화면 구성을 위한 예시이며, 확인된 실적으로 교체됩니다.", "※ Figures and cases in this section are illustrative samples and will be replaced with verified records.")}</p>}
         </section>
 
+        </>)}
+
         {/* 인사말 */}
         <section id="ceo" className="px-5 pt-14 pb-14" style={{ background: "var(--gi-paper)" }}>
           <Kicker>CEO MESSAGE</Kicker>
@@ -1024,13 +1072,13 @@ export default function GiibPlus() {
               <p>Hello, I am Hyun-geun Yoo, CEO of Global Infra Hub.</p>
               <p>The biggest losses in real estate investment come from unverified numbers and undesigned structures. We verify with documents first, speak about risks first, and above all protect investor capital through collateral and contract structures.</p>
               <p>Good assets are many, but few have a structure strong enough to protect them to the end. We take responsibility for one continuous flow — sourcing, due diligence, structuring, execution and management — helping investors and sponsors make decisions they can trust in numbers.</p>
-              <p>Beyond real estate, we now take on corporate restructuring, M&amp;A and capital raising. One team builds the business plans, IR, review reports and deal sites — and we are paid on results, not upfront.</p>
+              <p>Beyond real estate, we now take on corporate restructuring, M&amp;A and capital raising. One team builds the business plans, IR, review reports and deal sites — we take only third-party costs upfront and earn our fee on results.</p>
               <p>As GIIB starts anew, we will work honestly to become a real estate investment hub you can rely on. Thank you.</p>
             </>) : (<>
               <p>안녕하십니까, 글로벌인프라허브 대표이사 유현근입니다.</p>
               <p>부동산 투자에서 가장 큰 손실은 확인하지 않은 숫자와 설계되지 않은 구조에서 생깁니다. 저희는 서류로 먼저 확인하고, 위험을 먼저 말씀드리며, 담보와 계약 구조로 투자자의 원금을 지키는 일을 가장 중요하게 생각합니다.</p>
               <p>좋은 자산은 많지만, 그 자산을 끝까지 지켜 낼 구조를 갖춘 곳은 많지 않습니다. 글로벌인프라허브는 발굴과 실사, 구조화, 실행과 관리까지 한 흐름으로 책임지며, 투자자와 사업자 모두가 숫자로 납득할 수 있는 결정을 돕겠습니다.</p>
-              <p>이제는 부동산을 넘어 기업의 구조조정과 M&A, 투자유치까지 함께합니다. 사업계획서와 IR, 검토보고서, 사업 사이트까지 한 팀이 직접 만들고, 보수는 선수금 없이 결과로 받겠습니다.</p>
+              <p>이제는 부동산을 넘어 기업의 구조조정과 M&A, 투자유치까지 함께합니다. 사업계획서와 IR, 검토보고서, 사업 사이트까지 한 팀이 직접 만들고, 외부 실비만 먼저 받되 저희 보수는 결과로 받겠습니다.</p>
               <p>새롭게 출발하는 글로벌인프라허브가 믿고 맡길 수 있는 부동산 투자의 거점이 될 수 있도록 늘 정직하게 일하겠습니다. 감사합니다.</p>
             </>)}
           </div>
