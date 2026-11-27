@@ -7,7 +7,7 @@ import { motion, animate, useInView, AnimatePresence } from "framer-motion";
 /* 원칙: 투명도는 움직이지 않는다 (갤럭시 빈 화면 방지) — 위치·크기·마스크·모양만 움직인다 */
 const IMG = (f: string) => `/jeongseon/img/${f}.webp`;
 /* 리모델링 후 예시 중 영상이 있는 장면 (제미나이, 반복용) */
-const STORY_VID: Record<string, string> = { "after-lobby": "/jeongseon/video/after-lobby.mp4" };
+const STORY_VID: Record<string, string> = { "after-lobby": "/jeongseon/video/after-lobby.mp4", "after-room": "/jeongseon/video/after-room.mp4" };
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 function Rise({ children, delay = 0, className }: { children: ReactNode; delay?: number; className?: string }) {
