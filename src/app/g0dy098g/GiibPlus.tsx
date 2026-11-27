@@ -557,62 +557,118 @@ const WORK: { id: string; ko: string; en: string; items: WorkItem[] }[] = [
   ] },
 ];
 
-/* 작업물 한 건: 화면 폭 가득 이미지가 마스크로 열리고, 아래에 제목만 (The Boundary식 피드) */
-function WorkEntry({ w, lang, i }: { w: WorkItem; lang: string; i: number }) {
-  const ref = useRef<HTMLAnchorElement>(null);
+/* 대표 사례 5건 — 큰 이미지가 스크롤에 맞춰 열리고, 영상은 화면에 보일 때만 재생 */
+type Case = { k: string; img: string; video?: string; pos?: string; ko: string; en: string; sko: string; sen: string; tko: string[]; ten: string[]; href: string; detail?: boolean; concept?: boolean };
+const CASES_BIG: Case[] = [
+  { k: "seobu", img: "/seobu/img/cd-aerial.webp", video: "/seobu/video/hero-loop.mp4", pos: "70% 40%", ko: "헤리티지포레(가칭)", en: "Heritage Forêt", sko: "재개발 부지를 청담급 레지던스 브랜드로 — 외관 조감도와 3분 38초 원테이크 브랜드 필름", sen: "A redevelopment site recast as a premium residence brand — aerial visuals and a 3:38 one-take brand film", tko: ["재개발 브랜딩", "브랜드 필름", "모바일 사이트"], ten: ["Redevelopment branding", "Brand film", "Mobile site"], href: "/g0dy098g/x/seobu", detail: true, concept: true },
+  { k: "gasan", img: "/g0dy098g/cases/gasan.webp", pos: "50% 40%", ko: "가산 메디컬·AI 빌딩(가칭)", en: "Gasan Medical·AI Building", sko: "지식산업센터의 공간 활용을 다시 짜고, 층별 MD와 사업기획으로 매입 판단을 돕는 사이트", sen: "Re-planning space use in a knowledge-industry center — floor-by-floor MD and a business plan for the acquisition call", tko: ["공간 리포지셔닝", "층별 MD", "사업기획"], ten: ["Repositioning", "Floor MD", "Business plan"], href: "/gasan/m4r9", concept: true },
+  { k: "thek", img: "/thek/img/hero.webp", video: "/thek/video/hero.mp4", pos: "50% 45%", ko: "더케이 스마트호스텔(가칭)", en: "THE K Smart Hostel", sko: "상가 빌딩을 AI 무인 숙박 브랜드로 — 브랜드 아이덴티티와 모바일 세로 영상", sen: "A commercial building turned into an AI-run stay brand — identity and vertical mobile films", tko: ["숙박 브랜드", "모바일 영상", "IR"], ten: ["Stay brand", "Mobile film", "IR"], href: "/thek", concept: true },
+  { k: "gblabs", img: "/g0dy098g/cases/gblabs.webp", pos: "50% 35%", ko: "GB LABS", en: "GB LABS", sko: "디지털 헬스케어 기업의 공식 사이트 — 브랜드 영상과 의료·돌봄 협동조합 페이지", sen: "Official site for a digital-health company — brand films and a care-cooperative page", tko: ["기업 사이트", "브랜드 영상", "국문·영문"], ten: ["Corporate site", "Brand film", "KO·EN"], href: "https://gblabs.co.kr" },
+  { k: "unico", img: "/g0dy098g/cases/unico.webp", pos: "50% 20%", ko: "UNICO ENERGY GROUP", en: "UNICO ENERGY GROUP", sko: "글로벌 에너지·원자재 그룹의 기업 사이트와 사업소개서", sen: "Corporate site and business proposal for a global energy & commodities group", tko: ["그룹 사이트", "사업소개서"], ten: ["Group site", "Proposal"], href: "/" },
+];
+
+function CaseBig({ c, i }: { c: Case; i: number }) {
+  const lang = useLang();
+  const ref = useRef<HTMLDivElement>(null);
+  const vid = useRef<HTMLVideoElement>(null);
   const seen = useInView(ref, { once: true, margin: "-40px" });
+  const onScreen = useInView(ref, { margin: "-20% 0px -20% 0px" });
+  useEffect(() => { const v = vid.current; if (!v) return; if (onScreen) v.play().catch(() => {}); else v.pause(); }, [onScreen]);
+  const ext = c.href.startsWith("http");
   return (
-    <a ref={ref} href={w.href} target="_blank" rel="noopener" className="block">
-      <div className="relative -mx-5 aspect-[4/5] overflow-hidden" style={{ background: "#0b1828" }}>
-        <motion.div className="absolute inset-0" initial={{ clipPath: "inset(0% 0% 100% 0%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }} transition={{ duration: 1.1, ease: EASE }}>
-          <motion.img src={`/g0dy098g/work/${w.k}.webp`} alt="" loading="lazy" className="h-full w-full object-cover object-top" initial={{ scale: 1.12 }} animate={{ scale: seen ? 1 : 1.12 }} transition={{ duration: 1.6, ease: EASE }} />
-        </motion.div>
-        <span className="gi-en absolute left-5 top-4 text-[10px] font-bold text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,.5)" }}>{String(i + 1).padStart(2, "0")}</span>
-      </div>
-      <div className="flex items-end justify-between gap-3 border-b pt-4 pb-6" style={{ borderColor: "var(--gi-line)" }}>
-        <div>
-          <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>{lang === "en" ? w.ten : w.tko}</div>
-          <div className="mt-1.5 text-[20px] font-extrabold leading-[1.3] tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>{lang === "en" ? w.en : w.ko}</div>
+    <div ref={ref}>
+      <a href={c.href} target={c.detail ? undefined : "_blank"} rel={ext ? "noopener noreferrer" : "noopener"} className="block">
+        <div className="relative -mx-5 aspect-[4/5] overflow-hidden" style={{ background: "#0b1828" }}>
+          <motion.div className="absolute inset-0" initial={{ clipPath: "inset(12% 8% 12% 8%)" }} animate={{ clipPath: seen ? "inset(0% 0% 0% 0%)" : "inset(12% 8% 12% 8%)" }} transition={{ duration: 1.2, ease: EASE }}>
+            <motion.div className="relative h-full w-full" initial={{ scale: 1.15 }} animate={{ scale: seen ? 1 : 1.15 }} transition={{ duration: 1.8, ease: EASE }}>
+              <img src={c.img} alt="" loading="lazy" className="h-full w-full object-cover" style={{ objectPosition: c.pos }} />
+              {c.video && <video ref={vid} src={c.video} poster={c.img} muted loop playsInline preload="none" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: c.pos }} />}
+            </motion.div>
+          </motion.div>
+          <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,0) 60%, rgba(8,14,24,.7) 100%)" }} />
+          <span className="gi-en absolute left-5 top-4 text-[10.5px] font-bold text-white" style={{ textShadow: "0 1px 6px rgba(0,0,0,.5)" }}>{String(i + 1).padStart(2, "0")} / {String(CASES_BIG.length).padStart(2, "0")}</span>
+          {c.concept && <span className="absolute right-5 top-3.5 border border-white/70 px-1.5 py-0.5 text-[10px] font-semibold text-white">{pick(lang, "콘셉트 시안", "Concept")}</span>}
+          <div className="absolute inset-x-5 bottom-4 flex flex-wrap gap-1.5">
+            {(lang === "en" ? c.ten : c.tko).map((t) => <span key={t} className="bg-white px-2 py-0.5 text-[11px] font-bold" style={{ color: "var(--gi-black)" }}>{t}</span>)}
+          </div>
         </div>
-        <span className="flex shrink-0 items-center gap-1.5 pb-1 text-[12.5px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? "Open" : "열어보기"}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M7 17 17 7 M9 7h8v8" /></svg></span>
+        <div className="pt-4 pb-2">
+          <div className="text-[23px] font-extrabold tracking-[-0.02em]" style={{ color: "var(--gi-black)" }}>{lang === "en" ? c.en : c.ko}</div>
+          <p className="mt-1.5 text-[14px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{lang === "en" ? c.sen : c.sko}</p>
+          <span className="mt-3 inline-flex items-center gap-1.5 border-b pb-0.5 text-[13.5px] font-bold" style={{ borderColor: "var(--gi-black)", color: "var(--gi-black)" }}>{c.detail ? pick(lang, "사례 상세 보기", "Case study") : pick(lang, "사이트 열어보기", "Open site")}<Arrow size={14} /></span>
+        </div>
+      </a>
+    </div>
+  );
+}
+
+/* 사업계획서·IR·검토보고서 — 실제 결과물처럼 크게, 쓰임새 한 줄 */
+const DOCS = [
+  { img: "/scplan/s03.webp", ko: "IR 자료", en: "IR deck", uko: "투자자가 시장 규모와 수익 구조를 보고 투자 여부를 정합니다.", uen: "Investors decide on market size and revenue model.", href: "/scplan", concept: true },
+  { img: "/gasan/m4r9/brief-07.webp", ko: "사업기획 브리프", en: "Business brief", uko: "매입 전에 공간 활용과 입점 구성을 한눈에 비교합니다.", uen: "Compare space use and tenant mix before acquisition.", href: "/gasan/m4r9", concept: true },
+  { img: "/deck/proposal-ko/06.webp", ko: "사업소개서", en: "Business proposal", uko: "거래 상대가 회사의 사업 범위와 신뢰도를 판단합니다.", uen: "Counterparties judge scope and credibility.", href: "/deck" },
+  { img: "/g0dy098g/work/scprofile.webp", ko: "모바일 사업소개", en: "Mobile profile", uko: "회의 전 휴대폰으로 받아 보고 미팅 여부를 결정합니다.", uen: "Read on a phone before deciding to meet.", href: "/scprofile", concept: true, tall: true },
+];
+
+function Docs() {
+  const lang = useLang();
+  return (
+    <div className="mt-20">
+      <Kicker>PLANS · IR · REVIEW</Kicker>
+      <h3 className="mt-4 text-[28px] font-extrabold leading-[1.22] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "Documents that" : "결정을 돕는"}</Lift><Lift delay={0.08}>{lang === "en" ? "drive decisions." : "문서."}</Lift></h3>
+      <div className="mt-8 space-y-10">
+        {DOCS.map((d, i) => (
+          <Rise key={i}>
+            <a href={d.href} target="_blank" rel="noopener" className="block">
+              <div className={`relative overflow-hidden border ${d.tall ? "mx-auto w-[64%]" : ""}`} style={{ borderColor: "var(--gi-line)", boxShadow: "0 18px 40px -22px rgba(11,12,14,.45)" }}>
+                <img src={d.img} alt="" loading="lazy" className="block w-full" />
+                {d.concept && <span className="absolute right-2 top-2 bg-white/95 px-1.5 py-0.5 text-[10px] font-semibold" style={{ color: "var(--gi-copper)" }}>{pick(lang, "콘셉트 시안", "Concept")}</span>}
+              </div>
+              <div className="mt-3.5 flex items-start justify-between gap-3">
+                <div>
+                  <div className="text-[16px] font-extrabold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? d.en : d.ko}</div>
+                  <p className="mt-1 text-[13px] leading-[1.65]" style={{ color: "var(--gi-sub)" }}>{lang === "en" ? d.uen : d.uko}</p>
+                </div>
+                <span className="mt-1 shrink-0" style={{ color: "var(--gi-copper)" }}><Arrow size={16} /></span>
+              </div>
+            </a>
+          </Rise>
+        ))}
       </div>
-    </a>
+      <p className="mt-6 text-[11.5px] leading-[1.7]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "계약서와 비공개 재무자료는 공개 화면에 싣지 않습니다.", "Contracts and private financials are never shown publicly.")}</p>
+    </div>
   );
 }
 
 function Work() {
   const lang = useLang();
-  const [tab, setTab] = useState(0);
-  const [all, setAll] = useState(false);
-  const total = WORK.reduce((a, g) => a + g.items.length, 0);
-  const g = WORK[tab];
-  const shown = all ? g.items : g.items.slice(0, 4);
+  const [more, setMore] = useState(false);
+  const rest = WORK.flatMap((g) => g.items).filter((w) => !["seobu", "gasan", "unico", "deck", "scplan", "scprofile"].includes(w.k));
   return (
     <section id="work" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
-      <Kicker>OUR WORK</Kicker>
-      <div className="flex items-end justify-between gap-3">
-        <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "Real work," : "말보다,"}</Lift><Lift delay={0.08}>{lang === "en" ? "one tap away." : "만든 것으로."}</Lift></h2>
-        <div className="text-right leading-none"><div className="text-[44px] font-extrabold tracking-[-0.04em]" style={{ color: "var(--gi-black)" }}><Count to={total} /></div><div className="mt-1 text-[11px]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "제작 사례", "projects")}</div></div>
+      <Kicker>SELECTED WORK</Kicker>
+      <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "Real work," : "말보다,"}</Lift><Lift delay={0.08}>{lang === "en" ? "one tap away." : "만든 것으로."}</Lift></h2>
+      <p className="mt-5 text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "프로젝트마다 보여줄 강점이 다릅니다. 실제로 만들어 운영 중인 결과물입니다.", "Each project shows a different strength. All are live deliverables.")}</p>
+      <div className="mt-10 space-y-12">
+        {CASES_BIG.map((c, i) => <CaseBig key={c.k} c={c} i={i} />)}
       </div>
-      <p className="mt-5 text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "실제로 만들어 운영 중인 사이트와 문서입니다. 누르면 바로 열립니다.", "Live sites and documents we built. Tap to open.")}</p>
-      {/* 분류: 밑줄만 움직이는 텍스트 탭 */}
-      <div className="mt-8 flex gap-6 border-b" style={{ borderColor: "var(--gi-line)" }}>
-        {WORK.map((w, i) => (
-          <button key={w.id} onClick={() => { setTab(i); setAll(false); }} className="relative pb-3 text-[15px] font-bold" style={{ color: tab === i ? "var(--gi-black)" : "#a3a7ad" }}>
-            {lang === "en" ? w.en : w.ko}<span className="ml-1 text-[11px]">{w.items.length}</span>
-            {tab === i && <motion.span layoutId="gi-work-ul" className="absolute inset-x-0 -bottom-px h-[2px]" style={{ background: "var(--gi-black)" }} transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
-          </button>
-        ))}
-      </div>
-      <div key={g.id} className="mt-8 space-y-8">
-        {shown.map((w, i) => <WorkEntry key={w.k} w={w} lang={lang} i={i} />)}
-      </div>
-      {g.items.length > 4 && (
-        <button onClick={() => setAll(!all)} className="mt-8 flex w-full items-center justify-between border-y py-4 text-[14.5px] font-bold" style={{ borderColor: "var(--gi-black)", color: "var(--gi-black)" }}>
-          {all ? pick(lang, "접기", "Show less") : pick(lang, `전체 보기 (${g.items.length})`, `View all (${g.items.length})`)}
-          <motion.span animate={{ rotate: all ? 180 : 0 }} transition={{ duration: 0.3 }}>⌄</motion.span>
-        </button>
-      )}
+      <Docs />
+      <button onClick={() => setMore(!more)} className="mt-14 flex w-full items-center justify-between border-y py-4 text-[14.5px] font-bold" style={{ borderColor: "var(--gi-black)", color: "var(--gi-black)" }}>
+        {pick(lang, `더 많은 작업 (${rest.length})`, `More work (${rest.length})`)}<motion.span animate={{ rotate: more ? 180 : 0 }} transition={{ duration: 0.3 }}>⌄</motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {more && (
+          <motion.ul key="m" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.4, ease: EASE }}>
+            {rest.map((w) => (
+              <li key={w.k}><a href={w.href} target="_blank" rel="noopener" className="flex items-center gap-3 border-b py-3" style={{ borderColor: "var(--gi-line)" }}>
+                <img src={`/g0dy098g/work/${w.k}.webp`} alt="" loading="lazy" className="h-14 w-11 shrink-0 object-cover object-top" />
+                <span className="flex-1"><span className="gi-en block text-[9.5px] font-bold" style={{ color: "var(--gi-copper)" }}>{lang === "en" ? w.ten : w.tko}</span><span className="mt-0.5 block text-[14.5px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? w.en : w.ko}</span></span>
+                <Arrow size={15} />
+              </a></li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
       <div className="mt-10 border-l-2 pl-4" style={{ borderColor: "var(--gi-copper)" }}>
         <div className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>PRIVATE DEAL ROOM</div>
         <div className="mt-1.5 text-[16px] font-extrabold" style={{ color: "var(--gi-black)" }}>{pick(lang, "검토보고서 · 투자자 전용 페이지", "Review reports · investor-only pages")}</div>
@@ -799,35 +855,29 @@ export default function GiibPlus() {
           )}
         </AnimatePresence>
 
-        {/* HERO — 코람코·글로벌PMC식: 화면 가득 찬 어두운 이미지 위에 문장 */}
-        <section className="relative h-[86dvh] min-h-[560px] overflow-hidden" style={{ background: "#0b1828" }}>
-          {SRC("hero") ? <img src={SRC("hero")} alt={T("서울 도심 야경", "Seoul skyline at dusk")} className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} /> : <div className="absolute inset-0"><HubScene /></div>}
-          {HERO_VIDEO && <video src={`/g0dy098g/${HERO_VIDEO}`} poster={SRC("hero") || undefined} autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} />}
-          {!SRC("hero") && (<><LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
-          <LiveBlob fill="rgba(31,59,95,.38)" seeds={[3, 6, 9, 5]} dur={13} r={78} className="pointer-events-none absolute -right-20 top-1/3 h-[300px] w-[300px]" /></>)}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,.8) 0%, rgba(8,14,24,.45) 34%, rgba(8,14,24,0) 52%, rgba(8,14,24,0) 74%, rgba(8,14,24,.85) 100%)" }} />
-          {/* 문장은 하늘 쪽(위)에 두고 버튼만 아래에 둬서 도심이 가려지지 않게 */}
+        {/* HERO — 큰 장면 한 컷 (The Boundary식). 영상이 뜨기 전에도 대표 이미지와 버튼이 먼저 보인다 */}
+        <section className="relative h-[100dvh] min-h-[600px] overflow-hidden" style={{ background: "#0b1828" }}>
+          <img src="/seobu/video/hero-loop.webp" alt={T("헤리티지포레(가칭) 외관 — AI 영상 예시", "Heritage Forêt exterior — AI visual")} className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 45%" }} />
+          <video src="/seobu/video/hero-loop.mp4" poster="/seobu/video/hero-loop.webp" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 45%" }} />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(8,14,24,.82) 0%, rgba(8,14,24,.35) 30%, rgba(8,14,24,0) 46%, rgba(8,14,24,0) 66%, rgba(8,14,24,.88) 100%)" }} />
           <div className="absolute inset-0 flex flex-col justify-between px-5 pt-9 pb-8 text-white">
             <div>
-            <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>REAL ESTATE · M&amp;A · RESTRUCTURING · ADVISORY</Lift></div>
-            <h1 className={`mt-3 font-extrabold tracking-[-0.02em] ${lang === "en" ? "text-[29px] leading-[1.22]" : "text-[31px] leading-[1.3]"}`}>
-              <Lift delay={1.05}>{T("사는 데서 끝내지 않습니다.", "Acquisition is only the beginning.")}</Lift>
-              <Lift delay={1.2}><span style={{ color: "var(--gi-sand)" }}>{T("자산의 가치를 설계합니다.", "We design the value of assets.")}</span></Lift>
-            </h1>
-            <Rise delay={1.4}><p className="mt-4 text-[14.5px] leading-[1.75] text-white/75">{T("글로벌인프라허브는 부동산 투자·개발에서 기업 구조조정·M&A, 사업계획서·IR·가치평가와 사업 사이트까지 딜의 처음과 끝을 함께합니다.", "From real estate investment and development to restructuring, M&A, business plans, IR, valuation and deal sites, GIIB carries the whole deal.")}</p></Rise>
+              <div className="gi-en text-[10.5px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.5}>GLOBAL INFRA HUB</Lift></div>
+              <h1 className="mt-3 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]">
+                <Lift delay={0.65}>{T("딜을 설계하고,", "We design deals,")}</Lift>
+                <Lift delay={0.8}><span style={{ color: "var(--gi-sand)" }}>{T("보여줍니다.", "and show them.")}</span></Lift>
+              </h1>
+              <Rise delay={1}><p className="mt-4 max-w-[30ch] text-[14px] leading-[1.75] text-white/80">{T("구조조정·M&A · 부동산 개발 자문 · 사업계획서·IR·검토보고서 · 웹사이트·브랜드 콘텐츠", "Restructuring & M&A · Development advisory · Plans, IR & review reports · Websites & brand content")}</p></Rise>
             </div>
-            <Rise delay={1.55}>
-              <div className="mt-6 flex items-end justify-between gap-3">
-                <button onClick={() => go("business")} className="flex items-center gap-3 px-5 py-3.5 text-[14.5px] font-bold" style={{ background: "#fff", color: "var(--gi-black)" }}>{T("사업영역 살펴보기", "Explore Our Business")} <Arrow /></button>
-                <div className="text-right leading-none">
-                  <div className="gi-en text-[10px] text-white/60">SINCE</div>
-                  <div className="mt-1 text-[40px] font-extrabold tracking-[-0.03em]"><Count to={2015} /></div>
-                </div>
+            <Rise delay={1.15}>
+              <div className="flex gap-2.5">
+                <button onClick={() => go("contact")} className="flex flex-1 items-center justify-between px-4 py-3.5 text-[14.5px] font-bold" style={{ background: "#fff", color: "var(--gi-black)" }}>{T("프로젝트 상담", "Discuss a project")} <Arrow /></button>
+                <button onClick={() => go("work")} className="flex flex-1 items-center justify-between border px-4 py-3.5 text-[14.5px] font-bold text-white" style={{ borderColor: "rgba(255,255,255,.7)" }}>{T("사례 보기", "View work")} <Arrow /></button>
               </div>
+              <p className="mt-3 text-[10.5px] text-white/55">{T("헤리티지포레(가칭) 브랜드 필름 중 · AI 영상 콘셉트 시안", "From the Heritage Forêt brand film · AI concept visual")}</p>
             </Rise>
           </div>
-          {/* 첫 등장: 검은 막이 아래로 걷힌다 */}
-          <motion.div className="absolute inset-0" style={{ background: "#0b0c0e" }} initial={{ clipPath: "inset(0% 0% 0% 0%)" }} animate={{ clipPath: "inset(100% 0% 0% 0%)" }} transition={{ duration: 1.2, delay: 0.1, ease: EASE }} />
+          <motion.div className="absolute inset-0" style={{ background: "#0b0c0e" }} initial={{ clipPath: "inset(0% 0% 0% 0%)" }} animate={{ clipPath: "inset(100% 0% 0% 0%)" }} transition={{ duration: 1.1, delay: 0.05, ease: EASE }} />
         </section>
 
         {/* 큰 문장 (BlackRock식) */}
@@ -1057,3 +1107,4 @@ export default function GiibPlus() {
     </LangCtx.Provider>
   );
 }
+export { Lift, Rise, Kicker, Arrow, Logo, LangSwitch, EASE };
