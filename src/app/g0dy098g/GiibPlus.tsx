@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode, CSSProperties } from "react";
-import { motion, AnimatePresence, useInView, animate } from "framer-motion";
+import { motion, AnimatePresence, useInView, animate, useScroll, useTransform } from "framer-motion";
 import { CO, BUSINESS, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS, HERO_VIDEO, VIDEOS } from "./data";
 import { LangCtx, useLang, pick, CO_EN, BUSINESS_EN, PROCESS_EN, PRINCIPLES_EN, RECORD_STATS_EN, CASES_EN, SECTORS_EN, MENU_EN } from "./i18n";
 import type { Lang } from "./i18n";
@@ -685,6 +685,30 @@ function Fee() {
   );
 }
 
+/* 인트로 — The Boundary식: 화면 가득 한 장면 + 짧은 타이포. 이미지는 처음부터 보이고, 내릴수록 살짝 확대되며 메인으로 이어진다 */
+function Intro({ onNext }: { onNext: () => void }) {
+  const lang = useLang();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.16]);
+  const ty = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
+  return (
+    <section ref={ref} className="relative h-[calc(100svh-56px)] min-h-[520px] overflow-hidden" style={{ background: "#161d10" }}>
+      <motion.img src="/g0dy098g/city.webp" alt={pick(lang, "서울 석양 항공 전경", "Seoul at sunset, aerial view")} className="absolute inset-0 h-full w-full object-cover" style={{ scale, objectPosition: "62% 50%", transformOrigin: "62% 55%" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(17,21,12,.35) 0%, rgba(17,21,12,0) 30%, rgba(17,21,12,0) 52%, rgba(17,21,12,.78) 100%)" }} />
+      <motion.div className="absolute inset-x-0 bottom-[19%] px-6 text-white" style={{ y: ty }}>
+        <div className="text-[64px] font-extrabold leading-none tracking-[0.16em]"><Lift delay={0.2}>GIIB</Lift></div>
+        <motion.div className="mt-5 h-px w-16 origin-left" style={{ background: "var(--gi-sand)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.9, delay: 0.5, ease: EASE }} />
+        <div className="mt-5 text-[24px] font-bold leading-[1.35] tracking-[-0.01em]"><Lift delay={0.6}>{pick(lang, "자산의 가치를 설계합니다.", "We design the value of assets.")}</Lift></div>
+      </motion.div>
+      <button onClick={onNext} className="absolute inset-x-0 bottom-7 mx-auto flex w-max items-center gap-2 border-b border-white/70 pb-1 text-[14px] font-bold text-white">
+        {pick(lang, "사업영역 보기", "Explore")}
+        <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>↓</motion.span>
+      </button>
+    </section>
+  );
+}
+
 const MENU: [string, string, string[]][] = [
   ["about", "회사소개", ["개요", "인사말"]],
   ["business", "사업영역", ["부동산 투자", "부동산 개발", "투자자문"]],
@@ -799,8 +823,10 @@ export default function GiibPlus() {
           )}
         </AnimatePresence>
 
+        <Intro onNext={() => go("main")} />
+
         {/* HERO — 코람코·글로벌PMC식: 화면 가득 찬 어두운 이미지 위에 문장 */}
-        <section className="relative h-[86dvh] min-h-[560px] overflow-hidden" style={{ background: "#1c2414" }}>
+        <section id="main" className="relative h-[86dvh] min-h-[560px] overflow-hidden" style={{ background: "#1c2414" }}>
           {SRC("hero") ? <img src={SRC("hero")} alt={T("서울 도심 야경", "Seoul skyline at dusk")} className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} /> : <div className="absolute inset-0"><HubScene /></div>}
           {HERO_VIDEO && <video src={`/g0dy098g/${HERO_VIDEO}`} poster={SRC("hero") || undefined} autoPlay muted loop playsInline preload="auto" aria-hidden="true" className="gi-kb absolute inset-0 h-full w-full object-cover" style={{ objectPosition: IMG_POS.hero }} />}
           {!SRC("hero") && (<><LiveBlob fill="rgba(201,154,98,.22)" seeds={[1, 4, 7, 2]} dur={11} className="pointer-events-none absolute -left-24 -top-16 h-[240px] w-[240px]" />
