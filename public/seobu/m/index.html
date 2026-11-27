@@ -581,7 +581,7 @@ function spDraw(now){const W=cv.clientWidth,H=cv.clientHeight,dpr=Math.min(2,dev
  const r=sp.getBoundingClientRect();if(r.bottom>-50&&r.top<innerHeight+50)requestAnimationFrame(spDraw);else{spOn=false;sp.classList.remove('on');}}
 
 // 원테이크
-const CHS=[[0,'우리동네'],[6,'증산역'],[12,'수변 산책로'],[27,'헤리티지포레'],[41,'스카이 가든'],[54,'불광천'],[78,'새절역'],[90,'다시 타워로'],[96,'그랜드 로비'],[105,'라운지·아트리움'],[141,'레지던스'],[162,'스카이 뷰'],[180,'스트리트몰'],[192,'마켓 갤러리'],[201,'나이트 뷰'],[209,'엔딩']];
+const CHS=[[0,'우리동네'],[8,'증산역'],[12,'수변 산책로'],[27,'헤리티지포레'],[41,'스카이 가든'],[54,'불광천'],[78,'새절역'],[90,'다시 타워로'],[96,'그랜드 로비'],[105,'라운지·아트리움'],[141,'레지던스'],[162,'스카이 뷰'],[180,'스트리트몰'],[192,'마켓 갤러리'],[201,'나이트 뷰'],[209,'엔딩']];
 const ot=$('#ot'),otv=$('#otv'),mm=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;let otPaused=false,otCur=-1;
 $('#chs').innerHTML=CHS.map(([s,l],i)=>`<button data-s="${s}"><i>${mm(s)}</i><b>${l}</b></button>`).join('');
 $$('#chs button').forEach(b=>b.onclick=()=>{if(!otv.src)otv.src='/seobu/video/onetake.mp4';otv.currentTime=+b.dataset.s;otPaused=false;ot.classList.remove('paused');otv.play().catch(()=>{});});
