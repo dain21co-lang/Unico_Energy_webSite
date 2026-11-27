@@ -542,7 +542,7 @@ function Solutions() {
                             {lang === "ko" && <span className="gi-en text-[9.5px] font-bold" style={{ color: s.c }}>{gen}</span>}
                           </div>
                           <ul className="mt-3 grid grid-cols-1 gap-4 min-[520px]:grid-cols-2">
-                            {s.links.filter((l) => l[5] === gk).map(([k, e, t, te, href, image]) => (
+                            {s.links.filter((l) => l[5] === gk).map(([k, e, t, te, href, , image]) => (
                               <li key={href} className="border" style={{ borderColor: "var(--gi-line)" }}>
                                 <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="group flex h-full flex-col focus-visible:outline-2 focus-visible:outline-offset-2">
                                   <span className="flex flex-1 items-center gap-3 px-4 py-3.5">
