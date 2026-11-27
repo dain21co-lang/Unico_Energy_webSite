@@ -686,7 +686,7 @@ function Fee() {
 }
 
 /* 인트로 — The Boundary식: 화면 가득 한 장면 + 짧은 타이포. 이미지는 처음부터 보이고, 내릴수록 살짝 확대되며 메인으로 이어진다 */
-function Intro({ onNext }: { onNext: () => void }) {
+function Intro({ onNext, onWork }: { onNext: () => void; onWork: () => void }) {
   const lang = useLang();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -699,12 +699,16 @@ function Intro({ onNext }: { onNext: () => void }) {
       <motion.div className="absolute inset-x-0 bottom-[19%] px-6 text-white" style={{ y: ty }}>
         <div className="text-[64px] font-extrabold leading-none tracking-[0.16em]"><Lift delay={0.2}>GIIB</Lift></div>
         <motion.div className="mt-5 h-px w-16 origin-left" style={{ background: "var(--gi-sand)" }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: 0.9, delay: 0.5, ease: EASE }} />
-        <div className="mt-5 text-[24px] font-bold leading-[1.35] tracking-[-0.01em]"><Lift delay={0.6}>{pick(lang, "자산의 가치를 설계합니다.", "We design the value of assets.")}</Lift></div>
+        <div className="mt-5 text-[24px] font-bold leading-[1.35] tracking-[-0.01em]"><Lift delay={0.6}>{pick(lang, "기업과 자산의 가치를", "We design the value")}</Lift><Lift delay={0.72}>{pick(lang, "설계합니다.", "of companies and assets.")}</Lift></div>
+        <div className="mt-3 text-[12.5px] font-semibold tracking-[0.02em] text-white/75"><Lift delay={0.85}>{pick(lang, "구조조정 · M&A · 부동산 · IR · 사업 사이트", "Restructuring · M&A · Real estate · IR · Deal sites")}</Lift></div>
       </motion.div>
-      <button onClick={onNext} className="absolute inset-x-0 bottom-7 mx-auto flex w-max items-center gap-2 border-b border-white/70 pb-1 text-[14px] font-bold text-white">
-        {pick(lang, "사업영역 보기", "Explore")}
-        <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>↓</motion.span>
-      </button>
+      <div className="absolute inset-x-0 bottom-7 flex justify-center gap-7">
+        <button onClick={onNext} className="flex items-center gap-2 border-b border-white/70 pb-1 text-[14px] font-bold text-white">
+          {pick(lang, "사업영역 보기", "Explore")}
+          <motion.span animate={{ y: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>↓</motion.span>
+        </button>
+        <button onClick={onWork} className="flex items-center gap-2 border-b pb-1 text-[14px] font-bold" style={{ color: "var(--gi-sand)", borderColor: "var(--gi-sand)" }}>{pick(lang, "사례 보기", "View work")} <span>→</span></button>
+      </div>
     </section>
   );
 }
@@ -823,7 +827,7 @@ export default function GiibPlus() {
           )}
         </AnimatePresence>
 
-        <Intro onNext={() => go("main")} />
+        <Intro onNext={() => go("main")} onWork={() => go("work")} />
 
         {/* HERO — 코람코·글로벌PMC식: 화면 가득 찬 어두운 이미지 위에 문장 */}
         <section id="main" className="relative h-[86dvh] min-h-[560px] overflow-hidden" style={{ background: "#1c2414" }}>
@@ -835,19 +839,19 @@ export default function GiibPlus() {
           {/* 문장은 하늘 쪽(위)에 두고 버튼만 아래에 둬서 도심이 가려지지 않게 */}
           <div className="absolute inset-0 flex flex-col justify-between px-5 pt-9 pb-8 text-white">
             <div>
-            <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>REAL ESTATE · M&amp;A · RESTRUCTURING · ADVISORY</Lift></div>
+            <div className="gi-en text-[11px] font-bold" style={{ color: "var(--gi-sand)" }}><Lift delay={0.9}>RESTRUCTURING · M&amp;A · REAL ESTATE · ADVISORY</Lift></div>
             <h1 className={`mt-3 font-extrabold tracking-[-0.02em] ${lang === "en" ? "text-[29px] leading-[1.22]" : "text-[31px] leading-[1.3]"}`}>
-              <Lift delay={1.05}>{T("사는 데서 끝내지 않습니다.", "Acquisition is only the beginning.")}</Lift>
-              <Lift delay={1.2}><span style={{ color: "var(--gi-sand)" }}>{T("자산의 가치를 설계합니다.", "We design the value of assets.")}</span></Lift>
+              <Lift delay={1.05}>{T("구조조정·M&A부터 자산까지,", "From restructuring and M&A to assets,")}</Lift>
+              <Lift delay={1.2}><span style={{ color: "var(--gi-sand)" }}>{T("기업의 가치를 다시 설계합니다.", "we redesign corporate value.")}</span></Lift>
             </h1>
-            <Rise delay={1.4}><p className="mt-4 text-[14.5px] leading-[1.75] text-white/75">{T("글로벌인프라허브는 부동산 투자·개발에서 기업 구조조정·M&A, 사업계획서·IR·가치평가와 사업 사이트까지 딜의 처음과 끝을 함께합니다.", "From real estate investment and development to restructuring, M&A, business plans, IR, valuation and deal sites, GIIB carries the whole deal.")}</p></Rise>
+            <Rise delay={1.4}><p className="mt-4 text-[14.5px] leading-[1.75] text-white/75">{T("글로벌인프라허브는 기업 구조조정·M&A와 투자유치, 부동산 투자·개발 자문, 사업계획서·IR·가치평가, 사업 사이트 제작까지 딜의 처음과 끝을 함께합니다.", "GIIB carries the whole deal — restructuring, M&A and capital raising, real estate advisory, business plans, IR, valuation and deal sites.")}</p></Rise>
             </div>
             <Rise delay={1.55}>
-              <div className="mt-6 flex items-end justify-between gap-3">
-                <button onClick={() => go("business")} className="flex items-center gap-3 px-5 py-3.5 text-[14.5px] font-bold" style={{ background: "#fff", color: "var(--gi-black)" }}>{T("사업영역 살펴보기", "Explore Our Business")} <Arrow /></button>
-                <div className="text-right leading-none">
-                  <div className="gi-en text-[10px] text-white/60">SINCE</div>
-                  <div className="mt-1 text-[40px] font-extrabold tracking-[-0.03em]"><Count to={2015} /></div>
+              <div className="mt-6">
+                <div className="mb-3 flex items-baseline justify-end gap-2 leading-none"><span className="gi-en text-[10px] text-white/60">SINCE</span><span className="text-[26px] font-extrabold tracking-[-0.03em]"><Count to={2015} /></span></div>
+                <div className="flex gap-2.5">
+                  <button onClick={() => go("business")} className="flex flex-1 items-center justify-between px-4 py-3.5 text-[14px] font-bold" style={{ background: "#fff", color: "var(--gi-black)" }}>{T("사업영역 살펴보기", "Our Business")} <Arrow /></button>
+                  <button onClick={() => go("work")} className="flex flex-1 items-center justify-between border px-4 py-3.5 text-[14px] font-bold text-white" style={{ borderColor: "rgba(255,255,255,.75)" }}>{T("사례 보기", "View Work")} <Arrow /></button>
                 </div>
               </div>
             </Rise>
