@@ -61,6 +61,7 @@ export const IMAGES: Record<string, string> = {
   approach: "approach.webp", // 현장 실사(손전등으로 균열 확인)
   city: "city.webp", // 한강 야경
   ceo: "ceo.webp", // 유현근 대표 프로필(AI 연출)
+  ceo2: "ceo2.webp", // 미리보기용 대표 프로필 — 창가에 선 모습(2026-11-28)
   case1: "case1.webp", // 사례 카드 — 오피스 (비어 있으면 그래픽)
   case2: "case2.webp", // 사례 카드 — 주거복합 개발부지
   case3: "case3.webp", // 사례 카드 — 관광호텔 리뉴얼
@@ -96,6 +97,7 @@ export const IMG_POS: Record<string, string> = {
   approach: "55% 40%",
   city: "50% 50%",
   ceo: "50% 22%",
+  ceo2: "50% 18%",
   case1: "62% 45%",
   case2: "50% 60%",
   case3: "45% 45%",
