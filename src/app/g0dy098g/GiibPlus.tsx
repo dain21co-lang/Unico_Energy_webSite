@@ -799,6 +799,7 @@ const COMPANY_LINKS: ProjectLink[] = [
       ["스피어","Sphere","기업 홈페이지","Corporate website","https://spherecorp.kr/"],
       ["캐리(구 윌링스)","Carry (formerly Willings)","기업 홈페이지","Corporate website","https://www.willings.co.kr/"],
       ["삼아알미늄","Sama Aluminium","기업 홈페이지","Corporate website","https://www.sama-al.com/kor/"],
+      ["삼이그룹","Sami Group","기업 홈페이지","Corporate website","https://topprice.kr/"],
 ];
 
 function ProjectShowcase() {
