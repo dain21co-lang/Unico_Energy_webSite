@@ -788,6 +788,7 @@ const PROJECT_LINKS: ProjectLink[] = [
       ["해연에프엔지","Haeyeon F&G","기업 홈페이지","Corporate","/pqw8nt7","haeyeon"],
       ["옥수 복합 개발","Oksu mixed-use","개발 · 환경","Development","/oksu","oksu"],
       ["강화 광산 인프라 소재","Ganghwa mine materials","자원 · 인프라","Resources","/r4d7k2xq","ganghwa"],
+      ["MURUA KOREA","MURUA KOREA","브랜드 사이트","Brand website","https://www.gblabs.co.kr/ko/murua-korea"],
 ];
 
 const COMPANY_LINKS: ProjectLink[] = [
@@ -828,7 +829,7 @@ function ProjectShowcase() {
             <li key={href} className="min-w-0">
               <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="block focus-visible:outline-2 focus-visible:outline-offset-2" aria-label={`${pick(lang, ko, en)} · ${pick(lang, detailKo, detailEn)}`}>
                 <span className="relative flex aspect-[3/4] items-center justify-center overflow-hidden rounded-sm bg-[#36452a]">
-                  {image ? <img src={image === "gblabs" ? "/gasan/m4r9/gblabs-logo-dark.png" : `/g0dy098g/work/${image}.webp`} alt="" loading="lazy" className={image === "gblabs" ? "h-full w-full bg-[#eeeee7] object-contain p-2" : "h-full w-full object-cover object-top"} /> : <span aria-hidden="true" className="px-1 text-center text-[10px] font-bold tracking-wider text-[#ead2a2]">DAEYANG<br />METAL</span>}
+                  {image ? <img src={image === "gblabs" ? "/gasan/m4r9/gblabs-logo-dark.png" : `/g0dy098g/work/${image}.webp`} alt="" loading="lazy" className={image === "gblabs" ? "h-full w-full bg-[#eeeee7] object-contain p-2" : "h-full w-full object-cover object-top"} /> : <span aria-hidden="true" className="px-1 text-center text-[10px] font-bold tracking-wider text-[#ead2a2]">{englishHref ? <>DAEYANG<br />METAL</> : en}</span>}
                 </span>
                 <span className="mt-2 block break-words text-[11px] font-semibold leading-snug">{pick(lang, ko, en)}</span>
               </a>
