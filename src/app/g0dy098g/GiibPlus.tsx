@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode, CSSProperties } from "react";
-import { motion, AnimatePresence, useInView, animate, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useInView, animate, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { CO, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, SECTORS, HERO_VIDEO, VIDEOS } from "./data";
 import { LangCtx, useLang, pick, CO_EN, PROCESS_EN, PRINCIPLES_EN, RECORD_STATS_EN, CASES_EN, SECTORS_EN, MENU_EN } from "./i18n";
 import type { Lang } from "./i18n";
@@ -802,6 +802,32 @@ const COMPANY_LINKS: ProjectLink[] = [
       ["삼이그룹","Sami Group","기업 홈페이지","Corporate website","https://topprice.kr/"],
 ];
 
+function CompanyDirectory() {
+  const lang = useLang();
+  const reduceMotion = useReducedMotion();
+  return (
+    <section className="relative mt-9 pt-5">
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-white/20">
+        <motion.div className="h-full origin-left bg-gradient-to-r from-[#ead2a2] via-[#b98a52] to-transparent" initial={reduceMotion ? false : { scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.85, ease: EASE }} />
+      </div>
+      <h3 className="px-2 text-[18px] font-extrabold">{pick(lang, "상장사 관련 기업 소개", "Related Company Profiles")}</h3>
+      <ul className="mt-3 grid grid-cols-2 gap-2">
+        {COMPANY_LINKS.map(([ko, en, detailKo, detailEn, href], index) => (
+          <motion.li key={href} initial={reduceMotion ? false : { y: 12 }} whileInView={{ y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.45, delay: Math.floor(index / 2) * 0.08, ease: EASE }}>
+            <motion.a whileTap={reduceMotion ? undefined : { scale: 0.97 }} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="flex h-full items-center justify-between gap-2 rounded-sm border border-white/20 px-2.5 py-3 transition-colors hover:border-[#ead2a2]/60 hover:bg-white/5 active:border-[#ead2a2]/60 active:bg-white/10 focus-visible:border-[#ead2a2]/60 focus-visible:outline-2">
+              <span className="min-w-0">
+                <span className="block break-words text-[13px] font-bold leading-snug">{pick(lang, ko, en)}</span>
+                <span className="mt-1 block text-[10px] text-white/70">{pick(lang, detailKo, detailEn)}</span>
+              </span>
+              <span aria-hidden="true" className="shrink-0 text-[#ead2a2]">↗</span>
+            </motion.a>
+          </motion.li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function ProjectShowcase() {
   const lang = useLang();
   const video = useRef<HTMLVideoElement>(null);
@@ -841,22 +867,7 @@ function ProjectShowcase() {
             </li>
           ))}
         </ul>
-        <section className="mt-9 border-t border-white/20 pt-5">
-          <h3 className="px-2 text-[18px] font-extrabold">{pick(lang, "상장사 관련 기업 소개", "Related Company Profiles")}</h3>
-          <ul className="mt-3 grid grid-cols-2 gap-2">
-            {COMPANY_LINKS.map(([ko, en, detailKo, detailEn, href]) => (
-              <li key={href}>
-                <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="flex h-full items-center justify-between gap-2 rounded-sm border border-white/20 px-2.5 py-3 focus-visible:outline-2">
-                  <span className="min-w-0">
-                    <span className="block break-words text-[13px] font-bold leading-snug">{pick(lang, ko, en)}</span>
-                    <span className="mt-1 block text-[10px] text-white/70">{pick(lang, detailKo, detailEn)}</span>
-                  </span>
-                  <span aria-hidden="true" className="shrink-0 text-[#ead2a2]">↗</span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <CompanyDirectory />
       </div>
     </section>
   );
