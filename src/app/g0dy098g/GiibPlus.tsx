@@ -466,20 +466,20 @@ const SOLUTIONS = [
     iko: ["원본 대조 검토보고서", "담보·권리관계 분석", "가치평가 가정·자료 준비", "외부 평가기관 연계 발행"],
     ien: ["Source-verified review reports", "Collateral & title analysis", "Valuation assumptions & data prep", "Issued with licensed firms"] },
   { no: "05", en: "LIVE DEALS", ko: "투자유치 진행 프로젝트", eko: "Live Deals · Now Raising", c: "#ef7f74",
-    dko: "투자유치를 의뢰받아 지금 진행 중인 기업과 프로젝트입니다. 공식 사이트부터 맛보기 사이트까지, 누르면 바로 열립니다.",
-    den: "Companies and projects we are currently raising capital for — from official sites to preview sites. Tap to open.",
+    dko: "투자유치 자문을 진행 중인 기업과 사업을 소개합니다. 각 카드에서 기업 홈페이지 또는 프로젝트 소개 페이지를 확인하실 수 있습니다.",
+    den: "Explore the companies and projects we advise on fundraising. Each card opens the company website or the project overview.",
     iko: [], ien: [],
     links: [
-      ["유니코에너지그룹", "UNICO ENERGY GROUP", "에너지·원자재 · 공식", "Energy & commodities · official", "/", "r"],
-      ["GB LABS", "GB LABS", "AI 디지털 헬스케어 · 공식", "AI digital health · official", "https://gblabs.co.kr", "r"],
-      ["솔루믹스", "SOLUMIX", "코넥스 상장사", "KONEX-listed", "/xxrhbd2", "r"],
-      ["해연에프엔지", "Haeyeon F&G", "기업 홈페이지", "Corporate", "/pqw8nt7", "r"],
-      ["서부중앙시장 재개발", "Seobu market redevelopment", "주거·상업 재개발", "Redevelopment", "/seobu/m", "d"],
-      ["가산 메디컬·AI 빌딩(가칭)", "Gasan Medical·AI Building", "오피스 리포지셔닝", "Office repositioning", "/gasan/m4r9", "d"],
-      ["평생주치의 케어하우스", "Lifelong-care house", "헬스케어 · 돌봄", "Healthcare", "/sinchon/orbit-care", "d"],
-      ["정선 AI 스마트호텔", "Jeongseon AI smart hotel", "호텔 · 관광", "Hotel", "/jeongseon", "d"],
-      ["옥수 복합 개발", "Oksu mixed-use", "개발 · 환경", "Development", "/oksu", "d"],
-      ["강화 광산 인프라 소재", "Ganghwa mine materials", "자원 · 인프라", "Resources", "/r4d7k2xq", "d"],
+      ["유니코에너지그룹", "UNICO ENERGY GROUP", "에너지·원자재 · 공식", "Energy & commodities · official", "/", "r", "unico"],
+      ["GB LABS", "GB LABS", "AI 디지털 헬스케어 · 공식", "AI digital health · official", "https://gblabs.co.kr", "r", "gblabs"],
+      ["솔루믹스", "SOLUMIX", "코넥스 상장사", "KONEX-listed", "/xxrhbd2", "r", "solumix"],
+      ["해연에프엔지", "Haeyeon F&G", "기업 홈페이지", "Corporate", "/pqw8nt7", "r", "haeyeon"],
+      ["서부중앙시장 재개발", "Seobu market redevelopment", "주거·상업 재개발", "Redevelopment", "/seobu/m", "d", "seobu"],
+      ["가산 메디컬·AI 빌딩(가칭)", "Gasan Medical·AI Building", "오피스 리포지셔닝", "Office repositioning", "/gasan/m4r9", "d", "gasan"],
+      ["평생주치의 케어하우스", "Lifelong-care house", "헬스케어 · 돌봄", "Healthcare", "/sinchon/orbit-care", "d", "care"],
+      ["정선 AI 스마트호텔", "Jeongseon AI smart hotel", "호텔 · 관광", "Hotel", "/jeongseon", "d", "jeongseon"],
+      ["옥수 복합 개발", "Oksu mixed-use", "개발 · 환경", "Development", "/oksu", "d", "oksu"],
+      ["강화 광산 인프라 소재", "Ganghwa mine materials", "자원 · 인프라", "Resources", "/r4d7k2xq", "d", "ganghwa"],
     ] },
 ];
 
@@ -528,7 +528,7 @@ function Solutions() {
               <AnimatePresence initial={false}>
                 {on && (
                   <motion.div key="d" className="overflow-hidden" initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.45, ease: EASE }}>
-                    <div className="pb-7 pl-10">
+                    <div className={s.links ? "pb-7" : "pb-7 pl-10"}>
                       <p className="text-[15px] leading-[1.8]" style={{ color: "var(--gi-text)" }}>{lang === "en" ? s.den : s.dko}</p>
                       <ul className="mt-4">
                         {(lang === "en" ? s.ien : s.iko).map((it) => (
@@ -541,20 +541,25 @@ function Solutions() {
                             <span className="text-[14px] font-extrabold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? gen : gko}</span>
                             {lang === "ko" && <span className="gi-en text-[9.5px] font-bold" style={{ color: s.c }}>{gen}</span>}
                           </div>
-                        <ul>
-                          {s.links.filter((l) => l[5] === gk).map(([k, e, t, te, href]) => (
-                            <li key={href} className="border-t" style={{ borderColor: "var(--gi-line)" }}>
-                              <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="flex items-center gap-3 py-3.5">
-                                <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: s.c }} />
-                                <span className="flex-1">
-                                  <span className="block text-[15px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? e : k}</span>
-                                  <span className="mt-0.5 block text-[12px]" style={{ color: "var(--gi-sub)" }}>{lang === "en" ? te : t}</span>
-                                </span>
-                                <span style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span>
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
+                          <ul className="mt-3 grid grid-cols-1 gap-4 min-[520px]:grid-cols-2">
+                            {s.links.filter((l) => l[5] === gk).map(([k, e, t, te, href, image]) => (
+                              <li key={href} className="border" style={{ borderColor: "var(--gi-line)" }}>
+                                <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="group flex h-full flex-col focus-visible:outline-2 focus-visible:outline-offset-2">
+                                  <span className="flex flex-1 items-center gap-3 px-4 py-3.5">
+                                    <span className="flex-1">
+                                      <span className="block text-[15px] font-bold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? e : k}</span>
+                                      <span className="mt-0.5 block text-[12px]" style={{ color: "var(--gi-sub)" }}>{lang === "en" ? te : t}</span>
+                                    </span>
+                                    <span aria-hidden="true" style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span>
+                                  </span>
+                                  <span className="block aspect-[16/9] overflow-hidden bg-[#f1f0ea]">
+                                    {/* eslint-disable-next-line @next/next/no-img-element -- reuse existing static previews */}
+                                    <img src={image === "gblabs" ? "/gasan/m4r9/gblabs-logo-dark.png" : `/g0dy098g/work/${image}.webp`} alt="" loading="lazy" decoding="async" className={image === "gblabs" ? "h-full w-full object-contain p-[12%]" : "h-full w-full object-cover"} />
+                                  </span>
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
                       ))}
                     </div>
