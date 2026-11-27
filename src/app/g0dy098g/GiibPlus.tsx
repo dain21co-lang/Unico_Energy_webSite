@@ -563,10 +563,10 @@ function Solutions() {
 
 /* ───────── 사업 구조: 자산 쪽 + 자문 쪽 → 딜 클로징 (2026-11-27 재구성) ───────── */
 const PILLARS = [
-  { side: "ASSET SIDE", ko: "자산 쪽", en: "Asset side", c: "#9fc46a", go: "rwa",
+  { side: "ASSET SIDE", ko: "자산 쪽", en: "Asset side", c: "#9fc46a", go: "rwa", img: "develop",
     dko: "실물자산을 발굴·검증하고, 투자할 수 있는 구조로 만듭니다.", den: "We source and verify real assets and turn them into investable structures.",
     items: [["부동산 개발 RWA", "Real estate development RWA"], ["엣지 AI 데이터센터 RWA", "Edge AI data center RWA"], ["NPL 부실채권 RWA", "NPL RWA"]] },
-  { side: "ADVISORY SIDE", ko: "자문 쪽", en: "Advisory side", c: "#5b9cf0", go: "ma",
+  { side: "ADVISORY SIDE", ko: "자문 쪽", en: "Advisory side", c: "#5b9cf0", go: "ma", img: "advisory",
     dko: "상장사의 경영권과 자본 구조를 설계하고, 딜을 성사시킵니다.", den: "We design control and capital structures for listed companies and get deals done.",
     items: [["상장사 M&A · 투자유치", "Listed-company M&A · capital"], ["기업 구조조정", "Corporate restructuring"], ["사업계획서 · IR · 가치평가", "Plans · IR · valuation"]] },
 ];
@@ -584,6 +584,7 @@ function Pillars({ onGo }: { onGo: (id: string) => void }) {
         {PILLARS.map((p, i) => (
           <Rise key={p.side} delay={i * 0.08}>
             <div className="bg-white">
+              <Visual k={p.img} variant={i + 1} className="h-[180px]" />
               <motion.div className="h-[3px] origin-left" style={{ background: p.c }} initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true }} transition={{ duration: 0.9, delay: 0.15 + i * 0.1, ease: EASE }} />
               <div className="p-5">
                 <div className="flex items-baseline justify-between">
@@ -668,6 +669,7 @@ function ListedMA() {
       <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]"><Lift>{lang === "en" ? "Listed-company M&A," : "상장사 M&A,"}</Lift><Lift delay={0.08}><span style={{ color: "var(--gi-sand)" }}>{lang === "en" ? "structure to disclosure." : "구조부터 공시까지."}</span></Lift></h2>
       <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8] text-white/70">{pick(lang, "코스피·코스닥 상장사와 직접 연결된 네트워크로 경영권 거래, 자본 조달, 신사업 편입을 한 흐름으로 설계합니다.", "Through a network directly connected to KOSPI and KOSDAQ companies, we design control deals, capital raising and new-business injection as one flow.")}</p>
 
+      {SRC("ma") && <Visual k="ma" className="mt-8 h-[220px]" />}
       <div className="mt-9 grid grid-cols-3 border-t" style={{ borderColor: "rgba(233,210,173,.35)" }}>
         {([[<><Count to={10} />+</>, pick(lang, "직접 연결된 상장사", "Listed companies, direct")], ["2", pick(lang, "코스피 · 코스닥", "KOSPI · KOSDAQ")], ["6", pick(lang, "단계 전 과정 수행", "Steps, end to end")]] as [ReactNode, string][]).map(([a, b], i) => (
           <div key={b} className="pt-4" style={{ borderLeft: i ? "1px solid rgba(255,255,255,.12)" : "none", paddingLeft: i ? 12 : 0 }}>
@@ -768,6 +770,7 @@ function Rwa() {
       </div>
       <AnimatePresence mode="wait" initial={false}>
         <motion.div key={tab} initial={{ x: 24 }} animate={{ x: 0 }} exit={{ x: -24 }} transition={{ duration: 0.35, ease: EASE }} className="pt-7">
+          {SRC(`rwa${tab + 1}`) && <Visual k={`rwa${tab + 1}`} className="mb-6 h-[200px]" />}
           <p className="text-[15px] leading-[1.8]" style={{ color: "#e4e5da" }}>{lang === "en" ? L.den : L.dko}</p>
           <dl className="mt-6">
             {L.rows.map(([k, ke, v, ve]) => (
