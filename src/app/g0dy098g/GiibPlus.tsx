@@ -469,16 +469,16 @@ const SOLUTIONS = [
     den: "Companies and projects we are currently raising capital for — from official sites to preview sites. Tap to open.",
     iko: [], ien: [],
     links: [
-      ["유니코에너지그룹", "UNICO ENERGY GROUP", "에너지·원자재 · 공식", "Energy & commodities · official", "/"],
-      ["GB LABS", "GB LABS", "AI 디지털 헬스케어 · 공식", "AI digital health · official", "https://gblabs.co.kr"],
-      ["서부중앙시장 재개발", "Seobu market redevelopment", "주거·상업 재개발", "Redevelopment", "/seobu/m"],
-      ["가산 메디컬·AI 빌딩(가칭)", "Gasan Medical·AI Building", "오피스 리포지셔닝", "Office repositioning", "/gasan/m4r9"],
-      ["평생주치의 케어하우스", "Lifelong-care house", "헬스케어 · 돌봄", "Healthcare", "/sinchon/orbit-care"],
-      ["정선 AI 스마트호텔", "Jeongseon AI smart hotel", "호텔 · 관광", "Hotel", "/jeongseon"],
-      ["옥수 복합 개발", "Oksu mixed-use", "개발 · 환경", "Development", "/oksu"],
-      ["강화 광산 인프라 소재", "Ganghwa mine materials", "자원 · 인프라", "Resources", "/r4d7k2xq"],
-      ["솔루믹스", "SOLUMIX", "코넥스 상장사", "KONEX-listed", "/xxrhbd2"],
-      ["해연에프엔지", "Haeyeon F&G", "기업 홈페이지", "Corporate", "/pqw8nt7"],
+      ["유니코에너지그룹", "UNICO ENERGY GROUP", "에너지·원자재 · 공식", "Energy & commodities · official", "/", "r"],
+      ["GB LABS", "GB LABS", "AI 디지털 헬스케어 · 공식", "AI digital health · official", "https://gblabs.co.kr", "r"],
+      ["솔루믹스", "SOLUMIX", "코넥스 상장사", "KONEX-listed", "/xxrhbd2", "r"],
+      ["해연에프엔지", "Haeyeon F&G", "기업 홈페이지", "Corporate", "/pqw8nt7", "r"],
+      ["서부중앙시장 재개발", "Seobu market redevelopment", "주거·상업 재개발", "Redevelopment", "/seobu/m", "d"],
+      ["가산 메디컬·AI 빌딩(가칭)", "Gasan Medical·AI Building", "오피스 리포지셔닝", "Office repositioning", "/gasan/m4r9", "d"],
+      ["평생주치의 케어하우스", "Lifelong-care house", "헬스케어 · 돌봄", "Healthcare", "/sinchon/orbit-care", "d"],
+      ["정선 AI 스마트호텔", "Jeongseon AI smart hotel", "호텔 · 관광", "Hotel", "/jeongseon", "d"],
+      ["옥수 복합 개발", "Oksu mixed-use", "개발 · 환경", "Development", "/oksu", "d"],
+      ["강화 광산 인프라 소재", "Ganghwa mine materials", "자원 · 인프라", "Resources", "/r4d7k2xq", "d"],
     ] },
 ];
 
@@ -534,9 +534,14 @@ function Solutions() {
                           <li key={it} className="flex items-center justify-between border-t py-3 text-[14px]" style={{ borderColor: "var(--gi-line)" }}>{it}<span style={{ color: "var(--gi-copper)" }}><Arrow size={15} /></span></li>
                         ))}
                       </ul>
-                      {"links" in s && s.links && (
-                        <ul className="mt-4">
-                          {s.links.map(([k, e, t, te, href]) => (
+                      {"links" in s && s.links && ([["r", "투자 라운드 진행 기업", "NOW RAISING"], ["d", "진행 중인 딜", "DEALS IN PROGRESS"]] as const).map(([gk, gko, gen]) => (
+                        <div key={gk} className="mt-6">
+                          <div className="flex items-baseline justify-between border-b pb-2" style={{ borderColor: "var(--gi-black)" }}>
+                            <span className="text-[14px] font-extrabold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? gen : gko}</span>
+                            {lang === "ko" && <span className="gi-en text-[9.5px] font-bold" style={{ color: s.c }}>{gen}</span>}
+                          </div>
+                        <ul>
+                          {s.links.filter((l) => l[5] === gk).map(([k, e, t, te, href]) => (
                             <li key={href} className="border-t" style={{ borderColor: "var(--gi-line)" }}>
                               <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener" className="flex items-center gap-3 py-3.5">
                                 <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: s.c }} />
@@ -549,7 +554,8 @@ function Solutions() {
                             </li>
                           ))}
                         </ul>
-                      )}
+                        </div>
+                      ))}
                     </div>
                   </motion.div>
                 )}
@@ -860,12 +866,12 @@ function Work() {
   const shown = all ? g.items : g.items.slice(0, 4);
   return (
     <section id="work" className="px-5 pt-20 pb-16" style={{ background: "#fff" }}>
-      <Kicker>OUR WORK</Kicker>
+      <Kicker>DEAL SHOWCASE</Kicker>
       <div className="flex items-end justify-between gap-3">
         <h2 className="mt-5 text-[34px] font-extrabold leading-[1.18] tracking-[-0.03em]" style={{ color: "var(--gi-black)" }}><Lift>{lang === "en" ? "Real work," : "말보다,"}</Lift><Lift delay={0.08}>{lang === "en" ? "one tap away." : "만든 것으로."}</Lift></h2>
         <div className="text-right leading-none"><div className="text-[44px] font-extrabold tracking-[-0.04em]" style={{ color: "var(--gi-black)" }}><Count to={total} /></div><div className="mt-1 text-[11px]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "제작 사례", "projects")}</div></div>
       </div>
-      <p className="mt-5 text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "실제로 만들어 운영 중인 사이트와 문서입니다. 누르면 바로 열립니다.", "Live sites and documents we built. Tap to open.")}</p>
+      <p className="mt-5 text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "딜 쇼케이스 — 딜마다 직접 만든 사이트와 문서입니다. 누르면 바로 열립니다.", "Deal showcase — sites and documents we built for each deal. Tap to open.")}</p>
       {/* 분류: 밑줄만 움직이는 텍스트 탭 */}
       <div className="mt-8 flex gap-6 border-b" style={{ borderColor: "var(--gi-line)" }}>
         {WORK.map((w, i) => (
@@ -1038,7 +1044,7 @@ const MENU: [string, string, string[]][] = [
   ["ma", "상장사 M&A", []],
   ["solutions", "자문 솔루션", ["상장사 M&A·투자유치", "구조조정", "사업계획서·IR", "검토보고서·가치평가", "투자유치 진행 프로젝트"]],
   ["rwa", "RWA 사업", ["부동산 개발", "엣지 AI 데이터센터", "NPL"]],
-  ["work", "포트폴리오", []],
+  ["work", "딜 쇼케이스", []],
   ["approach", "투자 접근", ["4단계 프로세스", "원칙"]],
   ["fee", "보수 구조", []],
   ["contact", "문의", []],
@@ -1062,7 +1068,7 @@ export default function GiibPlus() {
     if (l === "en") setLangRaw("en");
   }, []);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation", "Live Deals"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Our Work", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
+  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation", "Live Deals"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Deal Showcase", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
   const menuList: [string, string, string[]][] = MENU.map(([id, l, k]) => (lang === "en" ? [id, MENU_EN2[id][0], MENU_EN2[id][1]] : [id, l, k]));
   const proc_ = PROCESS.map((p, i) => (lang === "en" ? { ...p, ...PROCESS_EN[i] } : p));
   const prin_ = PRINCIPLES.map((p, i) => (lang === "en" ? { ...p, ...PRINCIPLES_EN[i] } : p));
