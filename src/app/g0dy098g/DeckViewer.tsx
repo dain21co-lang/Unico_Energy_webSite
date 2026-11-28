@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const N = 40;
+const STRIPS = 9;
 const SRC = (i: number) => `/g0dy098g/deck/${String(i + 1).padStart(2, "0")}.webp`;
-const E = [0.45, 0.05, 0.25, 1] as const;
+const E = [0.65, 0, 0.35, 1] as const;
 
 export default function DeckViewer({ onClose, lang }: { onClose: () => void; lang: "ko" | "en" }) {
   const [idx, setIdx] = useState(0);
@@ -30,10 +31,8 @@ export default function DeckViewer({ onClose, lang }: { onClose: () => void; lan
   };
   const done = () => { setIdx((i) => (flip === "next" ? i + 1 : i - 1)); setFlip(null); };
 
-  // 아래에 깔리는 장: 넘길 때 다음(또는 현재) 장
-  const under = flip === "next" ? idx + 1 : idx;
-  // 위에서 회전하는 장
-  const top = flip === "prev" ? idx - 1 : idx;
+  // 띠가 뒤집히는 동안 아래는 비워 두고(어두운 바탕), 띠 앞면=현재 장, 뒷면=다음 장
+  const under = idx;
 
   return (
     <div className="fixed inset-0 z-[80] flex flex-col" style={{ background: "#0f140a" }}>
@@ -48,19 +47,23 @@ export default function DeckViewer({ onClose, lang }: { onClose: () => void; lan
       <div className="relative flex flex-1 items-center justify-center px-2" onClick={() => go("next")} style={{ perspective: "1800px" }}>
         <div className="relative w-full max-w-[960px]" style={{ aspectRatio: "1286 / 910" }}>
           {/* 아래 장 */}
-          <img src={SRC(under)} alt={`${under + 1}쪽`} className="absolute inset-0 h-full w-full object-contain shadow-2xl" draggable={false} />
-          {/* 넘어가는 장 */}
-          {flip && (
-            <motion.div key={`${flip}-${idx}`} className="absolute inset-0" style={{ transformOrigin: "0% 50%", transformStyle: "preserve-3d" }}
-              initial={{ rotateY: flip === "next" ? 0 : -180 }} animate={{ rotateY: flip === "next" ? -180 : 0 }} transition={{ duration: 0.8, ease: E }} onAnimationComplete={done}>
-              <div className="absolute inset-0" style={{ backfaceVisibility: "hidden" }}>
-                <img src={SRC(top)} alt="" className="h-full w-full object-contain" draggable={false} />
-                {/* 접히는 쪽 그림자 */}
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.28))" }} />
-              </div>
-              <div className="absolute inset-0" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", background: "linear-gradient(90deg, #d9d6c8, #f1f0e8 60%, #e4e1d3)" }} />
-            </motion.div>
-          )}
+          {!flip && <img src={SRC(under)} alt="" className="absolute inset-0 h-full w-full object-contain shadow-2xl" draggable={false} />}
+          {/* 넘어가는 장 — 세로 띠 9개가 물결처럼 차례로 뒤집히며 다음 장으로 바뀜 */}
+          {flip && Array.from({ length: STRIPS }).map((_, k) => {
+            const order = flip === "next" ? k : STRIPS - 1 - k;
+            const from = flip === "next" ? idx : idx;
+            const to = flip === "next" ? idx + 1 : idx - 1;
+            const pos = `${(k / (STRIPS - 1)) * 100}% 50%`;
+            return (
+              <motion.div key={`${flip}-${idx}-${k}`} className="absolute inset-y-0" style={{ left: `${(k / STRIPS) * 100}%`, width: `${100 / STRIPS + 0.15}%`, transformStyle: "preserve-3d" }}
+                initial={{ rotateY: 0, z: 0 }} animate={{ rotateY: flip === "next" ? -180 : 180, z: [0, 60, 0] }}
+                transition={{ duration: 0.7, delay: order * 0.055, ease: E }}
+                onAnimationComplete={k === (flip === "next" ? STRIPS - 1 : 0) ? done : undefined}>
+                <div className="absolute inset-0" style={{ backfaceVisibility: "hidden", backgroundImage: `url(${SRC(from)})`, backgroundSize: `${STRIPS * 100}% 100%`, backgroundPosition: pos }} />
+                <div className="absolute inset-0" style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)", backgroundImage: `url(${SRC(to)})`, backgroundSize: `${STRIPS * 100}% 100%`, backgroundPosition: pos }} />
+              </motion.div>
+            );
+          })}
           {!flip && <img src={SRC(idx)} alt={`${idx + 1}쪽`} className="absolute inset-0 h-full w-full object-contain" draggable={false} />}
         </div>
       </div>
