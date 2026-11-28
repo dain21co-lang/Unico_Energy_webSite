@@ -188,7 +188,8 @@ a{color:inherit}
 </section>
 
 <section class="sec rv">
-<div class="pad"><p class="ey">Look Around</p><h2 class="h2">둘러보기</h2></div>
+<div class="pad"><p class="ey">Look Around</p><h2 class="h2">둘러보기<small>외관 360° · 40초</small></h2>
+<div style="position:relative;margin-top:16px;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(60,50,80,.18)"><video id="orbitv" src="/daonvill/orbit.mp4" poster="/daonvill/orbit-poster.webp" muted loop playsinline preload="metadata" style="display:block;width:100%"></video><span class="badge">AI 영상 · 예시</span></div></div>
 <div class="gal" id="gal">
 <figure><img src="/daonvill/g1.webp" alt=""><figcaption>01 · 정면 · 필로티 현관과 주차</figcaption><span class="badge">AI 보정 · 예시</span></figure>
 <figure><img src="/daonvill/g2.webp" alt=""><figcaption>02 · 잔디 마당 쪽 측면</figcaption><span class="badge">AI 보정 · 예시</span></figure>
@@ -284,6 +285,7 @@ const gal=$("#gal");gal.addEventListener("scroll",()=>{const i=Math.round(gal.sc
 // reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll(".rv").forEach(x=>io.observe(x));
+const ov=$("#orbitv");new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)ov.play().catch(()=>{});else ov.pause()}),{threshold:.4}).observe(ov);
 const fv=$("#filmv");new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)fv.play().catch(()=>{});else fv.pause()}),{threshold:.5}).observe(fv);
 })();
 </script></body></html>
