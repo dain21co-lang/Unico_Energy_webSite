@@ -7,6 +7,7 @@ import { CO, PROCESS, PRINCIPLES, IMAGES, IMG_POS, SAMPLE, RECORD_STATS, CASES, 
 import { LangCtx, useLang, pick, CO_EN, PROCESS_EN, PRINCIPLES_EN, RECORD_STATS_EN, CASES_EN, SECTORS_EN, MENU_EN } from "./i18n";
 import type { Lang } from "./i18n";
 import GiibLogo, { GiibMini } from "./GiibLogo";
+import DeckViewer from "./DeckViewer";
 
 /*
  * 벤치마킹: BlackRock(흑백 타이포·여백) · Brookfield(큰 사진 + 사진 아래 문장) · Macquarie(사업부 목록)
@@ -1051,6 +1052,7 @@ export default function GiibPlus() {
   const coName = T(CO.nameKo, CO_EN.name), coCeo = T(CO.ceo, CO_EN.ceo);
   const coAddr = lang === "en" ? CO_EN.address : CO.address;
   const [menu, setMenu] = useState(false);
+  const [deck, setDeck] = useState(false);
   const [sub, setSub] = useState<number | null>(null);
   const [prin, setPrin] = useState(0);
   const [sent, setSent] = useState(false);
@@ -1084,6 +1086,7 @@ export default function GiibPlus() {
           <div className="flex h-[56px] items-center justify-between px-4">
             <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="맨 위로"><Logo /></button>
             <div className="flex items-center gap-2">
+            <button onClick={() => setDeck(true)} className="shrink-0 px-2.5 py-1.5 text-[11.5px] font-bold leading-none" style={{ background: "#1c2414", color: "var(--gi-sand)" }}>{T("소개서", "Profile")}</button>
             <LangSwitch lang={lang} set={setLang} />
             <button onClick={() => setMenu(true)} aria-label={T("메뉴 열기", "Open menu")} className="flex h-10 w-10 flex-col items-end justify-center gap-[5px]">
               <span className="h-[2px] w-6" style={{ background: "var(--gi-black)" }} /><span className="h-[2px] w-6" style={{ background: "var(--gi-black)" }} /><span className="h-[2px] w-6" style={{ background: "var(--gi-black)" }} />
@@ -1125,6 +1128,7 @@ export default function GiibPlus() {
           )}
         </AnimatePresence>
 
+        {deck && <DeckViewer lang={lang} onClose={() => setDeck(false)} />}
         <Intro onNext={() => go("main")} onWork={() => go("work")} />
 
         {/* HERO — 코람코·글로벌PMC식: 화면 가득 찬 어두운 이미지 위에 문장 */}
