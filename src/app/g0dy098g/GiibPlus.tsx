@@ -822,16 +822,18 @@ const PROJECT_LINKS: ProjectLink[] = [
       ["서부중앙시장 재개발","Seobu market redevelopment","주거·상업 재개발","Redevelopment","/seobu/m","seobu"],
       ["평생주치의 케어하우스","Lifelong-care house","헬스케어 · 돌봄","Healthcare","/sinchon/orbit-care","care"],
       ["가산 메디컬·AI 빌딩(가칭)","Gasan Medical·AI Building","오피스 리포지셔닝","Office repositioning","/gasan/m4r9","gasan"],
-      ["더케이 AI 스마트호스텔","The K AI Smart Hostel","숙박 · 리모델링","Hospitality · remodeling","/sinchon","hostel"],
+      ["신촌 AI 스마트호스텔","Sinchon AI Smart Hostel","숙박 · 리모델링","Hospitality · remodeling","/sinchon","hostel"],
       ["정선 AI 스마트호텔","Jeongseon AI smart hotel","호텔 · 관광","Hotel","/jeongseon","jeongseon"],
       ["해연에프엔지","Haeyeon F&G","기업 홈페이지","Corporate","/pqw8nt7","haeyeon"],
       ["옥수 복합 개발","Oksu mixed-use","개발 · 환경","Development","/oksu","oksu"],
       ["강화 광산 인프라 소재","Ganghwa mine materials","자원 · 인프라","Resources","/r4d7k2xq","ganghwa"],
       ["MURUA KOREA","MURUA KOREA","브랜드 사이트","Brand website","https://www.gblabs.co.kr/ko/murua-korea"],
+      ["솔루믹스","SOLUMIX","코넥스 상장사","KONEX-listed","/xxrhbd2","solumix"],
+      ["금촌동 The K 스마트호스텔","The K Smart Hostel (Geumchon)","숙박 · 리모델링","Hospitality · remodeling","/thek","thek"],
 ];
 
 const COMPANY_LINKS: ProjectLink[] = [
-      ["솔루믹스","SOLUMIX","코넥스 상장사","KONEX-listed","/xxrhbd2","solumix"],
+      ["에이전트AI","Agent AI","AI 에이전트 · 기업 홈페이지","AI agents · corporate website","https://www.agentai.xyz/"],
       ["크라우드웍스","Crowdworks","기업 홈페이지","Corporate website","https://www.crowdworks.ai/"],
       ["대호에이엘","Daeho AL","기업 홈페이지","Corporate website","https://daeho-al.com/"],
       ["제이케이시냅스(구 소니드)","JK Synapse (formerly Sonid)","기업 홈페이지","Corporate website","http://www.jksynapse.co.kr/"],
