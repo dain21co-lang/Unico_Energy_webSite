@@ -88,6 +88,12 @@ a{color:inherit}
 .rc img{width:100%;height:300px;object-fit:cover;display:block;border-radius:6px}
 .rc figcaption{position:absolute;left:10px;bottom:10px;font-size:11.5px;background:rgba(0,0,0,.55);color:#fff;padding:3px 8px;border-radius:3px}
 .rc .real{position:absolute;right:10px;top:10px;font-size:10.5px;font-weight:700;background:var(--grad);color:#2a2733;padding:3px 7px;border-radius:3px}
+.rc img{height:420px}
+.ba{overflow:hidden;border-radius:6px}
+.ba img.af{position:absolute;inset:0;width:100%;height:420px;object-fit:cover;clip-path:inset(0 0 0 0);transition:clip-path .7s cubic-bezier(.6,0,.2,1)}
+.ba.now img.af{clip-path:inset(0 0 0 100%)}
+.ba .real,.ba figcaption,.ba .tg{z-index:2}
+.tg{position:absolute;right:10px;bottom:10px;font:700 12px/1 inherit;padding:9px 12px;border-radius:999px;border:0;background:rgba(255,255,255,.92);color:#2a2733;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .rdots{display:flex;gap:6px;justify-content:center;margin-top:8px}.rdots i{width:6px;height:6px;border-radius:50%;background:var(--line)}.rdots i.on{background:var(--ink)}
 /* amenity */
 .am{margin-top:16px;border-top:1px solid var(--ink)}
@@ -252,15 +258,15 @@ const $=s=>document.querySelector(s);
 const OPT=["500메가 인터넷 · TV","55인치 TV","에어컨","드럼세탁기","255L 냉장고","전자레인지","2구 인덕션","붙박이장"];
 const T=[
  {n:"투룸형",img:"plan-two",price:"2,000만 / 70만",alt:"또는 1,000만 / 80만",
-  ph:[["two-1","거실 · 방 2개"],["two-2","주방 · 붙박이장"],["two-3","방 1 · 정남향 창"],["two-4","방 2"],["two-5","넓은 욕실"]],
+  ph:[["two-1","거실 · 방 2개","after-two-1"],["two-2","주방 · 붙박이장","after-two-2"],["two-3","방 1 · 정남향 창","after-two-3"],["two-5","넓은 욕실","after-two-4"],["two-4","방 2"]],
   inc:[["구조","방 2 + 거실 + 욕실"],["전용","46.62㎡ (약 14.1평)"],["향","정남향 · 채광 좋음"]]},
  {n:"원룸형",img:"plan-one",price:"1,000만 / 50만",alt:"또는 500만 / 55만",
-  ph:[["one-1","붙박이장 · TV · 주방 일자 배치"],["one-2","현관 쪽에서 본 방"],["one-3","TV · 전자레인지 · 냉장고"],["one-4","넓은 욕실"]],
+  ph:[["one-1","붙박이장 · TV · 주방 일자 배치","after-one-1"],["one-4","넓은 욕실","after-one-2"],["one-2","현관 쪽에서 본 방"],["one-3","TV · 전자레인지 · 냉장고"]],
   inc:[["구조","생활·수면 공간 + 욕실"],["향","정남향 · 채광 좋음"],["욕실","샤워 · 세면, 원룸치고 넓은 크기"]]}];
 const NS="http://www.w3.org/2000/svg";
 function show(i){document.querySelectorAll(".tabs button").forEach((b,k)=>b.classList.toggle("on",k==i));
  const t=T[i];$("#ptype").innerHTML=t.n+" · 보증금 / 월세<br><span style='font-weight:400;font-size:12px;color:var(--sub)'>"+t.alt+" · 관리비 7만</span>";$("#pval").textContent=t.price;
- $("#rc").innerHTML=t.ph.map(p=>`<figure><img src="/daonvill/${p[0]}.webp" alt="${p[1]}" loading="lazy"><span class="real">실제 사진</span><figcaption>${p[1]}</figcaption></figure>`).join("");$("#rc").scrollLeft=0;
+ $("#rc").innerHTML=t.ph.map(p=>p[2]?`<figure class="ba"><img src="/daonvill/${p[0]}.webp" alt="${p[1]} 현재" loading="lazy"><img class="af" src="/daonvill/${p[2]}.webp" alt="${p[1]} 리모델링 후 예시" loading="lazy"><span class="real">리모델링 후 예시 · AI</span><button class="tg" type="button">현재 모습 보기</button><figcaption>${p[1]}</figcaption></figure>`:`<figure><img src="/daonvill/${p[0]}.webp" alt="${p[1]}" loading="lazy"><span class="real">현재 실제 사진</span><figcaption>${p[1]}</figcaption></figure>`).join("");$("#rc").scrollLeft=0;
  $("#rdots").innerHTML=t.ph.map((_,k)=>`<i class="${k?"":"on"}"></i>`).join("");
  $("#incl").innerHTML="<b style='font-size:12px;letter-spacing:.12em'>*WHAT'S INCLUDED</b>"+t.inc.map(r=>`<p><b>${r[0]}</b><span>${r[1]}</span></p>`).join("")+`<p><b>풀옵션</b><span>${OPT.join(" · ")}</span></p>`;
  const im=$("#planimg");im.poster="/daonvill/"+t.img+"-poster.webp";im.src="/daonvill/"+t.img+".mp4";im.play&&im.play().catch(()=>{});}
@@ -270,7 +276,8 @@ function unit(n){document.querySelectorAll(".fl .u button").forEach(b=>b.classLi
  $("#unit").innerHTML=`<b style="font-size:15px">${n}호</b> · 전용 46.62㎡ (약 14.1평)<br><span style="opacity:.85">${n[0]}층 주거 · 엘리베이터 · 풀옵션 — 입주 가능 여부는 문의</span>`;}
 document.querySelectorAll(".fl .u button").forEach(b=>b.onclick=()=>unit(b.textContent));unit("301");
 // gallery dots
-const rc=$("#rc");rc.addEventListener("scroll",()=>{const i=Math.round(rc.scrollLeft/rc.clientWidth);document.querySelectorAll("#rdots i").forEach((d,k)=>d.classList.toggle("on",k==i))},{passive:true});
+const rc=$("#rc");rc.addEventListener("click",e=>{const b=e.target.closest(".tg");if(!b)return;const f=b.closest("figure");const on=f.classList.toggle("now");b.textContent=on?"리모델링 후 보기":"현재 모습 보기";f.querySelector(".real").textContent=on?"현재 실제 사진":"리모델링 후 예시 · AI";});
+rc.addEventListener("scroll",()=>{const i=Math.round(rc.scrollLeft/rc.clientWidth);document.querySelectorAll("#rdots i").forEach((d,k)=>d.classList.toggle("on",k==i))},{passive:true});
 const gal=$("#gal");gal.addEventListener("scroll",()=>{const i=Math.round(gal.scrollLeft/(gal.firstElementChild.offsetWidth+10));document.querySelectorAll("#dots i").forEach((d,k)=>d.classList.toggle("on",k==i))},{passive:true});
 // reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
