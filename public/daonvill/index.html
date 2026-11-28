@@ -151,7 +151,7 @@ a{color:inherit}
 <p class="ey">Rooms</p><h2 class="h2">방 고르기<small>원하는 타입을 눌러 보세요</small></h2>
 <div class="tabs"><button class="on" data-t="0">투룸형</button><button data-t="1">원룸형</button></div>
 <div class="rc" id="rc"></div><div class="rdots" id="rdots"></div>
-<div class="plan" style="padding:0;overflow:hidden"><div style="overflow:hidden"><img id="planimg" src="/daonvill/plan-two.webp" alt="개략 평면도" style="display:block;width:100%;transition:transform .5s cubic-bezier(.2,.8,.2,1)"></div><p style="font-size:11px;color:var(--sub);padding:8px 12px 10px">실내 사진 기반 추정 배치도 · 축척 없음. 문·창 위치와 실별 크기는 현장 확인이 필요합니다.</p></div>
+<div class="plan" style="padding:0;overflow:hidden"><div style="overflow:hidden"><video id="planimg" src="/daonvill/plan-two.mp4" poster="/daonvill/plan-two-poster.webp" autoplay muted playsinline preload="auto" style="display:block;width:100%;background:#121722" aria-label="개략 평면도 둘러보기"></video></div><p style="font-size:11px;color:var(--sub);padding:8px 12px 10px">실내 사진 기반 추정 배치도 · 축척 없음. 문·창 위치와 실별 크기는 현장 확인이 필요합니다.</p></div>
 <div class="incl" id="incl"></div>
 <div class="price"><span id="ptype" style="font-weight:700"></span><span class="v" id="pval"></span></div>
 <p style="font-size:12px;color:var(--sub);margin-top:4px">관리비 7만원 — 인터넷 · TV · 공용전기(수도) · 엘리베이터 · 공용청소비 포함. 조건은 호실·시기에 따라 달라질 수 있습니다.</p>
@@ -240,10 +240,10 @@ const $=s=>document.querySelector(s);
 // room types
 const OPT=["500메가 인터넷 · TV","55인치 TV","에어컨","드럼세탁기","255L 냉장고","전자레인지","2구 인덕션","붙박이장"];
 const T=[
- {n:"투룸형",img:"/daonvill/plan-two.webp",price:"2,000만 / 70만",alt:"또는 1,000만 / 80만",
+ {n:"투룸형",img:"plan-two",price:"2,000만 / 70만",alt:"또는 1,000만 / 80만",
   ph:[["two-1","거실 · 방 2개"],["two-2","주방 · 붙박이장"],["two-3","방 1 · 정남향 창"],["two-4","방 2"],["two-5","넓은 욕실"]],
   inc:[["구조","방 2 + 거실 + 욕실"],["전용","46.62㎡ (약 14.1평)"],["향","정남향 · 채광 좋음"]]},
- {n:"원룸형",img:"/daonvill/plan-one.webp",price:"1,000만 / 50만",alt:"또는 500만 / 55만",
+ {n:"원룸형",img:"plan-one",price:"1,000만 / 50만",alt:"또는 500만 / 55만",
   ph:[["one-1","붙박이장 · TV · 주방 일자 배치"],["one-2","현관 쪽에서 본 방"],["one-3","TV · 전자레인지 · 냉장고"],["one-4","넓은 욕실"]],
   inc:[["구조","생활·수면 공간 + 욕실"],["향","정남향 · 채광 좋음"],["욕실","샤워 · 세면, 원룸치고 넓은 크기"]]}];
 const NS="http://www.w3.org/2000/svg";
@@ -252,7 +252,7 @@ function show(i){document.querySelectorAll(".tabs button").forEach((b,k)=>b.clas
  $("#rc").innerHTML=t.ph.map(p=>`<figure><img src="/daonvill/${p[0]}.webp" alt="${p[1]}" loading="lazy"><span class="real">실제 사진</span><figcaption>${p[1]}</figcaption></figure>`).join("");$("#rc").scrollLeft=0;
  $("#rdots").innerHTML=t.ph.map((_,k)=>`<i class="${k?"":"on"}"></i>`).join("");
  $("#incl").innerHTML="<b style='font-size:12px;letter-spacing:.12em'>*WHAT'S INCLUDED</b>"+t.inc.map(r=>`<p><b>${r[0]}</b><span>${r[1]}</span></p>`).join("")+`<p><b>풀옵션</b><span>${OPT.join(" · ")}</span></p>`;
- const im=$("#planimg");im.animate([{transform:"scale(1.06) translateY(8px)"},{transform:"none"}],{duration:500,easing:"cubic-bezier(.2,.8,.2,1)"});im.src=t.img;}
+ const im=$("#planimg");im.poster="/daonvill/"+t.img+"-poster.webp";im.src="/daonvill/"+t.img+".mp4";im.play&&im.play().catch(()=>{});}
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>show(+b.dataset.t));show(0);
 // units
 function unit(n){document.querySelectorAll(".fl .u button").forEach(b=>b.classList.toggle("on",b.textContent==n));
