@@ -775,6 +775,44 @@ function Rwa() {
   );
 }
 
+
+/* ───────── 비전 · 로드맵 (유이사 방향 반영, 2026-11-28) ───────── */
+const ROADMAP = [
+  ["지금", "NOW", "자산 쪽(RWA) + 자문 쪽(상장사 M&A) 동시 운영", "Running the asset side (RWA) and advisory side (listed M&A) together"],
+  ["다음", "NEXT", "기업 인수·합병의 홀딩스 — 인수한 기업과 자산을 담는 지주 역할", "Holdings for M&A — a holding vehicle for acquired companies and assets"],
+  ["목표", "GOAL", "자산운용사 또는 PE(사모펀드 운용사) 등록 추진", "Registering as an asset manager or PE (GP)"],
+];
+function VisionRoadmap() {
+  const lang = useLang();
+  return (
+    <section id="vision" className="px-5 pt-16 pb-14" style={{ background: "#fff" }}>
+      <Kicker>VISION · ROADMAP</Kicker>
+      <h2 className="mt-4 text-[30px] font-extrabold leading-[1.25] tracking-[-0.025em]" style={{ color: "var(--gi-black)" }}>
+        <Lift>{lang === "en" ? "Real estate × finance," : "부동산 × 금융,"}</Lift>
+        <Lift delay={0.08}><span style={{ color: "var(--gi-copper)" }}>{lang === "en" ? "a platform for asset value." : "자산가치를 키우는 플랫폼."}</span></Lift>
+      </h2>
+      <p className="mt-5 max-w-[34ch] text-[14.5px] leading-[1.8]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "부동산의 실물 가치와 금융의 구조화 역량을 하나로 묶어, 자산이 더 높은 가치로 거래되고 운용되도록 설계합니다.", "We combine the physical value of real estate with financial structuring, so assets trade and are managed at higher value.")}</p>
+      <div className="mt-8 grid grid-cols-3 gap-2">
+        {[[pick(lang, "실물자산", "Real assets"), "#9fc46a"], [pick(lang, "금융 구조화", "Structuring"), "#5b9cf0"], [pick(lang, "가치 증대", "Value up"), "var(--gi-copper)"]].map(([t, c], i) => (
+          <Rise key={t} delay={i * 0.08}>
+            <div className="border-t-[3px] bg-[var(--gi-paper)] px-3 py-4 text-center text-[13.5px] font-bold" style={{ borderColor: c, color: "var(--gi-black)" }}>{t}</div>
+          </Rise>
+        ))}
+      </div>
+      <ol className="relative mt-10 border-l pl-6" style={{ borderColor: "var(--gi-line)" }}>
+        {ROADMAP.map(([k, e, d, de], i) => (
+          <li key={k} className="relative pb-7 last:pb-0">
+            <motion.span className="absolute -left-[31px] top-1 h-3 w-3 rounded-full" style={{ background: i < 1 ? "var(--gi-copper)" : "#fff", border: "2px solid var(--gi-copper)" }} initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.15 }} />
+            <div className="flex items-baseline gap-2"><span className="text-[17px] font-extrabold" style={{ color: "var(--gi-black)" }}>{lang === "en" ? e : k}</span>{lang === "ko" && <span className="gi-en text-[10px] font-bold" style={{ color: "var(--gi-copper)" }}>{e}</span>}</div>
+            <p className="mt-1.5 text-[14px] leading-[1.7]" style={{ color: "var(--gi-text)" }}>{lang === "en" ? de : d}</p>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-6 text-[11.5px]" style={{ color: "var(--gi-sub)" }}>{pick(lang, "‘목표’는 추진 계획이며, 등록 형태와 일정은 관계 기관 심사에 따라 확정됩니다.", "Goals are plans; registration type and timing depend on regulatory review.")}</p>
+    </section>
+  );
+}
+
 type ProjectLink = [ko: string, en: string, detailKo: string, detailEn: string, href: string, image?: string, englishHref?: string];
 
 const PROJECT_LINKS: ProjectLink[] = [
@@ -1016,6 +1054,7 @@ function Intro({ onNext, onWork }: { onNext: () => void; onWork: () => void }) {
 
 const MENU: [string, string, string[]][] = [
   ["about", "회사소개", ["개요", "인사말"]],
+  ["vision", "비전 · 로드맵", []],
   ["business", "사업 구조", ["자산 쪽", "자문 쪽", "딜 클로징"]],
   ["ma", "상장사 M&A", []],
   ["solutions", "자문 솔루션", ["상장사 M&A·투자유치", "구조조정", "사업계획서·IR", "검토보고서·가치평가"]],
@@ -1044,7 +1083,7 @@ export default function GiibPlus() {
     if (l === "en") setLangRaw("en");
   }, []);
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
-  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Live Deals", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
+  const MENU_EN2: Record<string, [string, string[]]> = { about: MENU_EN[0], vision: ["Vision · Roadmap", []], business: ["How We Work", ["Asset side", "Advisory side", "Deal closing"]], ma: ["Listed-Company M&A", []], solutions: ["Advisory Solutions", ["Listed M&A · Capital", "Restructuring", "Plans · IR", "Review · Valuation"]], rwa: ["RWA", ["Real Estate", "Edge AI Data Center", "NPL"]], work: ["Live Deals", []], approach: MENU_EN[2], fee: ["Fee Structure", []], record: MENU_EN[3], contact: MENU_EN[4] };
   const menuList: [string, string, string[]][] = MENU.map(([id, l, k]) => (lang === "en" ? [id, MENU_EN2[id][0], MENU_EN2[id][1]] : [id, l, k]));
   const proc_ = PROCESS.map((p, i) => (lang === "en" ? { ...p, ...PROCESS_EN[i] } : p));
   const prin_ = PRINCIPLES.map((p, i) => (lang === "en" ? { ...p, ...PRINCIPLES_EN[i] } : p));
@@ -1191,6 +1230,7 @@ export default function GiibPlus() {
 
         {/* 영상 띠 — 서울 스카이라인 드론 */}
         <Film />
+        <VisionRoadmap />
 
         <Pillars onGo={go} />
         <ListedMA />
