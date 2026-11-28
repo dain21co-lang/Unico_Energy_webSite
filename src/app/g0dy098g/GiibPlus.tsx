@@ -825,6 +825,7 @@ const PROJECT_LINKS: ProjectLink[] = [
       ["신촌 AI 스마트호스텔","Sinchon AI Smart Hostel","숙박 · 리모델링","Hospitality · remodeling","/sinchon","hostel"],
       ["정선 AI 스마트호텔","Jeongseon AI smart hotel","호텔 · 관광","Hotel","/jeongseon","jeongseon"],
       ["해연에프엔지","Haeyeon F&G","기업 홈페이지","Corporate","/pqw8nt7","haeyeon"],
+      ["K-BEAUTY EUROPA","K-BEAUTY EUROPA","K-뷰티 유럽 진출","K-beauty in Europe","https://www.gblabs.co.kr/ko/k-beauty-europa","kbeauty"],
       ["옥수 복합 개발","Oksu mixed-use","개발 · 환경","Development","/oksu","oksu"],
       ["강화 광산 인프라 소재","Ganghwa mine materials","자원 · 인프라","Resources","/r4d7k2xq","ganghwa"],
       ["MURUA KOREA","MURUA KOREA","브랜드 사이트","Brand website","https://www.gblabs.co.kr/ko/murua-korea"],
