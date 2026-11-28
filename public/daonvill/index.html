@@ -7,7 +7,7 @@
 <meta property="og:description" content="풀옵션 원룸·투룸 · 500메가 인터넷·TV · 엘리베이터">
 <meta property="og:image" content="/daonvill/og.jpg">
 <style>
-:root{--paper:#f4f1ea;--ink:#1d1d1b;--sub:#6b6a64;--line:#d9d4c8;--green:#1fd162;--blue:#3d4fd6;--dark:#141414}
+:root{--paper:#f4f1ea;--ink:#1d1d1b;--sub:#6b6a64;--line:#d9d4c8;--green:#ffe3ec;--grad:linear-gradient(100deg,#ffd9e4 0%,#ffe6cc 18%,#fff4c4 34%,#d8f3df 52%,#cfe7fb 70%,#ded6fb 86%,#ffd9e4 100%);--blue:#3d4fd6;--dark:#141414}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);font:15px/1.65 "Pretendard","Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -20,7 +20,7 @@ a{color:inherit}
 .hd .row{display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 20px;max-width:480px;margin:0 auto}
 .logo{font:700 16px/1 Georgia,serif;letter-spacing:.24em}
 .logo small{display:block;font:500 9px/1 system-ui;letter-spacing:.3em;color:var(--sub);margin-top:4px}
-.cta-mini{font-size:12px;font-weight:700;background:var(--green);color:#082a14;padding:7px 12px;border-radius:999px;text-decoration:none}
+.cta-mini{font-size:12px;font-weight:700;background:var(--grad);color:#2a2733;padding:7px 12px;border-radius:999px;text-decoration:none}
 .sub{display:flex;gap:18px;overflow-x:auto;padding:0 20px 10px;max-width:480px;margin:0 auto;scrollbar-width:none}
 .sub a{flex:none;font-size:11.5px;letter-spacing:.14em;text-decoration:none;color:var(--sub)}
 /* hero */
@@ -30,17 +30,20 @@ a{color:inherit}
 .hero video.hv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.72))}
 .hero .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fff;padding:0 22px 92px}
-.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;background:var(--green);color:#082a14;padding:4px 9px;border-radius:3px}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;background:var(--grad);color:#2a2733;padding:4px 9px;border-radius:3px}
 .hero h1{font-size:40px;line-height:1.15;margin-top:12px;font-weight:700}
 .hero h1 em{font-style:normal;display:block;font-size:17px;font-weight:500;letter-spacing:.04em;margin-top:8px;opacity:1;color:#e9e5da}
 .hero .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:18px}
 .hero .stats div{border-top:1px solid rgba(255,255,255,.45);padding-top:8px;font-size:12px;color:#e9e5da}
 .hero .stats b{display:block;font-size:17px;color:#fff}
 .btn{display:block;width:100%;text-align:center;font-weight:700;font-size:15px;padding:15px;border-radius:4px;text-decoration:none;border:0}
-.btn.g{background:var(--green);color:#082a14}
+.btn.g{background:var(--grad);color:#2a2733}
 .btn.w{background:#fff;color:var(--ink)}
 .btn.o{background:none;border:1px solid var(--ink);color:var(--ink);font-size:12.5px;letter-spacing:.14em;padding:12px}
 .badge{position:absolute;right:12px;top:12px;z-index:3;font-size:10.5px;background:rgba(0,0,0,.5);color:#fff;padding:3px 7px;border-radius:3px}
+.btn.g,.tag,.cta-mini,.stack,.incl,.fab .a,.rc .real{background-size:300% 100%!important;animation:pano 14s ease-in-out infinite alternate}
+@keyframes pano{from{background-position:0% 50%}to{background-position:100% 50%}}
+.tabs button.on:after{background:var(--grad)!important;height:4px}
 /* section */
 .sec{padding-top:52px;padding-bottom:8px}
 .ey{font-size:11px;letter-spacing:.28em;color:var(--sub);text-transform:uppercase}
@@ -56,23 +59,23 @@ a{color:inherit}
 .facts span{color:var(--sub)}
 .facts b{font-weight:600;text-align:right}
 /* building stack */
-.stack{margin-top:20px;background:var(--green);border-radius:6px;padding:16px;color:#082a14}
+.stack{margin-top:20px;background:var(--grad);border-radius:6px;padding:16px;color:#2a2733}
 .fl{background:#fff;border-radius:4px;margin-top:8px;padding:10px 12px;display:flex;align-items:center;gap:10px;transform-origin:left;transform:scaleX(.0001);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
 .in .fl{transform:none}
 .fl .n{font:700 13px Georgia,serif;width:30px}
 .fl .u{display:flex;gap:6px;margin-left:auto}
-.fl .u button{font:700 12px system-ui;border:1.5px solid #082a14;background:#fff;border-radius:4px;padding:6px 8px;color:#082a14}
-.fl .u button.on{background:#082a14;color:#fff}
-.fl.biz{background:#dff7e7}
+.fl .u button{font:700 12px system-ui;border:1.5px solid #2a2733;background:#fff;border-radius:4px;padding:6px 8px;color:#2a2733}
+.fl .u button.on{background:#2a2733;color:#fff}
+.fl.biz{background:rgba(255,255,255,.55)}
 .roof{font-size:11.5px;letter-spacing:.12em;font-weight:700}
-.unit{margin-top:10px;background:#082a14;color:#e8fbe9;border-radius:4px;padding:12px;font-size:13px;min-height:62px}
+.unit{margin-top:10px;background:#2a2733;color:#f3eefc;border-radius:4px;padding:12px;font-size:13px;min-height:62px}
 /* room tabs */
 .tabs{display:flex;border-bottom:1px solid var(--line);margin-top:18px}
 .tabs button{flex:1;background:none;border:0;padding:12px 0;font:700 15px inherit;color:var(--sub);position:relative}
 .tabs button.on{color:var(--ink)}
 .tabs button.on:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--ink)}
 .plan{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:14px}
-.incl{margin-top:12px;background:var(--green);color:#082a14;border-radius:4px;padding:12px 14px;font-size:13.5px}
+.incl{margin-top:12px;background:var(--grad);color:#2a2733;border-radius:4px;padding:12px 14px;font-size:13.5px}
 .incl p{display:grid;grid-template-columns:70px 1fr;gap:8px;margin-top:4px}
 .incl b{font-weight:800}
 .price{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--ink);margin-top:14px;padding-top:12px}
@@ -81,7 +84,7 @@ a{color:inherit}
 .rc figure{flex:0 0 100%;scroll-snap-align:center;position:relative}
 .rc img{width:100%;height:300px;object-fit:cover;display:block;border-radius:6px}
 .rc figcaption{position:absolute;left:10px;bottom:10px;font-size:11.5px;background:rgba(0,0,0,.55);color:#fff;padding:3px 8px;border-radius:3px}
-.rc .real{position:absolute;right:10px;top:10px;font-size:10.5px;font-weight:700;background:var(--green);color:#082a14;padding:3px 7px;border-radius:3px}
+.rc .real{position:absolute;right:10px;top:10px;font-size:10.5px;font-weight:700;background:var(--grad);color:#2a2733;padding:3px 7px;border-radius:3px}
 .rdots{display:flex;gap:6px;justify-content:center;margin-top:8px}.rdots i{width:6px;height:6px;border-radius:50%;background:var(--line)}.rdots i.on{background:var(--ink)}
 /* amenity */
 .am{margin-top:16px;border-top:1px solid var(--ink)}
@@ -118,7 +121,7 @@ a{color:inherit}
 .foot{background:var(--dark);color:#8f8d86;font-size:11.5px;line-height:1.7;padding:10px 22px 40px}
 .fab{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:40;width:min(440px,calc(100% - 28px));display:flex;gap:8px}
 .fab a{flex:1;text-align:center;padding:14px;border-radius:999px;font-weight:700;font-size:14.5px;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
-.fab .a{background:var(--green);color:#082a14}
+.fab .a{background:var(--grad);color:#2a2733}
 .fab .b{background:var(--dark);color:#fff}
 </style></head><body>
 <header class="hd"><div class="row"><span class="logo">DAONVILL<small>MUSONG · HWASEONG</small></span><a class="cta-mini" href="#talk">임대 문의</a></div>
@@ -201,8 +204,8 @@ a{color:inherit}
 <rect width="320" height="220" fill="#2f40c4"/>
 <g stroke="#5a6be0" stroke-width="10" fill="none" stroke-linecap="round"><path d="M-10 150 C80 140 140 90 330 70"/><path d="M120 -10 C130 70 150 140 140 230"/></g>
 <g stroke="#7f8cf0" stroke-width="3" fill="none"><path d="M-10 60 L330 120"/><path d="M230 -10 L250 230"/><path d="M40 -10 L70 230"/></g>
-<circle cx="150" cy="112" r="34" fill="#1fd162" fill-opacity=".22"><animate attributeName="r" values="22;40;22" dur="3s" repeatCount="indefinite"/></circle>
-<circle cx="150" cy="112" r="9" fill="#1fd162" stroke="#fff" stroke-width="3"/>
+<circle cx="150" cy="112" r="34" fill="#ffd9e4" fill-opacity=".35"><animate attributeName="r" values="22;40;22" dur="3s" repeatCount="indefinite"/></circle>
+<circle cx="150" cy="112" r="9" fill="#ffd9e4" stroke="#fff" stroke-width="3"/>
 <rect x="164" y="88" width="110" height="26" rx="4" fill="#fff"/><text x="219" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#141414" font-family="system-ui">다온빌 무송</text>
 <text x="20" y="205" font-size="10" fill="#c9cffb" font-family="system-ui">약도 · 실제 축척과 다름</text>
 </svg></div>
