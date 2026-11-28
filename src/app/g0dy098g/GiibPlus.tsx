@@ -1323,13 +1323,13 @@ export default function GiibPlus() {
         {/* 인사말 */}
         <section id="ceo" className="px-5 pt-14 pb-14" style={{ background: "var(--gi-paper)" }}>
           <Kicker>CEO MESSAGE</Kicker>
-          {SRC("ceo2") && <Visual k="ceo2" className="mt-5 h-[440px]" tag={T("대표이사 유현근", "CEO Hyun-geun Yoo")} />}
+          {SRC("ceo2") && <Visual k="ceo2" className="mt-5 h-[440px]" tag={T("대표이사 유현근", "CEO Hyun-geun You")} />}
           <Rise>
             <p className="mt-5 text-[21px] font-bold leading-[1.55]" style={{ color: "var(--gi-black)" }}>&ldquo;{lang === "en" ? <>We will be a trusted hub<br />between investors and sponsors.</> : <>투자자와 사업자 사이에서<br />믿을 수 있는 거점이 되겠습니다.</>}&rdquo;</p>
           </Rise>
           <div className="mt-6 space-y-3 text-[15px] leading-[1.85]" style={{ color: "var(--gi-text)" }}>
             {lang === "en" ? (<>
-              <p>Hello, I am Hyun-geun Yoo, CEO of Global Infra Hub.</p>
+              <p>Hello, I am Hyun-geun You, CEO of Global Infra Hub.</p>
               <p>The biggest losses in real estate investment come from unverified numbers and undesigned structures. We verify with documents first, speak about risks first, and above all protect investor capital through collateral and contract structures.</p>
               <p>Good assets are many, but few have a structure strong enough to protect them to the end. We take responsibility for one continuous flow — sourcing, due diligence, structuring, execution and management — helping investors and sponsors make decisions they can trust in numbers.</p>
               <p>Beyond real estate, we now take on corporate restructuring, M&amp;A and capital raising. One team builds the business plans, IR, review reports and deal sites — we take only third-party costs upfront and earn our fee on results.</p>

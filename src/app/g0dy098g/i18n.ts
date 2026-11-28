@@ -12,7 +12,7 @@ export const pick = <T,>(lang: Lang, ko: T, en: T) => (lang === "en" ? en : ko);
 
 export const CO_EN = {
   name: "Global Infra Hub Co., Ltd.",
-  ceo: "Hyun-geun Yoo",
+  ceo: "Hyun-geun You",
   founded: "May 2015",
   address: "Seoul, Korea (head office relocation pending)",
 };
