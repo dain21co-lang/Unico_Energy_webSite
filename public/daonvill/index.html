@@ -76,6 +76,12 @@ a{color:inherit}
 .incl b{font-weight:800}
 .price{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--ink);margin-top:14px;padding-top:12px}
 .price .v{font:700 18px Georgia,serif}
+.rc{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:16px;scrollbar-width:none;border-radius:6px}
+.rc figure{flex:0 0 100%;scroll-snap-align:center;position:relative}
+.rc img{width:100%;height:300px;object-fit:cover;display:block;border-radius:6px}
+.rc figcaption{position:absolute;left:10px;bottom:10px;font-size:11.5px;background:rgba(0,0,0,.55);color:#fff;padding:3px 8px;border-radius:3px}
+.rc .real{position:absolute;right:10px;top:10px;font-size:10.5px;font-weight:700;background:var(--green);color:#082a14;padding:3px 7px;border-radius:3px}
+.rdots{display:flex;gap:6px;justify-content:center;margin-top:8px}.rdots i{width:6px;height:6px;border-radius:50%;background:var(--line)}.rdots i.on{background:var(--ink)}
 /* amenity */
 .am{margin-top:16px;border-top:1px solid var(--ink)}
 .am div{display:grid;grid-template-columns:118px 1fr;gap:12px;border-bottom:1px solid var(--line);padding:12px 0;font-size:13.5px}
@@ -119,7 +125,7 @@ a{color:inherit}
 
 <section class="hero wrap"><span class="badge">AI 보정 · 예시</span><img src="/daonvill/hero.webp" alt="다온빌 무송 외관 야경 (AI 이미지 예시)">
 <div class="cap"><span class="tag">2025 신축 · 첫 입주</span><h1 class="serif">다온빌 무송<em>화성 남양읍 · 풀옵션 원룸 · 투룸</em></h1>
-<div class="stats"><div><b>500M</b>인터넷 · TV</div><div><b>E/V</b>엘리베이터</div><div><b>Full</b>옵션 완비</div></div>
+<div class="stats"><div><b>남향</b>종일 채광</div><div><b>Full</b>55″TV·에어컨</div><div><b>7만</b>관리비 · 인터넷 포함</div></div>
 </div></section>
 
 <main class="wrap">
@@ -133,6 +139,8 @@ a{color:inherit}
 <div><span>주거층</span><b>3·4층 · 6세대</b></div>
 <div><span>세대 전용</span><b>46.62㎡ (약 14.1평)</b></div>
 <div><span>연면적</span><b>661.71㎡</b></div>
+<div><span>향</span><b>정남향</b></div>
+<div><span>임대</span><b>원룸 1,000/50 · 투룸 2,000/70</b></div>
 <div><span>입주</span><b>2025년 신축 · 즉시 입주 문의</b></div>
 </div>
 <p style="font-size:11px;color:var(--sub);margin-top:8px">건축물대장(2026.1.24 발급) 기준. 세부 사항은 계약 전 다시 확인해 주세요.</p>
@@ -141,10 +149,11 @@ a{color:inherit}
 <section class="sec pad rv" id="rooms">
 <p class="ey">Rooms</p><h2 class="h2">방 고르기<small>원하는 타입을 눌러 보세요</small></h2>
 <div class="tabs"><button class="on" data-t="0">투룸형</button><button data-t="1">원룸형</button></div>
+<div class="rc" id="rc"></div><div class="rdots" id="rdots"></div>
 <div class="plan" style="padding:0;overflow:hidden"><div style="overflow:hidden"><img id="planimg" src="/daonvill/plan-two.webp" alt="개략 평면도" style="display:block;width:100%;transition:transform .5s cubic-bezier(.2,.8,.2,1)"></div><p style="font-size:11px;color:var(--sub);padding:8px 12px 10px">실내 사진 기반 추정 배치도 · 축척 없음. 문·창 위치와 실별 크기는 현장 확인이 필요합니다.</p></div>
 <div class="incl" id="incl"></div>
-<div class="price"><span id="ptype" style="font-weight:700"></span><span class="v">문의</span></div>
-<p style="font-size:12px;color:var(--sub);margin-top:4px">보증금·월세·관리비는 호실과 계약 기간에 따라 달라 상담으로 안내드립니다.</p>
+<div class="price"><span id="ptype" style="font-weight:700"></span><span class="v" id="pval"></span></div>
+<p style="font-size:12px;color:var(--sub);margin-top:4px">관리비 7만원 — 인터넷 · TV · 공용전기(수도) · 엘리베이터 · 공용청소비 포함. 조건은 호실·시기에 따라 달라질 수 있습니다.</p>
 <a class="btn g" href="#talk" style="margin-top:14px">이 타입 문의하기</a>
 </section>
 
@@ -174,7 +183,9 @@ a{color:inherit}
 <div class="am">
 <div><b>인터넷 · TV</b><span>500메가 인터넷과 TV 이용 환경</span></div>
 <div><b>엘리베이터</b><span>3·4층 주거층까지 짐 옮기기 편하게</span></div>
-<div><b>풀옵션</b><span>가전·가구 기본 구성, 바로 입주</span></div>
+<div><b>풀옵션</b><span>55인치 TV · 에어컨 · 드럼세탁기 · 255L 냉장고 · 전자레인지 · 2구 인덕션 · 붙박이장</span></div>
+<div><b>정남향</b><span>원룸·투룸 모두 남향 창, 하루 종일 밝은 채광</span></div>
+<div><b>관리비 7만</b><span>인터넷 · TV · 공용전기(수도) · 엘리베이터 · 공용청소비 포함</span></div>
 <div><b>신축</b><span>2025년 준공, 첫 입주</span></div>
 <div><b>층 분리</b><span>1·2층 사무, 3·4층 주거로 동선 분리</span></div>
 <div><b>주차</b><span>건물 앞 필로티·옥외 주차 구획 (배정은 상담 시 안내)</span></div>
@@ -205,8 +216,9 @@ a{color:inherit}
 <p class="ey">FAQ</p><h2 class="h2">자주 묻는 질문</h2>
 <div style="margin-top:12px;border-top:1px solid var(--ink)">
 <details><summary>바로 입주할 수 있나요?</summary><p>2025년 신축 건물로 첫 입주 세대를 모집하고 있습니다. 남은 호실과 입주 가능일은 문의 주시면 바로 확인해 드립니다.</p></details>
-<details><summary>풀옵션에는 무엇이 들어 있나요?</summary><p>생활 가전과 기본 가구가 갖춰져 있습니다. 호실별 세부 품목은 상담 시 사진과 함께 안내드립니다.</p></details>
-<details><summary>인터넷과 TV는 따로 신청해야 하나요?</summary><p>500메가 인터넷과 TV 이용 환경이 갖춰져 있습니다. 이용 조건은 계약 시 안내드립니다.</p></details>
+<details><summary>풀옵션에는 무엇이 들어 있나요?</summary><p>500메가 인터넷·TV, 55인치 TV, 에어컨, 드럼세탁기, 255리터 냉장고, 전자레인지, 2구 인덕션, 붙박이장이 기본입니다.</p></details>
+<details><summary>임대료와 관리비는 얼마인가요?</summary><p>원룸 보증금 1,000만 / 월 50만(또는 500만 / 55만), 투룸 2,000만 / 70만(또는 1,000만 / 80만)입니다. 관리비 7만원에 인터넷·TV·공용전기(수도)·엘리베이터·공용청소비가 포함됩니다.</p></details>
+<details><summary>인터넷과 TV는 따로 신청해야 하나요?</summary><p>아니요. 500메가 인터넷과 TV가 관리비에 포함되어 따로 신청할 필요가 없습니다.</p></details>
 <details><summary>원룸형과 투룸형은 어떻게 다른가요?</summary><p>투룸형은 방과 거실을 나눠 쓰는 구조, 원룸형은 하나의 넓은 공간을 쓰는 구조입니다. 실제 배치는 호실마다 다를 수 있습니다.</p></details>
 <details><summary>방문해서 볼 수 있나요?</summary><p>네. 아래 ‘방문 예약’으로 연락 주시면 원하시는 시간에 현장을 보여 드립니다.</p></details>
 </div></section>
@@ -225,13 +237,20 @@ a{color:inherit}
 (()=>{
 const $=s=>document.querySelector(s);
 // room types
+const OPT=["500메가 인터넷 · TV","55인치 TV","에어컨","드럼세탁기","255L 냉장고","전자레인지","2구 인덕션","붙박이장"];
 const T=[
- {n:"투룸형",img:"/daonvill/plan-two.webp",inc:[["구조","방 2 + 거실 + 욕실"],["전용","46.62㎡ (약 14.1평)"],["주방","싱크 · 세탁기 · 냉장고 일자형"],["수납","붙박이장"],["통신","500메가 인터넷 · TV"]]},
- {n:"원룸형",img:"/daonvill/plan-one.webp",inc:[["구조","생활·수면 공간 + 욕실"],["주방","싱크 · 세탁기 · 냉장고"],["수납","붙박이장 · TV장"],["욕실","샤워 · 세면"],["통신","500메가 인터넷 · TV"]]}];
+ {n:"투룸형",img:"/daonvill/plan-two.webp",price:"2,000만 / 70만",alt:"또는 1,000만 / 80만",
+  ph:[["two-1","거실 · 방 2개"],["two-2","주방 · 붙박이장"],["two-3","방 1 · 정남향 창"],["two-4","방 2"],["two-5","넓은 욕실"]],
+  inc:[["구조","방 2 + 거실 + 욕실"],["전용","46.62㎡ (약 14.1평)"],["향","정남향 · 채광 좋음"]]},
+ {n:"원룸형",img:"/daonvill/plan-one.webp",price:"1,000만 / 50만",alt:"또는 500만 / 55만",
+  ph:[["one-1","붙박이장 · TV · 주방 일자 배치"],["one-2","현관 쪽에서 본 방"],["one-3","TV · 전자레인지 · 냉장고"],["one-4","넓은 욕실"]],
+  inc:[["구조","생활·수면 공간 + 욕실"],["향","정남향 · 채광 좋음"],["욕실","샤워 · 세면, 원룸치고 넓은 크기"]]}];
 const NS="http://www.w3.org/2000/svg";
 function show(i){document.querySelectorAll(".tabs button").forEach((b,k)=>b.classList.toggle("on",k==i));
- const t=T[i];$("#ptype").textContent=t.n+" · 보증금/월세";
- $("#incl").innerHTML="<b style='font-size:12px;letter-spacing:.12em'>*WHAT'S INCLUDED</b>"+t.inc.map(r=>`<p><b>${r[0]}</b><span>${r[1]}</span></p>`).join("");
+ const t=T[i];$("#ptype").innerHTML=t.n+" · 보증금 / 월세<br><span style='font-weight:400;font-size:12px;color:var(--sub)'>"+t.alt+" · 관리비 7만</span>";$("#pval").textContent=t.price;
+ $("#rc").innerHTML=t.ph.map(p=>`<figure><img src="/daonvill/${p[0]}.webp" alt="${p[1]}" loading="lazy"><span class="real">실제 사진</span><figcaption>${p[1]}</figcaption></figure>`).join("");$("#rc").scrollLeft=0;
+ $("#rdots").innerHTML=t.ph.map((_,k)=>`<i class="${k?"":"on"}"></i>`).join("");
+ $("#incl").innerHTML="<b style='font-size:12px;letter-spacing:.12em'>*WHAT'S INCLUDED</b>"+t.inc.map(r=>`<p><b>${r[0]}</b><span>${r[1]}</span></p>`).join("")+`<p><b>풀옵션</b><span>${OPT.join(" · ")}</span></p>`;
  const im=$("#planimg");im.animate([{transform:"scale(1.06) translateY(8px)"},{transform:"none"}],{duration:500,easing:"cubic-bezier(.2,.8,.2,1)"});im.src=t.img;}
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>show(+b.dataset.t));show(0);
 // units
@@ -239,6 +258,7 @@ function unit(n){document.querySelectorAll(".fl .u button").forEach(b=>b.classLi
  $("#unit").innerHTML=`<b style="font-size:15px">${n}호</b> · 전용 46.62㎡ (약 14.1평)<br><span style="opacity:.85">${n[0]}층 주거 · 엘리베이터 · 풀옵션 — 입주 가능 여부는 문의</span>`;}
 document.querySelectorAll(".fl .u button").forEach(b=>b.onclick=()=>unit(b.textContent));unit("301");
 // gallery dots
+const rc=$("#rc");rc.addEventListener("scroll",()=>{const i=Math.round(rc.scrollLeft/rc.clientWidth);document.querySelectorAll("#rdots i").forEach((d,k)=>d.classList.toggle("on",k==i))},{passive:true});
 const gal=$("#gal");gal.addEventListener("scroll",()=>{const i=Math.round(gal.scrollLeft/(gal.firstElementChild.offsetWidth+10));document.querySelectorAll("#dots i").forEach((d,k)=>d.classList.toggle("on",k==i))},{passive:true});
 // reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
