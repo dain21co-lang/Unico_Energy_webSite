@@ -1127,7 +1127,7 @@ export default function GiibPlus() {
           <div className="flex h-[56px] items-center justify-between px-4">
             <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="맨 위로"><Logo /></button>
             <div className="flex items-center gap-2">
-            <button onClick={() => setDeck(true)} className="shrink-0 px-2.5 py-1.5 text-[11.5px] font-bold leading-none" style={{ background: "#1c2414", color: "var(--gi-sand)" }}>{T("소개서", "Profile")}</button>
+            <span className="flex shrink-0 overflow-hidden"><button onClick={() => setDeck(true)} className="px-2 py-1.5 text-[11px] font-bold leading-none" style={{ background: "#1c2414", color: "var(--gi-sand)" }}>{T("소개서", "Profile")}</button><a href="/g0dy098g/ir" className="border-l px-2 py-1.5 text-[11px] font-bold leading-none" style={{ background: "#1c2414", color: "var(--gi-sand)", borderColor: "rgba(233,210,173,.35)" }}>IR</a></span>
             <LangSwitch lang={lang} set={setLang} />
             <button onClick={() => setMenu(true)} aria-label={T("메뉴 열기", "Open menu")} className="flex h-10 w-10 flex-col items-end justify-center gap-[5px]">
               <span className="h-[2px] w-6" style={{ background: "var(--gi-black)" }} /><span className="h-[2px] w-6" style={{ background: "var(--gi-black)" }} /><span className="h-[2px] w-6" style={{ background: "var(--gi-black)" }} />
