@@ -831,6 +831,7 @@ const PROJECT_LINKS: ProjectLink[] = [
       ["MURUA KOREA","MURUA KOREA","브랜드 사이트","Brand website","https://www.gblabs.co.kr/ko/murua-korea"],
       ["솔루믹스","SOLUMIX","코넥스 상장사","KONEX-listed","/xxrhbd2","solumix"],
       ["평생주치의 케어하우스","Lifelong-care house","헬스케어 · 돌봄","Healthcare","/sinchon/orbit-care","care"],
+      ["화성 무송 다온빌","Daonvill Musong (Hwaseong)","신축 원룸·투룸 임대","New-build rentals","/daonvill","daonvill"],
 ];
 
 const COMPANY_LINKS: ProjectLink[] = [
