@@ -125,7 +125,7 @@ a{color:inherit}
 .fab .b{background:var(--dark);color:#fff}
 </style></head><body>
 <header class="hd"><div class="row"><span class="logo">DAONVILL<small>MUSONG · HWASEONG</small></span><a class="cta-mini" href="#talk">임대 문의</a></div>
-<nav class="sub"><a href="#overview">OVERVIEW</a><a href="#rooms">ROOMS</a><a href="#floor">FLOORS</a><a href="#amenity">AMENITY</a><a href="#map">MAP</a><a href="#faq">FAQ</a></nav></header>
+<nav class="sub"><a href="#overview">OVERVIEW</a><a href="#film">FILM</a><a href="#rooms">ROOMS</a><a href="#floor">FLOORS</a><a href="#amenity">AMENITY</a><a href="#map">MAP</a><a href="#faq">FAQ</a></nav></header>
 
 <section class="hero wrap"><span class="badge">AI 영상 · 예시</span><video class="hv" src="/daonvill/main.mp4" poster="/daonvill/main-poster.webp" autoplay muted loop playsinline preload="auto" aria-label="다온빌 무송 소개 영상 (AI 영상 예시)"></video>
 <div class="cap"><span class="tag">2025 신축 · 첫 입주</span><h1 class="serif">다온빌 무송<em>화성 남양읍 · 풀옵션 원룸 · 투룸</em></h1>
@@ -148,6 +148,11 @@ a{color:inherit}
 <div><span>입주</span><b>2025년 신축 · 즉시 입주 문의</b></div>
 </div>
 <p style="font-size:11px;color:var(--sub);margin-top:8px">건축물대장(2026.1.24 발급) 기준. 세부 사항은 계약 전 다시 확인해 주세요.</p>
+</section>
+
+<section class="sec pad rv" id="film">
+<p class="ey">Sketch Film</p><h2 class="h2">한눈에 보는 다온빌<small>스케치에서 실제 모습까지, 84초</small></h2>
+<div style="margin-top:16px;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(60,50,80,.18)"><video id="filmv" src="/daonvill/film.mp4" poster="/daonvill/film-poster.webp" muted playsinline loop preload="metadata" controls style="display:block;width:100%"></video></div>
 </section>
 
 <section class="sec pad rv" id="rooms">
@@ -267,5 +272,6 @@ const gal=$("#gal");gal.addEventListener("scroll",()=>{const i=Math.round(gal.sc
 // reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll(".rv").forEach(x=>io.observe(x));
+const fv=$("#filmv");new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)fv.play().catch(()=>{});else fv.pause()}),{threshold:.5}).observe(fv);
 })();
 </script></body></html>
