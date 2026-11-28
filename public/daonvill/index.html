@@ -11,6 +11,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 html,body{overflow-x:hidden;max-width:100%}
+video::-webkit-media-controls,video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-overlay-play-button,video::-webkit-media-controls-panel{display:none!important;-webkit-appearance:none}
 img,video{max-width:100%}
 .rc,.plan,.tabs{max-width:100%;width:100%}
 body{background:var(--paper);color:var(--ink);font:15px/1.65 "Pretendard","Noto Sans KR",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
@@ -161,7 +162,7 @@ a{color:inherit}
 
 <section class="sec pad rv" id="film">
 <p class="ey">Sketch Film</p><h2 class="h2">한눈에 보는 다온빌<small>스케치에서 실제 모습까지, 84초</small></h2>
-<div style="margin-top:16px;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(60,50,80,.18)"><video id="filmv" src="/daonvill/film.mp4" poster="/daonvill/film-poster.webp" muted playsinline loop preload="metadata" controls style="display:block;width:100%"></video></div>
+<div style="margin-top:16px;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(60,50,80,.18)"><video id="filmv" src="/daonvill/film.mp4" poster="/daonvill/film-poster.webp" autoplay muted playsinline loop preload="auto" disablepictureinpicture disableremoteplayback style="display:block;width:100%;pointer-events:none"></video></div>
 </section>
 
 <section class="sec pad rv" id="rooms">
@@ -189,7 +190,7 @@ a{color:inherit}
 
 <section class="sec rv">
 <div class="pad"><p class="ey">Look Around</p><h2 class="h2">둘러보기<small>외관 360° · 40초</small></h2>
-<div style="position:relative;margin-top:16px;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(60,50,80,.18)"><video id="orbitv" src="/daonvill/orbit.mp4" poster="/daonvill/orbit-poster.webp" muted loop playsinline preload="metadata" style="display:block;width:100%"></video><span class="badge">AI 영상 · 예시</span></div></div>
+<div style="position:relative;margin-top:16px;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(60,50,80,.18)"><video id="orbitv" src="/daonvill/orbit.mp4" poster="/daonvill/orbit-poster.webp" autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback style="display:block;width:100%;pointer-events:none"></video><span class="badge">AI 영상 · 예시</span></div></div>
 <div class="gal" id="gal">
 <figure><img src="/daonvill/g1.webp" alt=""><figcaption>01 · 정면 · 필로티 현관과 주차</figcaption><span class="badge">AI 보정 · 예시</span></figure>
 <figure><img src="/daonvill/g2.webp" alt=""><figcaption>02 · 잔디 마당 쪽 측면</figcaption><span class="badge">AI 보정 · 예시</span></figure>
@@ -285,6 +286,8 @@ const gal=$("#gal");gal.addEventListener("scroll",()=>{const i=Math.round(gal.sc
 // reveal
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll(".rv").forEach(x=>io.observe(x));
+document.querySelectorAll("video").forEach(v=>{v.muted=true;v.setAttribute("muted","");v.play&&v.play().catch(()=>{})});
+const kick=()=>{document.querySelectorAll("video").forEach(v=>{if(v.paused&&!v.ended&&v.getBoundingClientRect().top<innerHeight&&v.getBoundingClientRect().bottom>0)v.play().catch(()=>{})});};["touchstart","scroll"].forEach(ev=>addEventListener(ev,kick,{passive:true}));
 const ov=$("#orbitv");new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)ov.play().catch(()=>{});else ov.pause()}),{threshold:.4}).observe(ov);
 const fv=$("#filmv");new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)fv.play().catch(()=>{});else fv.pause()}),{threshold:.5}).observe(fv);
 })();
