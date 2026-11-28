@@ -27,6 +27,7 @@ a{color:inherit}
 .hero{position:relative;height:calc(100svh - 82px);min-height:560px;overflow:hidden;background:#222}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 62%;animation:kb 18s ease-in-out infinite alternate}
 @keyframes kb{from{transform:scale(1.04) translateY(0)}to{transform:scale(1.16) translateY(-2.5%)}}
+.hero video.hv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.72))}
 .hero .cap{position:absolute;left:0;right:0;bottom:0;z-index:2;color:#fff;padding:0 22px 92px}
 .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;background:var(--green);color:#082a14;padding:4px 9px;border-radius:3px}
@@ -123,7 +124,7 @@ a{color:inherit}
 <header class="hd"><div class="row"><span class="logo">DAONVILL<small>MUSONG · HWASEONG</small></span><a class="cta-mini" href="#talk">임대 문의</a></div>
 <nav class="sub"><a href="#overview">OVERVIEW</a><a href="#rooms">ROOMS</a><a href="#floor">FLOORS</a><a href="#amenity">AMENITY</a><a href="#map">MAP</a><a href="#faq">FAQ</a></nav></header>
 
-<section class="hero wrap"><span class="badge">AI 보정 · 예시</span><img src="/daonvill/hero.webp" alt="다온빌 무송 외관 야경 (AI 이미지 예시)">
+<section class="hero wrap"><span class="badge">AI 영상 · 예시</span><video class="hv" src="/daonvill/main.mp4" poster="/daonvill/main-poster.webp" autoplay muted loop playsinline preload="auto" aria-label="다온빌 무송 소개 영상 (AI 영상 예시)"></video>
 <div class="cap"><span class="tag">2025 신축 · 첫 입주</span><h1 class="serif">다온빌 무송<em>화성 남양읍 · 풀옵션 원룸 · 투룸</em></h1>
 <div class="stats"><div><b>남향</b>종일 채광</div><div><b>Full</b>55″TV·에어컨</div><div><b>7만</b>관리비 · 인터넷 포함</div></div>
 </div></section>
@@ -229,7 +230,7 @@ a{color:inherit}
 <a class="l" href="https://m.blog.naver.com/daonvill-/223721409012" target="_blank" rel="noopener">블로그 매물 보기 ↗</a>
 <a class="l" href="tel:" id="tel">전화 상담 (번호 기재 예정)</a>
 </div></section>
-<footer class="foot"><div class="wrap">다온빌 무송 · 경기도 화성시 남양읍 무하로111번길 48<br>표시된 이미지 일부는 AI로 만든 예시이며 실제와 다를 수 있습니다. 면적은 건축물대장 기준이며 임대 조건은 상담으로 안내합니다.</div></footer>
+<footer class="foot"><div class="wrap">다온빌 무송 · 경기도 화성시 남양읍 무하로111번길 48<br>표시된 이미지·영상 일부는 AI로 만든 예시이며 실제와 다를 수 있습니다. 면적은 건축물대장 기준이며 임대 조건은 상담으로 안내합니다.</div></footer>
 <div style="height:70px;background:var(--dark)"></div>
 <div class="fab"><a class="a" href="#talk">방문 예약</a><a class="b" href="#rooms">방 보기</a></div>
 
